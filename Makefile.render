@@ -1,0 +1,41 @@
+# Makefile for Space Invaders rendering system
+
+CC = clang
+AS = as
+CFLAGS = -Wall -O2 -framework Cocoa -framework CoreGraphics -framework QuartzCore
+ASFLAGS = -arch arm64
+
+# Source files
+ASM_SOURCES = src/render.s
+OBJC_SOURCES = src/render_window.m
+TEST_SOURCES = test/test_render.c
+
+# Object files
+ASM_OBJECTS = $(ASM_SOURCES:.s=.o)
+OBJC_OBJECTS = $(OBJC_SOURCES:.m=.o)
+TEST_OBJECTS = $(TEST_SOURCES:.c=.o)
+
+# Targets
+all: test_render
+
+# Build assembly files
+%.o: %.s
+	$(AS) $(ASFLAGS) -o $@ $<
+
+# Build Objective-C files
+src/%.o: src/%.m
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+# Build C files
+test/%.o: test/%.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+# Link test program
+test_render: $(ASM_OBJECTS) $(OBJC_OBJECTS) $(TEST_OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+# Clean
+clean:
+	rm -f $(ASM_OBJECTS) $(OBJC_OBJECTS) $(TEST_OBJECTS) test_render
+
+.PHONY: all clean

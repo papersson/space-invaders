@@ -1,0 +1,42 @@
+# Build artifacts
+build/
+*.o
+*.out
+*.dSYM/
+
+# Executable
+space_invaders
+
+# Debug files
+*.pdb
+*.ilk
+*.idb
+
+# macOS specific
+.DS_Store
+*.swp
+*~
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-*
+*.xcodeproj/
+*.xcworkspace/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Core dumps
+core
+*.core
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# LLDB history
+.lldb_history
