@@ -59,6 +59,8 @@ def mergesort(a, cache):
 
 n = 1 << int(sys.argv[1]); M = n // 16
 for B in (64, 256):
+    if M // B < 3:  # a 2-way merge needs two input blocks and one output block in memory
+        print(f"N=2^{sys.argv[1]} B={B}: skipped, memory holds only {M // B} block(s)"); continue
     random.seed(0); a = [random.random() for _ in range(n)]
     c = LRU(M, B); heapsort(a, c); assert all(a[i] <= a[i+1] for i in range(n-1)); h = c.io
     random.seed(0); a = [random.random() for _ in range(n)]
