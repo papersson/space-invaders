@@ -90,6 +90,11 @@ h1{font-weight:600;font-size:clamp(34px,5vw,56px);line-height:1.05;margin:10px 0
 .lede{color:var(--muted);max-width:62ch;margin:0;font-size:17px}
 .player{background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/9;max-width:100%}
 video{display:block;width:100%;height:100%}
+.under{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:-14px}
+.cc{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);
+  border:1.5px solid var(--line);border-radius:6px;padding:5px 10px}
+.cc[aria-pressed="true"]{color:var(--bg);background:var(--ice);border-color:var(--ice)}
+.cc:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
 .chapters{display:flex;gap:6px;align-items:stretch}
 .ch{all:unset;cursor:pointer;min-width:0;display:flex;flex-direction:column;gap:6px;flex-basis:0}
 .ch-block{height:14px;border-radius:4px;border:1.5px solid var(--line);background:var(--surface);position:relative;overflow:hidden}
@@ -127,6 +132,7 @@ code{font:13px "IBM Plex Mono",ui-monospace,monospace;color:var(--ink);backgroun
   .seg{grid-template-columns:1fr;gap:6px}
   .ch-name{display:none}
 }
+@media (max-width:600px){.ch-time{display:none}.chapters{gap:4px}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 """
 
@@ -144,13 +150,18 @@ function tick(){
   lines.forEach(l=>l.classList.toggle('on',t>=+l.dataset.t&&t<+l.dataset.end));
 }
 v.addEventListener('timeupdate',tick);v.addEventListener('seeked',tick);tick();
+const track=v.addTextTrack('captions','English','en');
+CUES.forEach(c=>track.addCue(new VTTCue(c[0],c[1],c[2])));
+track.mode='hidden';
+const cc=document.getElementById('cc');
+cc.addEventListener('click',()=>{const on=track.mode!=='showing';track.mode=on?'showing':'hidden';
+  cc.setAttribute('aria-pressed',on);cc.textContent='Captions: '+(on?'on':'off');});
 """
 
 
 def main():
     PAGE.mkdir(parents=True, exist_ok=True)
     shutil.copy(OUT / "web.mp4", PAGE / "video.mp4")
-    shutil.copy(OUT / "captions.vtt", PAGE / "captions.vtt")
     # poster: the wide merge in full swing (segment 5, a few seconds after the heap appears)
     s5 = next(s for s in T["segments"] if s["id"] == "s5")
     t = s5["start"] + next(l["start"] for l in s5["lines"] if l["id"] == "s5_l11") - s5["start"]
@@ -158,6 +169,8 @@ def main():
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{t:.2f}", "-i", str(OUT / "video.mp4"),
                     "-frames:v", "1", "-vf", "scale=1280:-2", "-q:v", "4", str(PAGE / "poster.jpg")], check=True)
     total = T["total"]
+    cues = json.dumps([[round(l["start"], 2), round(l["end"] + 0.25, 2), l["caption"]]
+                       for s in T["segments"] for l in s["lines"]])
     words = sum(len(l["text"].split()) for s in T["segments"] for l in s["lines"])
     doc = f"""<title>Bigger Than Memory</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -170,12 +183,13 @@ def main():
       <span class="dot">●</span><span>Undergrad CS</span><span class="dot">●</span><span>External memory algorithms</span></div>
     <h1>Bigger Than Memory</h1>
     <p class="lede">How external merge sort sorts a file much larger than RAM, and the I/O model that explains
-      why it takes only two passes. Narration and visuals; captions are in the player's CC menu.</p>
+      why it takes only two passes. Narrated, with captions you can turn on under the player.</p>
   </header>
   <div class="player"><video id="v" controls preload="metadata" poster="poster.jpg" playsinline>
     <source src="video.mp4" type="video/mp4">
-    <track kind="captions" src="captions.vtt" srclang="en" label="English">
   </video></div>
+  <div class="under"><button id="cc" class="cc" aria-pressed="false">Captions: off</button>
+    <span class="note">Chapters below jump to each part.</span></div>
   <nav class="chapters" aria-label="Chapters">{chapters()}</nav>
   <div class="grid">
     <main>
@@ -196,7 +210,7 @@ def main():
     </aside>
   </div>
 </div>
-<script>{JS}</script>
+<script>const CUES={cues};{JS}</script>
 """
     (PAGE / "index.html").write_text(doc)
     print(PAGE / "index.html")

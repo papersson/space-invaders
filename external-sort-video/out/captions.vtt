@@ -1,0 +1,166 @@
+WEBVTT
+
+00:00:00.800 --> 00:00:05.653
+Here's a 100 GB file, and a laptop with 16 GB of memory.
+
+00:00:05.853 --> 00:00:08.966
+Ask Python to sort it, and it runs out of memory.
+
+00:00:09.466 --> 00:00:12.721
+Ask the Unix sort command, and it just… finishes.
+
+00:00:12.921 --> 00:00:16.958
+While it works, files pile up in the temp folder, and then they vanish.
+
+00:00:17.558 --> 00:00:19.426
+Those files are the whole trick.
+
+00:00:19.926 --> 00:00:23.475
+This is how you compute on data that's bigger than your memory.
+
+00:00:27.025 --> 00:00:31.348
+Picture memory as your desk, and the disk as a warehouse across town.
+
+00:00:31.548 --> 00:00:38.341
+The desk is small, but anything on it is instant. The warehouse holds everything, but every trip is slow.
+
+00:00:38.541 --> 00:00:45.556
+How slow? If reaching into memory took one second, a read from a fast SSD would take about fifteen minutes.
+
+00:00:45.756 --> 00:00:48.717
+A seek on a spinning hard drive: more than a day.
+
+00:00:49.517 --> 00:00:56.070
+There's one saving grace. A trip costs about the same whether you bring back one item, or a whole crate.
+
+00:00:56.270 --> 00:01:00.884
+So what matters isn't how many operations you do. It's how many trips you make.
+
+00:01:01.484 --> 00:01:04.785
+On paper, heapsort and merge sort are both N log N.
+
+00:01:04.985 --> 00:01:10.309
+But heapsort hops all over the file, and makes about four trips for every item it sorts.
+
+00:01:10.509 --> 00:01:15.292
+Merge sort sweeps through in long, straight lines, and needs dozens of times fewer.
+
+00:01:15.492 --> 00:01:17.666
+And bigger crates only widen the gap.
+
+00:01:20.116 --> 00:01:23.811
+Computer scientists turned this into a model with three numbers.
+
+00:01:24.011 --> 00:01:25.939
+N: how many items you have.
+
+00:01:26.139 --> 00:01:27.988
+M: how many fit in memory.
+
+00:01:28.188 --> 00:01:30.728
+B: how many come in one crate, called a block.
+
+00:01:31.128 --> 00:01:39.490
+Then one bold simplification: computation is free. The only cost is the number of blocks moved between disk and memory.
+
+00:01:39.690 --> 00:01:44.745
+Reading the whole file once costs N over B. That's our yardstick, and it's called a scan.
+
+00:01:46.495 --> 00:01:51.160
+The classic algorithm is external merge sort, and it works in two phases.
+
+00:01:51.360 --> 00:01:58.684
+Phase one: fill memory, sort it right there, which is free, and write it back to disk as a sorted chunk called a run.
+
+00:01:58.884 --> 00:02:01.371
+Repeat until you've been through the whole file.
+
+00:02:02.371 --> 00:02:05.866
+It still isn't sorted, but now it's made of sorted runs.
+
+00:02:06.066 --> 00:02:09.523
+Every block was read once and written once: two scans.
+
+00:02:12.673 --> 00:02:14.330
+Phase two: merge the runs.
+
+00:02:14.530 --> 00:02:20.017
+You already know how to merge two sorted lists: compare the fronts, take the smaller, repeat.
+
+00:02:20.217 --> 00:02:27.625
+Merge the runs in pairs, then pairs of pairs, until one is left, and every round reads and writes the whole file.
+
+00:02:28.425 --> 00:02:30.656
+But look at memory while that happens.
+
+00:02:30.856 --> 00:02:38.286
+To merge two runs, you only need the front block of each, plus one block for the output. The rest of the desk sits empty.
+
+00:02:38.986 --> 00:02:44.029
+So use it. Give every run its own one-block buffer, and merge them all at once.
+
+00:02:44.229 --> 00:02:48.182
+A small heap tracks which run has the smallest item at its front.
+
+00:02:48.382 --> 00:02:50.553
+Move that item to the output buffer.
+
+00:02:50.753 --> 00:02:53.867
+When the output block fills, write it out in one trip.
+
+00:02:54.067 --> 00:02:57.823
+When an input buffer runs dry, fetch that run's next block.
+
+00:02:58.023 --> 00:03:02.017
+Every block still makes exactly one trip in, and one trip out.
+
+00:03:05.217 --> 00:03:09.727
+How many runs fit at once? About one per block of memory: M over B.
+
+00:03:09.927 --> 00:03:17.700
+With 16 GB of memory and 1 MB blocks, that's over 16,000 runs, merged in a single pass.
+
+00:03:19.850 --> 00:03:27.481
+So the number of passes is still a logarithm, but its base is M over B instead of two, and that base is enormous.
+
+00:03:27.681 --> 00:03:34.698
+To sort 10 TB on this laptop, two-way merging needs ten rounds over the data. The wide merge needs one.
+
+00:03:34.898 --> 00:03:41.064
+In fact, one pass to form runs plus one pass to merge can sort about a quarter of a petabyte.
+
+00:03:41.664 --> 00:03:50.224
+And it's optimal: in 1988, Aggarwal and Vitter proved that no comparison sort can do asymptotically fewer transfers.
+
+00:03:50.724 --> 00:03:56.575
+In our simulation, that's the difference between almost a million trips, and about four thousand.
+
+00:03:59.025 --> 00:04:01.559
+Once you know this pattern, you see it everywhere.
+
+00:04:01.759 --> 00:04:09.565
+When a database has to sort more rows than its memory budget, Postgres reports external merge, and spills runs to disk.
+
+00:04:09.765 --> 00:04:14.346
+Big-data shuffles in MapReduce and Spark sort chunks, spill them, and merge.
+
+00:04:14.546 --> 00:04:20.327
+Storage engines like RocksDB write sorted files, and keep merging them in the background.
+
+00:04:20.527 --> 00:04:29.317
+Searching gets the same treatment: a B-tree gives each node hundreds of children, so any of a billion keys is three or four trips away.
+
+00:04:29.517 --> 00:04:38.147
+And the desk and warehouse are relative: the same model describes cache versus RAM, and GPU memory versus the rest of the machine.
+
+00:04:39.597 --> 00:04:43.603
+So, when data outgrows memory: count trips, not operations.
+
+00:04:43.803 --> 00:04:46.785
+Stream through the data, instead of hopping around it.
+
+00:04:46.985 --> 00:04:51.601
+Build runs as big as memory, then merge as many as memory allows.
+
+00:04:52.101 --> 00:05:01.037
+That's external merge sort: a logarithm with a huge base, which is why sorting a file bigger than your RAM usually takes just two passes.

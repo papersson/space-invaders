@@ -311,9 +311,9 @@ class S5Merge(CueScene):
                       stroke_opacity=0.55)
             lines.add(ln)
         disk = label("16,383 sorted runs on disk", 20, MUTED).move_to([0, -3.6, 0])
-        big = Counter(3, title="RUNS MERGED AT ONCE", size=64, anchor=[6.6, 3.35, 0], color=ICE)
-        sub = M('16 GB ÷ 1 MB = 16,384 blocks: <span foreground="#8FD3FF">16,383</span> in + 1 out',
-                26, MUTED, font=MONO).move_to([-1.2, 2.6, 0])
+        big = Counter(3, title="RUNS MERGED AT ONCE", size=58, anchor=[6.6, 3.35, 0], color=ICE)
+        sub = M('16 GB ÷ 1 MB = 16,384 blocks:\n<span foreground="#8FD3FF">16,383</span> in + 1 out',
+                22, MUTED, font=MONO).move_to([-6.6, 3.05, 0], aligned_edge=LEFT)
         self.play(FadeIn(tray), FadeIn(tl), FadeIn(big), run_time=0.6)
         self.play(LaggedStart(*[Create(l) for l in lines], lag_ratio=0.01),
                   big.to(16383, rate_func=rush_into), run_time=3.2)

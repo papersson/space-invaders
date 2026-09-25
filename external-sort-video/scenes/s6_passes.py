@@ -91,15 +91,16 @@ class S6Passes(CueScene):
         band = Rectangle(width=ax.c2p(lim, 0)[0] - ax.c2p(x0, 0)[0], height=ax.c2p(0, 1.6)[1] - ax.c2p(0, 0)[1],
                          fill_color=ICE, fill_opacity=0.12, stroke_width=0)
         band.move_to(ax.c2p(x0, 0), aligned_edge=DL)
-        qpb = M('1 pass up to <span foreground="#8FD3FF">16 GB × 16,383 ≈ ¼ PB</span>', 24, INK,
+        qpb = M('1 pass up to <span foreground="#8FD3FF">16 GB × 16,383 ≈ ¼ PB</span>', 21, INK,
                 font=MONO).move_to(ax.c2p(x1, 4.6), aligned_edge=RIGHT)
         arrow = Arrow(qpb.get_bottom() + 0.05 * DOWN + RIGHT * 0.9, ax.c2p(lim, 1.1), buff=0.05, color=ICE,
                       stroke_width=3, max_tip_length_to_length_ratio=0.12)
-        self.play(FadeIn(band), FadeIn(qpb), GrowArrow(arrow), run_time=0.9)
+        qbg = BackgroundRectangle(qpb, color=BG, fill_opacity=1, buff=0.08)
+        self.play(FadeIn(band), FadeIn(qbg), FadeIn(qpb), GrowArrow(arrow), run_time=0.9)
 
         # l4: optimal
         self.at("l4")
-        chart = VGroup(ax, xt, yt, ylab, xlab, c2, cw, l2, lw, guide, d10, d1, t10, t1, band, qpb, arrow)
+        chart = VGroup(ax, xt, yt, ylab, xlab, c2, cw, l2, lw, guide, d10, d1, t10, t1, band, qbg, qpb, arrow)
         self.play(FadeOut(chart), run_time=0.5)
         card = RoundedRectangle(corner_radius=0.2, width=12.4, height=3.2, fill_color=PANEL, fill_opacity=1,
                                 stroke_color=DIM, stroke_width=2)
