@@ -1,0 +1,7 @@
+media/
+audio/narration.wav
+out/video.mp4
+out/preview.mp4
+out/parts.txt
+out/page/
+__pycache__/

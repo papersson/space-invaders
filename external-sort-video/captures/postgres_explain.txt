@@ -1,0 +1,227 @@
+PostgreSQL EXPLAIN ANALYZE capture: a sort that spills to disk vs. one that fits in memory
+==========================================================================================
+Captured 2026-09-25 on a 4-core Linux container (Ubuntu 24.04, 16 GB RAM).
+Server: PostgreSQL 16.13 (Ubuntu 16.13-0ubuntu0.24.04.1) on x86_64-pc-linux-gnu
+Throwaway cluster: initdb --locale=C --encoding=UTF8 --auth=trust, run as user postgres,
+port 54329, unix socket only (listen_addresses=''). All other settings are defaults:
+shared_buffers = 128MB, work_mem = 4MB, max_parallel_workers_per_gather = 2.
+
+Table setup (exact SQL, run once before the capture):
+  SELECT setseed(0.42);
+  CREATE TABLE records(k text, payload text);
+  INSERT INTO records
+  SELECT left(md5(random()::text), 10),
+         left(md5(random()::text) || md5(random()::text) || md5(random()::text), 88)
+  FROM generate_series(1, 1000000);
+  VACUUM ANALYZE records;
+  -> 1,000,000 rows; k = 10 hex chars, payload = 88 hex chars; pg_table_size = 128 MB.
+A warm-up "SELECT count(*) FROM records;" was run right before (output not shown).
+
+RUN 1 and RUN 2 are the requested pair. RUN 1 uses the default work_mem and the planner
+chose a parallel plan (leader + 2 workers each sort a third and spill; Gather Merge merges
+the three sorted streams). RUN 3 repeats RUN 1 with parallel query disabled, so there is a
+single serial Sort node. RUN 4 repeats RUN 3 with trace_sort = on, which makes the server
+log each run it writes and each merge pass: 38 sorted runs, then a merge pass over 15 tapes
+(up to 15 runs merged at a time) that leaves 3 runs, then a 3-way final merge done on the
+fly as rows are returned.
+
+Everything below the line is the verbatim output of
+  psql -X -v ON_ERROR_STOP=1 -e -f explain.sql
+(-e echoes each SQL statement before its result; in RUN 4 psql prefixes each server LOG
+line with "psql:<file>:<line>:").
+------------------------------------------------------------------------------------------
+--- RUN 1: work_mem = 4MB (the PostgreSQL default) ---
+SET work_mem = '4MB';
+SET
+EXPLAIN (ANALYZE, COSTS OFF) SELECT * FROM records ORDER BY k;
+                                        QUERY PLAN                                        
+------------------------------------------------------------------------------------------
+ Gather Merge (actual time=135.456..391.338 rows=1000000 loops=1)
+   Workers Planned: 2
+   Workers Launched: 2
+   ->  Sort (actual time=132.486..190.563 rows=333333 loops=3)
+         Sort Key: k
+         Sort Method: external merge  Disk: 40328kB
+         Worker 0:  Sort Method: external merge  Disk: 30048kB
+         Worker 1:  Sort Method: external merge  Disk: 37472kB
+         ->  Parallel Seq Scan on records (actual time=0.008..27.050 rows=333333 loops=3)
+ Planning Time: 0.368 ms
+ Execution Time: 431.034 ms
+(11 rows)
+
+--- RUN 2: work_mem = 1GB ---
+SET work_mem = '1GB';
+SET
+EXPLAIN (ANALYZE, COSTS OFF) SELECT * FROM records ORDER BY k;
+                                 QUERY PLAN                                 
+----------------------------------------------------------------------------
+ Sort (actual time=346.373..614.288 rows=1000000 loops=1)
+   Sort Key: k
+   Sort Method: quicksort  Memory: 149577kB
+   ->  Seq Scan on records (actual time=0.709..67.262 rows=1000000 loops=1)
+ Planning Time: 0.057 ms
+ Execution Time: 657.764 ms
+(6 rows)
+
+--- RUN 3 (supplementary): work_mem = 4MB, parallel query disabled ---
+SET work_mem = '4MB';
+SET
+SET max_parallel_workers_per_gather = 0;
+SET
+EXPLAIN (ANALYZE, COSTS OFF) SELECT * FROM records ORDER BY k;
+                                 QUERY PLAN                                 
+----------------------------------------------------------------------------
+ Sort (actual time=510.300..629.411 rows=1000000 loops=1)
+   Sort Key: k
+   Sort Method: external merge  Disk: 107696kB
+   ->  Seq Scan on records (actual time=0.068..71.290 rows=1000000 loops=1)
+ Planning Time: 0.058 ms
+ Execution Time: 670.490 ms
+(6 rows)
+
+--- RUN 4 (supplementary): same as RUN 3, with trace_sort = on (server LOG lines sent to the client) ---
+SET trace_sort = on;
+SET
+SET client_min_messages = log;
+SET
+EXPLAIN (ANALYZE, COSTS OFF) SELECT * FROM records ORDER BY k;
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  begin tuple sort: nkeys = 1, workMem = 4096, randomAccess = f
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  varstr_abbrev: abbrev_distinct after 160: 158.683969 (key_distinct: 159.852252, norm_abbrev_card: 0.991775, prop_card: 0.200000)
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  varstr_abbrev: abbrev_distinct after 320: 321.606479 (key_distinct: 312.068154, norm_abbrev_card: 1.005020, prop_card: 0.200000)
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  varstr_abbrev: abbrev_distinct after 640: 655.260330 (key_distinct: 630.900535, norm_abbrev_card: 1.023844, prop_card: 0.200000)
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  varstr_abbrev: abbrev_distinct after 1280: 1388.055247 (key_distinct: 1320.514288, norm_abbrev_card: 1.084418, prop_card: 0.200000)
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  varstr_abbrev: abbrev_distinct after 2560: 2673.732942 (key_distinct: 2627.563802, norm_abbrev_card: 1.044427, prop_card: 0.200000)
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  varstr_abbrev: abbrev_distinct after 5120: 5291.175335 (key_distinct: 5110.241466, norm_abbrev_card: 1.033433, prop_card: 0.200000)
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  varstr_abbrev: abbrev_distinct after 10240: 10325.168917 (key_distinct: 10392.991495, norm_abbrev_card: 1.008317, prop_card: 0.200000)
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  varstr_abbrev: abbrev_distinct after 20480: 20637.113607 (key_distinct: 20474.983058, norm_abbrev_card: 1.007672, prop_card: 0.130000)
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 switching to external sort with 15 tapes: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 1: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 1: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 1 to tape 1: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.01 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 2: CPU: user: 0.01 s, system: 0.00 s, elapsed: 0.01 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 2: CPU: user: 0.01 s, system: 0.00 s, elapsed: 0.01 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 2 to tape 2: CPU: user: 0.01 s, system: 0.00 s, elapsed: 0.02 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 3: CPU: user: 0.02 s, system: 0.00 s, elapsed: 0.02 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 3: CPU: user: 0.02 s, system: 0.00 s, elapsed: 0.02 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 3 to tape 3: CPU: user: 0.02 s, system: 0.00 s, elapsed: 0.02 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 4: CPU: user: 0.02 s, system: 0.00 s, elapsed: 0.03 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 4: CPU: user: 0.03 s, system: 0.00 s, elapsed: 0.03 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 4 to tape 4: CPU: user: 0.03 s, system: 0.00 s, elapsed: 0.03 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 5: CPU: user: 0.03 s, system: 0.00 s, elapsed: 0.04 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 5: CPU: user: 0.04 s, system: 0.00 s, elapsed: 0.04 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 5 to tape 5: CPU: user: 0.04 s, system: 0.00 s, elapsed: 0.04 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 6: CPU: user: 0.04 s, system: 0.00 s, elapsed: 0.05 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 6: CPU: user: 0.04 s, system: 0.00 s, elapsed: 0.05 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 6 to tape 6: CPU: user: 0.04 s, system: 0.01 s, elapsed: 0.05 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 7: CPU: user: 0.04 s, system: 0.01 s, elapsed: 0.05 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 7: CPU: user: 0.04 s, system: 0.01 s, elapsed: 0.06 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 7 to tape 7: CPU: user: 0.05 s, system: 0.01 s, elapsed: 0.06 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 8: CPU: user: 0.05 s, system: 0.01 s, elapsed: 0.06 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 8: CPU: user: 0.05 s, system: 0.01 s, elapsed: 0.07 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 8 to tape 8: CPU: user: 0.06 s, system: 0.01 s, elapsed: 0.07 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 9: CPU: user: 0.06 s, system: 0.01 s, elapsed: 0.07 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 9: CPU: user: 0.06 s, system: 0.01 s, elapsed: 0.07 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 9 to tape 9: CPU: user: 0.06 s, system: 0.01 s, elapsed: 0.08 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 10: CPU: user: 0.07 s, system: 0.01 s, elapsed: 0.08 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 10: CPU: user: 0.07 s, system: 0.01 s, elapsed: 0.08 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 10 to tape 10: CPU: user: 0.07 s, system: 0.01 s, elapsed: 0.09 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 11: CPU: user: 0.08 s, system: 0.01 s, elapsed: 0.09 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 11: CPU: user: 0.08 s, system: 0.01 s, elapsed: 0.09 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 11 to tape 11: CPU: user: 0.08 s, system: 0.01 s, elapsed: 0.09 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 12: CPU: user: 0.09 s, system: 0.01 s, elapsed: 0.10 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 12: CPU: user: 0.09 s, system: 0.01 s, elapsed: 0.10 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 12 to tape 12: CPU: user: 0.09 s, system: 0.01 s, elapsed: 0.10 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 13: CPU: user: 0.09 s, system: 0.01 s, elapsed: 0.11 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 13: CPU: user: 0.10 s, system: 0.01 s, elapsed: 0.11 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 13 to tape 13: CPU: user: 0.10 s, system: 0.01 s, elapsed: 0.11 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 14: CPU: user: 0.10 s, system: 0.01 s, elapsed: 0.12 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 14: CPU: user: 0.11 s, system: 0.01 s, elapsed: 0.12 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 14 to tape 14: CPU: user: 0.11 s, system: 0.01 s, elapsed: 0.12 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 15: CPU: user: 0.11 s, system: 0.01 s, elapsed: 0.12 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 15: CPU: user: 0.11 s, system: 0.01 s, elapsed: 0.13 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 15 to tape 15: CPU: user: 0.12 s, system: 0.01 s, elapsed: 0.13 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 16: CPU: user: 0.12 s, system: 0.01 s, elapsed: 0.13 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 16: CPU: user: 0.12 s, system: 0.01 s, elapsed: 0.14 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 16 to tape 1: CPU: user: 0.12 s, system: 0.01 s, elapsed: 0.14 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 17: CPU: user: 0.13 s, system: 0.01 s, elapsed: 0.14 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 17: CPU: user: 0.13 s, system: 0.01 s, elapsed: 0.14 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 17 to tape 2: CPU: user: 0.13 s, system: 0.01 s, elapsed: 0.15 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 18: CPU: user: 0.14 s, system: 0.01 s, elapsed: 0.15 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 18: CPU: user: 0.14 s, system: 0.01 s, elapsed: 0.15 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 18 to tape 3: CPU: user: 0.14 s, system: 0.01 s, elapsed: 0.15 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 19: CPU: user: 0.15 s, system: 0.01 s, elapsed: 0.16 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 19: CPU: user: 0.15 s, system: 0.01 s, elapsed: 0.16 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 19 to tape 4: CPU: user: 0.15 s, system: 0.01 s, elapsed: 0.16 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 20: CPU: user: 0.15 s, system: 0.01 s, elapsed: 0.17 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 20: CPU: user: 0.15 s, system: 0.01 s, elapsed: 0.17 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 20 to tape 5: CPU: user: 0.16 s, system: 0.01 s, elapsed: 0.17 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 21: CPU: user: 0.16 s, system: 0.01 s, elapsed: 0.18 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 21: CPU: user: 0.16 s, system: 0.01 s, elapsed: 0.18 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 21 to tape 6: CPU: user: 0.16 s, system: 0.01 s, elapsed: 0.18 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 22: CPU: user: 0.17 s, system: 0.01 s, elapsed: 0.19 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 22: CPU: user: 0.17 s, system: 0.01 s, elapsed: 0.19 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 22 to tape 7: CPU: user: 0.17 s, system: 0.01 s, elapsed: 0.19 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 23: CPU: user: 0.18 s, system: 0.01 s, elapsed: 0.19 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 23: CPU: user: 0.18 s, system: 0.01 s, elapsed: 0.20 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 23 to tape 8: CPU: user: 0.18 s, system: 0.01 s, elapsed: 0.20 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 24: CPU: user: 0.18 s, system: 0.01 s, elapsed: 0.20 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 24: CPU: user: 0.18 s, system: 0.02 s, elapsed: 0.20 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 24 to tape 9: CPU: user: 0.18 s, system: 0.02 s, elapsed: 0.21 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 25: CPU: user: 0.19 s, system: 0.02 s, elapsed: 0.21 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 25: CPU: user: 0.19 s, system: 0.02 s, elapsed: 0.21 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 25 to tape 10: CPU: user: 0.19 s, system: 0.02 s, elapsed: 0.22 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 26: CPU: user: 0.19 s, system: 0.02 s, elapsed: 0.22 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 26: CPU: user: 0.19 s, system: 0.02 s, elapsed: 0.22 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 26 to tape 11: CPU: user: 0.20 s, system: 0.02 s, elapsed: 0.22 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 27: CPU: user: 0.20 s, system: 0.02 s, elapsed: 0.23 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 27: CPU: user: 0.20 s, system: 0.02 s, elapsed: 0.23 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 27 to tape 12: CPU: user: 0.20 s, system: 0.02 s, elapsed: 0.23 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 28: CPU: user: 0.21 s, system: 0.02 s, elapsed: 0.24 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 28: CPU: user: 0.21 s, system: 0.02 s, elapsed: 0.24 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 28 to tape 13: CPU: user: 0.21 s, system: 0.03 s, elapsed: 0.24 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 29: CPU: user: 0.21 s, system: 0.03 s, elapsed: 0.25 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 29: CPU: user: 0.22 s, system: 0.03 s, elapsed: 0.25 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 29 to tape 14: CPU: user: 0.22 s, system: 0.03 s, elapsed: 0.25 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 30: CPU: user: 0.22 s, system: 0.03 s, elapsed: 0.26 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 30: CPU: user: 0.22 s, system: 0.03 s, elapsed: 0.26 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 30 to tape 15: CPU: user: 0.22 s, system: 0.03 s, elapsed: 0.26 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 31: CPU: user: 0.22 s, system: 0.04 s, elapsed: 0.26 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 31: CPU: user: 0.23 s, system: 0.04 s, elapsed: 0.27 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 31 to tape 1: CPU: user: 0.23 s, system: 0.04 s, elapsed: 0.27 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 32: CPU: user: 0.23 s, system: 0.04 s, elapsed: 0.27 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 32: CPU: user: 0.23 s, system: 0.04 s, elapsed: 0.28 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 32 to tape 2: CPU: user: 0.23 s, system: 0.04 s, elapsed: 0.28 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 33: CPU: user: 0.23 s, system: 0.04 s, elapsed: 0.28 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 33: CPU: user: 0.24 s, system: 0.04 s, elapsed: 0.29 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 33 to tape 3: CPU: user: 0.24 s, system: 0.04 s, elapsed: 0.29 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 34: CPU: user: 0.24 s, system: 0.04 s, elapsed: 0.29 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 34: CPU: user: 0.25 s, system: 0.04 s, elapsed: 0.30 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 34 to tape 4: CPU: user: 0.25 s, system: 0.05 s, elapsed: 0.30 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 35: CPU: user: 0.25 s, system: 0.05 s, elapsed: 0.30 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 35: CPU: user: 0.25 s, system: 0.05 s, elapsed: 0.30 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 35 to tape 5: CPU: user: 0.25 s, system: 0.05 s, elapsed: 0.31 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 36: CPU: user: 0.25 s, system: 0.05 s, elapsed: 0.31 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 36: CPU: user: 0.26 s, system: 0.05 s, elapsed: 0.31 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 36 to tape 6: CPU: user: 0.26 s, system: 0.05 s, elapsed: 0.32 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 37: CPU: user: 0.26 s, system: 0.05 s, elapsed: 0.32 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 37: CPU: user: 0.26 s, system: 0.05 s, elapsed: 0.32 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 37 to tape 7: CPU: user: 0.26 s, system: 0.06 s, elapsed: 0.32 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  performsort of worker -1 starting: CPU: user: 0.27 s, system: 0.06 s, elapsed: 0.33 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 starting quicksort of run 38: CPU: user: 0.27 s, system: 0.06 s, elapsed: 0.33 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished quicksort of run 38: CPU: user: 0.27 s, system: 0.06 s, elapsed: 0.33 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 finished writing run 38 to tape 8: CPU: user: 0.27 s, system: 0.06 s, elapsed: 0.33 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  worker -1 using 3959 KB of memory for tape buffers
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  starting merge pass of 38 input runs on 15 tapes, 262 KB of memory for each input tape: CPU: user: 0.27 s, system: 0.06 s, elapsed: 0.33 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  starting merge pass of 3 input runs on 3 tapes, 1317 KB of memory for each input tape: CPU: user: 0.39 s, system: 0.12 s, elapsed: 0.52 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  performsort of worker -1 done (except 3-way final merge): CPU: user: 0.39 s, system: 0.12 s, elapsed: 0.52 s
+psql:/tmp/pgcapture-54329/explain.sql:14: LOG:  external sort of worker -1 ended, 13462 disk blocks used: CPU: user: 0.54 s, system: 0.16 s, elapsed: 0.71 s
+                                 QUERY PLAN                                 
+----------------------------------------------------------------------------
+ Sort (actual time=521.695..664.001 rows=1000000 loops=1)
+   Sort Key: k
+   Sort Method: external merge  Disk: 107696kB
+   ->  Seq Scan on records (actual time=0.021..63.909 rows=1000000 loops=1)
+ Planning Time: 0.056 ms
+ Execution Time: 711.434 ms
+(6 rows)
+

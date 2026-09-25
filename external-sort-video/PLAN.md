@@ -210,7 +210,8 @@ so every card move and counter tick is correct by construction.
 > two-way merging needs ten rounds over the data. The wide merge needs one. In
 > fact, one pass to form runs plus one pass to merge can sort about a quarter of
 > a petabyte. And it's optimal: in 1988, Aggarwal and Vitter proved that no
-> comparison sort can do asymptotically fewer transfers.
+> comparison sort can do asymptotically fewer transfers. In our simulation, that's
+> the difference between almost a million trips, and about four thousand.
 
 **Visuals.**
 1. **Passes chart:** x is data size from 16 GB to 1 PB (log scale), y is merge

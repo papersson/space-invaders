@@ -1,0 +1,559 @@
+{
+"N": 48,
+"B": 4,
+"M": 16,
+"seed": 125,
+"deck": [
+43,
+35,
+3,
+22,
+24,
+11,
+4,
+19,
+8,
+13,
+47,
+29,
+32,
+21,
+42,
+17,
+26,
+38,
+14,
+18,
+40,
+30,
+2,
+44,
+34,
+28,
+48,
+6,
+36,
+9,
+25,
+7,
+27,
+33,
+31,
+41,
+5,
+1,
+45,
+46,
+10,
+23,
+12,
+37,
+20,
+39,
+15,
+16
+],
+"runs": [
+[
+3,
+4,
+8,
+11,
+13,
+17,
+19,
+21,
+22,
+24,
+29,
+32,
+35,
+42,
+43,
+47
+],
+[
+2,
+6,
+7,
+9,
+14,
+18,
+25,
+26,
+28,
+30,
+34,
+36,
+38,
+40,
+44,
+48
+],
+[
+1,
+5,
+10,
+12,
+15,
+16,
+20,
+23,
+27,
+31,
+33,
+37,
+39,
+41,
+45,
+46
+]
+],
+"events": [
+{
+"t": "load",
+"run": 0,
+"block": 0
+},
+{
+"t": "load",
+"run": 1,
+"block": 0
+},
+{
+"t": "load",
+"run": 2,
+"block": 0
+},
+{
+"t": "pop",
+"run": 2,
+"value": 1,
+"slot": 0,
+"out": 0
+},
+{
+"t": "pop",
+"run": 1,
+"value": 2,
+"slot": 0,
+"out": 1
+},
+{
+"t": "pop",
+"run": 0,
+"value": 3,
+"slot": 0,
+"out": 2
+},
+{
+"t": "pop",
+"run": 0,
+"value": 4,
+"slot": 1,
+"out": 3
+},
+{
+"t": "flush",
+"block": 0
+},
+{
+"t": "pop",
+"run": 2,
+"value": 5,
+"slot": 1,
+"out": 0
+},
+{
+"t": "pop",
+"run": 1,
+"value": 6,
+"slot": 1,
+"out": 1
+},
+{
+"t": "pop",
+"run": 1,
+"value": 7,
+"slot": 2,
+"out": 2
+},
+{
+"t": "pop",
+"run": 0,
+"value": 8,
+"slot": 2,
+"out": 3
+},
+{
+"t": "flush",
+"block": 1
+},
+{
+"t": "pop",
+"run": 1,
+"value": 9,
+"slot": 3,
+"out": 0
+},
+{
+"t": "refill",
+"run": 1,
+"block": 1
+},
+{
+"t": "pop",
+"run": 2,
+"value": 10,
+"slot": 2,
+"out": 1
+},
+{
+"t": "pop",
+"run": 0,
+"value": 11,
+"slot": 3,
+"out": 2
+},
+{
+"t": "refill",
+"run": 0,
+"block": 1
+},
+{
+"t": "pop",
+"run": 2,
+"value": 12,
+"slot": 3,
+"out": 3
+},
+{
+"t": "flush",
+"block": 2
+},
+{
+"t": "refill",
+"run": 2,
+"block": 1
+},
+{
+"t": "pop",
+"run": 0,
+"value": 13,
+"slot": 0,
+"out": 0
+},
+{
+"t": "pop",
+"run": 1,
+"value": 14,
+"slot": 0,
+"out": 1
+},
+{
+"t": "pop",
+"run": 2,
+"value": 15,
+"slot": 0,
+"out": 2
+},
+{
+"t": "pop",
+"run": 2,
+"value": 16,
+"slot": 1,
+"out": 3
+},
+{
+"t": "flush",
+"block": 3
+},
+{
+"t": "pop",
+"run": 0,
+"value": 17,
+"slot": 1,
+"out": 0
+},
+{
+"t": "pop",
+"run": 1,
+"value": 18,
+"slot": 1,
+"out": 1
+},
+{
+"t": "pop",
+"run": 0,
+"value": 19,
+"slot": 2,
+"out": 2
+},
+{
+"t": "pop",
+"run": 2,
+"value": 20,
+"slot": 2,
+"out": 3
+},
+{
+"t": "flush",
+"block": 4
+},
+{
+"t": "pop",
+"run": 0,
+"value": 21,
+"slot": 3,
+"out": 0
+},
+{
+"t": "refill",
+"run": 0,
+"block": 2
+},
+{
+"t": "pop",
+"run": 0,
+"value": 22,
+"slot": 0,
+"out": 1
+},
+{
+"t": "pop",
+"run": 2,
+"value": 23,
+"slot": 3,
+"out": 2
+},
+{
+"t": "refill",
+"run": 2,
+"block": 2
+},
+{
+"t": "pop",
+"run": 0,
+"value": 24,
+"slot": 1,
+"out": 3
+},
+{
+"t": "flush",
+"block": 5
+},
+{
+"t": "pop",
+"run": 1,
+"value": 25,
+"slot": 2,
+"out": 0
+},
+{
+"t": "pop",
+"run": 1,
+"value": 26,
+"slot": 3,
+"out": 1
+},
+{
+"t": "refill",
+"run": 1,
+"block": 2
+},
+{
+"t": "pop",
+"run": 2,
+"value": 27,
+"slot": 0,
+"out": 2
+},
+{
+"t": "pop",
+"run": 1,
+"value": 28,
+"slot": 0,
+"out": 3
+},
+{
+"t": "flush",
+"block": 6
+},
+{
+"t": "pop",
+"run": 0,
+"value": 29,
+"slot": 2,
+"out": 0
+},
+{
+"t": "pop",
+"run": 1,
+"value": 30,
+"slot": 1,
+"out": 1
+},
+{
+"t": "pop",
+"run": 2,
+"value": 31,
+"slot": 1,
+"out": 2
+},
+{
+"t": "pop",
+"run": 0,
+"value": 32,
+"slot": 3,
+"out": 3
+},
+{
+"t": "flush",
+"block": 7
+},
+{
+"t": "refill",
+"run": 0,
+"block": 3
+},
+{
+"t": "pop",
+"run": 2,
+"value": 33,
+"slot": 2,
+"out": 0
+},
+{
+"t": "pop",
+"run": 1,
+"value": 34,
+"slot": 2,
+"out": 1
+},
+{
+"t": "pop",
+"run": 0,
+"value": 35,
+"slot": 0,
+"out": 2
+},
+{
+"t": "pop",
+"run": 1,
+"value": 36,
+"slot": 3,
+"out": 3
+},
+{
+"t": "flush",
+"block": 8
+},
+{
+"t": "refill",
+"run": 1,
+"block": 3
+},
+{
+"t": "pop",
+"run": 2,
+"value": 37,
+"slot": 3,
+"out": 0
+},
+{
+"t": "refill",
+"run": 2,
+"block": 3
+},
+{
+"t": "pop",
+"run": 1,
+"value": 38,
+"slot": 0,
+"out": 1
+},
+{
+"t": "pop",
+"run": 2,
+"value": 39,
+"slot": 0,
+"out": 2
+},
+{
+"t": "pop",
+"run": 1,
+"value": 40,
+"slot": 1,
+"out": 3
+},
+{
+"t": "flush",
+"block": 9
+},
+{
+"t": "pop",
+"run": 2,
+"value": 41,
+"slot": 1,
+"out": 0
+},
+{
+"t": "pop",
+"run": 0,
+"value": 42,
+"slot": 1,
+"out": 1
+},
+{
+"t": "pop",
+"run": 0,
+"value": 43,
+"slot": 2,
+"out": 2
+},
+{
+"t": "pop",
+"run": 1,
+"value": 44,
+"slot": 2,
+"out": 3
+},
+{
+"t": "flush",
+"block": 10
+},
+{
+"t": "pop",
+"run": 2,
+"value": 45,
+"slot": 2,
+"out": 0
+},
+{
+"t": "pop",
+"run": 2,
+"value": 46,
+"slot": 3,
+"out": 1
+},
+{
+"t": "pop",
+"run": 0,
+"value": 47,
+"slot": 3,
+"out": 2
+},
+{
+"t": "pop",
+"run": 1,
+"value": 48,
+"slot": 3,
+"out": 3
+},
+{
+"t": "flush",
+"block": 11
+}
+],
+"merge_trips": 24
+}
