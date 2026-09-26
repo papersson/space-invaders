@@ -1,0 +1,46 @@
+=== nixpkgs: 50ab793786d9de88ee30ec4e4c24fb4236fc2674
+=== output paths, computed before anything is built
+hello: /nix/store/hwz2l7ihv2skq7gr5l3paavs3rr9il7z-hello-2.12.1
+greet: /nix/store/0436w8h87qa97qx0amkdyhy80xkzva6k-greet
+cowsay: /nix/store/bjb2xx943rkfl0r6x7wgp2069zym5wwi-cowsay-3.8.3
+=== change one input of hello (doCheck = false), recompute
+hello2: /nix/store/fjshijlsch1nmc5n2r8mg6ai046h3n02-hello-2.12.1
+greet2: /nix/store/dwpnpr3klxz31r5q426hpgwnjlryzpal-greet
+cowsay: /nix/store/bjb2xx943rkfl0r6x7wgp2069zym5wwi-cowsay-3.8.3
+=== build hello (fetched from the binary cache) and run it
+/nix/store/hwz2l7ihv2skq7gr5l3paavs3rr9il7z-hello-2.12.1
+Hello, world!
+=== its closure: everything it needs at run time
+/nix/store/2745pvn6cv32yn9gp2rlqiqhqgs01pb5-libunistring-1.2
+/nix/store/c47b963idja6h1d8n91pf28v2jcq96kp-libidn2-2.3.7
+/nix/store/y4d9iir0yqmrcswaqfi368d8m1rkv14s-xgcc-13.3.0-libgcc
+/nix/store/5m9amsvvh2z8sl7jrnc87hzy21glw6k1-glibc-2.40-66
+/nix/store/hwz2l7ihv2skq7gr5l3paavs3rr9il7z-hello-2.12.1
+=== build the changed hello from source; both are now in the store, side by side
+/nix/store/fjshijlsch1nmc5n2r8mg6ai046h3n02-hello-2.12.1
+Hello, world!
+/nix/store/fjshijlsch1nmc5n2r8mg6ai046h3n02-hello-2.12.1
+/nix/store/hwz2l7ihv2skq7gr5l3paavs3rr9il7z-hello-2.12.1
+/nix/store/pa10z4ngm0g83kx9mssrqzz30s84vq7k-hello-2.12.1.tar.gz
+=== a profile: install hello, then cowsay; roll back
+installing 'hello-2.12.1'
+installing 'cowsay-3.8.3'
+these 4 paths will be fetched (8.9 MiB download, 57.0 MiB unpacked):
+  /nix/store/bjb2xx943rkfl0r6x7wgp2069zym5wwi-cowsay-3.8.3
+  /nix/store/aiwb07brfbdk3v9dmhfpl71lv27yi6ic-cowsay-3.8.3-man
+  /nix/store/iissy6zslzyb85rzjgq4waag9dixvv6s-libxcrypt-4.4.36
+  /nix/store/hfzprd964nzxk9axsaaffm0ql4lrpvra-perl-5.40.0
+copying path '/nix/store/aiwb07brfbdk3v9dmhfpl71lv27yi6ic-cowsay-3.8.3-man' from 'https://cache.nixos.org'...
+copying path '/nix/store/iissy6zslzyb85rzjgq4waag9dixvv6s-libxcrypt-4.4.36' from 'https://cache.nixos.org'...
+copying path '/nix/store/hfzprd964nzxk9axsaaffm0ql4lrpvra-perl-5.40.0' from 'https://cache.nixos.org'...
+copying path '/nix/store/bjb2xx943rkfl0r6x7wgp2069zym5wwi-cowsay-3.8.3' from 'https://cache.nixos.org'...
+   1   2026-09-26 13:40:45
+   2   2026-09-26 13:40:47   (current)
+bin: cowsay cowthink hello 
+profile -> profile-2-link
+switching profile from version 2 to 1
+   1   2026-09-26 13:40:45   (current)
+   2   2026-09-26 13:40:47
+bin: hello 
+profile -> profile-1-link
+=== nix (Nix) 2.35.2

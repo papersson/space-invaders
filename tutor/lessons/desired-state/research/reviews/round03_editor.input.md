@@ -1,6 +1,7 @@
-# Make It So
+You are a script editor for educational videos. Below is the author's stated question, takeaway and objectives, and the script with a note of what is on screen. Judge the narrative, not the facts. For each finding give severity (BLOCKING / SHOULD FIX / NIT), the quote and a concrete rewrite. Tests: (1) does the opening raise one question that the ending answers, calling back to the opening; (2) write each segment as one sentence joined by "but", "therefore" or "and then", show the chain, and report every "and then"; (3) list ideas that are announced rather than derived from a visible problem; (4) list setups without payoffs and payoffs without setups; (5) list terms used before they are explained and concepts with more than one name; (6) list every number, name the two or three worth remembering, and flag numbers that do no work; (7) flag abstractions that arrive before the concrete case; (8) name the wrong intuition the video confronts and say whether it is shown failing; (9) flag examples that are named but not understood; (10) flag on-screen text that repeats the narration and pictures that do not support the line; (11) list lines that could be deleted without breaking anything; (12) flag sentences hard to follow aloud, and judge whether any beat is rushed or padded (there is no length target). End with "VERDICT: PASS" if there are no BLOCKING items, otherwise "VERDICT: REVISE".
 
-Status: in review round 3
+
+---
 
 ## Argument
 
@@ -19,6 +20,7 @@ Status: in review round 3
 4. Contrast one-shot reconciliation (Terraform) with continuous reconciliation (Kubernetes), and what each means for drift.
 5. Say what a reconciler doesn't promise: immediate results, convergence under a moving target or fighting controllers, and anything unmanaged.
 
+
 ## Chain
 
 1. The question: Kubernetes replaces a lost copy by itself; Terraform notices a deleted server only when run. How do they work, and why the difference?
@@ -31,39 +33,6 @@ Status: in review round 3
 
 Deviations from the canonical progression: Operators, GitOps and the chain of controllers (Deployment → ReplicaSet → Pod) are left out; the research lists them as common extras. Idempotence is taught through the re-run, and convergence is named only as "eventual agreement".
 
-## Format
-
-| Chapter | Format | Why |
-|---|---|---|
-| 1 | Narrated animation | A cluster losing a machine and a copy reappearing; a server vanishing from a Terraform-managed set. |
-| 2 | Narrated animation with a real terminal | The re-run contrast is clearest as two real runs side by side. |
-| 3-4 | Narrated animation | The loop is a cycle over time; the missed event is a timeline with a gap, run by two controllers side by side. The research names these as the parts to animate. |
-| 5 | Narrated animation with a real terminal | Drift over time: nothing happens until `terraform plan`. |
-| 6-7 | Narrated animation | A short list of limits, then the payoff. |
-| (not built) | Hands-on exercise | Delete a pod in a local cluster (kind or minikube) and watch it return; change a resource by hand and run `terraform plan`; write a 20-line reconciler and inject lost events. The research names doing as the way the "apply means done" misconception is corrected; offered, not added. |
-| (not built) | Reading | Exact guarantees (Kubernetes' list of what it does not provide; Terraform's no-rollback rule), and the tool-by-tool mechanisms. |
-
-## Ledgers
-
-**Setups and payoffs.**
-- The 3 a.m. machine failure (ch. 1) is repaired by the loop (ch. 3) and explained by continuous reconciliation (ch. 5).
-- The server deleted by hand (ch. 1) is the Terraform drift run (ch. 5).
-- "Start two more" vs "five servers" (ch. 2) returns as "compare states, not events" (ch. 4): both are about absolute targets over deltas.
-- The thermostat (ch. 3) returns in the answer (ch. 7).
-
-**Vocabulary.**
-| Term | First use | Meaning |
-|---|---|---|
-| desired state | ch. 2 | what you declared: the end state you want |
-| current state | ch. 2 | what exists right now (Kubernetes' term) |
-| declarative / imperative | ch. 2 | describing the end state / listing the steps |
-| reconciliation loop | ch. 3 | observe the current state, compare with the desired state, act on the difference, repeat |
-| controller | ch. 3 | a program that runs a reconciliation loop for one kind of thing |
-| pod | ch. 3 | one running copy of an app in Kubernetes |
-| level- / edge-triggered | ch. 4 | acting on the current state / acting on each change event |
-| drift | ch. 5 | the current state moving away from the desired state |
-
-**Numbers to remember.** Two runs of "start 2 more" make 4; two applies of "5 servers" change nothing. In the simulation, the event-driven controller stays at 2 pods for good; the state-comparing one is back to 3 one pass after it restarts.
 
 ## Script
 
@@ -145,36 +114,3 @@ No length target: the length follows the argument (about 150 words per minute).
 
 *Screen:* the thermostat loop and the pod loop side by side, turning. Two lines: "Kubernetes: continuous" and "Terraform: when you run it". End card with the takeaway and references: Kubernetes documentation, "Controllers"; Kubernetes design principles and API conventions (level-based logic); Burns, Grant, Oppenheimer, Brewer & Wilkes, "Borg, Omega, and Kubernetes", ACM Queue (2016); Brikman, Terraform: Up & Running (3rd ed., 2022), ch. 1-3; Terraform documentation, "plan" and "apply"; Åström & Murray, Feedback Systems (2008), ch. 1.
 
-## Evidence
-
-| Claim | Source |
-|---|---|
-| Kubernetes keeps a declared number of replicas; a failed instance is replaced by responding to the difference between spec and status | Kubernetes docs, "Objects in Kubernetes"; KUAR (Burns, Beda, Hightower), ReplicaSets chapter, "Reconciliation Loops" |
-| Terraform reconciles only when run; drift is reported at the next plan | Terraform docs, `plan`; HashiCorp tutorial "Manage resource drift"; data/terraform_run.txt |
-| Imperative "start 2 more" run twice gives 4; declarative re-apply prints "No changes. Your infrastructure matches the configuration."; 3 → 5 plans "2 to add" | sims/terraform/run.sh, data/terraform_run.txt (Terraform v1.9.8, hashicorp/local provider; servers simulated as files); Brikman, Gruntwork blog (2016) and TUR ch. 1 (10 → 15 servers vs Ansible creating 15 more) |
-| Desired state / current state; declarative: describe the end state; spec holds the desired state, status the observed state | Kubernetes docs, "Controllers", "Objects in Kubernetes" and "Object Management"; KUAR ch. 1 |
-| Thermostat as the picture of a control loop | Kubernetes docs, "Controllers" (opening example); Åström & Murray, Feedback Systems (2008), ch. 1 |
-| Controller loop `for { desired := getDesiredState(); current := getCurrentState(); makeChanges(desired, current) }` | Kubernetes community, "Writing Controllers" guide |
-| Reconciliation compares desired and observed state and acts to converge them | Burns et al., "Borg, Omega, and Kubernetes", ACM Queue 14(1), 2016; OpenGitOps glossary |
-| Edge-triggered controller misses a crash during a restart and stays at 2; level-triggered counts 2 and starts one at t=27 | sims/controller.py, data/controller.json (simulation written for this lesson) |
-| Level-based design: "The system must operate correctly given the desired state and the current/observed state, regardless of how many intermediate state updates may have been missed. Edge-triggered behavior must be just an optimization." | Kubernetes design principles (design-proposals-archive, architecture/principles.md) |
-| Kubernetes controllers reconcile continuously; the Terraform CLI runs on demand; HCP Terraform health assessments can schedule drift checks, which only report | Kubernetes docs, "Controllers"; Terraform docs; HCP Terraform "health assessments" |
-| A node that stops reporting is marked not ready after the node monitor grace period (under a minute by default); its pods tolerate the not-ready/unreachable taint for 300 s by default, then are evicted and replaced; the 300 s is a timeout that avoids rescheduling on a blip, not a check that the node is dead | Kubernetes docs, "Taints and Tolerations" (taint-based evictions; default tolerationSeconds 300) and "Nodes" (node controller, node-monitor-grace-period) |
-| Apply records intent; actuation is asynchronous and eventual; check status | Kubernetes resource model doc ("Desired state is updated immediately but actuated asynchronously and eventually"); `kubectl rollout status` |
-| Convergence only if the desired state stops changing; controllers can fight (the Horizontal Pod Autoscaler vs a re-applied replica count) | Sun et al., "Anvil", OSDI 2024 (eventually stable reconciliation); Kubernetes HPA docs (don't set .spec.replicas with an HPA; "thrashing or flapping") |
-| Unmanaged state is invisible to the tool | Traugott & Brown, "Why Order Matters", LISA 2002; Morris, "ConfigurationSynchronization" (2013); CloudFormation drift detection covers explicitly set properties only |
-
-## Review log
-
-**Round 1:** editor PASS, expert REVISE, student retold the question and answer correctly (lost "a few times").
-- Expert, blocking: "a minute later" was wrong for a dead machine; by default Kubernetes waits for the node to be marked unreachable and a 300-second eviction toleration before the ReplicaSet replaces its pods. Now "a few minutes later", with the wait shown and explained in chapters 1 and 3; chapter 5 now says seconds for a deleted copy, minutes for a dead machine.
-- Expert: "only when you run it" now scoped to Terraform's command-line tool, with hosted Terraform's scheduled checks that only report; the fighting controllers now need something that keeps re-applying the configuration; "design principles", not "design rules"; "reconciliation loop"; "current state" (Kubernetes' term) throughout.
-- Editor: the half-finished-apply caveat is cut (not in the argument, never revisited); "web app" on the Kubernetes side and "servers" only for Terraform; chapter 6 says "the loop", not a new name.
-- Student: lost at the edge/level naming and chapter 6's density; chapter 6 is now shorter by one beat.
-
-**Round 2:** expert REVISE, editor REVISE, student retold the question and answer correctly (lost "a few times").
-- Expert, blocking: the five minutes isn't Kubernetes "being sure" a machine is dead. A node that stops reporting is marked not ready within the node monitor grace period, and its pods then tolerate that for 300 seconds by default (in case it comes back) before they are evicted and replaced. Chapter 3 now says that; the chapter 1 caption shows both steps and matches the clock (about six minutes in all).
-- Expert: "never stops" contradicted the restart in chapter 4; now "its loop has no end; it runs all the time". "HCP Terraform, HashiCorp's hosted service" replaces the invented "hosted Terraform". Desired and current state are tied to Kubernetes' spec and status fields.
-- Editor, blocking: the autoscaler is now explained, in short sentences (it follows the load; a re-applied file sets a fixed number).
-- Editor: a bridge from chapter 4 to chapter 5 (level-triggering says how the loop stays right, not how often it runs); chapter 6 now opens with the apply-then-status demonstration; "replica count" is connected to "copies"; level/edge are called back in the answer; the wrong model (apply is like running a script) is said aloud and knocked down by the re-run.
-- Student: lost at "hosted Terraform" and "autoscaler" (both fixed).

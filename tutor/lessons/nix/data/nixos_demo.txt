@@ -1,0 +1,9 @@
+=== configuration.nix (base):
+{ boot.loader.grub.device = "nodev";
+  fileSystems."/".device = "/dev/sda1";
+  system.stateVersion = "24.11"; }
+system: /nix/store/l4krbrjpiyv09fp0aji9bzw851azvxrr-nixos-system-nixos-24.11.719113.50ab793786d9
+=== the same, plus: services.nginx.enable = true;
+system: /nix/store/4dh0ybk1ljlrkf3k3ncbsypirvzcbgr8-nixos-system-nixos-24.11.719113.50ab793786d9
+=== evaluate base again
+system: /nix/store/l4krbrjpiyv09fp0aji9bzw851azvxrr-nixos-system-nixos-24.11.719113.50ab793786d9
