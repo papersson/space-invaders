@@ -27,35 +27,38 @@ class S7(CueScene):
                     Line([-2.3, 0.05, 0], [0.8, 0.05, 0], stroke_color=MUTED, stroke_width=2))
         chl = mono("channel", 13, MUTED).next_to(ch, UP, 0.1)
         res = mono("user", 13, INK).move_to([-2.0, 0.2, 0])
-        gone = DashedVMobject(RoundedRectangle(corner_radius=0.08, width=1.6, height=0.8, stroke_color=FAINT, stroke_width=2).move_to([1.8, 0.2, 0]), num_dashes=30)
-        gl = mono("handler:\nalready returned", 13, FAINT).move_to(gone)
+        gone = DashedVMobject(RoundedRectangle(corner_radius=0.08, width=2.3, height=0.9, stroke_color=FAINT, stroke_width=2).move_to([2.1, 0.2, 0]), num_dashes=36)
+        gl = mono("handler:\nalready returned", 12, FAINT).move_to(gone)
         self.play(FadeIn(gr), FadeIn(grl), Create(ch), FadeIn(chl), FadeIn(res), Create(gone), FadeIn(gl), run_time=0.8)
         stuck = mono("waits forever", 14, AMBER).next_to(ch, DOWN, 0.15)
         self.play(FadeIn(stuck), run_time=0.3)
         cnt = mono(f"{int(n):,} requests · goroutines left over: {int(bare_now):,} · 1.2 s later: {int(bare_later):,}", 17, AMBER).move_to([0, -1.2, 0])
         self.play(FadeIn(cnt), run_time=0.4)
 
-        # 04-06: errgroup with a context (the real run)
         self.at("04")
+        nogrp = mono("Go: no task group in the language", 16, MUTED).move_to([0, -0.55, 0])
+        self.play(FadeIn(nogrp), run_time=0.4)
+        # 04-07: errgroup with a context (the real run)
+        self.at("05")
         grp = code_card([(0, "g, ctx := errgroup.WithContext(context.Background())", INK),
                          (0, "g.Go(func() error { _, err := fetchUser(ctx); return err })", INK),
                          (0, "g.Go(func() error { _, err := fetchOrders(ctx); return err })", INK),
                          (0, "return g.Wait()", INK)], 15, title="Go, an error group with a context").move_to([0, -2.55, 0])
         self.play(FadeIn(grp), run_time=0.6)
-        self.at("05")
-        self.play(*[FadeOut(m) for m in (bare, gr, grl, ch, chl, res, gone, gl, stuck)], grp.animate.move_to([0, 2.1, 0]),
+        self.at("06")
+        self.play(*[FadeOut(m) for m in (bare, gr, grl, ch, chl, res, gone, gl, stuck, nogrp)], grp.animate.move_to([0, 2.1, 0]),
                   cnt.animate.move_to([0, -0.6, 0]), run_time=0.6)
         cnt2 = mono(f"{int(n):,} requests · goroutines left over: {int(grp_now)} · 1.2 s later: {int(grp_later)}", 17, ICE).move_to([0, -1.2, 0])
         self.play(FadeIn(cnt2), run_time=0.4)
-        self.at("06")
+        self.at("07")
         why = mono("first error cancels ctx · each goroutine checks ctx and returns", 15, MUTED).move_to([0, 0.3, 0])
         self.play(FadeIn(why), run_time=0.4)
 
-        # 07-08: the same block elsewhere
-        self.at("07")
+        # 08-09: the same block elsewhere
+        self.at("08")
         names = mono("Kotlin: coroutineScope · Swift: task groups · Java: StructuredTaskScope", 16, INK).move_to([0, -2.5, 0])
         self.play(FadeIn(names), run_time=0.5)
-        self.at("08")
+        self.at("09")
         pv = mono("(Java: still a preview feature)", 14, MUTED).next_to(names, DOWN, 0.15)
         self.play(FadeIn(pv), run_time=0.4)
         self.until(self.dur - 0.5)

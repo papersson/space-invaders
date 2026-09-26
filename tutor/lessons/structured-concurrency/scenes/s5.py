@@ -14,11 +14,11 @@ class S5(CueScene):
         t_fail, t_cut, t_ret = when(run, "fetch_orders", "raises"), when(run, "fetch_user", "cancelled"), when(run, "handler", "has returned")
         # 01: the code
         self.at("01")
-        code = code_card(TGH, 15).move_to([0, 2.25, 0])
+        code = code_card(TGH, 15).move_to([1.2, 1.8, 0])
         self.play(FadeIn(c), FadeIn(code), run_time=0.6)
 
         # 02-06: the real run: orders fails, user cancelled, error raised, nothing left
-        tl = Timeline(run, y=-0.75)
+        tl = Timeline(run, y=-1.2)
         self.at("02")
         self.play(FadeIn(tl), run_time=0.4)
         ub, ob = tl.bar("fetch_user", 0, t_cut), tl.bar("fetch_orders", 0, t_fail)
@@ -38,17 +38,21 @@ class S5(CueScene):
         n0 = mono("tasks still running: 0", 18, ICE).move_to([tl.X(0.85), tl.ys["fetch_user"] + 0.05, 0])
         self.play(FadeIn(n0), run_time=0.4)
 
-        # 07: a thousand requests (the real run)
         self.at("07")
+        later = mono("nothing left to fail later", 15, ICE).next_to(n0, DOWN, 0.12)
+        self.play(FadeIn(later), run_time=0.4)
+
+        # 08: a thousand requests (the real run)
+        self.at("08")
         many = TL["many_taskgroup"]
-        cnt = mono(f"{many['n']:,} requests · tasks still running: {many['alive']}", 18, ICE).move_to([0, -3.05, 0])
+        cnt = mono(f"{many['n']:,} requests · tasks still running: {many['alive']}", 18, ICE).move_to([0, -3.35, 0])
         self.play(FadeIn(cnt), run_time=0.4)
 
-        # 08: the client gives up at 0.5 s (the real run): both cancelled
-        self.at("08")
+        # 09: the client gives up at 0.5 s (the real run): both cancelled
+        self.at("09")
         self.play(*[FadeOut(m) for m in self.mobjects if m not in (c, code)], run_time=0.4)
         run2 = "cancel_taskgroup"
-        tl2 = Timeline(run2, y=-0.75)
+        tl2 = Timeline(run2, y=-1.2)
         t_c = when(run2, "caller", "gave up")
         self.play(FadeIn(tl2), run_time=0.3)
         b1, b2 = tl2.bar("fetch_user", 0, t_c), tl2.bar("fetch_orders", 0, t_c)
@@ -58,14 +62,14 @@ class S5(CueScene):
         both = mono("both cancelled", 15, ICE).move_to([tl2.X(0.95), tl2.ys["fetch_user"], 0])
         self.play(FadeIn(both), run_time=0.3)
 
-        # 09-12: three guarantees
-        self.at("09")
+        # 10-13: three guarantees
+        self.at("10")
         self.play(*[FadeOut(m) for m in self.mobjects if m is not c], run_time=0.4)
         head = mono("a task group guarantees", 20, INK).move_to([0, 1.9, 0])
         self.play(FadeIn(head), run_time=0.4)
-        items = [("10", "1. the block waits for every task started in it"),
-                 ("11", "2. one fails → the others are cancelled, the error reaches the caller"),
-                 ("12", "3. cancel the caller → its tasks are cancelled")]
+        items = [("11", "1. the block waits for every task started in it"),
+                 ("12", "2. one fails → the others are cancelled, the error reaches the caller"),
+                 ("13", "3. cancel the caller → its tasks are cancelled")]
         for i, (cue, text) in enumerate(items):
             self.at(cue)
             self.play(FadeIn(mono(text, 18, ICE).move_to([0, 0.9 - 0.7 * i, 0])), run_time=0.4)

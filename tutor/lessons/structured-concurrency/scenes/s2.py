@@ -58,7 +58,7 @@ class S2(CueScene):
 
         # 10: so start them at the same time
         self.at("10")
-        same = mono("start both at the same time?", 18, AMBER).move_to([3.4, -0.55, 0])
+        same = mono("start both at the same time?", 18, AMBER).move_to([-3.2, -0.45, 0])
         self.play(FadeIn(same), run_time=0.4)
         self.until(self.dur - 0.5)
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.45)

@@ -10,7 +10,7 @@ class S8(CueScene):
         # 01-02: why it ran on
         self.at("01")
         tg = Timeline(g, y=1.6, gap=0.55, x0=-3.6)
-        lg = mono("gather", 16, AMBER).next_to(tg, LEFT, 0.3).shift(0.2 * UP)
+        lg = mono("gather", 17, AMBER).move_to([-3.6, tg.ys["fetch_user"] + 0.55, 0], aligned_edge=LEFT)
         tg_fail, tg_ret, tg_user = when(g, "fetch_orders", "raises"), when(g, "handler", "has returned"), when(g, "fetch_user", "finished")
         bars = VGroup(tg.bar("fetch_user", 0, tg_ret, h=0.28), tg.bar("fetch_user", tg_ret, tg_user, color=AMBER, h=0.28),
                       tg.bar("fetch_orders", 0, tg_fail, h=0.28), tg.cross("fetch_orders", tg_fail))
@@ -22,7 +22,7 @@ class S8(CueScene):
         # 03-05: a block that owns its tasks (the real run)
         self.at("03")
         tt = Timeline(t, y=-1.3, gap=0.55, x0=-3.6)
-        lt = mono("task group", 16, ICE).next_to(tt, LEFT, 0.3).shift(0.2 * UP)
+        lt = mono("task group", 17, ICE).move_to([-3.6, tt.ys["fetch_user"] + 0.55, 0], aligned_edge=LEFT)
         tt_fail, tt_cut = when(t, "fetch_orders", "raises"), when(t, "fetch_user", "cancelled")
         bars2 = VGroup(tt.bar("fetch_user", 0, tt_cut, h=0.28), tt.cut("fetch_user", tt_cut),
                        tt.bar("fetch_orders", 0, tt_fail, h=0.28), tt.cross("fetch_orders", tt_fail))

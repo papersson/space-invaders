@@ -24,14 +24,14 @@ class S6(CueScene):
         # 04-07: a retry loop with a bare except (the real run)
         self.at("04")
         self.play(FadeOut(ask), FadeOut(at), FadeOut(keep), run_time=0.3)
-        code = code_card(RETRY, 15, title="fetch_user, with a retry loop").move_to([0, 2.2, 0])
+        code = code_card(RETRY, 15, title="fetch_user, with a retry loop").move_to([0.8, 1.75, 0])
         self.play(FadeIn(code), run_time=0.5)
         run = "retrying"
         t_fail = when(run, "fetch_orders", "raises")
         t_caught = when(run, "fetch_user", "caught")
         t_done = when(run, "fetch_user", "finished")
         t_ret = when(run, "handler", "has returned")
-        tl = Timeline(run, y=-1.0)
+        tl = Timeline(run, y=-1.35)
         self.at("05")
         self.play(FadeIn(tl), run_time=0.3)
         b1, ob = tl.bar("fetch_user", 0, t_caught), tl.bar("fetch_orders", 0, t_fail)
@@ -45,13 +45,13 @@ class S6(CueScene):
         ret = tl.vline(t_ret, f"handler returns ({t_ret:.2f} s)", color=AMBER)
         self.play(Create(ret[0]), FadeIn(ret[1]), run_time=0.5)
         self.at("07")
-        cmp_ = mono(f"{t_ret:.2f} s instead of {when('taskgroup', 'handler', 'has returned'):.2f} s", 17, AMBER).move_to([0, -3.1, 0])
+        cmp_ = mono(f"{t_ret:.2f} s instead of {when('taskgroup', 'handler', 'has returned'):.2f} s", 17, AMBER).move_to([0, -3.35, 0])
         self.play(FadeIn(cmp_), run_time=0.4)
 
         # 08-09: before it ran on; now the handler waits
         self.at("08")
         bf = VGroup(mono("gather: stubborn work runs on after the handler returns", 16, MUTED),
-                    mono("task group: the handler waits for it", 16, AMBER)).arrange(DOWN, buff=0.12).move_to([0, -3.05, 0])
+                    mono("task group: the handler waits for it", 16, AMBER)).arrange(DOWN, buff=0.1).move_to([0, -3.3, 0])
         self.play(FadeOut(cmp_), FadeIn(bf[0]), run_time=0.4)
         self.at("09")
         self.play(FadeIn(bf[1]), run_time=0.4)

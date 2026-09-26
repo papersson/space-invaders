@@ -66,8 +66,8 @@ class S4(CueScene):
         bl = mono("tasks can't\noutlive this block", 14, ICE).next_to(br, LEFT, 0.12)
         self.play(FadeIn(code), run_time=0.5)
         self.play(GrowFromCenter(br), FadeIn(bl), run_time=0.5)
-        names = mono("the term: Martin Sústrik, 2016 · Smith's library Trio calls the block a nursery · asyncio.TaskGroup: Python 3.11",
-                     12, MUTED).move_to([0, -2.3, 0])
+        names = mono("Dijkstra 1968 · Sústrik 2016 · Smith 2018 · asyncio.TaskGroup: Python 3.11",
+                     13, MUTED).move_to([0, -2.3, 0])
         self.play(FadeIn(names), run_time=0.4)
         self.until(self.dur - 0.5)
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.45)
