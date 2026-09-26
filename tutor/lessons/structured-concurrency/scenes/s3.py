@@ -1,7 +1,7 @@
 from skit import *
 
 CT = [(0, "u = asyncio.create_task(fetch_user())", INK), (0, "o = asyncio.create_task(fetch_orders())", INK),
-      (0, "user = await u", AMBER), (0, "orders = await o", INK)]
+      (0, "user = await u", ICE), (0, "orders = await o", INK)]
 
 
 class S3(CueScene):
@@ -17,7 +17,7 @@ class S3(CueScene):
         self.play(FadeIn(fs), FadeIn(fsl), run_time=0.6)
         self.at("02")
         fp = flow("spawn", c=(1.6, 0.6))
-        fpl = mono("start a task", 16, MUTED).next_to(fp, DOWN, 0.2).align_to(fp[0], LEFT)
+        fpl = mono("start a task", 16, MUTED).move_to([fp[0].get_center()[0], fsl.get_center()[1], 0])
         self.play(FadeIn(fp[0]), FadeIn(fpl), Create(fp[1]), run_time=0.5)
         self.play(GrowArrow(fp[2]), FadeIn(fp[4]), run_time=0.5)
         self.at("03")
@@ -44,19 +44,21 @@ class S3(CueScene):
                   FadeIn(tl.cross("fetch_orders", t_fail)), run_time=0.5)
         ret = tl.vline(t_ret, "gather passes the error on")
         self.play(Create(ret[0]), FadeIn(ret[1]), run_time=0.4)
-        q1 = VGroup(mono("Python docs, asyncio.gather:", 12, MUTED),
-                    mono("\u201cIf return_exceptions is False (default), the first raised exception is", 13, INK),
-                    mono("immediately propagated to the task that awaits on gather().", 13, INK)).arrange(DOWN, buff=0.05, aligned_edge=LEFT)
-        q1.move_to([0, -2.1, 0])
+        def qline(*parts):
+            return VGroup(*[mono(s, 15, c) for s, c in parts]).arrange(RIGHT, buff=0.0, aligned_edge=DOWN)
+        q1 = VGroup(mono("Python docs, asyncio.gather:", 13, MUTED),
+                    qline(("\u201cIf return_exceptions is False (default), the first raised exception is", INK)),
+                    qline(("immediately propagated", AMBER), (" to the task that awaits on gather().", INK))).arrange(DOWN, buff=0.06, aligned_edge=LEFT)
+        q1.move_to([0, -2.05, 0])
+        q2 = VGroup(qline(("Other awaitables in the aws sequence ", INK), ("won't be cancelled", AMBER), (" and will continue to run.\u201d", INK)),
+                    mono("(awaitables in the aws sequence: here, the two requests)", 14, INK)).arrange(DOWN, buff=0.08, aligned_edge=LEFT)
+        q2.next_to(q1, DOWN, 0.06).align_to(q1, LEFT)
         self.play(FadeIn(q1), run_time=0.4)
         ub2 = tl.bar("fetch_user", t_ret, t_user, color=AMBER)
         nc = mono("not cancelled", 15, AMBER).next_to(ub2, DOWN, 0.12).align_to(ub2, RIGHT)
-        self.play(tl.grow(ub2, 1.2), FadeIn(nc))
+        self.play(tl.grow(ub2, 1.2), FadeIn(nc), FadeIn(q2[0]))
         self.at("09")
-        q2 = VGroup(mono("Other awaitables in the aws sequence won't be cancelled and will continue to run.\u201d", 13, INK),
-                    mono("(awaitables in the aws sequence: here, the two requests)", 12, MUTED)).arrange(DOWN, buff=0.08, aligned_edge=LEFT)
-        q2.next_to(q1, DOWN, 0.06).align_to(q1, LEFT)
-        self.play(FadeIn(q2), run_time=0.5)
+        self.play(FadeIn(q2[1]), run_time=0.5)
         self.at("10")
         own = VGroup(mono("gather waited for results", 18, INK), mono("it never owned the tasks", 18, AMBER)).arrange(DOWN, buff=0.12)
         own.move_to([0, -2.45, 0])
@@ -72,15 +74,16 @@ class S3(CueScene):
         run = "cancel_create_task"
         tl2 = Timeline(run, y=-0.9)
         t_c, t_end = when(run, "caller", "gave up"), when(run, "fetch_orders", "finished")
-        self.play(FadeIn(tl2), run_time=0.4)
+        tg2 = tag("this run: both requests take 1.0 s, neither fails", tl2)
+        self.play(FadeIn(tl2), FadeIn(tg2), run_time=0.4)
+        self.at("13")
         ub = tl2.bar("fetch_user", 0, t_c)
         ob1 = tl2.bar("fetch_orders", 0, t_c)
-        self.play(tl2.grow(ub, 1.2), tl2.grow(ob1, 1.2))
-        self.at("13")
-        gv = tl2.vline(t_c, f"client gives up ({t_c:.2f} s)", color=AMBER)
+        self.play(tl2.grow(ub, 1.0), tl2.grow(ob1, 1.0))
+        gv = tl2.vline(t_c, f"client gives up ({t_c:.2f} s)", color=MUTED)
         self.play(Create(gv[0]), FadeIn(gv[1]), run_time=0.4)
         cu = tl2.cut("fetch_user", t_c)
-        cl = mono("cancelled", 14, ICE).next_to(ub, UP, 0.08).align_to(ub, RIGHT)
+        cl = mono("cancelled", 14, ICE).next_to(cu, RIGHT, 0.15)
         self.play(Create(cu), FadeIn(cl), run_time=0.4)
         self.at("14")
         ob2 = tl2.bar("fetch_orders", t_c, t_end, color=AMBER)

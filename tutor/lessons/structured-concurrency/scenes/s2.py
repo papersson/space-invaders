@@ -38,7 +38,7 @@ class S2(CueScene):
         d3 = mono("caller cancelled → the call stops too", 15, MUTED).next_to(d2, DOWN, 0.12)
         self.play(FadeIn(d3), run_time=0.4)
         self.at("07")
-        bb = mono("a black box", 18, ICE).next_to(code, DOWN, 0.35)
+        bb = mono("a black box", 17, ICE).next_to(fd[0], LEFT, 0.25)
         self.play(FadeIn(bb), run_time=0.4)
 
         # 08-09: but slow (the real run)
@@ -53,12 +53,12 @@ class S2(CueScene):
         ob = tl.bar("fetch_orders", t_user, t_fail)
         self.play(tl.grow(ob, 0.3))
         self.play(FadeIn(tl.cross("fetch_orders", t_fail)), run_time=0.2)
-        ret = tl.vline(t_fail, f"error at {t_fail:.2f} s", color=AMBER)
+        ret = tl.vline(t_fail, f"handler returns the error ({t_fail:.2f} s)")
         self.play(Create(ret[0]), FadeIn(ret[1]), run_time=0.5)
 
         # 10: so start them at the same time
         self.at("10")
-        same = mono("start both at the same time?", 18, AMBER).move_to([-3.2, -0.45, 0])
+        same = mono("start both at the same time?", 18, INK).move_to([-3.2, -0.45, 0])
         self.play(FadeIn(same), run_time=0.4)
         self.until(self.dur - 0.5)
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.45)

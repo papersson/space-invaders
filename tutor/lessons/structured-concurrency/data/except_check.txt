@@ -1,0 +1,4 @@
+except ConnectionError:            NOT caught: ExceptionGroup
+except Exception:  (gets the group) caught inside the handler
+except* ConnectionError:           caught inside the handler
+Python 3.11.15

@@ -50,7 +50,7 @@ class Timeline(VGroup):
         t = 0.0
         while t <= t_max + 1e-9:
             ticks.add(Line([self.X(t), self.axis_y - 0.06, 0], [self.X(t), self.axis_y + 0.06, 0], stroke_color=FAINT, stroke_width=1.5),
-                      mono(f"{t:.1f} s", 12, FAINT).move_to([self.X(t), self.axis_y - 0.28, 0]))
+                      mono(f"{t:.1f} s", 15, MUTED).move_to([self.X(t), self.axis_y - 0.3, 0]))
             t += 0.2
         self.axis = VGroup(ax, ticks)
         self.names = VGroup(*[mono(r, 16, INK).move_to([x0 - 0.2, yy, 0], aligned_edge=RIGHT) for r, yy in self.ys.items()])
@@ -114,13 +114,13 @@ def flow(kind, c=(0, 0), w=2.2, h=2.4, color=ICE):
         g.add(CurvedArrow(mid, c + (w / 2 + 0.9) * RIGHT + 0.8 * DOWN, angle=-TAU / 6, color=AMBER, stroke_width=3.5, tip_length=0.16))
         g.add(Dot(mid, radius=0.07, color=color))
     elif kind == "block":
-        inner = DashedVMobject(RoundedRectangle(corner_radius=0.1, width=w - 0.5, height=h - 0.9, stroke_color=AMBER,
+        inner = DashedVMobject(RoundedRectangle(corner_radius=0.1, width=w - 0.5, height=h - 0.9, stroke_color=ICE,
                                                 stroke_width=2).move_to(c), num_dashes=36)
         a, b = c + (h / 2 - 0.45) * UP, c + (h / 2 - 0.45) * DOWN
         left, right = c + 0.35 * LEFT, c + 0.35 * RIGHT
         g.add(inner, Line(top, a, stroke_color=color, stroke_width=3.5),
               ArcBetweenPoints(a, b, angle=TAU / 5, stroke_color=color, stroke_width=3.5),
-              ArcBetweenPoints(a, b, angle=-TAU / 5, stroke_color=AMBER, stroke_width=3.5),
+              ArcBetweenPoints(a, b, angle=-TAU / 5, stroke_color=color, stroke_width=3.5),
               Arrow(b, bot, color=color, **kw), Dot(a, radius=0.07, color=color), Dot(b, radius=0.07, color=color))
     return g
 
@@ -139,3 +139,15 @@ def tick(box, color=ICE):
     c = box.get_center()
     return VMobject(stroke_color=color, stroke_width=5).set_points_as_corners(
         [c + [-0.12, 0.0, 0], c + [-0.03, -0.1, 0], c + [0.14, 0.12, 0]])
+
+
+def tag(text, tl):
+    """A small note above a timeline saying which run it is."""
+    return mono(text, 14, MUTED).move_to([tl.x0, max(tl.ys.values()) + 1.0, 0], aligned_edge=LEFT)
+
+
+def ghost(tl, who, t0, t1, color=MUTED):
+    """An outlined bar: a planned duration, not yet run."""
+    w = tl.X(t1) - tl.X(t0)
+    return Rectangle(width=w, height=0.34, stroke_color=color, stroke_width=1.5, fill_opacity=0).move_to(
+        [tl.X(t0), tl.ys[who], 0], aligned_edge=LEFT)
