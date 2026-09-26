@@ -57,8 +57,8 @@ async def fetch_user_retrying():
             await asyncio.sleep(1.0)
             log("fetch_user", "finished")
             return "ada"
-        except BaseException as e:
-            log("fetch_user", f"caught {type(e).__name__}, retrying")
+        except:                          # a bare except: it catches CancelledError too
+            log("fetch_user", f"caught {sys.exc_info()[0].__name__}, retrying")
 
 
 async def handler_sequential(fail_late=False):

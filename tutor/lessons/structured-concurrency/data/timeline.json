@@ -36,7 +36,7 @@
    "what": "tasks still running: 0"
   },
   {
-   "t": 2.459,
+   "t": 2.46,
    "who": "server",
    "what": "tasks still running: 0"
   }
@@ -53,7 +53,7 @@
    "what": "started"
   },
   {
-   "t": 0.1,
+   "t": 0.101,
    "who": "fetch_orders",
    "what": "raises ConnectionError"
   },
@@ -78,7 +78,7 @@
    "what": "finished"
   },
   {
-   "t": 1.457,
+   "t": 1.459,
    "who": "server",
    "what": "tasks still running: 0"
   }
@@ -95,7 +95,7 @@
    "what": "started"
   },
   {
-   "t": 0.1,
+   "t": 0.101,
    "who": "fetch_orders",
    "what": "raises ConnectionError"
   },
@@ -120,7 +120,7 @@
    "what": "tasks still running: 0"
   },
   {
-   "t": 1.457,
+   "t": 1.458,
    "who": "server",
    "what": "tasks still running: 0"
   }
@@ -162,7 +162,7 @@
    "what": "raises TimeoutError"
   },
   {
-   "t": 1.456,
+   "t": 1.457,
    "who": "server",
    "what": "tasks still running: 0"
   }
@@ -184,7 +184,7 @@
    "what": "raises ConnectionError"
   },
   {
-   "t": 0.1,
+   "t": 0.101,
    "who": "fetch_user",
    "what": "cancelled"
   },
@@ -204,7 +204,7 @@
    "what": "tasks still running: 0"
   },
   {
-   "t": 1.457,
+   "t": 1.458,
    "who": "server",
    "what": "tasks still running: 0"
   }
@@ -248,7 +248,7 @@
    "what": "gave up at the timeout"
   },
   {
-   "t": 1.804,
+   "t": 1.803,
    "who": "server",
    "what": "tasks still running: 0"
   }
@@ -280,7 +280,7 @@
    "what": "gave up at the timeout"
   },
   {
-   "t": 1.803,
+   "t": 1.804,
    "who": "server",
    "what": "tasks still running: 0"
   }
@@ -329,7 +329,7 @@
    "what": "started"
   },
   {
-   "t": 0.1,
+   "t": 0.101,
    "who": "fetch_orders",
    "what": "raises ConnectionError"
   },
@@ -359,7 +359,7 @@
    "what": "tasks still running: 0"
   },
   {
-   "t": 2.472,
+   "t": 2.466,
    "who": "server",
    "what": "tasks still running: 0"
   }
