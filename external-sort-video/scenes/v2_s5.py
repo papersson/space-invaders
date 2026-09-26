@@ -69,7 +69,7 @@ class V2S5(CueScene):
         lab_o = mono("output", 20, AMBER).next_to(blocks10[9], DOWN, 0.2)
         self.play(LaggedStart(*[FadeIn(r) for r in runs9], lag_ratio=0.1), FadeIn(lab_r), run_time=1.0)
         self.play(Create(outb), FadeIn(lab_o), run_time=0.5)
-        rule = M('runs per merge = <span foreground="#8FD3FF">blocks of memory − 1</span>', 28, INK,
+        rule = M('most runs per merge = <span foreground="#8FD3FF">blocks of memory − 1</span>', 28, INK,
                  font=MONO).move_to([0, -0.9, 0])
         self.play(FadeIn(rule), run_time=0.5)
 
@@ -87,7 +87,7 @@ class V2S5(CueScene):
         thin = VGroup(*[Line([tray.get_left()[0] + 0.1 + (12.0 * (k + 0.5) / n), 0.62, 0],
                              [tray.get_left()[0] + 0.1 + (12.0 * (k + 0.5) / n), 1.38, 0],
                              stroke_color=ICE, stroke_width=1.0, stroke_opacity=0.5) for k in range(n)])
-        big = Counter(9, title="RUNS PER MERGE", size=52, anchor=[6.6, 3.35, 0], color=ICE)
+        big = Counter(9, title="MOST RUNS PER MERGE", size=52, anchor=[6.6, 3.35, 0], color=ICE)
         rng = np.random.default_rng(3)
         lines = VGroup()
         for k in range(260):
@@ -170,7 +170,7 @@ class V2S5(CueScene):
         band = SurroundingRectangle(hl, buff=0.07, color=AMBER, stroke_width=2.5, corner_radius=0.06)
         others = VGroup(*[t for k, (t, (l, _)) in enumerate(zip(txt, lines)) if k != hl_i and l.strip()])
         self.play(hl.animate.set_color(AMBER), Create(band), others.animate.set_opacity(0.35), run_time=0.7)
-        gloss = mono("= sorted runs on disk, then merges", 18, AMBER).next_to(band, RIGHT, 0.25)
+        gloss = mono("= runs on disk, then merges", 18, AMBER).next_to(band, RIGHT, 0.25)
         self.play(FadeIn(gloss), run_time=0.5)
         self.until(self.dur - 0.5)
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.45)

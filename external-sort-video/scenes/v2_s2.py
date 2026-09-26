@@ -67,7 +67,7 @@ class V2S2(CueScene):
         self.play(FadeOut(ask), run_time=0.2)
         self.play(VGroup(mover, fr).animate.move_to(mem[0]), run_time=1.1)
         whole = T("the disk sends the whole block: thousands of bytes at least", 22, INK).move_to([0, 0.15, 0])
-        slow = T("every fetch: hundreds to thousands of times a memory read", 22, AMBER).next_to(whole, DOWN, 0.2)
+        slow = T("every fetch: hundreds to thousands of times slower than a memory read", 22, AMBER).next_to(whole, DOWN, 0.2)
         self.play(FadeIn(whole), run_time=0.5)
         self.at("03", 4.2)
         self.play(FadeIn(slow), run_time=0.5)
@@ -124,9 +124,11 @@ class V2S2(CueScene):
                 loaded.append(blk)
             self.play(*anims, run_time=0.9)
             prev = cell
-        far = T("each step down the heap jumps twice as far: soon every step needs a block that isn't in memory",
+        far = T("each step down the heap jumps twice as far, so it keeps needing blocks that aren't in memory",
                 20, AMBER).move_to([0, 0.55, 0])
-        self.play(FadeIn(far), run_time=0.4)
+        per2 = mono(f"{len(loaded)} I/Os for {len(path)} items", 16, AMBER).next_to(counter2, DOWN, 0.12)
+        per2.align_to(counter2, RIGHT)
+        self.play(FadeIn(far), FadeIn(per2), run_time=0.4)
 
         # 10: merge sort streams: every block it fetches is used completely
         self.at("10")
@@ -142,6 +144,8 @@ class V2S2(CueScene):
             self.play(cur.animate.next_to(arr3[b], UP, 0.05), arr3[b][0].animate.set_stroke(AMBER, 3),
                       counter3.to(b + 1), run_time=0.42, rate_func=linear)
             arr3[b][0].set_stroke(DIM, 1.4)
+        per3 = mono(f"{NB} I/Os for all {NB * CPB} items", 16, AMBER).next_to(counter3, DOWN, 0.12)
+        self.play(FadeIn(per3.align_to(counter3, RIGHT)), run_time=0.3)
 
         # 11-12: the simulation
         self.at("11")
@@ -153,7 +157,7 @@ class V2S2(CueScene):
                   *[FadeIn(p["curtain"]) for p in panels], FadeIn(cap), run_time=0.8)
         for p in panels:
             self.bring_to_front(p["curtain"], p["frame"])
-        xlab = T("time →", 16, FAINT, font=MONO).next_to(panels[1]["frame"], DOWN, 0.08, aligned_edge=RIGHT)
+        xlab = T("each sort, start to finish →", 16, FAINT, font=MONO).next_to(panels[1]["frame"], DOWN, 0.08, aligned_edge=RIGHT)
         self.play(FadeIn(xlab), run_time=0.3)
 
         self.at("11", 2.2)

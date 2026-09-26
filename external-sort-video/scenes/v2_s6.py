@@ -21,7 +21,7 @@ class V2S6(CueScene):
         fbar, flab, mbar, mlab = top
         t18 = ticks(18)
         n18 = mono("18 passes", 24, INK).next_to(t18, RIGHT, 0.35)
-        cap = mono("each pass reads and writes every block", 16, FAINT).next_to(t18, DOWN, 0.15, aligned_edge=LEFT)
+        cap = mono("the simulated file, same proportions · each pass reads and writes every block", 16, FAINT).next_to(t18, DOWN, 0.15, aligned_edge=LEFT)
         self.play(FadeIn(top), run_time=0.8)
         self.play(LaggedStart(*[FadeIn(t) for t in t18], lag_ratio=0.15), FadeIn(n18), FadeIn(cap), run_time=1.4)
 
@@ -103,7 +103,7 @@ class V2S6(CueScene):
         f = M('passes = 1 + ⌈log<sub>(M/B) − 1</sub> ⌈N/M⌉⌉', 34, INK, font=MONO).move_to([0, 1.55, 0])
         vars_ = mono("N items · memory M items · blocks of B items", 18, MUTED).next_to(f, DOWN, 0.25)
         rg = T("Ramakrishnan & Gehrke write B for buffer pages (this video's M/B) and N for pages (this video's N/B).",
-               16, FAINT).next_to(vars_, DOWN, 0.15)
+               16, MUTED).next_to(vars_, DOWN, 0.15)
         opt = VGroup(T("Asymptotically optimal: it matches the lower bound, up to constant factors,", 22, INK),
                      T("for sorts that move records as indivisible units (Aggarwal & Vitter, CACM 1988).", 22, INK))
         opt.arrange(DOWN, buff=0.12).next_to(rg, DOWN, 0.5)

@@ -129,7 +129,7 @@ class V2S4(CueScene):
 
         # 08-09: a small heap over the fronts, in memory
         self.at("08", 3.0)
-        heap_lab = T("heap", 20, MUTED, font=MONO).next_to(HEAP_POS[1] + 1.05 * LEFT, LEFT, buff=0.2)
+        heap_lab = T("heap", 20, MUTED, font=MONO).move_to([-2.3, 3.05, 0], aligned_edge=RIGHT)
         heap = heap_view({r: front(bufs[r]) for r in range(3)})
         self.play(FadeOut(head), FadeIn(heap), FadeIn(heap_lab), run_time=0.8)
         per_run = mono("one entry per run", 20, INK).move_to([1.3, 3.05, 0], aligned_edge=LEFT)

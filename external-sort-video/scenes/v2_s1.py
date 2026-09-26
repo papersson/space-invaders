@@ -13,7 +13,7 @@ class Gauge(VGroup):
         self.name = mono("memory used", 16, FAINT).next_to(self.track, UP, 0.08, aligned_edge=LEFT)
         cap = DashedLine(self.track.get_corner(UR) + 0.08 * UP, self.track.get_corner(DR) + 0.08 * DOWN,
                          color=CORAL, dash_length=0.04, stroke_width=2)
-        caplab = mono("cap 86 MB", 14, CORAL).next_to(cap, DOWN, 0.06)
+        caplab = mono("cap 86 MB", 14, CORAL).next_to(cap, RIGHT, 0.08)
         self.cache = {}
 
         def fill():
@@ -45,10 +45,10 @@ class V2S1(CueScene):
         # 02: a simple Python script runs out of memory just reading the file in
         self.at("02")
         self.play(Group(top, ratio).animate.scale(0.62).to_edge(UP, buff=0.35).shift(1.9 * LEFT), run_time=0.6)
-        lt = terminal(6.6, 2.3, "python").move_to([-3.45, 0.95, 0])
+        lt = terminal(6.6, 2.56, "python").move_to([-3.45, 1.0, 0])
         cmd1 = mono("$ python3 -c \"lines = sorted(open('records.txt'))\"", 14, INK)
         cmd1.next_to(lt[0].get_corner(UL), DR, buff=0.45).shift(0.1 * DOWN)
-        g1 = Gauge(5.9, lt[0].get_corner(DL) + np.array([0.35, 0.3, 0]), CORAL)
+        g1 = Gauge(4.9, lt[0].get_corner(DL) + np.array([0.35, 0.3, 0]), CORAL)
         foot = VGroup(mono("real runs, this machine:", 16, FAINT),
                       mono("Python under an 86 MB cap", 16, FAINT),
                       mono("GNU coreutils sort 9.4, -S 86000000b", 16, FAINT)).arrange(DOWN, buff=0.1, aligned_edge=LEFT)
@@ -59,6 +59,7 @@ class V2S1(CueScene):
         s = PYCAP["samples"]
         rss = [(x["t"], x["rss_kb"] * 1024 / 1e6) for x in s]
         dur = PYCAP["duration_s"]
+        peak = PYCAP["peak_rss_kb_ru_maxrss"] * 1024 / 1e6     # measured peak, about 80 MB
 
         def py_upd(m, a):
             t = a * dur
@@ -66,7 +67,7 @@ class V2S1(CueScene):
             for tt, mb in rss:
                 if tt <= t:
                     v = mb
-            m.set_value(86 if a >= 0.999 else max(v, 86 * a))
+            m.set_value(peak if a >= 0.999 else min(max(v, peak * a), peak))
         self.play(UpdateFromAlphaFunc(g1.mb, py_upd, rate_func=linear), run_time=2.0)
         tb = VGroup(*[mono(l, 14, CORAL if l.startswith("MemoryError") else MUTED)
                       for l in PYCAP["stderr"].strip().splitlines()])
@@ -76,10 +77,10 @@ class V2S1(CueScene):
 
         # 03: sort, same memory, just finishes
         self.at("03")
-        rt = terminal(6.6, 2.3, "shell").move_to([3.45, 0.95, 0])
+        rt = terminal(6.6, 2.56, "shell").move_to([3.45, 1.0, 0])
         cmd2 = mono("$ sort -S 86000000b records.txt -o sorted.txt", 14, INK)
         cmd2.next_to(rt[0].get_corner(UL), DR, buff=0.45).shift(0.1 * DOWN)
-        budget = mono("memory budget (-S): 86 MB, the same cap", 14, MUTED).next_to(cmd2, DOWN, 0.25, aligned_edge=LEFT)
+        budget = mono("sort's memory budget (-S): 86 MB, same as Python's cap", 14, MUTED).next_to(cmd2, DOWN, 0.25, aligned_edge=LEFT)
         self.play(FadeIn(rt), run_time=0.4)
         self.play(AddTextLetterByLetter(cmd2), run_time=0.7)
         self.play(FadeIn(budget), run_time=0.4)
@@ -96,15 +97,16 @@ class V2S1(CueScene):
 
         # 05: what are those files?
         self.at("05")
+        fold.clear_updaters()
         tmp.tt.set_value(peak_time())
         ghost = tmp.draw(rows_only=True).set_opacity(0.5)
-        tmp.tt.set_value(SORTCAP["duration_s"])
+        gone = mono("12 temp files, now deleted", 14, MUTED).move_to(
+            [tmp.panel.get_right()[0] - 0.25, tmp.panel.get_top()[1] - 0.2, 0], aligned_edge=RIGHT)
         q = T("?", 120, ICE, weight=SEMIBOLD).next_to(ghost, LEFT, 0.6)
-        self.play(FadeIn(ghost), FadeIn(q, scale=0.8), run_time=0.7)
+        self.play(FadeOut(fold), FadeIn(ghost), FadeIn(gone), FadeIn(q, scale=0.8), run_time=0.7)
 
         # title
         self.until(self.end_of("05", 0.3))
-        fold.clear_updaters()
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.5)
         title = T("Bigger Than Memory", 72, INK, weight=SEMIBOLD)
         sub = T("sorting a file that doesn't fit", 30, MUTED)

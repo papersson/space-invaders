@@ -143,7 +143,7 @@ class V2S3(CueScene):
 
         # 10: the simulated file: twelve runs, in one pass
         self.at("10")
-        onep = mono("12 blocks read + 12 written: one pass", 18, AMBER).next_to(counter, DOWN, 0.15).align_to(counter, RIGHT)
+        onep = mono("toy: every block read once, written once = one pass", 18, AMBER).next_to(counter, DOWN, 0.15).align_to(counter, RIGHT)
         self.play(FadeIn(onep), run_time=0.4)
         self.wait(0.8)
         self.play(*[FadeOut(m) for m in self.mobjects if m is not c], run_time=0.5)
@@ -176,14 +176,14 @@ class V2S3(CueScene):
 
         # 12: eighteen passes become five
         self.at("12")
-        tally = M('<span foreground="#56606B">18 passes →</span> 5 passes = 1 + 4', 34, INK, font=MONO)
+        tally = M('<span foreground="#56606B">18 passes →</span> 5 passes = 1 + 4', 30, INK, font=MONO)
         tally.next_to(frame, RIGHT, 0.7)
         self.play(FadeIn(tally, shift=0.1 * LEFT), run_time=0.6)
 
         # 13: sort's twelve files were runs
         self.at("13")
         self.play(*[FadeOut(m) for m in self.mobjects if m is not c], run_time=0.5)
-        tmp = TmpFolder([-1.75, -0.3, 0], width=7.4, height=3.5)
+        tmp = TmpFolder([-1.9, -0.3, 0], width=7.9, height=3.5)
         tmp.tt.set_value(peak_time())
         n = len(tmp.names)
         for i, nm in enumerate(tmp.names):
