@@ -2,7 +2,7 @@
 
 What the tutor knows about the one person these lessons are for. Everything here comes from what they said or did; anything else is marked unknown. Every lesson's student reviewer plays this person, and every revision starts by updating this file.
 
-Last updated: 2026-09-26, before the queueing, tail latency and idempotency lessons.
+Last updated: 2026-09-26, when the queueing, tail latency and idempotency lessons were delivered, before any notes on them.
 
 ## Background
 
@@ -26,6 +26,9 @@ Last updated: 2026-09-26, before the queueing, tail latency and idempotency less
 | Lesson | Evidence | What it tells the tutor |
 |---|---|---|
 | External merge sort v2 | "There are still things that I didn't quite follow." Which parts: not yet known. The page now has a "Lost me here" button. | Some step in a 6-minute, six-chapter lesson moved too fast or assumed too much. Until the notes arrive, keep each step visibly derived from the one before, and don't stack two new ideas in one sentence. |
+| Queueing ("Why Busy Servers Get Slow", v1, 4:53) | Delivered; no notes yet. Predicted, not confirmed: the final student reviewer lost the "work fills ninety percent of the gap, so a new one arrives about every eleven milliseconds" step (10 / 0.9 done in the head) and the leap to "twice as long to clear". | Spoken division is a risk; show it on screen as it is said. |
+| Tail latency ("The Tail at Scale", v1) | Delivered; no notes yet. Predicted, not confirmed: the student reviewer lost the converse, "each server slow only one time in ten thousand", and the multiply-the-probabilities step before it; the sentence with Google's measured results is dense. | Probability steps need their arithmetic on screen. If notes land here, the unknown about comfort with probability is answered. |
+| Idempotency ("Charged Twice", v1) | Delivered; no notes yet. Predicted, not confirmed: the jump from "the last message is never confirmed" to "no protocol can promise exactly-once delivery", and the in-progress, check-and-mark-in-one-step detail. | Impossibility arguments and concurrency details compress badly into one sentence. |
 
 ## Standing instructions for the student reviewer
 

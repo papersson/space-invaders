@@ -87,7 +87,7 @@ class S3(CueScene):
                       Arrow(ORIGIN, 1.0 * RIGHT, buff=0, color=MUTED, stroke_width=3),
                       mono("each server slow 1 time in 10,000", 24, CORAL)).arrange(RIGHT, buff=0.3)
         conv.next_to(head, DOWN, 0.3)
-        conv_l = mono("(with 100 calls per page)", 16, MUTED).next_to(conv, DOWN, 0.1)
+        conv_l = mono("100 calls per page:  100 × 1/10,000 ≈ 1/100", 18, MUTED).next_to(conv, DOWN, 0.1)
         self.at("12")
         self.play(FadeIn(conv[0]), run_time=0.4)
         self.play(GrowArrow(conv[1]), FadeIn(conv[2]), FadeIn(conv_l), run_time=0.8)

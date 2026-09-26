@@ -168,3 +168,4 @@ No length target: the length follows the argument (about 150 words per minute).
 - Not taken: the editor's nit on chapter 4 labels.
 
 **Round 5 (final):** expert PASS, editor PASS, student retold the question and answer correctly. Locked; remaining should-fix notes stay in research/reviews/round05_*.md as revision candidates for the learner's feedback round.
+- After lock, screen only (narration unchanged): the student and the editor both lost the converse at s3_12 because nothing showed where 10,000 comes from. The caption under it now shows the first-order arithmetic, "100 calls per page: 100 × 1/10,000 ≈ 1/100" (exact: 1 − (1 − 1/10,000)^100 = 0.995%).
