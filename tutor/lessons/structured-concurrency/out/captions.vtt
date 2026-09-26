@@ -1,277 +1,304 @@
 WEBVTT
 
-00:00:00.800 --> 00:00:03.913
+00:00:00.800 --> 00:00:03.928
 Here's a web request handler, written in Python.
 
-00:00:03.963 --> 00:00:11.233
+00:00:03.978 --> 00:00:11.250
 It needs a user and that user's orders, so it asks two services at the same time, with asyncio.gather.
 
-00:00:11.483 --> 00:00:13.602
+00:00:11.500 --> 00:00:13.622
 The user service takes one second.
 
-00:00:13.652 --> 00:00:16.768
+00:00:13.672 --> 00:00:16.788
 The orders service fails after a tenth of a second.
 
-00:00:17.018 --> 00:00:20.501
+00:00:17.038 --> 00:00:20.521
 So the handler returns an error at a tenth of a second.
 
-00:00:20.551 --> 00:00:22.484
+00:00:20.571 --> 00:00:22.503
 So far, that's what you'd want.
 
-00:00:22.734 --> 00:00:25.586
+00:00:22.753 --> 00:00:25.606
 But the request to the user service is still running.
 
-00:00:25.636 --> 00:00:31.046
+00:00:25.656 --> 00:00:31.065
 It finishes a full second after the request began, long after anyone was waiting for it.
 
-00:00:31.296 --> 00:00:34.017
+00:00:32.315 --> 00:00:35.036
 And if it had failed, its error would go nowhere.
 
-00:00:34.067 --> 00:00:36.675
+00:00:35.086 --> 00:00:37.694
 Nothing raises it, and nothing logs it.
 
-00:00:36.925 --> 00:00:39.314
+00:00:38.744 --> 00:00:41.133
 Now serve a thousand requests at once.
 
-00:00:39.364 --> 00:00:44.749
+00:00:41.183 --> 00:00:46.568
 All thousand handlers return almost at once, and a thousand tasks are still running.
 
-00:00:44.999 --> 00:00:46.453
+00:00:47.618 --> 00:00:49.072
 The function returned.
 
-00:00:46.503 --> 00:00:48.231
+00:00:49.122 --> 00:00:50.850
 Why is its work still running?
 
-00:00:48.281 --> 00:00:50.548
+00:00:50.900 --> 00:00:53.167
 And what would make "returned" mean "done"?
 
-00:00:51.498 --> 00:00:56.626
+00:00:56.917 --> 00:01:02.047
 Start with plain code: fetch the user, then fetch the orders, one after the other.
 
-00:00:56.876 --> 00:00:59.565
+00:01:02.297 --> 00:01:04.985
 Each call has one way in and one way out.
 
-00:00:59.615 --> 00:01:01.929
+00:01:05.035 --> 00:01:07.351
 When fetch_user returns, it's finished.
 
-00:01:01.979 --> 00:01:04.731
+00:01:07.401 --> 00:01:10.154
 If it fails, the error comes back to the caller.
 
-00:01:04.781 --> 00:01:13.833
-And if the caller gives up, say the client hangs up, asyncio cancels it: it asks the code to stop, and the call it's waiting on stops too.
+00:01:10.204 --> 00:01:18.956
+And if the caller gives up, say the client hangs up, the server cancels it: it asks the code to stop, and the call it's waiting on stops too.
 
-00:01:14.083 --> 00:01:17.760
+00:01:19.206 --> 00:01:22.881
 So when the handler returns, everything it started is done.
 
-00:01:17.810 --> 00:01:19.833
+00:01:22.931 --> 00:01:24.954
 You can treat it as a black box.
 
-00:01:20.083 --> 00:01:21.128
+00:01:25.204 --> 00:01:26.249
 But it's slow.
 
-00:01:21.178 --> 00:01:25.863
+00:01:26.299 --> 00:01:30.984
 The calls wait for each other, so the error arrives after one point one seconds.
 
-00:01:26.113 --> 00:01:28.904
+00:01:32.034 --> 00:01:34.826
 That's why we start the two requests at the same time.
 
-00:01:29.854 --> 00:01:32.890
+00:01:35.776 --> 00:01:38.815
 Starting a task is different from calling a function.
 
-00:01:32.940 --> 00:01:36.779
+00:01:38.865 --> 00:01:42.705
 The start returns at once, and the task runs on by itself.
 
-00:01:36.829 --> 00:01:41.226
+00:01:42.755 --> 00:01:47.151
 Control splits into two paths, and nothing makes the second one come back.
 
-00:01:41.476 --> 00:01:45.353
+00:01:48.201 --> 00:01:52.081
 There are two common ways to wait for tasks, and both leave gaps.
 
-00:01:45.603 --> 00:01:47.069
+00:01:52.331 --> 00:01:53.796
 The first is gather.
 
-00:01:47.119 --> 00:01:49.593
+00:01:53.846 --> 00:01:56.320
 You'd expect it to behave like those calls.
 
-00:01:49.643 --> 00:01:53.616
+00:01:56.370 --> 00:02:00.347
 It waits for both results, and when both requests succeed, it does.
 
-00:01:53.866 --> 00:01:59.842
-But when one fails, gather passes that error on immediately, and doesn't cancel the other task.
+00:02:00.597 --> 00:02:07.297
+But when one fails, gather by default passes that error on immediately, and doesn't cancel the other task.
 
-00:01:59.892 --> 00:02:02.200
+00:02:07.347 --> 00:02:09.653
 Python's own documentation says so.
 
-00:02:02.450 --> 00:02:06.909
+00:02:11.103 --> 00:02:15.564
 That's the request left running in the opening. gather waited for results.
 
-00:02:06.959 --> 00:02:08.627
+00:02:15.614 --> 00:02:17.283
 It never owned the tasks.
 
-00:02:08.877 --> 00:02:14.827
+00:02:17.533 --> 00:02:23.482
 The second way is to start both requests, then await them one at a time, the user request first.
 
-00:02:14.877 --> 00:02:20.805
-If the client gives up after half a second, the user request, the one being awaited, is cancelled.
+00:02:23.532 --> 00:02:30.078
+If the client gives up after half a second, the user request is cancelled, because it's the one being awaited.
 
-00:02:20.855 --> 00:02:23.954
+00:02:30.128 --> 00:02:33.227
 The orders request isn't, and runs on to the end.
 
-00:02:24.904 --> 00:02:27.435
+00:02:34.477 --> 00:02:36.758
+So a real fix has to do three things.
+
+00:02:36.808 --> 00:02:38.770
+Wait for every task it starts.
+
+00:02:38.820 --> 00:02:42.117
+When one fails, cancel the rest and pass the error on.
+
+00:02:42.167 --> 00:02:44.598
+And when the caller gives up, cancel them all.
+
+00:02:46.348 --> 00:02:48.877
 This problem is older than concurrency.
 
-00:02:27.485 --> 00:02:32.148
+00:02:48.927 --> 00:02:53.591
 In 1968, Edsger Dijkstra argued against the go to statement.
 
-00:02:32.198 --> 00:02:38.227
-A jump can leave for anywhere and never come back, so you can't treat a piece of code as a black box.
+00:02:53.641 --> 00:02:59.363
+With jumps that can lead anywhere, it becomes hard to follow what a program is doing from its text.
 
-00:02:38.477 --> 00:02:46.227
-The fix was structured programming: blocks, loops and function calls, where control goes in at the top and comes out at the bottom.
+00:02:59.613 --> 00:03:08.411
+The fix was structured programming: blocks, conditionals, loops and function calls, where control goes in at the top and comes out at the bottom.
 
-00:02:46.477 --> 00:02:53.467
+00:03:08.661 --> 00:03:15.652
 Fifty years later, in 2018, Nathaniel Smith pointed out that starting a task is the same kind of jump.
 
-00:02:53.517 --> 00:02:56.876
-Control goes in, and part of it never has to come out.
+00:03:15.702 --> 00:03:22.479
+Control goes in, and part of it never has to come out, so you can no longer treat a function as a black box.
 
-00:02:56.926 --> 00:03:02.562
+00:03:22.529 --> 00:03:28.167
 His essay was called "Notes on structured concurrency, or: Go statement considered harmful".
 
-00:03:02.812 --> 00:03:05.169
+00:03:29.417 --> 00:03:31.774
 The fix is the same too: a block.
 
-00:03:05.219 --> 00:03:07.604
+00:03:31.824 --> 00:03:34.209
 Tasks started inside it can't outlive it.
 
-00:03:07.654 --> 00:03:11.220
+00:03:34.259 --> 00:03:37.825
 The block doesn't end until every task in it has finished.
 
-00:03:11.470 --> 00:03:17.364
-That rule is called structured concurrency, a name Martin Sústrik gave it in 2016.
+00:03:38.875 --> 00:03:44.902
+That rule is called structured concurrency, a name Martin Sústrik had given it two years earlier.
 
-00:03:17.414 --> 00:03:23.398
-In Python's asyncio, the block is a task group, added in version three point eleven.
+00:03:44.952 --> 00:03:55.076
+Smith built it into his own library, Trio, and Python's asyncio later added the same kind of block, the task group, in version three point eleven.
 
-00:03:24.348 --> 00:03:28.730
+00:03:57.026 --> 00:04:01.408
 Here's the handler again, with both requests started inside a task group.
 
-00:03:28.980 --> 00:03:31.783
+00:04:01.658 --> 00:04:04.462
 The orders service fails at a tenth of a second.
 
-00:03:31.833 --> 00:03:36.198
-The task group cancels the user request at once, and waits for it to stop.
+00:04:04.512 --> 00:04:10.789
+At once, the task group cancels the user request, which asks it to stop, and waits until it has.
 
-00:03:36.448 --> 00:03:38.790
+00:04:11.639 --> 00:04:13.981
 Then it raises the error in the handler.
 
-00:03:38.840 --> 00:03:46.143
-It arrives wrapped in an exception group: a task group always bundles its tasks' errors, even when there's only one.
+00:04:14.031 --> 00:04:20.164
+It arrives inside an exception group, a container for errors, since more than one task could fail.
 
-00:03:46.393 --> 00:03:51.248
+00:04:20.214 --> 00:04:24.109
+So the handler catches it with except star, not a plain except.
+
+00:04:25.159 --> 00:04:30.016
 At a tenth of a second the handler returns, and nothing it started is still running.
 
-00:03:51.298 --> 00:03:54.661
+00:04:30.066 --> 00:04:33.426
 So nothing is left to fail later, where no one would hear it.
 
-00:03:54.911 --> 00:03:59.402
+00:04:33.676 --> 00:04:38.167
 A thousand requests: all the handlers return, and no tasks are left.
 
-00:03:59.652 --> 00:04:05.799
-And if the client gives up after half a second, cancelling the handler cancels both requests inside it.
+00:04:38.417 --> 00:04:46.510
+And if the client gives up after half a second, cancelling the handler cancels both requests inside it, not just the one being awaited.
 
-00:04:06.049 --> 00:04:08.414
+00:04:47.760 --> 00:04:50.131
 So a task group gives three guarantees.
 
-00:04:08.464 --> 00:04:10.984
+00:04:50.181 --> 00:04:52.700
 The block waits for every task started in it.
 
-00:04:11.034 --> 00:04:15.185
+00:04:52.750 --> 00:04:56.901
 When one fails, the others are cancelled and the error reaches the caller.
 
-00:04:15.235 --> 00:04:17.822
+00:04:56.951 --> 00:04:59.535
 And cancelling the caller cancels its tasks.
 
-00:04:18.772 --> 00:04:21.459
+00:05:01.285 --> 00:05:03.969
 A task group can only ask a task to stop.
 
-00:04:21.509 --> 00:04:25.341
-The request arrives at the task's next await, as an exception.
+00:05:04.019 --> 00:05:06.728
+The request arrives at the task's next await.
 
-00:04:25.391 --> 00:04:30.754
+00:05:06.778 --> 00:05:09.705
+It arrives as an exception, called CancelledError.
+
+00:05:09.755 --> 00:05:15.117
 A task that never awaits, or that catches that exception and carries on, keeps running.
 
-00:04:31.004 --> 00:04:37.947
-Here's a retry loop with a bare except, an except with no type, which catches everything, cancellation included.
+00:05:15.367 --> 00:05:23.169
+Here's a retry loop with a bare except: an except with no exception type, so it catches everything, cancellation included.
 
-00:04:37.997 --> 00:04:43.554
+00:05:23.219 --> 00:05:28.776
 When the orders service fails, the user request catches its cancellation and tries again.
 
-00:04:43.804 --> 00:04:45.744
+00:05:29.026 --> 00:05:30.967
 The task group has to wait for it.
 
-00:04:45.794 --> 00:04:50.010
+00:05:31.017 --> 00:05:35.232
 The handler returns after one point one seconds, instead of a tenth.
 
-00:04:50.260 --> 00:04:54.220
+00:05:36.482 --> 00:05:40.443
 Before, the stubborn work ran on after the handler returned.
 
-00:04:54.270 --> 00:04:58.004
+00:05:40.493 --> 00:05:44.226
 Now it can't escape the block, so the handler waits for it instead.
 
-00:04:58.254 --> 00:05:08.135
-And the rule covers only tasks started through the task group. asyncio still has plain create_task, and a task started that way is on its own again.
+00:05:44.476 --> 00:05:49.840
+And the rule covers only tasks started through the task group, with its own create_task.
 
-00:05:08.385 --> 00:05:11.102
+00:05:49.890 --> 00:05:54.803
+A task started with plain asyncio.create_task is on its own again.
+
+00:05:55.053 --> 00:05:57.770
 And it's about lifetimes, not shared data.
 
-00:05:11.152 --> 00:05:15.418
+00:05:58.420 --> 00:06:02.686
 Two tasks in the same group can still race on a variable, or deadlock.
 
-00:05:16.368 --> 00:05:18.380
+00:06:03.636 --> 00:06:05.646
 But this isn't a quirk of Python.
 
-00:05:18.430 --> 00:05:21.857
+00:06:05.696 --> 00:06:09.130
 Here's the same handler in Go, with plain goroutines.
 
-00:05:21.907 --> 00:05:31.783
+00:06:09.180 --> 00:06:19.055
 After a thousand requests, a thousand goroutines are left, and they never finish: each is waiting to hand its result to a handler that has already returned.
 
-00:05:32.033 --> 00:05:34.266
+00:06:20.105 --> 00:06:22.338
 Go has no task group in the language.
 
-00:05:34.316 --> 00:05:41.992
-Its convention is an error group, together with a context, which is Go's standard way of telling goroutines to stop.
+00:06:22.388 --> 00:06:29.718
+A common convention is an error group, from Go's extended libraries: the closest thing Go has to a task group.
 
-00:05:42.242 --> 00:05:44.337
+00:06:29.968 --> 00:06:37.191
+An error group works with a context: Go's standard way of passing cancellation and deadlines to goroutines.
+
+00:06:37.441 --> 00:06:39.536
 With an error group, none are left.
 
-00:05:44.387 --> 00:05:49.894
-The first error cancels the context, and each goroutine checks the context and returns.
+00:06:40.186 --> 00:06:45.965
+The first error cancels the context, and here each goroutine checks the context and returns.
 
-00:05:50.144 --> 00:05:54.064
-Kotlin, Swift and Java have the same kind of block built in.
+00:06:46.015 --> 00:06:49.138
+Like a task group, an error group can only ask.
 
-00:05:54.114 --> 00:05:56.213
-Java's is still a preview feature.
+00:06:49.388 --> 00:06:54.708
+Swift and Java have the same kind of block built in, Java's still as a preview feature.
 
-00:05:57.163 --> 00:06:00.566
+00:06:54.758 --> 00:06:57.902
+Kotlin has it in its official coroutines library.
+
+00:06:59.452 --> 00:07:02.854
 So why was the handler's work still running after it returned?
 
-00:06:00.616 --> 00:06:09.942
+00:07:02.904 --> 00:07:12.231
 Because starting a task split control into two paths, and nothing made the second one come back. gather waited for the results, but it didn't own the tasks.
 
-00:06:10.192 --> 00:06:16.477
+00:07:12.481 --> 00:07:18.765
 Structured concurrency gives every task an owner: a block that can't end until its tasks have.
 
-00:06:16.527 --> 00:06:20.255
+00:07:18.815 --> 00:07:22.543
 When one fails, the rest are cancelled and the error comes back.
 
-00:06:20.305 --> 00:06:22.934
+00:07:22.593 --> 00:07:25.224
 When the caller is cancelled, so are its tasks.
 
-00:06:23.184 --> 00:06:28.583
+00:07:25.474 --> 00:07:30.871
 The request fails at a tenth of a second, and at a tenth of a second nothing is left running.
 
-00:06:28.833 --> 00:06:32.064
+00:07:31.121 --> 00:07:34.352
 Give every task an owner, and "returned" means "done".

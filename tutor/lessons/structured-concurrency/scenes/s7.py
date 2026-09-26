@@ -47,8 +47,8 @@ class S7(CueScene):
                          (0, "return g.Wait()", INK)], 15, title="Go, an error group with a context").move_to([0, -2.55, 0])
         self.play(FadeIn(grp), run_time=0.6)
         self.at("06")
-        ctxl = mono("context: Go's standard way of passing cancellation (and deadlines) to goroutines", 13, MUTED).next_to(grp, UP, 0.35)
-        self.play(FadeIn(ctxl), run_time=0.4)
+        ctxl = mono("context: Go's standard way of passing cancellation (and deadlines) to goroutines", 13, MUTED).move_to(nogrp)
+        self.play(FadeOut(nogrp), FadeIn(ctxl), run_time=0.4)
         self.at("07")
         self.play(*[FadeOut(m) for m in (bare, gloss, gr, grl, ch, chl, res, gone, gl, stuck, nogrp, ctxl)], grp.animate.move_to([0, 2.1, 0]),
                   cnt.animate.move_to([0, -0.6, 0]), run_time=0.6)
