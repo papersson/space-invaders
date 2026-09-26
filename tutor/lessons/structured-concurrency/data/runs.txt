@@ -1,0 +1,93 @@
+##### Python asyncio: sims/handler.py
+=== sequential: fetch_user, then fetch_orders, which fails after 0.1 s
+   0.00s  fetch_user     started
+   1.00s  fetch_user     finished
+   1.00s  fetch_orders   started
+   1.10s  fetch_orders   raises ConnectionError
+   1.10s  handler        returns error: ConnectionError
+   1.10s  handler        has returned
+   1.10s  server         tasks still running: 0
+   2.46s  server         tasks still running: 0
+=== gather: fetch_orders fails at 0.1 s
+   0.00s  fetch_user     started
+   0.00s  fetch_orders   started
+   0.10s  fetch_orders   raises ConnectionError
+   0.10s  handler        returns error: ConnectionError
+   0.10s  handler        has returned
+   0.10s  server         tasks still running: 1
+   1.00s  fetch_user     finished
+   1.46s  server         tasks still running: 0
+=== TaskGroup: fetch_orders fails at 0.1 s
+   0.00s  fetch_user     started
+   0.00s  fetch_orders   started
+   0.10s  fetch_orders   raises ConnectionError
+   0.10s  fetch_user     cancelled
+   0.10s  handler        returns error: ConnectionError
+   0.10s  handler        has returned
+   0.10s  server         tasks still running: 0
+   1.46s  server         tasks still running: 0
+=== gather: and fetch_user fails later, at 1.0 s
+   0.00s  fetch_user     started
+   0.00s  fetch_orders   started
+   0.10s  fetch_orders   raises ConnectionError
+   0.10s  handler        returns error: ConnectionError
+   0.10s  handler        has returned
+   0.10s  server         tasks still running: 1
+   1.00s  fetch_user     raises TimeoutError
+   1.46s  server         tasks still running: 0
+=== TaskGroup: and fetch_user would fail later, at 1.0 s
+   0.00s  fetch_user     started
+   0.00s  fetch_orders   started
+   0.10s  fetch_orders   raises ConnectionError
+   0.10s  fetch_user     cancelled
+   0.10s  handler        returns error: ConnectionError
+   0.10s  handler        has returned
+   0.10s  server         tasks still running: 0
+   1.46s  server         tasks still running: 0
+=== gather: 1000 requests at once
+  all 1000 handlers returned after 0.12s; tasks still running: 1000
+  1.2 s later, tasks still running: 0
+=== TaskGroup: 1000 requests at once
+  all 1000 handlers returned after 0.13s; tasks still running: 0
+  1.2 s later, tasks still running: 0
+=== TaskGroup: the caller gives up at 0.5 s
+   0.00s  fetch_user     started
+   0.00s  fetch_orders   started
+   0.50s  fetch_user     cancelled
+   0.50s  fetch_orders   cancelled
+   0.50s  caller         gave up at the timeout
+   1.80s  server         tasks still running: 0
+=== gather: the caller gives up at 0.5 s
+   0.00s  fetch_user     started
+   0.00s  fetch_orders   started
+   0.50s  fetch_user     cancelled
+   0.50s  fetch_orders   cancelled
+   0.50s  caller         gave up at the timeout
+   1.80s  server         tasks still running: 0
+=== create_task, awaited in turn: the caller gives up at 0.5 s
+   0.00s  fetch_user     started
+   0.00s  fetch_orders   started
+   0.50s  fetch_user     cancelled
+   0.50s  caller         gave up at the timeout
+   1.00s  fetch_orders   finished
+   1.80s  server         tasks still running: 0
+=== TaskGroup, fetch_user retries with a bare except: fetch_orders fails at 0.1 s
+   0.00s  fetch_user     started
+   0.00s  fetch_orders   started
+   0.10s  fetch_orders   raises ConnectionError
+   0.10s  fetch_user     caught CancelledError, retrying
+   1.10s  fetch_user     finished
+   1.10s  handler        returns error: ConnectionError
+   1.10s  handler        has returned
+   1.10s  server         tasks still running: 0
+   2.47s  server         tasks still running: 0
+=== Python 3.11.15
+
+##### Control: a plain task's unretrieved error is logged (sims/control_unretrieved.py)
+Task exception was never retrieved
+future: <Task finished name='Task-2' coro=<boom() done, defined at /home/user/space-invaders/tutor/lessons/structured-concurrency/sims/control_unretrieved.py:7> exception=TimeoutError('user service timed out')>
+
+##### Go: sims/goleak (errgroup from golang.org/x/sync)
+bare goroutines: all 1000 handlers returned after 0.11s; goroutines left over: 1000; 1.2 s later: 1000
+errgroup + context: all 1000 handlers returned after 0.11s; goroutines left over: 0; 1.2 s later: 0
+go1.26.0

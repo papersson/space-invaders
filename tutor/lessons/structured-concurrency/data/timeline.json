@@ -1,0 +1,367 @@
+{
+ "sequential": [
+  {
+   "t": 0.0,
+   "who": "fetch_user",
+   "what": "started"
+  },
+  {
+   "t": 1.001,
+   "who": "fetch_user",
+   "what": "finished"
+  },
+  {
+   "t": 1.001,
+   "who": "fetch_orders",
+   "what": "started"
+  },
+  {
+   "t": 1.102,
+   "who": "fetch_orders",
+   "what": "raises ConnectionError"
+  },
+  {
+   "t": 1.102,
+   "who": "handler",
+   "what": "returns error: ConnectionError"
+  },
+  {
+   "t": 1.102,
+   "who": "handler",
+   "what": "has returned"
+  },
+  {
+   "t": 1.102,
+   "who": "server",
+   "what": "tasks still running: 0"
+  },
+  {
+   "t": 2.459,
+   "who": "server",
+   "what": "tasks still running: 0"
+  }
+ ],
+ "gather": [
+  {
+   "t": 0.0,
+   "who": "fetch_user",
+   "what": "started"
+  },
+  {
+   "t": 0.0,
+   "who": "fetch_orders",
+   "what": "started"
+  },
+  {
+   "t": 0.1,
+   "who": "fetch_orders",
+   "what": "raises ConnectionError"
+  },
+  {
+   "t": 0.101,
+   "who": "handler",
+   "what": "returns error: ConnectionError"
+  },
+  {
+   "t": 0.101,
+   "who": "handler",
+   "what": "has returned"
+  },
+  {
+   "t": 0.101,
+   "who": "server",
+   "what": "tasks still running: 1"
+  },
+  {
+   "t": 1.002,
+   "who": "fetch_user",
+   "what": "finished"
+  },
+  {
+   "t": 1.457,
+   "who": "server",
+   "what": "tasks still running: 0"
+  }
+ ],
+ "taskgroup": [
+  {
+   "t": 0.0,
+   "who": "fetch_user",
+   "what": "started"
+  },
+  {
+   "t": 0.0,
+   "who": "fetch_orders",
+   "what": "started"
+  },
+  {
+   "t": 0.1,
+   "who": "fetch_orders",
+   "what": "raises ConnectionError"
+  },
+  {
+   "t": 0.101,
+   "who": "fetch_user",
+   "what": "cancelled"
+  },
+  {
+   "t": 0.101,
+   "who": "handler",
+   "what": "returns error: ConnectionError"
+  },
+  {
+   "t": 0.101,
+   "who": "handler",
+   "what": "has returned"
+  },
+  {
+   "t": 0.101,
+   "who": "server",
+   "what": "tasks still running: 0"
+  },
+  {
+   "t": 1.457,
+   "who": "server",
+   "what": "tasks still running: 0"
+  }
+ ],
+ "gather_late": [
+  {
+   "t": 0.0,
+   "who": "fetch_user",
+   "what": "started"
+  },
+  {
+   "t": 0.0,
+   "who": "fetch_orders",
+   "what": "started"
+  },
+  {
+   "t": 0.1,
+   "who": "fetch_orders",
+   "what": "raises ConnectionError"
+  },
+  {
+   "t": 0.101,
+   "who": "handler",
+   "what": "returns error: ConnectionError"
+  },
+  {
+   "t": 0.101,
+   "who": "handler",
+   "what": "has returned"
+  },
+  {
+   "t": 0.101,
+   "who": "server",
+   "what": "tasks still running: 1"
+  },
+  {
+   "t": 1.002,
+   "who": "fetch_user",
+   "what": "raises TimeoutError"
+  },
+  {
+   "t": 1.456,
+   "who": "server",
+   "what": "tasks still running: 0"
+  }
+ ],
+ "taskgroup_late": [
+  {
+   "t": 0.0,
+   "who": "fetch_user",
+   "what": "started"
+  },
+  {
+   "t": 0.0,
+   "who": "fetch_orders",
+   "what": "started"
+  },
+  {
+   "t": 0.1,
+   "who": "fetch_orders",
+   "what": "raises ConnectionError"
+  },
+  {
+   "t": 0.1,
+   "who": "fetch_user",
+   "what": "cancelled"
+  },
+  {
+   "t": 0.101,
+   "who": "handler",
+   "what": "returns error: ConnectionError"
+  },
+  {
+   "t": 0.101,
+   "who": "handler",
+   "what": "has returned"
+  },
+  {
+   "t": 0.101,
+   "who": "server",
+   "what": "tasks still running: 0"
+  },
+  {
+   "t": 1.457,
+   "who": "server",
+   "what": "tasks still running: 0"
+  }
+ ],
+ "many_gather": {
+  "n": 1000,
+  "returned_after": 0.12,
+  "alive": 1000,
+  "alive_later": 0
+ },
+ "many_taskgroup": {
+  "n": 1000,
+  "returned_after": 0.13,
+  "alive": 0,
+  "alive_later": 0
+ },
+ "cancel_taskgroup": [
+  {
+   "t": 0.0,
+   "who": "fetch_user",
+   "what": "started"
+  },
+  {
+   "t": 0.0,
+   "who": "fetch_orders",
+   "what": "started"
+  },
+  {
+   "t": 0.501,
+   "who": "fetch_user",
+   "what": "cancelled"
+  },
+  {
+   "t": 0.501,
+   "who": "fetch_orders",
+   "what": "cancelled"
+  },
+  {
+   "t": 0.501,
+   "who": "caller",
+   "what": "gave up at the timeout"
+  },
+  {
+   "t": 1.804,
+   "who": "server",
+   "what": "tasks still running: 0"
+  }
+ ],
+ "cancel_gather": [
+  {
+   "t": 0.0,
+   "who": "fetch_user",
+   "what": "started"
+  },
+  {
+   "t": 0.0,
+   "who": "fetch_orders",
+   "what": "started"
+  },
+  {
+   "t": 0.501,
+   "who": "fetch_user",
+   "what": "cancelled"
+  },
+  {
+   "t": 0.501,
+   "who": "fetch_orders",
+   "what": "cancelled"
+  },
+  {
+   "t": 0.501,
+   "who": "caller",
+   "what": "gave up at the timeout"
+  },
+  {
+   "t": 1.803,
+   "who": "server",
+   "what": "tasks still running: 0"
+  }
+ ],
+ "cancel_create_task": [
+  {
+   "t": 0.0,
+   "who": "fetch_user",
+   "what": "started"
+  },
+  {
+   "t": 0.0,
+   "who": "fetch_orders",
+   "what": "started"
+  },
+  {
+   "t": 0.501,
+   "who": "fetch_user",
+   "what": "cancelled"
+  },
+  {
+   "t": 0.501,
+   "who": "caller",
+   "what": "gave up at the timeout"
+  },
+  {
+   "t": 1.002,
+   "who": "fetch_orders",
+   "what": "finished"
+  },
+  {
+   "t": 1.804,
+   "who": "server",
+   "what": "tasks still running: 0"
+  }
+ ],
+ "retrying": [
+  {
+   "t": 0.0,
+   "who": "fetch_user",
+   "what": "started"
+  },
+  {
+   "t": 0.0,
+   "who": "fetch_orders",
+   "what": "started"
+  },
+  {
+   "t": 0.1,
+   "who": "fetch_orders",
+   "what": "raises ConnectionError"
+  },
+  {
+   "t": 0.101,
+   "who": "fetch_user",
+   "what": "caught CancelledError, retrying"
+  },
+  {
+   "t": 1.102,
+   "who": "fetch_user",
+   "what": "finished"
+  },
+  {
+   "t": 1.102,
+   "who": "handler",
+   "what": "returns error: ConnectionError"
+  },
+  {
+   "t": 1.102,
+   "who": "handler",
+   "what": "has returned"
+  },
+  {
+   "t": 1.103,
+   "who": "server",
+   "what": "tasks still running: 0"
+  },
+  {
+   "t": 2.472,
+   "who": "server",
+   "what": "tasks still running: 0"
+  }
+ ]
+}
