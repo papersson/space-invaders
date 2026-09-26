@@ -59,19 +59,19 @@ class S5(CueScene):
         self.play(LaggedStart(*[MoveAlongPath(d, Line(orr.get_left(), ht.get_right())) for d in stream],
                               lag_ratio=0.12), run_time=1.6)
         self.remove(stream)
-        once = mono("all 2,000,000 orders, streamed through once", 15, MUTED).next_to(ht, DOWN, 0.2)
+        once = mono("all 2,000,000 orders, streamed through once", 15, MUTED).next_to(ht, UP, 0.15)
         self.play(FadeIn(once), run_time=0.4)
         self.at("10")
         hj = tree([node("Hash Join", "", AMBER, w=5.0), node("Seq Scan on orders", "2,000,000 rows · Seq Scan = full scan"),
                    node("Hash", "built from: Seq Scan on customers, 99,900 rows")], -6.3, -0.6)
         self.play(FadeIn(hj), run_time=0.7)
         self.at("11")
-        t2 = mono(f"{ms(oslo)} · 1,998,654 rows", 20, AMBER).next_to(hj, RIGHT, 0.5).align_to(hj, UP)
+        t2 = mono(f"{ms(oslo)} · 1,998,654 rows", 19, AMBER).move_to([0.9, -0.8, 0], aligned_edge=LEFT)
         self.play(FadeIn(t2), run_time=0.4)
 
         # 12: a nested loop forced for Oslo
         self.at("12")
-        f = mono(f"nested loop forced: {forced / 1000:.1f} s  (≈ {forced / oslo:.1f}× as long)", 18, BAD).next_to(t2, DOWN, 0.3).align_to(t2, LEFT)
+        f = VGroup(mono(f"nested loop forced: {forced / 1000:.1f} s", 18, BAD), mono(f"≈ {forced / oslo:.1f}× as long", 16, BAD)).arrange(DOWN, buff=0.1, aligned_edge=LEFT).next_to(t2, DOWN, 0.3).align_to(t2, LEFT)
         self.play(FadeIn(f), run_time=0.5)
         mj = mono("PostgreSQL has a third join method, merge join, not covered here", 12, FAINT).to_edge(DOWN, buff=0.35)
         self.play(FadeIn(mj), run_time=0.3)

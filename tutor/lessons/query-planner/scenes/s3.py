@@ -6,11 +6,11 @@ class S3(CueScene):
 
     def construct(self):
         c = chip("Two ways to find the rows")
-        GX, GY = 1.6, -0.35
+        GX, GY = 2.4, -0.35
         # 01-02: the table is pages
         self.at("01")
-        grid = page_grid().move_to([GX, GY, 0])
-        cnt = mono(f"{RELPAGES:,} pages · ~{2_000_000 // RELPAGES} rows each", 16, MUTED).next_to(grid, UP, 0.2)
+        grid = page_grid(w=8.0).move_to([GX, GY, 0])
+        cnt = mono(f"{RELPAGES:,} pages · ~{round(2_000_000 / RELPAGES)} rows each", 16, MUTED).next_to(grid, UP, 0.2)
         self.play(FadeIn(c), FadeIn(grid), run_time=0.7)
         self.at("02")
         self.play(FadeIn(cnt), run_time=0.5)
@@ -18,7 +18,7 @@ class S3(CueScene):
         # 03-05: a full scan reads every page
         self.at("03")
         self.at("04")
-        fs = mono("full scan", 20, AMBER).move_to([-5.0, 1.6, 0])
+        fs = mono("full scan", 20, AMBER).move_to([-4.6, 1.6, 0])
         sweep = Rectangle(width=grid.width, height=0.01, stroke_width=0, fill_color=AMBER, fill_opacity=0.35)
         sweep.move_to(grid.get_top(), aligned_edge=UP)
         self.play(FadeIn(fs), run_time=0.3)
@@ -35,7 +35,7 @@ class S3(CueScene):
         idx = VGroup(*[mono(t, 15, MUTED) for t in ("…", "4241", "4242", "4243", "…")]).arrange(DOWN, buff=0.18)
         ib = SurroundingRectangle(idx, buff=0.2, color=TRAY_EDGE, stroke_width=1.8, corner_radius=0.08)
         il = label("index: sorted customer numbers", 13).next_to(ib, UP, 0.15)
-        ig = VGroup(ib, idx, il).move_to([-5.2, 0.2, 0])
+        ig = VGroup(ib, idx, il).move_to([-4.6, 0.2, 0])
         self.play(FadeIn(ig), run_time=0.6)
         self.at("07")
         self.play(idx[2].animate.set_color(ICE), run_time=0.3)
@@ -60,7 +60,7 @@ class S3(CueScene):
         self.at("11")
         arr_note = mono("stored in the order they arrived:\nabout 3 rows in 10 on every page", 14, BAD).next_to(ig, DOWN, 0.4)
         self.play(FadeIn(arr_note), run_time=0.4)
-        full = page_grid(all_color=(0xE4, 0x71, 0x5F, 255)).move_to(grid)
+        full = page_grid(all_color=(0xE4, 0x71, 0x5F, 255), w=8.0).move_to(grid)
         full.set_opacity(0.0)
         self.add(full)
         self.play(full.animate.set_opacity(0.85), run_time=1.6)
@@ -68,7 +68,7 @@ class S3(CueScene):
         all_p = mono(f"customer 1: {RELPAGES:,} of {RELPAGES:,} pages", 16, BAD).move_to([GX, GY - grid.height / 2 - 0.35, 0])
         self.play(FadeIn(all_p), run_time=0.4)
         self.at("13")
-        skip = mono("nothing to skip", 16, BAD).next_to(all_p, RIGHT, 0.4)
+        skip = mono("nothing to skip", 16, BAD).next_to(all_p, DOWN, 0.12)
         self.play(FadeIn(skip), run_time=0.4)
 
         # 14-15: it depends on how many rows match

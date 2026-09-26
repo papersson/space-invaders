@@ -73,7 +73,7 @@ class S6(CueScene):
                    node("Bitmap Index Scan on orders_s_customer_id_idx", "", GOOD, w=5.6)], -4.6, -0.1, gap=0.15, indent=0.4)
         self.play(FadeIn(tr), run_time=0.7)
         self.at("13")
-        t2 = mono(f"{ms(fresh)}   (≈ {round(stale / fresh, -2):,.0f}× faster)", 22, GOOD).next_to(tr, RIGHT, 0.5)
+        t2 = VGroup(mono(ms(fresh), 24, GOOD), mono(f"≈ {round(stale / fresh, -2):,.0f}× faster", 18, GOOD)).arrange(DOWN, buff=0.12, aligned_edge=LEFT).move_to([3.4, -1.0, 0], aligned_edge=LEFT)
         self.play(FadeIn(t2), run_time=0.5)
 
         # 14-16: nobody added an index

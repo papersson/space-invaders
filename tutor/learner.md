@@ -2,7 +2,7 @@
 
 What the tutor knows about the one person these lessons are for. Everything here comes from what they said or did; anything else is marked unknown. Every lesson's student reviewer plays this person, and every revision starts by updating this file.
 
-Last updated: 2026-09-26, when the queueing, tail latency, idempotency, reactive, concurrency, desired-state and Nix lessons were delivered, before any notes on them.
+Last updated: 2026-09-26, when the queueing, tail latency, idempotency, reactive, concurrency, desired-state, Nix and query-planner lessons were delivered, before any notes on them.
 
 ## Background
 
@@ -33,6 +33,7 @@ Last updated: 2026-09-26, when the queueing, tail latency, idempotency, reactive
 | Concurrency models ("Share Memory, or Pass Messages?", v1, 10:20) | Delivered; no notes yet. Predicted, not confirmed: "only two orders of the six steps are safe" (asserted, not shown), race condition and data race named one sentence apart, "C and C++ promise nothing" (undefined behaviour is never named), and whether the study's "hangs" means deadlocks. | Counting claims need the enumeration on screen; two neighbouring terms need a contrast before the second name. |
 | Desired state ("Make It So", v1, 7:36) | Delivered; no notes yet. Predicted, not confirmed: replica count and pod arriving together, which loop marks a dead machine unreachable, and edge/level-triggered landing back to back; chapter 6's moving target and fighting tools are faster and more abstract than the rest. | When two mechanisms share one story (the node loop and the pod loop), name both or show both. |
 | Nix ("A Hash in Every Path", v1, 7:24) | Delivered; no notes yet. Predicted, not confirmed: the closure's list of libraries, and the compiler being both excluded and (as its runtime library) included; chapter 3 carries four ideas (recipe and derivation, pure function, isolation, the hash computed before the build). | Lists of names need a picture of how they connect; a named exception needs its own label on screen. |
+| Query planner ("Same Query, Different Plan", v1, 6:58) | Delivered; no notes yet. Predicted, not confirmed: the join chapter's cluster of numbers and two join names, and the 1.4 million rows the stale plan walks past; "cost" was the most-flagged word across rounds (now shown with real numbers). | Abstract units need one real value on screen; a scan's mechanism (walk order numbers, check each row) needs saying before its cost. |
 
 ## Standing instructions for the student reviewer
 

@@ -1,0 +1,265 @@
+WEBVTT
+
+00:00:00.800 --> 00:00:07.078
+Here's a table of two million orders, and one query: count a customer's orders, and add up the amounts.
+
+00:00:07.328 --> 00:00:12.197
+For customer 4242, it takes fifteen microseconds to execute.
+
+00:00:12.447 --> 00:00:16.577
+For customer one, it takes a hundred and thirty-five milliseconds.
+
+00:00:16.627 --> 00:00:18.663
+About nine thousand times longer.
+
+00:00:19.513 --> 00:00:21.996
+Same query, same table, same machine.
+
+00:00:22.046 --> 00:00:24.514
+And nothing in the query says how to run it.
+
+00:00:24.764 --> 00:00:26.018
+So who decides?
+
+00:00:26.068 --> 00:00:29.830
+And why is the same query sometimes fast, and sometimes slow?
+
+00:00:33.580 --> 00:00:40.337
+In ordinary code, you'd write the search yourself: loop over every order, and keep the ones for this customer.
+
+00:00:40.386 --> 00:00:42.213
+The code says exactly how.
+
+00:00:42.463 --> 00:00:44.120
+SQL is declarative.
+
+00:00:44.170 --> 00:00:47.941
+The query says what rows you want, and nothing about how to find them.
+
+00:00:48.191 --> 00:00:50.546
+That leaves the database free to choose how.
+
+00:00:50.596 --> 00:00:53.651
+And it has to choose, every time the query runs.
+
+00:00:55.201 --> 00:00:59.967
+The table is stored in pages, blocks of about a hundred and sixty rows each.
+
+00:01:00.017 --> 00:01:03.819
+Two million orders fill about twelve thousand seven hundred of them.
+
+00:01:04.069 --> 00:01:07.674
+There are two basic ways to find one customer's orders.
+
+00:01:07.924 --> 00:01:12.352
+One is a full scan: read every page, and keep the rows that match.
+
+00:01:12.402 --> 00:01:15.470
+It reads the same pages whoever the customer is.
+
+00:01:15.720 --> 00:01:22.601
+The other is an index: a sorted list of customer numbers, each pointing to where that customer's rows are.
+
+00:01:22.651 --> 00:01:28.266
+Find the customer in the list, collect where their rows are, and read only the pages that hold them.
+
+00:01:28.516 --> 00:01:32.527
+Customer 4242 has ten orders, on ten pages.
+
+00:01:32.577 --> 00:01:37.036
+Through the index, that's ten pages instead of twelve thousand seven hundred.
+
+00:01:38.086 --> 00:01:41.423
+Customer one has about six hundred thousand orders.
+
+00:01:41.473 --> 00:01:49.741
+Orders are stored in the order they arrived, not by customer, so on every page, about three rows in ten are customer one's.
+
+00:01:49.791 --> 00:01:51.946
+Now the index can't skip anything.
+
+00:01:51.996 --> 00:01:54.242
+Every page has to be read anyway.
+
+00:01:55.292 --> 00:01:59.131
+So whether the index saves work depends on how many rows match.
+
+00:01:59.181 --> 00:02:01.027
+And that depends on the customer.
+
+00:02:01.977 --> 00:02:04.955
+The choice between them is made by the query planner.
+
+00:02:05.205 --> 00:02:13.426
+The planner keeps statistics about each table: how many rows it has, and for each column, which values are most common, and how common.
+
+00:02:13.676 --> 00:02:24.991
+For each way it could run the query, it estimates the rows and pages it would touch, turns that into a cost, a number for comparing plans rather than a time, and picks the cheapest.
+
+00:02:25.241 --> 00:02:28.924
+For customer 4242, the statistics say rare.
+
+00:02:28.974 --> 00:02:34.545
+The planner estimates thirty-three rows; the real number is ten, close enough to choose well.
+
+00:02:34.595 --> 00:02:41.396
+Its cost for using the index comes to about a hundred and thirty; for a full scan, about thirty-eight thousand.
+
+00:02:41.446 --> 00:02:50.101
+So it picks the index, read the way we just saw: collect the rows' locations, sort them by page, then read each of those pages once.
+
+00:02:50.151 --> 00:02:57.396
+PostgreSQL calls that a bitmap scan, shown as two steps: one reads the index, the other reads the pages.
+
+00:02:57.446 --> 00:02:59.819
+Ten pages, fifteen microseconds.
+
+00:03:00.869 --> 00:03:07.978
+Force a full scan for the same customer, and it takes seventy-two milliseconds: nearly five thousand times slower.
+
+00:03:08.028 --> 00:03:09.305
+The choice matters.
+
+00:03:10.355 --> 00:03:14.346
+For customer one, the statistics say about three in ten orders.
+
+00:03:14.396 --> 00:03:20.043
+The planner estimates about six hundred thousand rows, and picks the same kind of bitmap scan.
+
+00:03:20.093 --> 00:03:22.952
+But this time the pages it reads are all of them.
+
+00:03:23.002 --> 00:03:25.482
+A hundred and thirty-five milliseconds.
+
+00:03:25.532 --> 00:03:33.585
+Force a full scan instead, and it's no faster: it reads the same pages, and still has six hundred thousand rows to add up.
+
+00:03:34.635 --> 00:03:40.023
+When the rows you want are on every page, the index doesn't help, and no plan is fast.
+
+00:03:41.773 --> 00:03:43.933
+Everything so far read one table.
+
+00:03:43.983 --> 00:03:47.224
+Now ask for the orders of every customer in Tromsø.
+
+00:03:47.274 --> 00:03:51.731
+Two tables have to meet, and the planner has to choose how to match their rows.
+
+00:03:51.981 --> 00:03:55.936
+A hundred customers live in Tromsø, out of a hundred thousand.
+
+00:03:56.186 --> 00:04:02.167
+The planner finds those hundred customers, then, for each one, looks up its orders in the index.
+
+00:04:02.217 --> 00:04:07.047
+That's a nested loop: for each row on one side, look up its matches on the other.
+
+00:04:07.097 --> 00:04:08.765
+About five milliseconds.
+
+00:04:09.615 --> 00:04:13.982
+Now ask for customers in Oslo: almost all of the hundred thousand.
+
+00:04:14.032 --> 00:04:21.326
+This time the planner builds a lookup table from the Oslo customers, and streams all two million orders through it, once.
+
+00:04:21.376 --> 00:04:22.711
+That's a hash join.
+
+00:04:22.761 --> 00:04:26.651
+About seven hundred milliseconds, for almost two million rows.
+
+00:04:26.901 --> 00:04:32.868
+Force a nested loop for Oslo instead, and it takes two seconds: nearly three times as long.
+
+00:04:33.918 --> 00:04:35.240
+Same query shape.
+
+00:04:35.290 --> 00:04:38.646
+A different plan, because a different number of rows match.
+
+00:04:40.196 --> 00:04:44.843
+The plan is only as good as the estimate, and the statistics are a snapshot.
+
+00:04:45.093 --> 00:04:47.088
+Here's a copy of the orders table.
+
+00:04:47.138 --> 00:04:51.847
+Its statistics were gathered while customer one still had three in ten orders.
+
+00:04:51.897 --> 00:04:58.512
+Since then, their older orders were archived, and just two hundred and ninety-four are left, all of them recent.
+
+00:04:58.762 --> 00:05:02.512
+Now ask for customer one's first ten orders, by order number.
+
+00:05:02.762 --> 00:05:08.618
+The planner still believes customer one is everywhere: about four hundred and twenty thousand rows.
+
+00:05:08.668 --> 00:05:14.597
+So it walks through the orders by order number, expecting to run into ten of theirs almost at once.
+
+00:05:14.647 --> 00:05:16.679
+But all of theirs are at the very end.
+
+00:05:16.729 --> 00:05:20.012
+It passes about one point four million other rows first.
+
+00:05:20.062 --> 00:05:22.645
+A hundred and thirty-seven milliseconds.
+
+00:05:23.695 --> 00:05:30.707
+Run ANALYZE, which refreshes the statistics, and the planner now expects about three hundred and thirty rows.
+
+00:05:30.757 --> 00:05:34.576
+It looks them up in the index, sorts them, and keeps the first ten.
+
+00:05:34.626 --> 00:05:39.556
+Sixty microseconds: more than two thousand times faster, for the same query.
+
+00:05:40.606 --> 00:05:44.074
+The usual fix for a slow query is to add an index.
+
+00:05:44.124 --> 00:05:48.737
+But nobody added one here: the one on customer number was there all along.
+
+00:05:48.787 --> 00:05:51.079
+The planner just didn't expect it to help.
+
+00:05:51.929 --> 00:05:53.719
+That's how to read a slow plan.
+
+00:05:53.769 --> 00:05:59.993
+EXPLAIN ANALYZE shows, for each step, the rows the planner expected and the rows it actually got.
+
+00:06:00.043 --> 00:06:04.492
+Where the two are far apart, the plan was chosen for data that isn't there.
+
+00:06:06.242 --> 00:06:08.250
+So who decides how a query runs?
+
+00:06:08.300 --> 00:06:11.678
+The query planner, because SQL only says what you want.
+
+00:06:11.928 --> 00:06:19.346
+It weighs the ways it could run the query by how many rows and pages each step will touch, using statistics about your data.
+
+00:06:19.396 --> 00:06:22.503
+A rare customer gets the index, and ten pages.
+
+00:06:22.553 --> 00:06:26.508
+For a common one, every page has to be read, whatever the plan.
+
+00:06:26.558 --> 00:06:32.042
+A few matches, with an index to look them up, get a nested loop; many get a hash join.
+
+00:06:32.292 --> 00:06:40.071
+That's why the same query can be fast or slow: it depends on the data it touches, and on what the planner believes about that data.
+
+00:06:40.321 --> 00:06:44.000
+When a query is slow, don't guess, and don't just add an index.
+
+00:06:44.050 --> 00:06:49.356
+Run EXPLAIN ANALYZE, and compare the rows the planner expected with the rows it got.

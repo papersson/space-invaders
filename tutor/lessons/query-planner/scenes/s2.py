@@ -8,9 +8,11 @@ class S2(CueScene):
         c = chip("Say what, not how")
         # 01-02: the loop says how
         self.at("01")
-        loop = VGroup(mono("total, n = 0, 0", 17, INK), mono("for order in orders:", 17, INK),
-                      mono("    if order.customer_id == 4242:", 17, INK), mono("        n += 1", 17, INK),
-                      mono("        total += order.amount", 17, INK)).arrange(DOWN, buff=0.12, aligned_edge=LEFT)
+        code = [(0, "total, n = 0, 0"), (0, "for order in orders:"), (1, "if order.customer_id == 4242:"),
+                (2, "n += 1"), (2, "total += order.amount")]
+        loop = VGroup(*[mono(s, 17, INK) for _, s in code]).arrange(DOWN, buff=0.12, aligned_edge=LEFT)
+        for (level, _), line in zip(code, loop):
+            line.shift(0.45 * level * RIGHT)       # Text drops leading spaces, so indent by hand
         lb = SurroundingRectangle(loop, buff=0.3, color=DIM, stroke_width=1.5, corner_radius=0.1)
         ll = label("ordinary code", 15).next_to(lb, UP, 0.15).align_to(lb, LEFT)
         lg = VGroup(lb, loop, ll).move_to([-3.4, 0.6, 0])

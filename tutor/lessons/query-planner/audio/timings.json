@@ -1,0 +1,858 @@
+{
+ "voice": "af_heart",
+ "speed": 0.92,
+ "total": 417.706,
+ "segments": [
+  {
+   "id": "s1",
+   "title": "The question",
+   "start": 0.0,
+   "lines": [
+    {
+     "id": "s1_01",
+     "text": "Here's a table of two million orders, and one query: count a customer's orders, and add up the amounts.",
+     "caption": "Here's a table of two million orders, and one query: count a customer's orders, and add up the amounts.",
+     "paragraph": 0,
+     "start": 0.8,
+     "end": 6.828
+    },
+    {
+     "id": "s1_02",
+     "text": "For customer forty-two forty-two, it takes fifteen microseconds to execute.",
+     "caption": "For customer 4242, it takes fifteen microseconds to execute.",
+     "paragraph": 1,
+     "start": 7.328,
+     "end": 11.947
+    },
+    {
+     "id": "s1_03",
+     "text": "For customer one, it takes a hundred and thirty-five milliseconds.",
+     "caption": "For customer one, it takes a hundred and thirty-five milliseconds.",
+     "paragraph": 2,
+     "start": 12.447,
+     "end": 16.327
+    },
+    {
+     "id": "s1_04",
+     "text": "About nine thousand times longer.",
+     "caption": "About nine thousand times longer.",
+     "paragraph": 2,
+     "start": 16.627,
+     "end": 18.413
+    },
+    {
+     "id": "s1_05",
+     "text": "Same query, same table, same machine.",
+     "caption": "Same query, same table, same machine.",
+     "paragraph": 3,
+     "start": 19.513,
+     "end": 21.746
+    },
+    {
+     "id": "s1_06",
+     "text": "And nothing in the query says how to run it.",
+     "caption": "And nothing in the query says how to run it.",
+     "paragraph": 3,
+     "start": 22.046,
+     "end": 24.264
+    },
+    {
+     "id": "s1_07",
+     "text": "So who decides?",
+     "caption": "So who decides?",
+     "paragraph": 4,
+     "start": 24.764,
+     "end": 25.768
+    },
+    {
+     "id": "s1_08",
+     "text": "And why is the same query sometimes fast, and sometimes slow?",
+     "caption": "And why is the same query sometimes fast, and sometimes slow?",
+     "paragraph": 4,
+     "start": 26.068,
+     "end": 29.58
+    }
+   ],
+   "end": 33.23
+  },
+  {
+   "id": "s2",
+   "title": "Say what, not how",
+   "start": 33.23,
+   "lines": [
+    {
+     "id": "s2_01",
+     "text": "In ordinary code, you'd write the search yourself: loop over every order, and keep the ones for this customer.",
+     "caption": "In ordinary code, you'd write the search yourself: loop over every order, and keep the ones for this customer.",
+     "paragraph": 0,
+     "start": 33.58,
+     "end": 40.087
+    },
+    {
+     "id": "s2_02",
+     "text": "The code says exactly how.",
+     "caption": "The code says exactly how.",
+     "paragraph": 0,
+     "start": 40.386,
+     "end": 41.963
+    },
+    {
+     "id": "s2_03",
+     "text": "sequel is declarative.",
+     "caption": "SQL is declarative.",
+     "paragraph": 1,
+     "start": 42.463,
+     "end": 43.87
+    },
+    {
+     "id": "s2_04",
+     "text": "The query says what rows you want, and nothing about how to find them.",
+     "caption": "The query says what rows you want, and nothing about how to find them.",
+     "paragraph": 1,
+     "start": 44.17,
+     "end": 47.691
+    },
+    {
+     "id": "s2_05",
+     "text": "That leaves the database free to choose how.",
+     "caption": "That leaves the database free to choose how.",
+     "paragraph": 2,
+     "start": 48.191,
+     "end": 50.296
+    },
+    {
+     "id": "s2_06",
+     "text": "And it has to choose, every time the query runs.",
+     "caption": "And it has to choose, every time the query runs.",
+     "paragraph": 2,
+     "start": 50.596,
+     "end": 53.401
+    }
+   ],
+   "end": 54.851
+  },
+  {
+   "id": "s3",
+   "title": "Two ways to find the rows",
+   "start": 54.851,
+   "lines": [
+    {
+     "id": "s3_01",
+     "text": "The table is stored in pages, blocks of about a hundred and sixty rows each.",
+     "caption": "The table is stored in pages, blocks of about a hundred and sixty rows each.",
+     "paragraph": 0,
+     "start": 55.201,
+     "end": 59.717
+    },
+    {
+     "id": "s3_02",
+     "text": "Two million orders fill about twelve thousand seven hundred of them.",
+     "caption": "Two million orders fill about twelve thousand seven hundred of them.",
+     "paragraph": 0,
+     "start": 60.017,
+     "end": 63.569
+    },
+    {
+     "id": "s3_03",
+     "text": "There are two basic ways to find one customer's orders.",
+     "caption": "There are two basic ways to find one customer's orders.",
+     "paragraph": 1,
+     "start": 64.069,
+     "end": 67.424
+    },
+    {
+     "id": "s3_04",
+     "text": "One is a full scan: read every page, and keep the rows that match.",
+     "caption": "One is a full scan: read every page, and keep the rows that match.",
+     "paragraph": 2,
+     "start": 67.924,
+     "end": 72.102
+    },
+    {
+     "id": "s3_05",
+     "text": "It reads the same pages whoever the customer is.",
+     "caption": "It reads the same pages whoever the customer is.",
+     "paragraph": 2,
+     "start": 72.402,
+     "end": 75.22
+    },
+    {
+     "id": "s3_06",
+     "text": "The other is an index: a sorted list of customer numbers, each pointing to where that customer's rows are.",
+     "caption": "The other is an index: a sorted list of customer numbers, each pointing to where that customer's rows are.",
+     "paragraph": 3,
+     "start": 75.72,
+     "end": 82.351
+    },
+    {
+     "id": "s3_07",
+     "text": "Find the customer in the list, collect where their rows are, and read only the pages that hold them.",
+     "caption": "Find the customer in the list, collect where their rows are, and read only the pages that hold them.",
+     "paragraph": 3,
+     "start": 82.651,
+     "end": 88.016
+    },
+    {
+     "id": "s3_08",
+     "text": "Customer forty-two forty-two has ten orders, on ten pages.",
+     "caption": "Customer 4242 has ten orders, on ten pages.",
+     "paragraph": 4,
+     "start": 88.516,
+     "end": 92.277
+    },
+    {
+     "id": "s3_09",
+     "text": "Through the index, that's ten pages instead of twelve thousand seven hundred.",
+     "caption": "Through the index, that's ten pages instead of twelve thousand seven hundred.",
+     "paragraph": 4,
+     "start": 92.577,
+     "end": 96.786
+    },
+    {
+     "id": "s3_10",
+     "text": "Customer one has about six hundred thousand orders.",
+     "caption": "Customer one has about six hundred thousand orders.",
+     "paragraph": 5,
+     "start": 98.086,
+     "end": 101.173
+    },
+    {
+     "id": "s3_11",
+     "text": "Orders are stored in the order they arrived, not by customer, so on every page, about three rows in ten are customer one's.",
+     "caption": "Orders are stored in the order they arrived, not by customer, so on every page, about three rows in ten are customer one's.",
+     "paragraph": 5,
+     "start": 101.473,
+     "end": 109.491
+    },
+    {
+     "id": "s3_12",
+     "text": "Now the index can't skip anything.",
+     "caption": "Now the index can't skip anything.",
+     "paragraph": 5,
+     "start": 109.791,
+     "end": 111.696
+    },
+    {
+     "id": "s3_13",
+     "text": "Every page has to be read anyway.",
+     "caption": "Every page has to be read anyway.",
+     "paragraph": 5,
+     "start": 111.996,
+     "end": 113.992
+    },
+    {
+     "id": "s3_14",
+     "text": "So whether the index saves work depends on how many rows match.",
+     "caption": "So whether the index saves work depends on how many rows match.",
+     "paragraph": 6,
+     "start": 115.292,
+     "end": 118.881
+    },
+    {
+     "id": "s3_15",
+     "text": "And that depends on the customer.",
+     "caption": "And that depends on the customer.",
+     "paragraph": 6,
+     "start": 119.181,
+     "end": 120.777
+    }
+   ],
+   "end": 121.627
+  },
+  {
+   "id": "s4",
+   "title": "The planner estimates",
+   "start": 121.627,
+   "lines": [
+    {
+     "id": "s4_01",
+     "text": "The choice between them is made by the query planner.",
+     "caption": "The choice between them is made by the query planner.",
+     "paragraph": 0,
+     "start": 121.977,
+     "end": 124.705
+    },
+    {
+     "id": "s4_02",
+     "text": "The planner keeps statistics about each table: how many rows it has, and for each column, which values are most common, and how common.",
+     "caption": "The planner keeps statistics about each table: how many rows it has, and for each column, which values are most common, and how common.",
+     "paragraph": 1,
+     "start": 125.205,
+     "end": 133.176
+    },
+    {
+     "id": "s4_03",
+     "text": "For each way it could run the query, it estimates the rows and pages it would touch, turns that into a cost, a number for comparing plans rather than a time, and picks the cheapest.",
+     "caption": "For each way it could run the query, it estimates the rows and pages it would touch, turns that into a cost, a number for comparing plans rather than a time, and picks the cheapest.",
+     "paragraph": 2,
+     "start": 133.676,
+     "end": 144.741
+    },
+    {
+     "id": "s4_04",
+     "text": "For customer forty-two forty-two, the statistics say rare.",
+     "caption": "For customer 4242, the statistics say rare.",
+     "paragraph": 3,
+     "start": 145.241,
+     "end": 148.674
+    },
+    {
+     "id": "s4_05",
+     "text": "The planner estimates thirty-three rows; the real number is ten, close enough to choose well.",
+     "caption": "The planner estimates thirty-three rows; the real number is ten, close enough to choose well.",
+     "paragraph": 3,
+     "start": 148.974,
+     "end": 154.295
+    },
+    {
+     "id": "s4_06",
+     "text": "Its cost for using the index comes to about a hundred and thirty; for a full scan, about thirty-eight thousand.",
+     "caption": "Its cost for using the index comes to about a hundred and thirty; for a full scan, about thirty-eight thousand.",
+     "paragraph": 3,
+     "start": 154.595,
+     "end": 161.146
+    },
+    {
+     "id": "s4_07",
+     "text": "So it picks the index, read the way we just saw: collect the rows' locations, sort them by page, then read each of those pages once.",
+     "caption": "So it picks the index, read the way we just saw: collect the rows' locations, sort them by page, then read each of those pages once.",
+     "paragraph": 3,
+     "start": 161.446,
+     "end": 169.851
+    },
+    {
+     "id": "s4_08",
+     "text": "Postgres Q L calls that a bitmap scan, shown as two steps: one reads the index, the other reads the pages.",
+     "caption": "PostgreSQL calls that a bitmap scan, shown as two steps: one reads the index, the other reads the pages.",
+     "paragraph": 3,
+     "start": 170.151,
+     "end": 177.146
+    },
+    {
+     "id": "s4_09",
+     "text": "Ten pages, fifteen microseconds.",
+     "caption": "Ten pages, fifteen microseconds.",
+     "paragraph": 3,
+     "start": 177.446,
+     "end": 179.569
+    },
+    {
+     "id": "s4_10",
+     "text": "Force a full scan for the same customer, and it takes seventy-two milliseconds: nearly five thousand times slower.",
+     "caption": "Force a full scan for the same customer, and it takes seventy-two milliseconds: nearly five thousand times slower.",
+     "paragraph": 4,
+     "start": 180.869,
+     "end": 187.728
+    },
+    {
+     "id": "s4_11",
+     "text": "The choice matters.",
+     "caption": "The choice matters.",
+     "paragraph": 4,
+     "start": 188.028,
+     "end": 189.055
+    },
+    {
+     "id": "s4_12",
+     "text": "For customer one, the statistics say about three in ten orders.",
+     "caption": "For customer one, the statistics say about three in ten orders.",
+     "paragraph": 5,
+     "start": 190.355,
+     "end": 194.096
+    },
+    {
+     "id": "s4_13",
+     "text": "The planner estimates about six hundred thousand rows, and picks the same kind of bitmap scan.",
+     "caption": "The planner estimates about six hundred thousand rows, and picks the same kind of bitmap scan.",
+     "paragraph": 5,
+     "start": 194.396,
+     "end": 199.793
+    },
+    {
+     "id": "s4_14",
+     "text": "But this time the pages it reads are all of them.",
+     "caption": "But this time the pages it reads are all of them.",
+     "paragraph": 5,
+     "start": 200.093,
+     "end": 202.702
+    },
+    {
+     "id": "s4_15",
+     "text": "A hundred and thirty-five milliseconds.",
+     "caption": "A hundred and thirty-five milliseconds.",
+     "paragraph": 5,
+     "start": 203.002,
+     "end": 205.232
+    },
+    {
+     "id": "s4_16",
+     "text": "Force a full scan instead, and it's no faster: it reads the same pages, and still has six hundred thousand rows to add up.",
+     "caption": "Force a full scan instead, and it's no faster: it reads the same pages, and still has six hundred thousand rows to add up.",
+     "paragraph": 5,
+     "start": 205.532,
+     "end": 213.335
+    },
+    {
+     "id": "s4_17",
+     "text": "When the rows you want are on every page, the index doesn't help, and no plan is fast.",
+     "caption": "When the rows you want are on every page, the index doesn't help, and no plan is fast.",
+     "paragraph": 6,
+     "start": 214.635,
+     "end": 219.773
+    }
+   ],
+   "end": 221.423
+  },
+  {
+   "id": "s5",
+   "title": "Joins",
+   "start": 221.423,
+   "lines": [
+    {
+     "id": "s5_01",
+     "text": "Everything so far read one table.",
+     "caption": "Everything so far read one table.",
+     "paragraph": 0,
+     "start": 221.773,
+     "end": 223.683
+    },
+    {
+     "id": "s5_02",
+     "text": "Now ask for the orders of every customer in Tromso.",
+     "caption": "Now ask for the orders of every customer in Troms\u00f8.",
+     "paragraph": 0,
+     "start": 223.983,
+     "end": 226.974
+    },
+    {
+     "id": "s5_03",
+     "text": "Two tables have to meet, and the planner has to choose how to match their rows.",
+     "caption": "Two tables have to meet, and the planner has to choose how to match their rows.",
+     "paragraph": 0,
+     "start": 227.274,
+     "end": 231.481
+    },
+    {
+     "id": "s5_04",
+     "text": "A hundred customers live in Tromso, out of a hundred thousand.",
+     "caption": "A hundred customers live in Troms\u00f8, out of a hundred thousand.",
+     "paragraph": 1,
+     "start": 231.981,
+     "end": 235.686
+    },
+    {
+     "id": "s5_05",
+     "text": "The planner finds those hundred customers, then, for each one, looks up its orders in the index.",
+     "caption": "The planner finds those hundred customers, then, for each one, looks up its orders in the index.",
+     "paragraph": 2,
+     "start": 236.186,
+     "end": 241.917
+    },
+    {
+     "id": "s5_06",
+     "text": "That's a nested loop: for each row on one side, look up its matches on the other.",
+     "caption": "That's a nested loop: for each row on one side, look up its matches on the other.",
+     "paragraph": 2,
+     "start": 242.217,
+     "end": 246.797
+    },
+    {
+     "id": "s5_07",
+     "text": "About five milliseconds.",
+     "caption": "About five milliseconds.",
+     "paragraph": 2,
+     "start": 247.097,
+     "end": 248.515
+    },
+    {
+     "id": "s5_08",
+     "text": "Now ask for customers in Oslo: almost all of the hundred thousand.",
+     "caption": "Now ask for customers in Oslo: almost all of the hundred thousand.",
+     "paragraph": 3,
+     "start": 249.615,
+     "end": 253.732
+    },
+    {
+     "id": "s5_09",
+     "text": "This time the planner builds a lookup table from the Oslo customers, and streams all two million orders through it, once.",
+     "caption": "This time the planner builds a lookup table from the Oslo customers, and streams all two million orders through it, once.",
+     "paragraph": 3,
+     "start": 254.032,
+     "end": 261.076
+    },
+    {
+     "id": "s5_10",
+     "text": "That's a hash join.",
+     "caption": "That's a hash join.",
+     "paragraph": 3,
+     "start": 261.376,
+     "end": 262.461
+    },
+    {
+     "id": "s5_11",
+     "text": "About seven hundred milliseconds, for almost two million rows.",
+     "caption": "About seven hundred milliseconds, for almost two million rows.",
+     "paragraph": 3,
+     "start": 262.761,
+     "end": 266.401
+    },
+    {
+     "id": "s5_12",
+     "text": "Force a nested loop for Oslo instead, and it takes two seconds: nearly three times as long.",
+     "caption": "Force a nested loop for Oslo instead, and it takes two seconds: nearly three times as long.",
+     "paragraph": 4,
+     "start": 266.901,
+     "end": 272.618
+    },
+    {
+     "id": "s5_13",
+     "text": "Same query shape.",
+     "caption": "Same query shape.",
+     "paragraph": 5,
+     "start": 273.918,
+     "end": 274.99
+    },
+    {
+     "id": "s5_14",
+     "text": "A different plan, because a different number of rows match.",
+     "caption": "A different plan, because a different number of rows match.",
+     "paragraph": 5,
+     "start": 275.29,
+     "end": 278.396
+    }
+   ],
+   "end": 279.846
+  },
+  {
+   "id": "s6",
+   "title": "When the estimate is wrong",
+   "start": 279.846,
+   "lines": [
+    {
+     "id": "s6_01",
+     "text": "The plan is only as good as the estimate, and the statistics are a snapshot.",
+     "caption": "The plan is only as good as the estimate, and the statistics are a snapshot.",
+     "paragraph": 0,
+     "start": 280.196,
+     "end": 284.593
+    },
+    {
+     "id": "s6_02",
+     "text": "Here's a copy of the orders table.",
+     "caption": "Here's a copy of the orders table.",
+     "paragraph": 1,
+     "start": 285.093,
+     "end": 286.838
+    },
+    {
+     "id": "s6_03",
+     "text": "Its statistics were gathered while customer one still had three in ten orders.",
+     "caption": "Its statistics were gathered while customer one still had three in ten orders.",
+     "paragraph": 1,
+     "start": 287.138,
+     "end": 291.597
+    },
+    {
+     "id": "s6_04",
+     "text": "Since then, their older orders were archived, and just two hundred and ninety-four are left, all of them recent.",
+     "caption": "Since then, their older orders were archived, and just two hundred and ninety-four are left, all of them recent.",
+     "paragraph": 1,
+     "start": 291.897,
+     "end": 298.262
+    },
+    {
+     "id": "s6_05",
+     "text": "Now ask for customer one's first ten orders, by order number.",
+     "caption": "Now ask for customer one's first ten orders, by order number.",
+     "paragraph": 2,
+     "start": 298.762,
+     "end": 302.262
+    },
+    {
+     "id": "s6_06",
+     "text": "The planner still believes customer one is everywhere: about four hundred and twenty thousand rows.",
+     "caption": "The planner still believes customer one is everywhere: about four hundred and twenty thousand rows.",
+     "paragraph": 3,
+     "start": 302.762,
+     "end": 308.368
+    },
+    {
+     "id": "s6_07",
+     "text": "So it walks through the orders by order number, expecting to run into ten of theirs almost at once.",
+     "caption": "So it walks through the orders by order number, expecting to run into ten of theirs almost at once.",
+     "paragraph": 3,
+     "start": 308.668,
+     "end": 314.347
+    },
+    {
+     "id": "s6_08",
+     "text": "But all of theirs are at the very end.",
+     "caption": "But all of theirs are at the very end.",
+     "paragraph": 3,
+     "start": 314.647,
+     "end": 316.429
+    },
+    {
+     "id": "s6_09",
+     "text": "It passes about one point four million other rows first.",
+     "caption": "It passes about one point four million other rows first.",
+     "paragraph": 3,
+     "start": 316.729,
+     "end": 319.762
+    },
+    {
+     "id": "s6_10",
+     "text": "A hundred and thirty-seven milliseconds.",
+     "caption": "A hundred and thirty-seven milliseconds.",
+     "paragraph": 3,
+     "start": 320.062,
+     "end": 322.395
+    },
+    {
+     "id": "s6_11",
+     "text": "Run analyze, which refreshes the statistics, and the planner now expects about three hundred and thirty rows.",
+     "caption": "Run ANALYZE, which refreshes the statistics, and the planner now expects about three hundred and thirty rows.",
+     "paragraph": 4,
+     "start": 323.695,
+     "end": 330.457
+    },
+    {
+     "id": "s6_12",
+     "text": "It looks them up in the index, sorts them, and keeps the first ten.",
+     "caption": "It looks them up in the index, sorts them, and keeps the first ten.",
+     "paragraph": 4,
+     "start": 330.757,
+     "end": 334.326
+    },
+    {
+     "id": "s6_13",
+     "text": "Sixty microseconds: more than two thousand times faster, for the same query.",
+     "caption": "Sixty microseconds: more than two thousand times faster, for the same query.",
+     "paragraph": 4,
+     "start": 334.626,
+     "end": 339.306
+    },
+    {
+     "id": "s6_14",
+     "text": "The usual fix for a slow query is to add an index.",
+     "caption": "The usual fix for a slow query is to add an index.",
+     "paragraph": 5,
+     "start": 340.606,
+     "end": 343.824
+    },
+    {
+     "id": "s6_15",
+     "text": "But nobody added one here: the one on customer number was there all along.",
+     "caption": "But nobody added one here: the one on customer number was there all along.",
+     "paragraph": 5,
+     "start": 344.124,
+     "end": 348.487
+    },
+    {
+     "id": "s6_16",
+     "text": "The planner just didn't expect it to help.",
+     "caption": "The planner just didn't expect it to help.",
+     "paragraph": 5,
+     "start": 348.787,
+     "end": 350.829
+    },
+    {
+     "id": "s6_17",
+     "text": "That's how to read a slow plan.",
+     "caption": "That's how to read a slow plan.",
+     "paragraph": 6,
+     "start": 351.929,
+     "end": 353.469
+    },
+    {
+     "id": "s6_18",
+     "text": "explain analyze shows, for each step, the rows the planner expected and the rows it actually got.",
+     "caption": "EXPLAIN ANALYZE shows, for each step, the rows the planner expected and the rows it actually got.",
+     "paragraph": 6,
+     "start": 353.769,
+     "end": 359.743
+    },
+    {
+     "id": "s6_19",
+     "text": "Where the two are far apart, the plan was chosen for data that isn't there.",
+     "caption": "Where the two are far apart, the plan was chosen for data that isn't there.",
+     "paragraph": 6,
+     "start": 360.043,
+     "end": 364.242
+    }
+   ],
+   "end": 365.892
+  },
+  {
+   "id": "s7",
+   "title": "The answer",
+   "start": 365.892,
+   "lines": [
+    {
+     "id": "s7_01",
+     "text": "So who decides how a query runs?",
+     "caption": "So who decides how a query runs?",
+     "paragraph": 0,
+     "start": 366.242,
+     "end": 368.0
+    },
+    {
+     "id": "s7_02",
+     "text": "The query planner, because sequel only says what you want.",
+     "caption": "The query planner, because SQL only says what you want.",
+     "paragraph": 0,
+     "start": 368.3,
+     "end": 371.428
+    },
+    {
+     "id": "s7_03",
+     "text": "It weighs the ways it could run the query by how many rows and pages each step will touch, using statistics about your data.",
+     "caption": "It weighs the ways it could run the query by how many rows and pages each step will touch, using statistics about your data.",
+     "paragraph": 1,
+     "start": 371.928,
+     "end": 379.096
+    },
+    {
+     "id": "s7_04",
+     "text": "A rare customer gets the index, and ten pages.",
+     "caption": "A rare customer gets the index, and ten pages.",
+     "paragraph": 1,
+     "start": 379.396,
+     "end": 382.253
+    },
+    {
+     "id": "s7_05",
+     "text": "For a common one, every page has to be read, whatever the plan.",
+     "caption": "For a common one, every page has to be read, whatever the plan.",
+     "paragraph": 1,
+     "start": 382.553,
+     "end": 386.258
+    },
+    {
+     "id": "s7_06",
+     "text": "A few matches, with an index to look them up, get a nested loop; many get a hash join.",
+     "caption": "A few matches, with an index to look them up, get a nested loop; many get a hash join.",
+     "paragraph": 1,
+     "start": 386.558,
+     "end": 391.792
+    },
+    {
+     "id": "s7_07",
+     "text": "That's why the same query can be fast or slow: it depends on the data it touches, and on what the planner believes about that data.",
+     "caption": "That's why the same query can be fast or slow: it depends on the data it touches, and on what the planner believes about that data.",
+     "paragraph": 2,
+     "start": 392.292,
+     "end": 399.821
+    },
+    {
+     "id": "s7_08",
+     "text": "When a query is slow, don't guess, and don't just add an index.",
+     "caption": "When a query is slow, don't guess, and don't just add an index.",
+     "paragraph": 3,
+     "start": 400.321,
+     "end": 403.75
+    },
+    {
+     "id": "s7_09",
+     "text": "Run explain analyze, and compare the rows the planner expected with the rows it got.",
+     "caption": "Run EXPLAIN ANALYZE, and compare the rows the planner expected with the rows it got.",
+     "paragraph": 3,
+     "start": 404.05,
+     "end": 409.106
+    }
+   ],
+   "end": 417.706
+  }
+ ],
+ "phonemes": {
+  "s1_01": "h\u02c8\u026a\u0279z \u0250 t\u02c8Ab\u1d4al \u028cv t\u02c8u m\u02c8\u026alj\u1d4an \u02c8\u0254\u0279d\u0259\u0279z, \u00e6nd w\u02c8\u028cn kw\u02c8\u026a\u0279i: k\u02c8Wnt \u0250 k\u02c8\u028cst\u0259m\u0259\u0279z \u02c8\u0254\u0279d\u0259\u0279z, \u00e6nd \u02c8\u00e6d \u02cc\u028cp \u00f0i \u0259m\u02c8Wnts.",
+  "s1_02": "f\u02cc\u0254\u0279 k\u02c8\u028cst\u0259m\u0259\u0279 f\u02c8\u0254\u0279Tit\u02ccu f\u02c8\u0254\u0279Tit\u02ccu, \u026at t\u02c8Aks f\u02cc\u026aft\u02c8in m\u02c8Ik\u0279Os\u02cc\u025bk\u0259ndz t\u028a \u02c8\u025bks\u0259kj\u02ccut.",
+  "s1_03": "f\u02cc\u0254\u0279 k\u02c8\u028cst\u0259m\u0259\u0279 w\u02c8\u028cn, \u026at t\u02c8Aks \u0250 h\u02c8\u028cnd\u0279\u0259d \u00e6nd \u03b8\u02c8\u025c\u0279Tif\u02ccIv m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz.",
+  "s1_04": "\u0259b\u02c8Wt n\u02c8In \u03b8\u02c8Wz\u1d4and t\u02c8Imz l\u02c8\u0254\u014b\u0261\u0259\u0279.",
+  "s1_05": "s\u02c8Am kw\u02c8\u026a\u0279i, s\u02c8Am t\u02c8Ab\u1d4al, s\u02c8Am m\u0259\u0283\u02c8in.",
+  "s1_06": "\u02cc\u00e6nd n\u02c8\u028c\u03b8\u026a\u014b \u026an \u00f0\u0259 kw\u02c8\u026a\u0279i s\u02c8\u025bz h\u02ccW t\u0259 \u0279\u02c8\u028cn \u026at.",
+  "s1_07": "s\u02ccO h\u02ccu d\u0259s\u02c8Idz?",
+  "s1_08": "\u02cc\u00e6nd w\u02ccI \u026az \u00f0\u0259 s\u02c8Am kw\u02c8\u026a\u0279i s\u02c8\u028cmt\u02ccImz f\u02c8\u00e6st, \u00e6nd s\u02c8\u028cmt\u02ccImz sl\u02c8O?",
+  "s2_01": "\u026an \u02c8\u0254\u0279d\u1d4an\u02cc\u025b\u0279i k\u02c8Od, jud \u0279\u02c8It \u00f0\u0259 s\u02c8\u025c\u0279\u02a7 j\u0259\u0279s\u02c8\u025blf: l\u02c8up \u02c8Ov\u0259\u0279 \u02c8\u025bv\u0259\u0279i \u02c8\u0254\u0279d\u0259\u0279, \u00e6nd k\u02c8ip \u00f0\u0259 w\u02c8\u028cnz f\u0254\u0279 \u00f0\u026as k\u02c8\u028cst\u0259m\u0259\u0279.",
+  "s2_02": "\u00f0\u0259 k\u02c8Od s\u02c8\u025bz \u026a\u0261z\u02c8\u00e6ktli h\u02ccW.",
+  "s2_03": "s\u02c8ikw\u0259l \u026az d\u0259kl\u02c8\u025b\u0279\u0259T\u026av.",
+  "s2_04": "\u00f0\u0259 kw\u02c8\u026a\u0279i s\u02c8\u025bz w\u02cc\u028ct \u0279\u02c8Oz ju w\u02c8\u0251nt, \u00e6nd n\u02c8\u028c\u03b8\u026a\u014b \u0259b\u02c8Wt h\u02ccW t\u0259 f\u02c8Ind \u00f0\u02cc\u025bm.",
+  "s2_05": "\u00f0\u02c8\u00e6t l\u02c8ivz \u00f0\u0259 d\u02c8\u00e6T\u0259b\u02ccAs f\u0279\u02c8i t\u0259 \u02a7\u02c8uz h\u02ccW.",
+  "s2_06": "\u02cc\u00e6nd \u026at h\u00e6z t\u0259 \u02a7\u02c8uz, \u02c8\u025bv\u0259\u0279i t\u02c8Im \u00f0\u0259 kw\u02c8\u026a\u0279i \u0279\u02c8\u028cnz.",
+  "s3_01": "\u00f0\u0259 t\u02c8Ab\u1d4al \u026az st\u02c8\u0254\u0279d \u026an p\u02c8A\u02a4\u1d7bz, bl\u02c8\u0251ks \u028cv \u0259b\u02c8Wt \u0250 h\u02c8\u028cnd\u0279\u0259d \u00e6nd s\u02c8\u026aksti \u0279\u02c8Oz \u02c8i\u02a7.",
+  "s3_02": "t\u02c8u m\u02c8\u026alj\u1d4an \u02c8\u0254\u0279d\u0259\u0279z f\u02c8\u026al \u0259b\u02c8Wt tw\u02c8\u025blv \u03b8\u02c8Wz\u1d4and s\u02c8\u025bv\u0259n h\u02c8\u028cnd\u0279\u0259d \u028cv \u00f0\u02cc\u025bm.",
+  "s3_03": "\u00f0\u02cc\u025b\u0279 \u0251\u0279 t\u02c8u b\u02c8As\u026ak w\u02c8Az t\u0259 f\u02c8Ind w\u02c8\u028cn k\u02c8\u028cst\u0259m\u0259\u0279z \u02c8\u0254\u0279d\u0259\u0279z.",
+  "s3_04": "w\u02c8\u028cn \u026az \u0250 f\u02c8\u028al sk\u02c8\u00e6n: \u0279\u02c8id \u02c8\u025bv\u0259\u0279i p\u02c8A\u02a4, \u00e6nd k\u02c8ip \u00f0\u0259 \u0279\u02c8Oz \u00f0\u00e6t m\u02c8\u00e6\u02a7.",
+  "s3_05": "\u02cc\u026at \u0279\u02c8idz \u00f0\u0259 s\u02c8Am p\u02c8A\u02a4\u1d7bz hu\u02c8\u025bv\u0259\u0279 \u00f0\u0259 k\u02c8\u028cst\u0259m\u0259\u0279 \u026az.",
+  "s3_06": "\u00f0i \u02c8\u028c\u00f0\u0259\u0279 \u026az \u0250n \u02c8\u026and\u02cc\u025bks: \u0250 s\u02c8\u0254\u0279T\u1d7bd l\u02c8\u026ast \u028cv k\u02c8\u028cst\u0259m\u0259\u0279 n\u02c8\u028cmb\u0259\u0279z, \u02c8i\u02a7 p\u02c8Ynt\u026a\u014b t\u0259 w\u02cc\u025b\u0279 \u00f0\u02c8\u00e6t k\u02c8\u028cst\u0259m\u0259\u0279z \u0279\u02c8Oz \u0251\u0279.",
+  "s3_07": "f\u02c8Ind \u00f0\u0259 k\u02c8\u028cst\u0259m\u0259\u0279 \u026an \u00f0\u0259 l\u02c8\u026ast, k\u0259l\u02c8\u025bkt w\u02cc\u025b\u0279 \u00f0\u025b\u0279 \u0279\u02c8Oz \u0251\u0279, \u00e6nd \u0279\u02c8id \u02c8Onli \u00f0\u0259 p\u02c8A\u02a4\u1d7bz \u00f0\u00e6t h\u02c8Old \u00f0\u02cc\u025bm.",
+  "s3_08": "k\u02c8\u028cst\u0259m\u0259\u0279 f\u02c8\u0254\u0279Tit\u02ccu f\u02c8\u0254\u0279Tit\u02ccu h\u00e6z t\u02c8\u025bn \u02c8\u0254\u0279d\u0259\u0279z, \u02cc\u0254n t\u02c8\u025bn p\u02c8A\u02a4\u1d7bz.",
+  "s3_09": "\u03b8\u0279\u02ccu \u00f0i \u02c8\u026and\u02cc\u025bks, \u00f0\u02c8\u00e6ts t\u02c8\u025bn p\u02c8A\u02a4\u1d7bz \u026anst\u02c8\u025bd \u028cv tw\u02c8\u025blv \u03b8\u02c8Wz\u1d4and s\u02c8\u025bv\u0259n h\u02c8\u028cnd\u0279\u0259d.",
+  "s3_10": "k\u02c8\u028cst\u0259m\u0259\u0279 w\u02c8\u028cn h\u00e6z \u0259b\u02c8Wt s\u02c8\u026aks h\u02c8\u028cnd\u0279\u0259d \u03b8\u02c8Wz\u1d4and \u02c8\u0254\u0279d\u0259\u0279z.",
+  "s3_11": "\u02c8\u0254\u0279d\u0259\u0279z \u0251\u0279 st\u02c8\u0254\u0279d \u026an \u00f0i \u02c8\u0254\u0279d\u0259\u0279 \u00f0A \u0259\u0279\u02c8Ivd, n\u02cc\u0251t bI k\u02c8\u028cst\u0259m\u0259\u0279, s\u02ccO \u02cc\u0254n \u02c8\u025bv\u0259\u0279i p\u02c8A\u02a4, \u0259b\u02c8Wt \u03b8\u0279\u02c8i \u0279\u02c8Oz \u026an t\u02c8\u025bn \u0251\u0279 k\u02c8\u028cst\u0259m\u0259\u0279 w\u02c8\u028cnz.",
+  "s3_12": "n\u02c8W \u00f0i \u02c8\u026and\u02cc\u025bks k\u02c8\u00e6nt sk\u02c8\u026ap \u02c8\u025bni\u03b8\u02cc\u026a\u014b.",
+  "s3_13": "\u02c8\u025bv\u0259\u0279i p\u02c8A\u02a4 h\u00e6z t\u0259 bi \u0279\u02c8\u025bd \u02c8\u025bniw\u02ccA.",
+  "s3_14": "s\u02ccO w\u02c8\u025b\u00f0\u0259\u0279 \u00f0i \u02c8\u026and\u02cc\u025bks s\u02c8Avz w\u02c8\u025c\u0279k d\u0259p\u02c8\u025bndz \u02cc\u0254n h\u02ccW m\u02c8\u025bni \u0279\u02c8Oz m\u02c8\u00e6\u02a7.",
+  "s3_15": "\u02cc\u00e6nd \u00f0\u02c8\u00e6t d\u0259p\u02c8\u025bndz \u02cc\u0254n \u00f0\u0259 k\u02c8\u028cst\u0259m\u0259\u0279.",
+  "s4_01": "\u00f0\u0259 \u02a7\u02c8Ys b\u0259tw\u02c8in \u00f0\u02cc\u025bm \u026az m\u02ccAd bI \u00f0\u0259 kw\u02c8\u026a\u0279i pl\u02c8\u00e6n\u0259\u0279.",
+  "s4_02": "\u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 k\u02c8ips st\u0259t\u02c8\u026ast\u026aks \u0259b\u02c8Wt \u02c8i\u02a7 t\u02c8Ab\u1d4al: h\u02ccW m\u02c8\u025bni \u0279\u02c8Oz \u026at h\u02c8\u00e6z, \u00e6nd f\u0254\u0279 \u02c8i\u02a7 k\u02c8\u0251l\u0259m, w\u02cc\u026a\u02a7 v\u02c8\u00e6ljuz \u0251\u0279 m\u02c8Ost k\u02c8\u0251m\u0259n, \u00e6nd h\u02ccW k\u02c8\u0251m\u0259n.",
+  "s4_03": "f\u02cc\u0254\u0279 \u02c8i\u02a7 w\u02c8A \u026at k\u028ad \u0279\u02c8\u028cn \u00f0\u0259 kw\u02c8\u026a\u0279i, \u026at \u02c8\u025bst\u0259m\u02ccAts \u00f0\u0259 \u0279\u02c8Oz \u00e6nd p\u02c8A\u02a4\u1d7bz \u026at w\u028ad t\u02c8\u028c\u02a7, t\u02c8\u025c\u0279nz \u00f0\u00e6t \u02c8\u026antu \u0250 k\u02c8\u0254st, \u0250 n\u02c8\u028cmb\u0259\u0279 f\u0254\u0279 k\u0259mp\u02c8\u025b\u0279\u026a\u014b pl\u02c8\u00e6nz \u0279\u02c8\u00e6\u00f0\u0259\u0279 \u00f0\u0259n \u0250 t\u02c8Im, \u00e6nd p\u02c8\u026aks \u00f0\u0259 \u02a7\u02c8ip\u026ast.",
+  "s4_04": "f\u02cc\u0254\u0279 k\u02c8\u028cst\u0259m\u0259\u0279 f\u02c8\u0254\u0279Tit\u02ccu f\u02c8\u0254\u0279Tit\u02ccu, \u00f0\u0259 st\u0259t\u02c8\u026ast\u026aks s\u02c8A \u0279\u02c8\u025b\u0279.",
+  "s4_05": "\u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 \u02c8\u025bst\u0259m\u02ccAts \u03b8\u02c8\u025c\u0279Ti\u03b8\u0279\u02cci \u0279\u02c8Oz; \u00f0\u0259 \u0279\u02c8i\u1d4al n\u02c8\u028cmb\u0259\u0279 \u026az t\u02c8\u025bn, kl\u02c8Os \u026an\u02c8\u028cf t\u0259 \u02a7\u02c8uz w\u02c8\u025bl.",
+  "s4_06": "\u02cc\u026ats k\u02c8\u0254st f\u0254\u0279 j\u02c8uz\u026a\u014b \u00f0i \u02c8\u026and\u02cc\u025bks k\u02c8\u028cmz t\u028a \u0259b\u02c8Wt \u0250 h\u02c8\u028cnd\u0279\u0259d \u00e6nd \u03b8\u02c8\u025c\u0279Ti; f\u0254\u0279 \u0250 f\u02c8\u028al sk\u02c8\u00e6n, \u0259b\u02c8Wt \u03b8\u02c8\u025c\u0279TiAt \u03b8\u02c8Wz\u1d4and.",
+  "s4_07": "s\u02ccO \u026at p\u02c8\u026aks \u00f0i \u02c8\u026and\u02cc\u025bks, \u0279\u02c8\u025bd \u00f0\u0259 w\u02c8A wi \u02a4\u02c8\u028cst s\u02c8\u0254: k\u0259l\u02c8\u025bkt \u00f0\u0259 \u0279\u02c8Oz lOk\u02c8A\u0283\u0259nz, s\u02c8\u0254\u0279t \u00f0\u02cc\u025bm bI p\u02c8A\u02a4, \u00f0\u02c8\u025bn \u0279\u02c8id \u02c8i\u02a7 \u028cv \u00f0Oz p\u02c8A\u02a4\u1d7bz w\u02c8\u028cns.",
+  "s4_08": "p\u02c8Ost\u0261\u0259\u0279z kj\u02c8u \u02c8\u025bl k\u02c8\u0254lz \u00f0\u00e6t \u0250 b\u02c8\u026atm\u02cc\u00e6p sk\u02c8\u00e6n, \u0283\u02c8On \u00e6z t\u02c8u st\u02c8\u025bps: w\u02c8\u028cn \u0279\u02c8idz \u00f0i \u02c8\u026and\u02cc\u025bks, \u00f0i \u02c8\u028c\u00f0\u0259\u0279 \u0279\u02c8idz \u00f0\u0259 p\u02c8A\u02a4\u1d7bz.",
+  "s4_09": "t\u02c8\u025bn p\u02c8A\u02a4\u1d7bz, f\u02cc\u026aft\u02c8in m\u02c8Ik\u0279Os\u02cc\u025bk\u0259ndz.",
+  "s4_10": "f\u02c8\u0254\u0279s \u0250 f\u02c8\u028al sk\u02c8\u00e6n f\u0254\u0279 \u00f0\u0259 s\u02c8Am k\u02c8\u028cst\u0259m\u0259\u0279, \u00e6nd \u026at t\u02c8Aks s\u02c8\u025bv\u0259ntit\u02ccu m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz: n\u02c8\u026a\u0279li f\u02c8Iv \u03b8\u02c8Wz\u1d4and t\u02c8Imz sl\u02c8O\u0259\u0279.",
+  "s4_11": "\u00f0\u0259 \u02a7\u02c8Ys m\u02c8\u00e6T\u0259\u0279z.",
+  "s4_12": "f\u02cc\u0254\u0279 k\u02c8\u028cst\u0259m\u0259\u0279 w\u02c8\u028cn, \u00f0\u0259 st\u0259t\u02c8\u026ast\u026aks s\u02c8A \u0259b\u02c8Wt \u03b8\u0279\u02c8i \u026an t\u02c8\u025bn \u02c8\u0254\u0279d\u0259\u0279z.",
+  "s4_13": "\u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 \u02c8\u025bst\u0259m\u02ccAts \u0259b\u02c8Wt s\u02c8\u026aks h\u02c8\u028cnd\u0279\u0259d \u03b8\u02c8Wz\u1d4and \u0279\u02c8Oz, \u00e6nd p\u02c8\u026aks \u00f0\u0259 s\u02c8Am k\u02c8Ind \u028cv b\u02c8\u026atm\u02cc\u00e6p sk\u02c8\u00e6n.",
+  "s4_14": "b\u02cc\u028ct \u00f0\u026as t\u02c8Im \u00f0\u0259 p\u02c8A\u02a4\u1d7bz \u026at \u0279\u02c8idz \u0251\u0279 \u02c8\u0254l \u028cv \u00f0\u02cc\u025bm.",
+  "s4_15": "\u0250 h\u02c8\u028cnd\u0279\u0259d \u00e6nd \u03b8\u02c8\u025c\u0279Tif\u02ccIv m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz.",
+  "s4_16": "f\u02c8\u0254\u0279s \u0250 f\u02c8\u028al sk\u02c8\u00e6n \u026anst\u02c8\u025bd, \u00e6nd \u026ats n\u02c8O f\u02c8\u00e6st\u0259\u0279: \u026at \u0279\u02c8idz \u00f0\u0259 s\u02c8Am p\u02c8A\u02a4\u1d7bz, \u00e6nd st\u02c8\u026al h\u00e6z s\u02c8\u026aks h\u02c8\u028cnd\u0279\u0259d \u03b8\u02c8Wz\u1d4and \u0279\u02c8Oz t\u028a \u02c8\u00e6d \u02cc\u028cp.",
+  "s4_17": "w\u02cc\u025bn \u00f0\u0259 \u0279\u02c8Oz ju w\u02c8\u0251nt \u0251\u0279 \u02cc\u0254n \u02c8\u025bv\u0259\u0279i p\u02c8A\u02a4, \u00f0i \u02c8\u026and\u02cc\u025bks d\u02c8\u028cz\u1d4ant h\u02c8\u025blp, \u00e6nd n\u02c8O pl\u02c8\u00e6n \u026az f\u02c8\u00e6st.",
+  "s5_01": "\u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b s\u02ccO f\u02c8\u0251\u0279 \u0279\u02c8\u025bd w\u02c8\u028cn t\u02c8Ab\u1d4al.",
+  "s5_02": "n\u02c8W \u02c8\u00e6sk f\u0254\u0279 \u00f0i \u02c8\u0254\u0279d\u0259\u0279z \u028cv \u02c8\u025bv\u0259\u0279i k\u02c8\u028cst\u0259m\u0259\u0279 \u026an t\u0279\u02c8\u0251msO.",
+  "s5_03": "t\u02c8u t\u02c8Ab\u1d4alz h\u00e6v t\u0259 m\u02c8it, \u00e6nd \u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 h\u00e6z t\u0259 \u02a7\u02c8uz h\u02ccW t\u0259 m\u02c8\u00e6\u02a7 \u00f0\u025b\u0279 \u0279\u02c8Oz.",
+  "s5_04": "\u0250 h\u02c8\u028cnd\u0279\u0259d k\u02c8\u028cst\u0259m\u0259\u0279z l\u02c8\u026av \u026an t\u0279\u02c8\u0251msO, \u02c8Wt \u028cv \u0250 h\u02c8\u028cnd\u0279\u0259d \u03b8\u02c8Wz\u1d4and.",
+  "s5_05": "\u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 f\u02c8Indz \u00f0Oz h\u02c8\u028cnd\u0279\u0259d k\u02c8\u028cst\u0259m\u0259\u0279z, \u00f0\u02c8\u025bn, f\u0254\u0279 \u02c8i\u02a7 w\u02c8\u028cn, l\u02c8\u028aks \u02cc\u028cp \u026ats \u02c8\u0254\u0279d\u0259\u0279z \u026an \u00f0i \u02c8\u026and\u02cc\u025bks.",
+  "s5_06": "\u00f0\u02c8\u00e6ts \u0250 n\u02c8\u025bst\u1d7bd l\u02c8up: f\u0254\u0279 \u02c8i\u02a7 \u0279\u02c8O \u02cc\u0254n w\u02c8\u028cn s\u02c8Id, l\u02c8\u028ak \u02cc\u028cp \u026ats m\u02c8\u00e6\u02a7\u1d7bz \u02cc\u0254n \u00f0i \u02c8\u028c\u00f0\u0259\u0279.",
+  "s5_07": "\u0259b\u02c8Wt f\u02c8Iv m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz.",
+  "s5_08": "n\u02c8W \u02c8\u00e6sk f\u0254\u0279 k\u02c8\u028cst\u0259m\u0259\u0279z \u026an \u02c8\u0251zl\u02ccO: \u02c8\u0254lmOst \u02c8\u0254l \u028cv \u00f0\u0259 h\u02c8\u028cnd\u0279\u0259d \u03b8\u02c8Wz\u1d4and.",
+  "s5_09": "\u00f0\u02cc\u026as t\u02c8Im \u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 b\u02c8\u026aldz \u0250 l\u02c8\u028ak\u02cc\u028cp t\u02c8Ab\u1d4al f\u0279\u028cm \u00f0i \u02c8\u0251zl\u02ccO k\u02c8\u028cst\u0259m\u0259\u0279z, \u00e6nd st\u0279\u02c8imz \u02c8\u0254l t\u02c8u m\u02c8\u026alj\u1d4an \u02c8\u0254\u0279d\u0259\u0279z \u03b8\u0279u \u026at, w\u02c8\u028cns.",
+  "s5_10": "\u00f0\u02c8\u00e6ts \u0250 h\u02c8\u00e6\u0283 \u02a4\u02c8Yn.",
+  "s5_11": "\u0259b\u02c8Wt s\u02c8\u025bv\u0259n h\u02c8\u028cnd\u0279\u0259d m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz, f\u0254\u0279 \u02c8\u0254lmOst t\u02c8u m\u02c8\u026alj\u1d4an \u0279\u02c8Oz.",
+  "s5_12": "f\u02c8\u0254\u0279s \u0250 n\u02c8\u025bst\u1d7bd l\u02c8up f\u0254\u0279 \u02c8\u0251zl\u02ccO \u026anst\u02c8\u025bd, \u00e6nd \u026at t\u02c8Aks t\u02c8u s\u02c8\u025bk\u0259ndz: n\u02c8\u026a\u0279li \u03b8\u0279\u02c8i t\u02c8Imz \u00e6z l\u02c8\u0254\u014b.",
+  "s5_13": "s\u02c8Am kw\u02c8\u026a\u0279i \u0283\u02c8Ap.",
+  "s5_14": "\u0250 d\u02c8\u026af\u0259\u0279\u0259nt pl\u02c8\u00e6n, b\u0259k\u02c8\u028cz \u0250 d\u02c8\u026af\u0259\u0279\u0259nt n\u02c8\u028cmb\u0259\u0279 \u028cv \u0279\u02c8Oz m\u02c8\u00e6\u02a7.",
+  "s6_01": "\u00f0\u0259 pl\u02c8\u00e6n \u026az \u02c8Onli \u00e6z \u0261\u02c8\u028ad \u00e6z \u00f0i \u02c8\u025bst\u0259m\u0259t, \u00e6nd \u00f0\u0259 st\u0259t\u02c8\u026ast\u026aks \u0251\u0279 \u0250 sn\u02c8\u00e6p\u0283\u02cc\u0251t.",
+  "s6_02": "h\u02c8\u026a\u0279z \u0250 k\u02c8\u0251pi \u028cv \u00f0i \u02c8\u0254\u0279d\u0259\u0279z t\u02c8Ab\u1d4al.",
+  "s6_03": "\u02cc\u026ats st\u0259t\u02c8\u026ast\u026aks w\u025c\u0279 \u0261\u02c8\u00e6\u00f0\u0259\u0279d w\u02ccIl k\u02c8\u028cst\u0259m\u0259\u0279 w\u02c8\u028cn st\u02c8\u026al h\u00e6d \u03b8\u0279\u02c8i \u026an t\u02c8\u025bn \u02c8\u0254\u0279d\u0259\u0279z.",
+  "s6_04": "s\u02c8\u026ans \u00f0\u02c8\u025bn, \u00f0\u025b\u0279 \u02c8Old\u0259\u0279 \u02c8\u0254\u0279d\u0259\u0279z w\u025c\u0279 \u02c8\u0251\u0279k\u02ccIvd, \u00e6nd \u02a4\u02c8\u028cst t\u02c8u h\u02c8\u028cnd\u0279\u0259d \u00e6nd n\u02c8Indif\u02cc\u0254\u0279 \u0251\u0279 l\u02c8\u025bft, \u02c8\u0254l \u028cv \u00f0\u02cc\u025bm \u0279\u02c8is\u1d4ant.",
+  "s6_05": "n\u02c8W \u02c8\u00e6sk f\u0254\u0279 k\u02c8\u028cst\u0259m\u0259\u0279 w\u02c8\u028cnz f\u02c8\u025c\u0279st t\u02c8\u025bn \u02c8\u0254\u0279d\u0259\u0279z, bI \u02c8\u0254\u0279d\u0259\u0279 n\u02c8\u028cmb\u0259\u0279.",
+  "s6_06": "\u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 st\u02c8\u026al b\u0259l\u02c8ivz k\u02c8\u028cst\u0259m\u0259\u0279 w\u02c8\u028cn \u026az \u02c8\u025bv\u0279iw\u02cc\u025b\u0279: \u0259b\u02c8Wt f\u02c8\u0254\u0279 h\u02c8\u028cnd\u0279\u0259d \u00e6nd tw\u02c8\u025bnti \u03b8\u02c8Wz\u1d4and \u0279\u02c8Oz.",
+  "s6_07": "s\u02ccO \u026at w\u02c8\u0254ks \u03b8\u0279u \u00f0i \u02c8\u0254\u0279d\u0259\u0279z bI \u02c8\u0254\u0279d\u0259\u0279 n\u02c8\u028cmb\u0259\u0279, \u025bksp\u02c8\u025bkt\u026a\u014b t\u0259 \u0279\u02c8\u028cn \u02c8\u026antu t\u02c8\u025bn \u028cv \u00f0\u02c8\u025b\u0279z \u02c8\u0254lmOst \u00e6t w\u02c8\u028cns.",
+  "s6_08": "b\u02cc\u028ct \u02c8\u0254l \u028cv \u00f0\u02c8\u025b\u0279z \u0251\u0279 \u00e6t \u00f0\u0259 v\u02c8\u025b\u0279i \u02c8\u025bnd.",
+  "s6_09": "\u02cc\u026at p\u02c8\u00e6s\u1d7bz \u0259b\u02c8Wt w\u02c8\u028cn p\u02c8Ynt f\u02c8\u0254\u0279 m\u02c8\u026alj\u1d4an \u02c8\u028c\u00f0\u0259\u0279 \u0279\u02c8Oz f\u02c8\u025c\u0279st.",
+  "s6_10": "\u0250 h\u02c8\u028cnd\u0279\u0259d \u00e6nd \u03b8\u02cc\u025c\u0279Tis\u02c8\u025bv\u0259n m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz.",
+  "s6_11": "\u0279\u02c8\u028cn \u02c8\u00e6n\u1d4al\u02ccIz, w\u02cc\u026a\u02a7 \u0279\u0259f\u0279\u02c8\u025b\u0283\u1d7bz \u00f0\u0259 st\u0259t\u02c8\u026ast\u026aks, \u00e6nd \u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 n\u02c8W \u026aksp\u02c8\u025bkts \u0259b\u02c8Wt \u03b8\u0279\u02c8i h\u02c8\u028cnd\u0279\u0259d \u00e6nd \u03b8\u02c8\u025c\u0279Ti \u0279\u02c8Oz.",
+  "s6_12": "\u02cc\u026at l\u02c8\u028aks \u00f0\u02cc\u025bm \u02cc\u028cp \u026an \u00f0i \u02c8\u026and\u02cc\u025bks, s\u02c8\u0254\u0279ts \u00f0\u02cc\u025bm, \u00e6nd k\u02c8ips \u00f0\u0259 f\u02c8\u025c\u0279st t\u02c8\u025bn.",
+  "s6_13": "s\u02c8\u026aksti m\u02c8Ik\u0279Os\u02cc\u025bk\u0259ndz: m\u02c8\u0254\u0279 \u00f0\u0259n t\u02c8u \u03b8\u02c8Wz\u1d4and t\u02c8Imz f\u02c8\u00e6st\u0259\u0279, f\u0254\u0279 \u00f0\u0259 s\u02c8Am kw\u02c8\u026a\u0279i.",
+  "s6_14": "\u00f0\u0259 j\u02c8u\u0292\u0259w\u0259l f\u02c8\u026aks f\u0254\u0279 \u0250 sl\u02c8O kw\u02c8\u026a\u0279i \u026az t\u028a \u02c8\u00e6d \u0250n \u02c8\u026and\u02cc\u025bks.",
+  "s6_15": "b\u02cc\u028ct n\u02c8Ob\u02cc\u0251di \u02c8\u00e6d\u1d7bd w\u02c8\u028cn h\u02c8\u026a\u0279: \u00f0\u0259 w\u02c8\u028cn \u02cc\u0254n k\u02c8\u028cst\u0259m\u0259\u0279 n\u02c8\u028cmb\u0259\u0279 w\u028cz \u00f0\u025b\u0279 \u02c8\u0254l \u0259l\u02c8\u0254\u014b.",
+  "s6_16": "\u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 \u02a4\u02c8\u028cst d\u02c8\u026ad\u1d4ant \u026aksp\u02c8\u025bkt \u026at t\u0259 h\u02c8\u025blp.",
+  "s6_17": "\u00f0\u02c8\u00e6ts h\u02ccW t\u0259 \u0279\u02c8id \u0250 sl\u02c8O pl\u02c8\u00e6n.",
+  "s6_18": "\u026akspl\u02c8An \u02c8\u00e6n\u1d4al\u02ccIz \u0283\u02c8Oz, f\u0254\u0279 \u02c8i\u02a7 st\u02c8\u025bp, \u00f0\u0259 \u0279\u02c8Oz \u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 \u026aksp\u02c8\u025bkt\u1d7bd \u00e6nd \u00f0\u0259 \u0279\u02c8Oz \u026at \u02c8\u00e6k\u02a7\u0259w\u0259li \u0261\u02c8\u0251t.",
+  "s6_19": "w\u02cc\u025b\u0279 \u00f0\u0259 t\u02c8u \u0251\u0279 f\u02c8\u0251\u0279 \u0259p\u02c8\u0251\u0279t, \u00f0\u0259 pl\u02c8\u00e6n w\u028cz \u02a7\u02c8Oz\u1d4an f\u0254\u0279 d\u02c8AT\u0259 \u00f0\u00e6t \u02c8\u026az\u1d4ant \u00f0\u02c8\u025b\u0279.",
+  "s7_01": "s\u02ccO h\u02ccu d\u0259s\u02c8Idz h\u02ccW \u0250 kw\u02c8\u026a\u0279i \u0279\u02c8\u028cnz?",
+  "s7_02": "\u00f0\u0259 kw\u02c8\u026a\u0279i pl\u02c8\u00e6n\u0259\u0279, b\u0259k\u02c8\u028cz s\u02c8ikw\u0259l \u02c8Onli s\u02c8\u025bz w\u02cc\u028ct ju w\u02c8\u0251nt.",
+  "s7_03": "\u02cc\u026at w\u02c8Az \u00f0\u0259 w\u02c8Az \u026at k\u028ad \u0279\u02c8\u028cn \u00f0\u0259 kw\u02c8\u026a\u0279i bI h\u02ccW m\u02c8\u025bni \u0279\u02c8Oz \u00e6nd p\u02c8A\u02a4\u1d7bz \u02c8i\u02a7 st\u02c8\u025bp w\u026al t\u02c8\u028c\u02a7, j\u02c8uz\u026a\u014b st\u0259t\u02c8\u026ast\u026aks \u0259b\u02c8Wt j\u028a\u0279 d\u02c8AT\u0259.",
+  "s7_04": "\u0250 \u0279\u02c8\u025b\u0279 k\u02c8\u028cst\u0259m\u0259\u0279 \u0261\u025bts \u00f0i \u02c8\u026and\u02cc\u025bks, \u00e6nd t\u02c8\u025bn p\u02c8A\u02a4\u1d7bz.",
+  "s7_05": "f\u02cc\u0254\u0279 \u0250 k\u02c8\u0251m\u0259n w\u02c8\u028cn, \u02c8\u025bv\u0259\u0279i p\u02c8A\u02a4 h\u00e6z t\u0259 bi \u0279\u02c8\u025bd, w\u0259T\u02c8\u025bv\u0259\u0279 \u00f0\u0259 pl\u02c8\u00e6n.",
+  "s7_06": "\u0250 fj\u02c8u m\u02c8\u00e6\u02a7\u1d7bz, w\u026a\u00f0 \u0250n \u02c8\u026and\u02cc\u025bks t\u0259 l\u02c8\u028ak \u00f0\u02cc\u025bm \u02cc\u028cp, \u0261\u025bt \u0250 n\u02c8\u025bst\u1d7bd l\u02c8up; m\u02c8\u025bni \u0261\u025bt \u0250 h\u02c8\u00e6\u0283 \u02a4\u02c8Yn.",
+  "s7_07": "\u00f0\u02c8\u00e6ts w\u02ccI \u00f0\u0259 s\u02c8Am kw\u02c8\u026a\u0279i k\u00e6n bi f\u02c8\u00e6st \u0254\u0279 sl\u02c8O: \u026at d\u0259p\u02c8\u025bndz \u02cc\u0254n \u00f0\u0259 d\u02c8AT\u0259 \u026at t\u02c8\u028c\u02a7\u1d7bz, \u00e6nd \u02cc\u0254n w\u02cc\u028ct \u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 b\u0259l\u02c8ivz \u0259b\u02c8Wt \u00f0\u02c8\u00e6t d\u02c8AT\u0259.",
+  "s7_08": "w\u02cc\u025bn \u0250 kw\u02c8\u026a\u0279i \u026az sl\u02c8O, d\u02c8Ont \u0261\u02c8\u025bs, \u00e6nd d\u02c8Ont \u02a4\u02c8\u028cst \u02c8\u00e6d \u0250n \u02c8\u026and\u02cc\u025bks.",
+  "s7_09": "\u0279\u02c8\u028cn \u026akspl\u02c8An \u02c8\u00e6n\u1d4al\u02ccIz, \u00e6nd k\u0259mp\u02c8\u025b\u0279 \u00f0\u0259 \u0279\u02c8Oz \u00f0\u0259 pl\u02c8\u00e6n\u0259\u0279 \u026aksp\u02c8\u025bkt\u1d7bd w\u026a\u00f0 \u00f0\u0259 \u0279\u02c8Oz \u026at \u0261\u02c8\u0251t."
+ },
+ "peak": 0.7041729092597961
+}
