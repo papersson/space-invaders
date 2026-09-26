@@ -35,21 +35,24 @@ class S5(CueScene):
         eg = mono("ExceptionGroup: [ConnectionError]", 16, INK).move_to([tl.X(0.85), tl.ys["fetch_orders"] - 0.05, 0])
         self.play(FadeIn(eg), run_time=0.4)
         self.at("06")
+        st = mono("caught with except*, not a plain except", 15, INK).next_to(eg, DOWN, 0.12)
+        self.play(FadeIn(st), Indicate(code[1][5], color=ICE, scale_factor=1.05), run_time=0.8)
+        self.at("07")
         n0 = mono("tasks still running: 0", 18, ICE).move_to([tl.X(0.85), tl.ys["fetch_user"] + 0.05, 0])
         self.play(FadeIn(n0), run_time=0.4)
 
-        self.at("07")
+        self.at("08")
         later = mono("nothing left to fail later", 15, ICE).next_to(n0, DOWN, 0.12)
         self.play(FadeIn(later), run_time=0.4)
 
         # 08: a thousand requests (the real run)
-        self.at("08")
+        self.at("09")
         many = TL["many_taskgroup"]
         cnt = mono(f"{many['n']:,} requests · tasks still running: {many['alive']}", 18, ICE).move_to([0, -3.35, 0])
         self.play(FadeIn(cnt), run_time=0.4)
 
         # 09: the client gives up at 0.5 s (the real run): both cancelled
-        self.at("09")
+        self.at("10")
         self.play(*[FadeOut(m) for m in self.mobjects if m not in (c, code)], run_time=0.4)
         run2 = "cancel_taskgroup"
         tl2 = Timeline(run2, y=-1.2)
@@ -63,7 +66,7 @@ class S5(CueScene):
         self.play(FadeIn(both), run_time=0.3)
 
         # 10-13: the spec from chapter 3, ticked off, with the measured evidence
-        self.at("10")
+        self.at("11")
         self.play(*[FadeOut(m) for m in self.mobjects if m is not c], run_time=0.4)
         head = mono("a task group guarantees", 22, INK).move_to([0, 1.9, 0])
         rows = [spec_row(i, x=-5.6, y=0.9 - 0.95 * i) for i in range(3)]
@@ -71,7 +74,7 @@ class S5(CueScene):
         ev = [f"handler returned at {t_ret:.2f} s · tasks left: 0",
               f"fetch_user cancelled at {t_cut:.2f} s · ExceptionGroup: [ConnectionError]",
               f"both cancelled at {when('cancel_taskgroup', 'caller', 'gave up'):.2f} s"]
-        for i, cue in enumerate(("11", "12", "13")):
+        for i, cue in enumerate(("12", "12", "13")):
             self.at(cue)
             e = mono(ev[i], 14, ICE).next_to(rows[i][1], DOWN, 0.1).align_to(rows[i][1], LEFT)
             self.play(Create(tick(rows[i][0])), rows[i][0].animate.set_stroke(ICE), FadeIn(e), run_time=0.5)

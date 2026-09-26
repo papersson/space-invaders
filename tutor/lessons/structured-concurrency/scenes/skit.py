@@ -125,7 +125,7 @@ def flow(kind, c=(0, 0), w=2.2, h=2.4, color=ICE):
     return g
 
 
-SPEC = ["wait for every task", "one fails → cancel the rest, pass the error on", "caller gives up → cancel them all"]
+SPEC = ["wait for all", "one fails → cancel the rest, error out", "caller gone → cancel all"]
 
 
 def spec_row(i, x=-4.6, y=0.0, size=18):

@@ -19,7 +19,8 @@ class S7(CueScene):
                           (0, "go func() { _, err := fetchOrders(context.Background()); errs <- err }()", INK),
                           (0, "select { case <-users: ...  case err := <-errs: return err }", INK)], 15,
                          title="Go, plain goroutines").move_to([0, 2.2, 0])
-        self.play(FadeIn(bare), run_time=0.6)
+        gloss = mono("goroutine: Go's lightweight thread", 13, MUTED).next_to(bare, DOWN, 0.12).align_to(bare, RIGHT)
+        self.play(FadeIn(bare), FadeIn(gloss), run_time=0.6)
         self.at("03")
         gr = Circle(radius=0.35, stroke_color=AMBER, stroke_width=2.5, fill_color=TRAY_FILL, fill_opacity=1).move_to([-3.0, 0.2, 0])
         grl = mono("goroutine", 13, AMBER).next_to(gr, DOWN, 0.1)
@@ -49,7 +50,7 @@ class S7(CueScene):
         ctxl = mono("context: Go's standard way of passing cancellation (and deadlines) to goroutines", 13, MUTED).next_to(grp, UP, 0.35)
         self.play(FadeIn(ctxl), run_time=0.4)
         self.at("07")
-        self.play(*[FadeOut(m) for m in (bare, gr, grl, ch, chl, res, gone, gl, stuck, nogrp, ctxl)], grp.animate.move_to([0, 2.1, 0]),
+        self.play(*[FadeOut(m) for m in (bare, gloss, gr, grl, ch, chl, res, gone, gl, stuck, nogrp, ctxl)], grp.animate.move_to([0, 2.1, 0]),
                   cnt.animate.move_to([0, -0.6, 0]), run_time=0.6)
         cnt2 = mono(f"{int(n):,} requests · goroutines left over: {int(grp_now)} · 1.2 s later: {int(grp_later)}", 17, ICE).move_to([0, -1.2, 0])
         self.play(FadeIn(cnt2), run_time=0.4)
@@ -57,11 +58,15 @@ class S7(CueScene):
         why = mono("first error cancels ctx · each goroutine checks ctx and returns", 15, MUTED).move_to([0, 0.3, 0])
         self.play(FadeIn(why), run_time=0.4)
 
-        # 08-09: the same block elsewhere
         self.at("09")
+        ask = mono("like a task group, it can only ask", 15, AMBER).next_to(why, DOWN, 0.15)
+        self.play(FadeIn(ask), run_time=0.4)
+
+        # 10-11: the same block elsewhere
+        self.at("10")
         names = mono("built in: Swift task groups · Java StructuredTaskScope (preview)", 16, INK).move_to([0, -2.5, 0])
         self.play(FadeIn(names), run_time=0.5)
-        self.at("10")
+        self.at("11")
         pv = mono("Kotlin: coroutineScope, in the kotlinx.coroutines library", 15, MUTED).next_to(names, DOWN, 0.15)
         self.play(FadeIn(pv), run_time=0.4)
         self.until(self.dur - 0.5)

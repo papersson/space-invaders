@@ -1,0 +1,2 @@
+{"title": "Where Did That Task Go?", "version": "v1", "poster": ["s1_10", -0.2],
+ "description": "Why a function that starts tasks can return while its work is still running, and how structured concurrency (asyncio's task groups, Go's error groups) makes returned mean done."}

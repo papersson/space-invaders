@@ -63,7 +63,7 @@ class S1(CueScene):
         c1 = mono(f"{many['n']:,} requests at once", 18, INK).move_to([0, -3.05, 0])
         self.play(FadeIn(c1), run_time=0.4)
         self.at("12")
-        c2 = VGroup(mono(f"all handlers returned after {many['returned_after']:.2f} s", 17, INK),
+        c2 = VGroup(mono("all handlers returned", 17, INK),
                     mono(f"tasks still running: {many['alive']:,}", 20, AMBER)).arrange(RIGHT, buff=0.6).move_to([0, -3.05, 0])
         self.play(FadeOut(c1), FadeIn(c2[0]), run_time=0.4)
         self.play(FadeIn(c2[1]), run_time=0.4)

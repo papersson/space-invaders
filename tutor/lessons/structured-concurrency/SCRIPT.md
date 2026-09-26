@@ -1,6 +1,6 @@
 # Where Did That Task Go?
 
-Status: in review round 7
+Status: locked after review round 7
 
 ## Argument
 
@@ -221,3 +221,8 @@ No length target: the length follows the argument (about 150 words per minute).
 - Editor: the chapter 3 spec on screen is three short labels, not the spoken sentences; the chapter 1 counter no longer shows 0.12 s beside the 0.10 s anchor (the number stays in the evidence); the Go context sentence and the bare-except sentence are rephrased for the ear; the exception group's reason ("more than one task could fail") is stated as a possibility.
 - Editor, not taken: cutting Sústrik. The JEP credits him with coining the term, and the expert asked in round 5 for the narration to keep that credit; it is one clause.
 - Student: lost at cancellation being used before its mechanism (chapter 2 says it "asks the code to stop"; chapter 6 gives the mechanism, which is the order the research recommends) and in the compressed Go section (the context sentence is simpler).
+
+**Round 7 (final):** expert PASS, editor PASS, student retold the question and answer correctly (lost "a few times"). The script is locked. One screen-only change after the lock: chapter 7 glosses "goroutine" on screen ("Go's lightweight thread"), which the narration uses without defining. Revision candidates, not applied (final-round SHOULD FIX items):
+- Editor: Swift, Java and Kotlin are named without being shown, and chapter 7 packs Go's mechanism (goroutines, error group, context) and three more languages into one beat; cut the other languages to the end card, or give chapter 7 more room.
+- Editor, NITs: "error group" (spoken) and "errgroup" (on screen) are two spellings; "goroutine" is not glossed in the narration.
+- Student: lost at `except*` and the exception group, and at the Go terms arriving close together.
