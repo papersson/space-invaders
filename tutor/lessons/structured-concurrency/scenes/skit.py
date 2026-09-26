@@ -86,3 +86,40 @@ class Timeline(VGroup):
 
 def counter_line(text, color=INK, size=18):
     return mono(text, size, color)
+
+
+# --- control-flow pictures (after Smith 2018) ---------------------------------------
+def _frame(c, w=2.2, h=2.4, color=TRAY_EDGE):
+    return RoundedRectangle(corner_radius=0.12, width=w, height=h, stroke_color=color, stroke_width=2,
+                            fill_color=TRAY_FILL, fill_opacity=1).move_to(c)
+
+
+def flow(kind, c=(0, 0), w=2.2, h=2.4, color=ICE):
+    """kind: 'sequential' | 'goto' | 'spawn' | 'block'. A box (a function or block) with control drawn as arrows."""
+    c = np.array([c[0], c[1], 0])
+    box = _frame(c, w, h)
+    top, bot = c + (h / 2 + 0.45) * UP, c + (h / 2 + 0.45) * DOWN
+    g = VGroup(box)
+    kw = dict(stroke_width=3.5, tip_length=0.16, max_tip_length_to_length_ratio=0.3, buff=0)
+    if kind == "sequential":
+        g.add(Arrow(top, bot, color=color, **kw))
+    elif kind == "goto":
+        mid = c + 0.2 * UP
+        g.add(Line(top, mid, stroke_color=color, stroke_width=3.5))
+        g.add(CurvedArrow(mid, c + (w / 2 + 0.9) * RIGHT + 0.9 * DOWN, angle=-TAU / 5, color=AMBER, stroke_width=3.5, tip_length=0.16))
+        g.add(DashedLine(c + 0.1 * DOWN, bot + 0.2 * UP, stroke_color=FAINT, stroke_width=2))
+    elif kind == "spawn":
+        mid = c + 0.3 * UP
+        g.add(Line(top, mid, stroke_color=color, stroke_width=3.5), Arrow(mid, bot, color=color, **kw))
+        g.add(CurvedArrow(mid, c + (w / 2 + 0.9) * RIGHT + 0.8 * DOWN, angle=-TAU / 6, color=AMBER, stroke_width=3.5, tip_length=0.16))
+        g.add(Dot(mid, radius=0.07, color=color))
+    elif kind == "block":
+        inner = DashedVMobject(RoundedRectangle(corner_radius=0.1, width=w - 0.5, height=h - 0.9, stroke_color=AMBER,
+                                                stroke_width=2).move_to(c), num_dashes=36)
+        a, b = c + (h / 2 - 0.45) * UP, c + (h / 2 - 0.45) * DOWN
+        left, right = c + 0.35 * LEFT, c + 0.35 * RIGHT
+        g.add(inner, Line(top, a, stroke_color=color, stroke_width=3.5),
+              ArcBetweenPoints(a, b, angle=TAU / 5, stroke_color=color, stroke_width=3.5),
+              ArcBetweenPoints(a, b, angle=-TAU / 5, stroke_color=AMBER, stroke_width=3.5),
+              Arrow(b, bot, color=color, **kw), Dot(a, radius=0.07, color=color), Dot(b, radius=0.07, color=color))
+    return g
