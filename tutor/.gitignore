@@ -3,3 +3,4 @@ lessons/*/audio/*.wav
 lessons/*/out/video.mp4
 lessons/*/out/parts.txt
 lessons/*/out/page/video.mp4
+lessons/*/sims/**/go.sum
