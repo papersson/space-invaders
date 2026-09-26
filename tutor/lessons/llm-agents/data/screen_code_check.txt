@@ -1,0 +1,8 @@
+agent(): source compiles (10 lines), shown verbatim from sims/agent.py
+tool format {"tool": "list_files"}: valid JSON, parsed as tool list_files
+tool format {"tool": "read_file", "path": "report.py"}: valid JSON, parsed as tool read_file
+tool format {"tool": "write_file", "path": "report.py", "content": "..."}: valid JSON, parsed as tool write_file
+tool format {"tool": "run_tests"}: valid JSON, parsed as tool run_tests
+bug line: present in sims/project/report.py
+run A write 1: compiles, contains FIX; test: FAILED (errors=1)
+run A write 2: compiles, contains FIX+OPEN; test: OK

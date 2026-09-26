@@ -1,0 +1,1549 @@
+{
+ "voice": "af_heart",
+ "speed": 0.92,
+ "total": 652.238,
+ "segments": [
+  {
+   "id": "s1",
+   "title": "Two runs",
+   "start": 0.0,
+   "lines": [
+    {
+     "id": "s1_01",
+     "text": "Here's a small Python project with one failing test.",
+     "caption": "Here's a small Python project with one failing test.",
+     "paragraph": 0,
+     "start": 0.8,
+     "end": 3.821
+    },
+    {
+     "id": "s1_02",
+     "text": "We set up an L L M agent, a program that lets a model work on a task step by step, and asked it to fix the test, twice.",
+     "caption": "We set up an LLM agent, a program that lets a model work on a task step by step, and asked it to fix the test, twice.",
+     "paragraph": 0,
+     "start": 4.121,
+     "end": 12.361
+    },
+    {
+     "id": "s1_03",
+     "text": "Same model, same files, same task.",
+     "caption": "Same model, same files, same task.",
+     "paragraph": 1,
+     "start": 12.861,
+     "end": 14.971
+    },
+    {
+     "id": "s1_04",
+     "text": "And both runs began the same way.",
+     "caption": "And both runs began the same way.",
+     "paragraph": 1,
+     "start": 15.271,
+     "end": 17.113
+    },
+    {
+     "id": "s1_05",
+     "text": "They listed the files, read the test, read the code, and fixed the same bug.",
+     "caption": "They listed the files, read the test, read the code, and fixed the same bug.",
+     "paragraph": 1,
+     "start": 17.413,
+     "end": 21.61
+    },
+    {
+     "id": "s1_06",
+     "text": "Then they split.",
+     "caption": "Then they split.",
+     "paragraph": 2,
+     "start": 22.11,
+     "end": 23.04
+    },
+    {
+     "id": "s1_07",
+     "text": "Run A took four more steps.",
+     "caption": "Run A took four more steps.",
+     "paragraph": 2,
+     "start": 23.34,
+     "end": 24.826
+    },
+    {
+     "id": "s1_08",
+     "text": "Its last reply began \"Fixed\", and ended \"All tests now pass.\"",
+     "caption": "Its last reply began \"Fixed\", and ended \"All tests now pass.\"",
+     "paragraph": 2,
+     "start": 25.126,
+     "end": 29.054
+    },
+    {
+     "id": "s1_09",
+     "text": "Run B stopped right there.",
+     "caption": "Run B stopped right there.",
+     "paragraph": 3,
+     "start": 30.154,
+     "end": 31.54
+    },
+    {
+     "id": "s1_10",
+     "text": "Its reply also began \"Fixed\", and said its code now matched the values the test expects.",
+     "caption": "Its reply also began \"Fixed\", and said its code now matched the values the test expects.",
+     "paragraph": 3,
+     "start": 31.84,
+     "end": 37.364
+    },
+    {
+     "id": "s1_11",
+     "text": "So we ran the test ourselves.",
+     "caption": "So we ran the test ourselves.",
+     "paragraph": 4,
+     "start": 38.664,
+     "end": 40.257
+    },
+    {
+     "id": "s1_12",
+     "text": "After run A, it passes.",
+     "caption": "After run A, it passes.",
+     "paragraph": 4,
+     "start": 40.557,
+     "end": 42.043
+    },
+    {
+     "id": "s1_13",
+     "text": "After run B, it still fails.",
+     "caption": "After run B, it still fails.",
+     "paragraph": 4,
+     "start": 42.943,
+     "end": 44.838
+    },
+    {
+     "id": "s1_14",
+     "text": "That wasn't luck.",
+     "caption": "That wasn't luck.",
+     "paragraph": 5,
+     "start": 46.538,
+     "end": 47.473
+    },
+    {
+     "id": "s1_15",
+     "text": "We ran each version three times.",
+     "caption": "We ran each version three times.",
+     "paragraph": 5,
+     "start": 47.773,
+     "end": 49.497
+    },
+    {
+     "id": "s1_16",
+     "text": "Every run like A passed.",
+     "caption": "Every run like A passed.",
+     "paragraph": 5,
+     "start": 49.797,
+     "end": 51.086
+    },
+    {
+     "id": "s1_17",
+     "text": "Every run like B said \"Fixed\", and failed.",
+     "caption": "Every run like B said \"Fixed\", and failed.",
+     "paragraph": 5,
+     "start": 51.386,
+     "end": 53.846
+    },
+    {
+     "id": "s1_18",
+     "text": "Run B was missing one thing: a way to run the test.",
+     "caption": "Run B was missing one thing: a way to run the test.",
+     "paragraph": 6,
+     "start": 55.146,
+     "end": 58.108
+    },
+    {
+     "id": "s1_19",
+     "text": "The model was the same.",
+     "caption": "The model was the same.",
+     "paragraph": 6,
+     "start": 58.408,
+     "end": 59.623
+    },
+    {
+     "id": "s1_20",
+     "text": "So what is an L L M agent, that taking away one tool leaves it sure of something false?",
+     "caption": "So what is an LLM agent, that taking away one tool leaves it sure of something false?",
+     "paragraph": 6,
+     "start": 59.923,
+     "end": 65.042
+    }
+   ],
+   "end": 67.892
+  },
+  {
+   "id": "s2",
+   "title": "A model on its own",
+   "start": 67.892,
+   "lines": [
+    {
+     "id": "s2_01",
+     "text": "To see what's going on, build it up from the start: a model on its own.",
+     "caption": "To see what's going on, build it up from the start: a model on its own.",
+     "paragraph": 0,
+     "start": 68.242,
+     "end": 72.257
+    },
+    {
+     "id": "s2_02",
+     "text": "An L L M reads text and writes text.",
+     "caption": "An LLM reads text and writes text.",
+     "paragraph": 1,
+     "start": 72.757,
+     "end": 75.091
+    },
+    {
+     "id": "s2_03",
+     "text": "You send it some, and it writes what comes next.",
+     "caption": "You send it some, and it writes what comes next.",
+     "paragraph": 1,
+     "start": 75.391,
+     "end": 77.959
+    },
+    {
+     "id": "s2_04",
+     "text": "Everything it reads on one call is called its context.",
+     "caption": "Everything it reads on one call is called its context.",
+     "paragraph": 2,
+     "start": 78.459,
+     "end": 81.517
+    },
+    {
+     "id": "s2_05",
+     "text": "Here, that's some instructions and our task.",
+     "caption": "Here, that's some instructions and our task.",
+     "paragraph": 2,
+     "start": 81.817,
+     "end": 84.125
+    },
+    {
+     "id": "s2_06",
+     "text": "We reach the model through Claude's command-line tool, with that tool's own tools switched off, so text is all it can give back.",
+     "caption": "We reach the model through Claude's command-line tool, with that tool's own tools switched off, so text is all it can give back.",
+     "paragraph": 3,
+     "start": 85.025,
+     "end": 92.276
+    },
+    {
+     "id": "s2_07",
+     "text": "It replies with text, of course.",
+     "caption": "It replies with text, of course.",
+     "paragraph": 4,
+     "start": 92.776,
+     "end": 94.484
+    },
+    {
+     "id": "s2_08",
+     "text": "It even writes out a shell command it would like to run.",
+     "caption": "It even writes out a shell command it would like to run.",
+     "paragraph": 4,
+     "start": 94.784,
+     "end": 97.438
+    },
+    {
+     "id": "s2_09",
+     "text": "But nothing runs text.",
+     "caption": "But nothing runs text.",
+     "paragraph": 5,
+     "start": 99.138,
+     "end": 100.443
+    },
+    {
+     "id": "s2_10",
+     "text": "The command never ran, the model never saw a single file, and the test still fails.",
+     "caption": "The command never ran, the model never saw a single file, and the test still fails.",
+     "paragraph": 5,
+     "start": 100.743,
+     "end": 105.833
+    },
+    {
+     "id": "s2_11",
+     "text": "For anything to change, something else has to act on what the model writes.",
+     "caption": "For anything to change, something else has to act on what the model writes.",
+     "paragraph": 6,
+     "start": 107.133,
+     "end": 111.13
+    }
+   ],
+   "end": 112.98
+  },
+  {
+   "id": "s3",
+   "title": "One tool call",
+   "start": 112.98,
+   "lines": [
+    {
+     "id": "s3_01",
+     "text": "So let's act for it.",
+     "caption": "So let's act for it.",
+     "paragraph": 0,
+     "start": 113.33,
+     "end": 114.439
+    },
+    {
+     "id": "s3_02",
+     "text": "We add a list of tools to the instructions: list the files, read a file, write a file, and run the tests.",
+     "caption": "We add a list of tools to the instructions: list the files, read a file, write a file, and run the tests.",
+     "paragraph": 0,
+     "start": 114.739,
+     "end": 120.974
+    },
+    {
+     "id": "s3_03",
+     "text": "Each is ordinary code, written by us.",
+     "caption": "Each is ordinary code, written by us.",
+     "paragraph": 0,
+     "start": 121.874,
+     "end": 124.076
+    },
+    {
+     "id": "s3_04",
+     "text": "We also tell the model how to ask for one: reply with one line of jay-son that names the tool.",
+     "caption": "We also tell the model how to ask for one: reply with one line of JSON that names the tool.",
+     "paragraph": 1,
+     "start": 124.576,
+     "end": 130.335
+    },
+    {
+     "id": "s3_05",
+     "text": "That message is called a tool call.",
+     "caption": "That message is called a tool call.",
+     "paragraph": 1,
+     "start": 130.635,
+     "end": 132.439
+    },
+    {
+     "id": "s3_06",
+     "text": "Now the model's first reply is a tool call: list the files.",
+     "caption": "Now the model's first reply is a tool call: list the files.",
+     "paragraph": 2,
+     "start": 133.539,
+     "end": 137.051
+    },
+    {
+     "id": "s3_07",
+     "text": "Our code reads the tool call, runs the tool, and adds its output to the context.",
+     "caption": "Our code reads the tool call, runs the tool, and adds its output to the context.",
+     "paragraph": 3,
+     "start": 137.551,
+     "end": 142.35
+    },
+    {
+     "id": "s3_08",
+     "text": "That's the tool result.",
+     "caption": "That's the tool result.",
+     "paragraph": 3,
+     "start": 142.65,
+     "end": 143.971
+    },
+    {
+     "id": "s3_09",
+     "text": "Notice who ran it.",
+     "caption": "Notice who ran it.",
+     "paragraph": 4,
+     "start": 145.271,
+     "end": 146.294
+    },
+    {
+     "id": "s3_10",
+     "text": "Not the model.",
+     "caption": "Not the model.",
+     "paragraph": 4,
+     "start": 146.594,
+     "end": 147.388
+    },
+    {
+     "id": "s3_11",
+     "text": "It only asked.",
+     "caption": "It only asked.",
+     "paragraph": 4,
+     "start": 147.688,
+     "end": 148.59
+    },
+    {
+     "id": "s3_12",
+     "text": "Anthropic's documentation puts it plainly: the model never executes anything on its own.",
+     "caption": "Anthropic's documentation puts it plainly: the model never executes anything on its own.",
+     "paragraph": 4,
+     "start": 148.89,
+     "end": 154.706
+    },
+    {
+     "id": "s3_13",
+     "text": "Then we call the model again, and it asks for a second tool: read the test.",
+     "caption": "Then we call the model again, and it asks for a second tool: read the test.",
+     "paragraph": 5,
+     "start": 156.006,
+     "end": 160.242
+    },
+    {
+     "id": "s3_14",
+     "text": "But our code stops here.",
+     "caption": "But our code stops here.",
+     "paragraph": 5,
+     "start": 161.342,
+     "end": 162.522
+    },
+    {
+     "id": "s3_15",
+     "text": "It was written for one tool call.",
+     "caption": "It was written for one tool call.",
+     "paragraph": 5,
+     "start": 162.822,
+     "end": 164.455
+    },
+    {
+     "id": "s3_16",
+     "text": "The model can't know in advance how many steps it will need.",
+     "caption": "The model can't know in advance how many steps it will need.",
+     "paragraph": 6,
+     "start": 164.955,
+     "end": 167.988
+    },
+    {
+     "id": "s3_17",
+     "text": "So our code shouldn't decide that either.",
+     "caption": "So our code shouldn't decide that either.",
+     "paragraph": 6,
+     "start": 168.288,
+     "end": 170.169
+    }
+   ],
+   "end": 172.019
+  },
+  {
+   "id": "s4",
+   "title": "The loop",
+   "start": 172.019,
+   "lines": [
+    {
+     "id": "s4_01",
+     "text": "Therefore, a loop.",
+     "caption": "Therefore, a loop.",
+     "paragraph": 0,
+     "start": 172.369,
+     "end": 173.335
+    },
+    {
+     "id": "s4_02",
+     "text": "Call the model.",
+     "caption": "Call the model.",
+     "paragraph": 0,
+     "start": 173.635,
+     "end": 174.403
+    },
+    {
+     "id": "s4_03",
+     "text": "If its reply is a tool call, run the tool, and add the result to the context.",
+     "caption": "If its reply is a tool call, run the tool, and add the result to the context.",
+     "paragraph": 0,
+     "start": 174.703,
+     "end": 179.573
+    },
+    {
+     "id": "s4_04",
+     "text": "Then call the model again.",
+     "caption": "Then call the model again.",
+     "paragraph": 0,
+     "start": 179.873,
+     "end": 181.211
+    },
+    {
+     "id": "s4_05",
+     "text": "Stop when it replies without a tool call, or after twenty calls, in case it never does.",
+     "caption": "Stop when it replies without a tool call, or after twenty calls, in case it never does.",
+     "paragraph": 1,
+     "start": 181.711,
+     "end": 186.9
+    },
+    {
+     "id": "s4_06",
+     "text": "That loop, with a model and some tools, is an agent.",
+     "caption": "That loop, with a model and some tools, is an agent.",
+     "paragraph": 2,
+     "start": 188.6,
+     "end": 191.524
+    },
+    {
+     "id": "s4_07",
+     "text": "One common definition says just that: an L L M agent runs tools in a loop to achieve a goal.",
+     "caption": "One common definition says just that: an LLM agent runs tools in a loop to achieve a goal.",
+     "paragraph": 2,
+     "start": 191.824,
+     "end": 197.745
+    },
+    {
+     "id": "s4_08",
+     "text": "Here's run A, one call at a time.",
+     "caption": "Here's run A, one call at a time.",
+     "paragraph": 3,
+     "start": 199.245,
+     "end": 201.256
+    },
+    {
+     "id": "s4_09",
+     "text": "It lists the files, reads the test, and reads the code.",
+     "caption": "It lists the files, reads the test, and reads the code.",
+     "paragraph": 3,
+     "start": 201.556,
+     "end": 204.618
+    },
+    {
+     "id": "s4_10",
+     "text": "And it spots a bug: the code adds the units to the price, where it should multiply them.",
+     "caption": "And it spots a bug: the code adds the units to the price, where it should multiply them.",
+     "paragraph": 3,
+     "start": 204.918,
+     "end": 209.862
+    },
+    {
+     "id": "s4_11",
+     "text": "It rewrites that line, then asks to run the test.",
+     "caption": "It rewrites that line, then asks to run the test.",
+     "paragraph": 4,
+     "start": 211.162,
+     "end": 213.929
+    },
+    {
+     "id": "s4_12",
+     "text": "Pause here, and make a prediction.",
+     "caption": "Pause here, and make a prediction.",
+     "paragraph": 5,
+     "start": 215.029,
+     "end": 216.742
+    },
+    {
+     "id": "s4_13",
+     "text": "The model found a real bug, and fixed it.",
+     "caption": "The model found a real bug, and fixed it.",
+     "paragraph": 5,
+     "start": 217.042,
+     "end": 219.222
+    },
+    {
+     "id": "s4_14",
+     "text": "Will the test pass?",
+     "caption": "Will the test pass?",
+     "paragraph": 5,
+     "start": 219.522,
+     "end": 220.621
+    }
+   ],
+   "end": 224.971
+  },
+  {
+   "id": "s5",
+   "title": "The test answers",
+   "start": 224.971,
+   "lines": [
+    {
+     "id": "s5_01",
+     "text": "It doesn't.",
+     "caption": "It doesn't.",
+     "paragraph": 0,
+     "start": 225.321,
+     "end": 226.022
+    },
+    {
+     "id": "s5_02",
+     "text": "The test fails with a key error: there's no column called \"region\".",
+     "caption": "The test fails with a key error: there's no column called \"region\".",
+     "paragraph": 0,
+     "start": 226.322,
+     "end": 229.989
+    },
+    {
+     "id": "s5_03",
+     "text": "That result goes into the context, like any other.",
+     "caption": "That result goes into the context, like any other.",
+     "paragraph": 1,
+     "start": 231.689,
+     "end": 234.545
+    },
+    {
+     "id": "s5_04",
+     "text": "It's the world's answer, not the model's guess: what Anthropic's guide to agents calls ground truth.",
+     "caption": "It's the world's answer, not the model's guess: what Anthropic's guide to agents calls ground truth.",
+     "paragraph": 1,
+     "start": 234.845,
+     "end": 240.466
+    },
+    {
+     "id": "s5_05",
+     "text": "And on the next call, the model reads it, and changes course: it asks to see the data file.",
+     "caption": "And on the next call, the model reads it, and changes course: it asks to see the data file.",
+     "paragraph": 2,
+     "start": 241.566,
+     "end": 246.852
+    },
+    {
+     "id": "s5_06",
+     "text": "The file begins with an invisible character, called a byte order mark, glued to the front of the word \"region\".",
+     "caption": "The file begins with an invisible character, called a byte order mark, glued to the front of the word \"region\".",
+     "paragraph": 3,
+     "start": 247.352,
+     "end": 253.594
+    },
+    {
+     "id": "s5_07",
+     "text": "The code was only half the problem.",
+     "caption": "The code was only half the problem.",
+     "paragraph": 3,
+     "start": 255.294,
+     "end": 257.169
+    },
+    {
+     "id": "s5_08",
+     "text": "The model changes how the file is opened, so the mark is skipped.",
+     "caption": "The model changes how the file is opened, so the mark is skipped.",
+     "paragraph": 4,
+     "start": 257.669,
+     "end": 261.119
+    },
+    {
+     "id": "s5_09",
+     "text": "It runs the test again, and this time it passes.",
+     "caption": "It runs the test again, and this time it passes.",
+     "paragraph": 4,
+     "start": 261.419,
+     "end": 264.071
+    },
+    {
+     "id": "s5_10",
+     "text": "Then it replies with no tool call, and the loop ends.",
+     "caption": "Then it replies with no tool call, and the loop ends.",
+     "paragraph": 4,
+     "start": 265.171,
+     "end": 268.054
+    },
+    {
+     "id": "s5_11",
+     "text": "Notice who decided to look at the data file.",
+     "caption": "Notice who decided to look at the data file.",
+     "paragraph": 5,
+     "start": 269.154,
+     "end": 271.687
+    },
+    {
+     "id": "s5_12",
+     "text": "Not our code: it only ran what was asked.",
+     "caption": "Not our code: it only ran what was asked.",
+     "paragraph": 5,
+     "start": 271.987,
+     "end": 274.462
+    },
+    {
+     "id": "s5_13",
+     "text": "Nobody wrote that step in advance.",
+     "caption": "Nobody wrote that step in advance.",
+     "paragraph": 5,
+     "start": 274.762,
+     "end": 276.573
+    },
+    {
+     "id": "s5_14",
+     "text": "Suppose we had scripted the steps instead: read, then fix, then test.",
+     "caption": "Suppose we had scripted the steps instead: read, then fix, then test.",
+     "paragraph": 6,
+     "start": 277.073,
+     "end": 281.517
+    },
+    {
+     "id": "s5_15",
+     "text": "That kind of program is called a workflow.",
+     "caption": "That kind of program is called a workflow.",
+     "paragraph": 6,
+     "start": 281.817,
+     "end": 284.087
+    },
+    {
+     "id": "s5_16",
+     "text": "Ours would have stopped at the key error, with no step for what came next.",
+     "caption": "Ours would have stopped at the key error, with no step for what came next.",
+     "paragraph": 6,
+     "start": 284.387,
+     "end": 288.229
+    },
+    {
+     "id": "s5_17",
+     "text": "In an agent, the model picks each next step from what's in its context.",
+     "caption": "In an agent, the model picks each next step from what's in its context.",
+     "paragraph": 7,
+     "start": 289.729,
+     "end": 293.795
+    },
+    {
+     "id": "s5_18",
+     "text": "Here, that included ground truth from the test.",
+     "caption": "Here, that included ground truth from the test.",
+     "paragraph": 7,
+     "start": 294.095,
+     "end": 296.54
+    }
+   ],
+   "end": 298.39
+  },
+  {
+   "id": "s6",
+   "title": "What the model remembers",
+   "start": 298.39,
+   "lines": [
+    {
+     "id": "s6_01",
+     "text": "Run A called the model nine times: eight tool calls, then the final reply.",
+     "caption": "Run A called the model nine times: eight tool calls, then the final reply.",
+     "paragraph": 0,
+     "start": 298.74,
+     "end": 303.196
+    },
+    {
+     "id": "s6_02",
+     "text": "It looks as if the model worked through the problem, remembering what it had tried.",
+     "caption": "It looks as if the model worked through the problem, remembering what it had tried.",
+     "paragraph": 1,
+     "start": 303.696,
+     "end": 307.719
+    },
+    {
+     "id": "s6_03",
+     "text": "It didn't.",
+     "caption": "It didn't.",
+     "paragraph": 1,
+     "start": 308.019,
+     "end": 308.711
+    },
+    {
+     "id": "s6_04",
+     "text": "Each of those calls started from nothing.",
+     "caption": "Each of those calls started from nothing.",
+     "paragraph": 1,
+     "start": 309.011,
+     "end": 310.961
+    },
+    {
+     "id": "s6_05",
+     "text": "The model keeps nothing between calls.",
+     "caption": "The model keeps nothing between calls.",
+     "paragraph": 2,
+     "start": 312.061,
+     "end": 314.007
+    },
+    {
+     "id": "s6_06",
+     "text": "So our loop sends it the whole context every time: the instructions, the task, and every tool call and result so far.",
+     "caption": "So our loop sends it the whole context every time: the instructions, the task, and every tool call and result so far.",
+     "paragraph": 2,
+     "start": 314.307,
+     "end": 321.814
+    },
+    {
+     "id": "s6_07",
+     "text": "Here's how much it read on each call, counted in tokens, the chunks of text a model reads.",
+     "caption": "Here's how much it read on each call, counted in tokens, the chunks of text a model reads.",
+     "paragraph": 3,
+     "start": 322.314,
+     "end": 327.748
+    },
+    {
+     "id": "s6_08",
+     "text": "The first call read about fourteen hundred.",
+     "caption": "The first call read about fourteen hundred.",
+     "paragraph": 3,
+     "start": 328.048,
+     "end": 330.256
+    },
+    {
+     "id": "s6_09",
+     "text": "Most of that is fixed text: our instructions, and notes that the command-line tool we call the model through adds to every call.",
+     "caption": "Most of that is fixed text: our instructions, and notes that the command-line tool we call the model through adds to every call.",
+     "paragraph": 4,
+     "start": 331.356,
+     "end": 338.992
+    },
+    {
+     "id": "s6_10",
+     "text": "The ninth read about twenty-seven hundred: everything the first call read, and everything since.",
+     "caption": "The ninth read about twenty-seven hundred: everything the first call read, and everything since.",
+     "paragraph": 5,
+     "start": 339.492,
+     "end": 345.093
+    },
+    {
+     "id": "s6_11",
+     "text": "Together, the nine calls read about eighteen and a half thousand tokens, to change two lines of code.",
+     "caption": "Together, the nine calls read about eighteen and a half thousand tokens, to change two lines of code.",
+     "paragraph": 6,
+     "start": 346.593,
+     "end": 352.276
+    },
+    {
+     "id": "s6_12",
+     "text": "This isn't a quirk of our code.",
+     "caption": "This isn't a quirk of our code.",
+     "paragraph": 7,
+     "start": 354.276,
+     "end": 355.854
+    },
+    {
+     "id": "s6_13",
+     "text": "Anthropic's documentation says the same of its Messages A P I: it's stateless, so every request carries the whole context again.",
+     "caption": "Anthropic's documentation says the same of its Messages API: it's stateless, so every request carries the whole context again.",
+     "paragraph": 7,
+     "start": 356.154,
+     "end": 364.751
+    },
+    {
+     "id": "s6_14",
+     "text": "The model still knows what it learned in training.",
+     "caption": "The model still knows what it learned in training.",
+     "paragraph": 8,
+     "start": 365.251,
+     "end": 367.529
+    },
+    {
+     "id": "s6_15",
+     "text": "That's how it knew what a byte order mark was.",
+     "caption": "That's how it knew what a byte order mark was.",
+     "paragraph": 8,
+     "start": 367.829,
+     "end": 370.196
+    },
+    {
+     "id": "s6_16",
+     "text": "But what it has tried in this task, and what came back, it knows only from its context.",
+     "caption": "But what it has tried in this task, and what came back, it knows only from its context.",
+     "paragraph": 9,
+     "start": 370.696,
+     "end": 375.536
+    },
+    {
+     "id": "s6_17",
+     "text": "The context is its only memory of the task.",
+     "caption": "The context is its only memory of the task.",
+     "paragraph": 9,
+     "start": 375.836,
+     "end": 378.481
+    }
+   ],
+   "end": 380.531
+  },
+  {
+   "id": "s7",
+   "title": "Run B",
+   "start": 380.531,
+   "lines": [
+    {
+     "id": "s7_01",
+     "text": "Now run B makes sense.",
+     "caption": "Now run B makes sense.",
+     "paragraph": 0,
+     "start": 380.881,
+     "end": 382.177
+    },
+    {
+     "id": "s7_02",
+     "text": "It's the same loop and the same model.",
+     "caption": "It's the same loop and the same model.",
+     "paragraph": 0,
+     "start": 382.477,
+     "end": 384.394
+    },
+    {
+     "id": "s7_03",
+     "text": "The only difference is the tool list: there's no run tests.",
+     "caption": "The only difference is the tool list: there's no run tests.",
+     "paragraph": 0,
+     "start": 384.694,
+     "end": 387.961
+    },
+    {
+     "id": "s7_04",
+     "text": "Its first four steps match run A's.",
+     "caption": "Its first four steps match run A's.",
+     "paragraph": 1,
+     "start": 388.461,
+     "end": 390.462
+    },
+    {
+     "id": "s7_05",
+     "text": "Then, where run A asked to run the test, run B had nothing to ask for.",
+     "caption": "Then, where run A asked to run the test, run B had nothing to ask for.",
+     "paragraph": 1,
+     "start": 390.762,
+     "end": 395.011
+    },
+    {
+     "id": "s7_06",
+     "text": "So it replied.",
+     "caption": "So it replied.",
+     "paragraph": 2,
+     "start": 395.511,
+     "end": 396.41
+    },
+    {
+     "id": "s7_07",
+     "text": "Look at its context when it did: its own fix, and nothing after it.",
+     "caption": "Look at its context when it did: its own fix, and nothing after it.",
+     "paragraph": 2,
+     "start": 396.71,
+     "end": 400.606
+    },
+    {
+     "id": "s7_08",
+     "text": "No tool result could have told it the fix was incomplete.",
+     "caption": "No tool result could have told it the fix was incomplete.",
+     "paragraph": 2,
+     "start": 400.906,
+     "end": 404.084
+    },
+    {
+     "id": "s7_09",
+     "text": "It looks as if the model knew it had succeeded.",
+     "caption": "It looks as if the model knew it had succeeded.",
+     "paragraph": 3,
+     "start": 405.584,
+     "end": 407.898
+    },
+    {
+     "id": "s7_10",
+     "text": "It didn't.",
+     "caption": "It didn't.",
+     "paragraph": 3,
+     "start": 408.198,
+     "end": 408.891
+    },
+    {
+     "id": "s7_11",
+     "text": "It only knew that nothing in its context said otherwise.",
+     "caption": "It only knew that nothing in its context said otherwise.",
+     "paragraph": 3,
+     "start": 409.191,
+     "end": 412.18
+    },
+    {
+     "id": "s7_12",
+     "text": "Its \"Fixed\" wasn't a lie.",
+     "caption": "Its \"Fixed\" wasn't a lie.",
+     "paragraph": 4,
+     "start": 412.68,
+     "end": 414.185
+    },
+    {
+     "id": "s7_13",
+     "text": "It was a reasonable conclusion, from a context with no evidence against it.",
+     "caption": "It was a reasonable conclusion, from a context with no evidence against it.",
+     "paragraph": 4,
+     "start": 414.485,
+     "end": 419.011
+    },
+    {
+     "id": "s7_14",
+     "text": "It could have read the data file.",
+     "caption": "It could have read the data file.",
+     "paragraph": 5,
+     "start": 420.311,
+     "end": 421.768
+    },
+    {
+     "id": "s7_15",
+     "text": "It had the tool.",
+     "caption": "It had the tool.",
+     "paragraph": 5,
+     "start": 422.068,
+     "end": 422.954
+    },
+    {
+     "id": "s7_16",
+     "text": "It just didn't see a reason to.",
+     "caption": "It just didn't see a reason to.",
+     "paragraph": 5,
+     "start": 423.254,
+     "end": 424.834
+    },
+    {
+     "id": "s7_17",
+     "text": "So this is why agents work, and the first way they break down.",
+     "caption": "So this is why agents work, and the first way they break down.",
+     "paragraph": 6,
+     "start": 426.134,
+     "end": 429.568
+    },
+    {
+     "id": "s7_18",
+     "text": "Each step can put ground truth into the context.",
+     "caption": "Each step can put ground truth into the context.",
+     "paragraph": 6,
+     "start": 429.868,
+     "end": 432.372
+    },
+    {
+     "id": "s7_19",
+     "text": "Where nothing checks the work, the model's own guess has the last word.",
+     "caption": "Where nothing checks the work, the model's own guess has the last word.",
+     "paragraph": 6,
+     "start": 432.672,
+     "end": 436.326
+    },
+    {
+     "id": "s7_20",
+     "text": "If that guess were one step in a longer task, the next call would read it as fact and build on it.",
+     "caption": "If that guess were one step in a longer task, the next call would read it as fact and build on it.",
+     "paragraph": 7,
+     "start": 436.826,
+     "end": 442.303
+    },
+    {
+     "id": "s7_21",
+     "text": "Nothing here would catch that either.",
+     "caption": "Nothing here would catch that either.",
+     "paragraph": 7,
+     "start": 442.603,
+     "end": 444.208
+    },
+    {
+     "id": "s7_22",
+     "text": "It's called compounding errors.",
+     "caption": "It's called compounding errors.",
+     "paragraph": 7,
+     "start": 444.508,
+     "end": 446.127
+    },
+    {
+     "id": "s7_23",
+     "text": "Would a more capable model do better?",
+     "caption": "Would a more capable model do better?",
+     "paragraph": 8,
+     "start": 447.627,
+     "end": 449.431
+    },
+    {
+     "id": "s7_24",
+     "text": "We gave run B's setup to one, three times.",
+     "caption": "We gave run B's setup to one, three times.",
+     "paragraph": 8,
+     "start": 449.731,
+     "end": 452.323
+    },
+    {
+     "id": "s7_25",
+     "text": "Twice, with no way to run the test, it read the data file to check the sums by hand.",
+     "caption": "Twice, with no way to run the test, it read the data file to check the sums by hand.",
+     "paragraph": 9,
+     "start": 452.823,
+     "end": 458.006
+    },
+    {
+     "id": "s7_26",
+     "text": "It found the mark, and fixed both bugs.",
+     "caption": "It found the mark, and fixed both bugs.",
+     "paragraph": 9,
+     "start": 458.306,
+     "end": 460.49
+    },
+    {
+     "id": "s7_27",
+     "text": "And it said plainly that it couldn't run the test.",
+     "caption": "And it said plainly that it couldn't run the test.",
+     "paragraph": 9,
+     "start": 460.79,
+     "end": 463.284
+    },
+    {
+     "id": "s7_28",
+     "text": "It did better the same way run A did: it put more ground truth into its own context.",
+     "caption": "It did better the same way run A did: it put more ground truth into its own context.",
+     "paragraph": 10,
+     "start": 464.384,
+     "end": 469.371
+    },
+    {
+     "id": "s7_29",
+     "text": "The third time, it asked for the data file in a format our code didn't recognise.",
+     "caption": "The third time, it asked for the data file in a format our code didn't recognise.",
+     "paragraph": 11,
+     "start": 470.671,
+     "end": 475.407
+    },
+    {
+     "id": "s7_30",
+     "text": "Our loop saw no tool call, took the reply as final, and stopped.",
+     "caption": "Our loop saw no tool call, took the reply as final, and stopped.",
+     "paragraph": 11,
+     "start": 475.707,
+     "end": 479.278
+    },
+    {
+     "id": "s7_31",
+     "text": "That failure wasn't the model's.",
+     "caption": "That failure wasn't the model's.",
+     "paragraph": 12,
+     "start": 480.578,
+     "end": 482.208
+    },
+    {
+     "id": "s7_32",
+     "text": "It's chapter three again: the model can only ask, and our code decides what counts as asking, and what counts as done.",
+     "caption": "It's chapter three again: the model can only ask, and our code decides what counts as asking, and what counts as done.",
+     "paragraph": 12,
+     "start": 482.508,
+     "end": 489.836
+    },
+    {
+     "id": "s7_33",
+     "text": "The code around the model isn't plumbing.",
+     "caption": "The code around the model isn't plumbing.",
+     "paragraph": 12,
+     "start": 490.136,
+     "end": 492.18
+    }
+   ],
+   "end": 494.23
+  },
+  {
+   "id": "s8",
+   "title": "The context grows",
+   "start": 494.23,
+   "lines": [
+    {
+     "id": "s8_01",
+     "text": "The second way agents break down is in the staircase.",
+     "caption": "The second way agents break down is in the staircase.",
+     "paragraph": 0,
+     "start": 494.58,
+     "end": 497.516
+    },
+    {
+     "id": "s8_02",
+     "text": "In a loop like ours, the context only grows.",
+     "caption": "In a loop like ours, the context only grows.",
+     "paragraph": 0,
+     "start": 497.816,
+     "end": 500.698
+    },
+    {
+     "id": "s8_03",
+     "text": "Every step adds to it, and every call reads all of it.",
+     "caption": "Every step adds to it, and every call reads all of it.",
+     "paragraph": 0,
+     "start": 500.998,
+     "end": 504.18
+    },
+    {
+     "id": "s8_04",
+     "text": "Here's the same task, run once by Claude Code, Anthropic's coding agent.",
+     "caption": "Here's the same task, run once by Claude Code, Anthropic's coding agent.",
+     "paragraph": 1,
+     "start": 505.28,
+     "end": 509.77
+    },
+    {
+     "id": "s8_05",
+     "text": "It's the same command-line tool we've been calling the model through, now running its own loop, with its tools narrowed to match ours: read, edit, and run the test.",
+     "caption": "It's the same command-line tool we've been calling the model through, now running its own loop, with its tools narrowed to match ours: read, edit, and run the test.",
+     "paragraph": 1,
+     "start": 510.07,
+     "end": 520.022
+    },
+    {
+     "id": "s8_06",
+     "text": "Its first call read about eleven thousand six hundred tokens: its instructions, its tool descriptions, and our task.",
+     "caption": "Its first call read about eleven thousand six hundred tokens: its instructions, its tool descriptions, and our task.",
+     "paragraph": 2,
+     "start": 520.522,
+     "end": 527.956
+    },
+    {
+     "id": "s8_07",
+     "text": "It found both bugs in nine calls, like run A.",
+     "caption": "It found both bugs in nine calls, like run A.",
+     "paragraph": 3,
+     "start": 529.056,
+     "end": 531.879
+    },
+    {
+     "id": "s8_08",
+     "text": "But it read those instructions again on every call, so in all it read over a hundred and twenty thousand tokens.",
+     "caption": "But it read those instructions again on every call, so in all it read over a hundred and twenty thousand tokens.",
+     "paragraph": 3,
+     "start": 532.179,
+     "end": 538.844
+    },
+    {
+     "id": "s8_09",
+     "text": "And a longer task means more reading than its length suggests.",
+     "caption": "And a longer task means more reading than its length suggests.",
+     "paragraph": 4,
+     "start": 540.544,
+     "end": 543.997
+    },
+    {
+     "id": "s8_10",
+     "text": "Each new call re-reads everything before it, so twice the calls means more than twice the reading.",
+     "caption": "Each new call re-reads everything before it, so twice the calls means more than twice the reading.",
+     "paragraph": 4,
+     "start": 544.297,
+     "end": 549.823
+    },
+    {
+     "id": "s8_11",
+     "text": "The reading has a price beyond time.",
+     "caption": "The reading has a price beyond time.",
+     "paragraph": 5,
+     "start": 551.123,
+     "end": 552.969
+    },
+    {
+     "id": "s8_12",
+     "text": "As a context grows, models get worse at recalling what's in it.",
+     "caption": "As a context grows, models get worse at recalling what's in it.",
+     "paragraph": 5,
+     "start": 553.269,
+     "end": 557.005
+    },
+    {
+     "id": "s8_13",
+     "text": "Researchers call this context rot.",
+     "caption": "Researchers call this context rot.",
+     "paragraph": 5,
+     "start": 557.305,
+     "end": 559.249
+    },
+    {
+     "id": "s8_14",
+     "text": "Our runs are far too short to show it.",
+     "caption": "Our runs are far too short to show it.",
+     "paragraph": 5,
+     "start": 559.549,
+     "end": 561.537
+    },
+    {
+     "id": "s8_15",
+     "text": "Production agents, Claude Code among them, keep the context in check by summarizing it when it gets long.",
+     "caption": "Production agents, Claude Code among them, keep the context in check by summarizing it when it gets long.",
+     "paragraph": 6,
+     "start": 562.837,
+     "end": 569.151
+    },
+    {
+     "id": "s8_16",
+     "text": "That's called compaction.",
+     "caption": "That's called compaction.",
+     "paragraph": 6,
+     "start": 569.451,
+     "end": 570.803
+    },
+    {
+     "id": "s8_17",
+     "text": "But a summary is still the model's only memory.",
+     "caption": "But a summary is still the model's only memory.",
+     "paragraph": 7,
+     "start": 571.903,
+     "end": 574.406
+    },
+    {
+     "id": "s8_18",
+     "text": "Whatever it leaves out, the model no longer knows.",
+     "caption": "Whatever it leaves out, the model no longer knows.",
+     "paragraph": 7,
+     "start": 574.706,
+     "end": 577.351
+    }
+   ],
+   "end": 579.401
+  },
+  {
+   "id": "s9",
+   "title": "The answer",
+   "start": 579.401,
+   "lines": [
+    {
+     "id": "s9_01",
+     "text": "So why did one missing tool leave run B sure of something false?",
+     "caption": "So why did one missing tool leave run B sure of something false?",
+     "paragraph": 0,
+     "start": 579.751,
+     "end": 583.238
+    },
+    {
+     "id": "s9_02",
+     "text": "Because an agent is a model that picks each next step from its context, not from steps written in advance, as a workflow would.",
+     "caption": "Because an agent is a model that picks each next step from its context, not from steps written in advance, as a workflow would.",
+     "paragraph": 0,
+     "start": 583.538,
+     "end": 591.146
+    },
+    {
+     "id": "s9_03",
+     "text": "And a loop that runs those steps, and writes the results back in.",
+     "caption": "And a loop that runs those steps, and writes the results back in.",
+     "paragraph": 1,
+     "start": 591.646,
+     "end": 595.138
+    },
+    {
+     "id": "s9_04",
+     "text": "About the task, the model remembers nothing else.",
+     "caption": "About the task, the model remembers nothing else.",
+     "paragraph": 1,
+     "start": 595.438,
+     "end": 598.106
+    },
+    {
+     "id": "s9_05",
+     "text": "Run A's context held ground truth from the test.",
+     "caption": "Run A's context held ground truth from the test.",
+     "paragraph": 2,
+     "start": 598.606,
+     "end": 601.42
+    },
+    {
+     "id": "s9_06",
+     "text": "Run B's held only its own fix.",
+     "caption": "Run B's held only its own fix.",
+     "paragraph": 2,
+     "start": 601.72,
+     "end": 603.706
+    },
+    {
+     "id": "s9_07",
+     "text": "Same model, different context.",
+     "caption": "Same model, different context.",
+     "paragraph": 2,
+     "start": 604.006,
+     "end": 605.9
+    },
+    {
+     "id": "s9_08",
+     "text": "The more capable model did better in just that way: it read the data for itself.",
+     "caption": "The more capable model did better in just that way: it read the data for itself.",
+     "paragraph": 3,
+     "start": 607.6,
+     "end": 612.312
+    },
+    {
+     "id": "s9_09",
+     "text": "And it said what it hadn't been able to check.",
+     "caption": "And it said what it hadn't been able to check.",
+     "paragraph": 3,
+     "start": 612.612,
+     "end": 614.625
+    },
+    {
+     "id": "s9_10",
+     "text": "That's also why coding suits agents so well, as Anthropic's guide points out.",
+     "caption": "That's also why coding suits agents so well, as Anthropic's guide points out.",
+     "paragraph": 4,
+     "start": 615.925,
+     "end": 620.386
+    },
+    {
+     "id": "s9_11",
+     "text": "Code comes with tests: an answer the agent can check its work against at every step.",
+     "caption": "Code comes with tests: an answer the agent can check its work against at every step.",
+     "paragraph": 4,
+     "start": 620.686,
+     "end": 625.854
+    },
+    {
+     "id": "s9_12",
+     "text": "We've skipped a lot here: planning, memory that lasts between tasks, and teams of agents.",
+     "caption": "We've skipped a lot here: planning, memory that lasts between tasks, and teams of agents.",
+     "paragraph": 5,
+     "start": 626.354,
+     "end": 631.522
+    },
+    {
+     "id": "s9_13",
+     "text": "But each of those still reaches the model the same way: through its context.",
+     "caption": "But each of those still reaches the model the same way: through its context.",
+     "paragraph": 5,
+     "start": 631.822,
+     "end": 635.896
+    },
+    {
+     "id": "s9_14",
+     "text": "So when you build an agent, or hand one a task, don't only ask how clever the model is.",
+     "caption": "So when you build an agent, or hand one a task, don't only ask how clever the model is.",
+     "paragraph": 6,
+     "start": 637.196,
+     "end": 642.27
+    },
+    {
+     "id": "s9_15",
+     "text": "Ask what will tell it that it's wrong.",
+     "caption": "Ask what will tell it that it's wrong.",
+     "paragraph": 6,
+     "start": 642.57,
+     "end": 644.238
+    }
+   ],
+   "end": 652.238
+  }
+ ],
+ "phonemes": {
+  "s1_01": "h\u02c8\u026a\u0279z \u0250 sm\u02c8\u0254l p\u02c8I\u03b8\u02cc\u0251n p\u0279\u02c8\u0251\u02a4\u02cc\u025bkt w\u026a\u00f0 w\u02c8\u028cn f\u02c8Al\u026a\u014b t\u02c8\u025bst.",
+  "s1_02": "w\u02cci s\u02c8\u025bt \u02cc\u028cp \u0250n \u02c8\u025bl \u02c8\u025bl \u02c8\u025bm \u02c8A\u02a4\u1d4ant, \u0250 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m \u00f0\u00e6t l\u02c8\u025bts \u0250 m\u02c8\u0251d\u1d4al w\u02c8\u025c\u0279k \u02cc\u0254n \u0250 t\u02c8\u00e6sk st\u02c8\u025bp bI st\u02c8\u025bp, \u00e6nd \u02c8\u00e6skt \u026at t\u0259 f\u02c8\u026aks \u00f0\u0259 t\u02c8\u025bst, tw\u02c8Is.",
+  "s1_03": "s\u02c8Am m\u02c8\u0251d\u1d4al, s\u02c8Am f\u02c8Ilz, s\u02c8Am t\u02c8\u00e6sk.",
+  "s1_04": "\u02cc\u00e6nd b\u02c8O\u03b8 \u0279\u02c8\u028cnz b\u0259\u0261\u02c8\u00e6n \u00f0\u0259 s\u02c8Am w\u02c8A.",
+  "s1_05": "\u00f0\u02ccA l\u02c8\u026ast\u1d7bd \u00f0\u0259 f\u02c8Ilz, \u0279\u02c8\u025bd \u00f0\u0259 t\u02c8\u025bst, \u0279\u02c8id \u00f0\u0259 k\u02c8Od, \u00e6nd f\u02c8\u026akst \u00f0\u0259 s\u02c8Am b\u02c8\u028c\u0261.",
+  "s1_06": "\u00f0\u02c8\u025bn \u00f0A spl\u02c8\u026at.",
+  "s1_07": "\u0279\u02c8\u028cn \u0250 t\u02c8\u028ak f\u02c8\u0254\u0279 m\u02c8\u0254\u0279 st\u02c8\u025bps.",
+  "s1_08": "\u02cc\u026ats l\u02c8\u00e6st \u0279\u0259pl\u02c8I b\u0259\u0261\u02c8\u00e6n \u201cf\u02c8\u026akst\u201d, \u00e6nd \u02c8\u025bnd\u1d7bd \u201c\u02c8\u0254l t\u02c8\u025bsts n\u02c8W p\u02c8\u00e6s.\u201d",
+  "s1_09": "\u0279\u02c8\u028cn b\u02c8i st\u02c8\u0251pt \u0279\u02c8It \u00f0\u02c8\u025b\u0279.",
+  "s1_10": "\u02cc\u026ats \u0279\u0259pl\u02c8I \u02c8\u0254lsO b\u0259\u0261\u02c8\u00e6n \u201cf\u02c8\u026akst\u201d, \u00e6nd s\u02c8\u025bd \u026ats k\u02c8Od n\u02c8W m\u02c8\u00e6\u02a7t \u00f0\u0259 v\u02c8\u00e6ljuz \u00f0\u0259 t\u02c8\u025bst \u026aksp\u02c8\u025bkts.",
+  "s1_11": "s\u02ccO wi \u0279\u02c8\u00e6n \u00f0\u0259 t\u02c8\u025bst W\u0279s\u02c8\u025blvz.",
+  "s1_12": "\u02c8\u00e6ft\u0259\u0279 \u0279\u02c8\u028cn \u02c8A, \u026at p\u02c8\u00e6s\u1d7bz.",
+  "s1_13": "\u02c8\u00e6ft\u0259\u0279 \u0279\u02c8\u028cn b\u02c8i, \u026at st\u02c8\u026al f\u02c8Alz.",
+  "s1_14": "\u00f0\u02c8\u00e6t w\u02c8\u028cz\u1d4ant l\u02c8\u028ck.",
+  "s1_15": "w\u02cci \u0279\u02c8\u00e6n \u02c8i\u02a7 v\u02c8\u025c\u0279\u0292\u0259n \u03b8\u0279\u02c8i t\u02c8Imz.",
+  "s1_16": "\u02c8\u025bv\u0259\u0279i \u0279\u02c8\u028cn l\u02c8Ik \u0250 p\u02c8\u00e6st.",
+  "s1_17": "\u02c8\u025bv\u0259\u0279i \u0279\u02c8\u028cn l\u02c8Ik b\u02c8i s\u02c8\u025bd \u201cf\u02c8\u026akst\u201d, \u00e6nd f\u02c8Ald.",
+  "s1_18": "\u0279\u02c8\u028cn b\u02c8i w\u028cz m\u02c8\u026as\u026a\u014b w\u02c8\u028cn \u03b8\u02c8\u026a\u014b: \u0250 w\u02c8A t\u0259 \u0279\u02c8\u028cn \u00f0\u0259 t\u02c8\u025bst.",
+  "s1_19": "\u00f0\u0259 m\u02c8\u0251d\u1d4al w\u028cz \u00f0\u0259 s\u02c8Am.",
+  "s1_20": "s\u02ccO w\u02cc\u028ct \u026az \u0250n \u02c8\u025bl \u02c8\u025bl \u02c8\u025bm \u02c8A\u02a4\u1d4ant, \u00f0\u00e6t t\u02c8Ak\u026a\u014b \u0259w\u02c8A w\u02c8\u028cn t\u02c8ul l\u02c8ivz \u026at \u0283\u02c8\u028a\u0279 \u028cv s\u02c8\u028cm\u03b8\u02cc\u026a\u014b f\u02c8\u0254ls?",
+  "s2_01": "t\u0259 s\u02c8i w\u02cc\u028cts \u0261\u02c8O\u026a\u014b \u02cc\u0254n, b\u02c8\u026ald \u026at \u02cc\u028cp f\u0279\u028cm \u00f0\u0259 st\u02c8\u0251\u0279t: \u0250 m\u02c8\u0251d\u1d4al \u02cc\u0254n \u026ats \u02c8On.",
+  "s2_02": "\u0250n \u02c8\u025bl \u02c8\u025bl \u02c8\u025bm \u0279\u02c8idz t\u02c8\u025bkst \u00e6nd \u0279\u02c8Its t\u02c8\u025bkst.",
+  "s2_03": "j\u02ccu s\u02c8\u025bnd \u026at s\u02cc\u028cm, \u00e6nd \u026at \u0279\u02c8Its w\u02cc\u028ct k\u02c8\u028cmz n\u02c8\u025bkst.",
+  "s2_04": "\u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b \u026at \u0279\u02c8idz \u02cc\u0254n w\u02c8\u028cn k\u02c8\u0254l \u026az k\u02c8\u0254ld \u026ats k\u02c8\u0251nt\u025bkst.",
+  "s2_05": "h\u02c8\u026a\u0279, \u00f0\u02c8\u00e6ts s\u02cc\u028cm \u026anst\u0279\u02c8\u028ck\u0283\u0259nz \u00e6nd \u02ccW\u0259\u0279 t\u02c8\u00e6sk.",
+  "s2_06": "w\u02cci \u0279\u02c8i\u02a7 \u00f0\u0259 m\u02c8\u0251d\u1d4al \u03b8\u0279u kl\u02c8\u0254dz k\u0259m\u02c8\u00e6ndl\u02ccIn t\u02c8ul, w\u026a\u00f0 \u00f0\u02c8\u00e6t t\u02c8ulz \u02c8On t\u02c8ulz sw\u02c8\u026a\u02a7t \u02c8\u0254f, s\u02ccO t\u02c8\u025bkst \u026az \u02c8\u0254l \u026at k\u00e6n \u0261\u02c8\u026av b\u02c8\u00e6k.",
+  "s2_07": "\u02cc\u026at \u0279\u1d7bpl\u02c8Iz w\u026a\u00f0 t\u02c8\u025bkst, \u028cv k\u02c8\u0254\u0279s.",
+  "s2_08": "\u02cc\u026at \u02c8iv\u0259n \u0279\u02c8Its \u02c8Wt \u0250 \u0283\u02c8\u025bl k\u0259m\u02c8\u00e6nd \u026at w\u028ad l\u02c8Ik t\u0259 \u0279\u02c8\u028cn.",
+  "s2_09": "b\u02cc\u028ct n\u02c8\u028c\u03b8\u026a\u014b \u0279\u02c8\u028cnz t\u02c8\u025bkst.",
+  "s2_10": "\u00f0\u0259 k\u0259m\u02c8\u00e6nd n\u02c8\u025bv\u0259\u0279 \u0279\u02c8\u00e6n, \u00f0\u0259 m\u02c8\u0251d\u1d4al n\u02c8\u025bv\u0259\u0279 s\u02c8\u0254 \u0250 s\u02c8\u026a\u014b\u0261\u1d4al f\u02c8Il, \u00e6nd \u00f0\u0259 t\u02c8\u025bst st\u02c8\u026al f\u02c8Alz.",
+  "s2_11": "f\u02cc\u0254\u0279 \u02c8\u025bni\u03b8\u02cc\u026a\u014b t\u0259 \u02a7\u02c8An\u02a4, s\u02c8\u028cm\u03b8\u02cc\u026a\u014b \u02c8\u025bls h\u00e6z t\u028a \u02c8\u00e6kt \u02cc\u0254n w\u02cc\u028ct \u00f0\u0259 m\u02c8\u0251d\u1d4al \u0279\u02c8Its.",
+  "s3_01": "s\u02ccO l\u02c8\u025bts \u02c8\u00e6kt f\u0254\u0279 \u026at.",
+  "s3_02": "w\u02cci \u02c8\u00e6d \u0250 l\u02c8\u026ast \u028cv t\u02c8ulz t\u0259 \u00f0i \u026anst\u0279\u02c8\u028ck\u0283\u0259nz: l\u02c8\u026ast \u00f0\u0259 f\u02c8Ilz, \u0279\u02c8\u025bd \u0250 f\u02c8Il, \u0279\u02c8It \u0250 f\u02c8Il, \u00e6nd \u0279\u02c8\u028cn \u00f0\u0259 t\u02c8\u025bsts.",
+  "s3_03": "\u02c8i\u02a7 \u026az \u02c8\u0254\u0279d\u1d4an\u02cc\u025b\u0279i k\u02c8Od, \u0279\u02c8\u026atn bI \u02cc\u028cs.",
+  "s3_04": "w\u02cci \u02c8\u0254lsO t\u02c8\u025bl \u00f0\u0259 m\u02c8\u0251d\u1d4al h\u02ccW t\u028a \u02c8\u00e6sk f\u0254\u0279 w\u02c8\u028cn: \u0279\u0259pl\u02c8I w\u026a\u00f0 w\u02c8\u028cn l\u02c8In \u028cv \u02a4\u02c8As\u02cc\u028cn \u00f0\u00e6t n\u02c8Amz \u00f0\u0259 t\u02c8ul.",
+  "s3_05": "\u00f0\u02c8\u00e6t m\u02c8\u025bs\u026a\u02a4 \u026az k\u02c8\u0254ld \u0250 t\u02c8ul k\u02c8\u0254l.",
+  "s3_06": "n\u02c8W \u00f0\u0259 m\u02c8\u0251d\u1d4alz f\u02c8\u025c\u0279st \u0279\u0259pl\u02c8I \u026az \u0250 t\u02c8ul k\u02c8\u0254l: l\u02c8\u026ast \u00f0\u0259 f\u02c8Ilz.",
+  "s3_07": "\u02ccW\u0259\u0279 k\u02c8Od \u0279\u02c8idz \u00f0\u0259 t\u02c8ul k\u02c8\u0254l, \u0279\u02c8\u028cnz \u00f0\u0259 t\u02c8ul, \u00e6nd \u02c8\u00e6dz \u026ats \u02c8Wtp\u02cc\u028at t\u0259 \u00f0\u0259 k\u02c8\u0251nt\u025bkst.",
+  "s3_08": "\u00f0\u02c8\u00e6ts \u00f0\u0259 t\u02c8ul \u0279\u0259z\u02c8\u028clt.",
+  "s3_09": "n\u02c8OT\u0259s h\u02ccu \u0279\u02c8\u00e6n \u026at.",
+  "s3_10": "n\u02cc\u0251t \u00f0\u0259 m\u02c8\u0251d\u1d4al.",
+  "s3_11": "\u02cc\u026at \u02c8Onli \u02c8\u00e6skt.",
+  "s3_12": "\u00e6n\u03b8\u0279\u02c8\u0251p\u026aks d\u02cc\u0251kj\u0259m\u0259nt\u02c8A\u0283\u0259n p\u02cc\u028ats \u026at pl\u02c8Anli: \u00f0\u0259 m\u02c8\u0251d\u1d4al n\u02c8\u025bv\u0259\u0279 \u02c8\u025bks\u0259kj\u02ccuts \u02c8\u025bni\u03b8\u02cc\u026a\u014b \u02cc\u0254n \u026ats \u02c8On.",
+  "s3_13": "\u00f0\u02c8\u025bn wi k\u02c8\u0254l \u00f0\u0259 m\u02c8\u0251d\u1d4al \u0259\u0261\u02c8\u025bn, \u00e6nd \u026at \u02c8\u00e6sks f\u0254\u0279 \u0250 s\u02c8\u025bk\u0259nd t\u02c8ul: \u0279\u02c8id \u00f0\u0259 t\u02c8\u025bst.",
+  "s3_14": "b\u02cc\u028ct \u02ccW\u0259\u0279 k\u02c8Od st\u02c8\u0251ps h\u02c8\u026a\u0279.",
+  "s3_15": "\u02cc\u026at w\u028cz \u0279\u02c8\u026atn f\u0254\u0279 w\u02c8\u028cn t\u02c8ul k\u02c8\u0254l.",
+  "s3_16": "\u00f0\u0259 m\u02c8\u0251d\u1d4al k\u02c8\u00e6nt n\u02c8O \u026an \u0259dv\u02c8\u00e6ns h\u02ccW m\u02c8\u025bni st\u02c8\u025bps \u026at w\u026al n\u02c8id.",
+  "s3_17": "s\u02ccO \u02ccW\u0259\u0279 k\u02c8Od \u0283\u02c8\u028ad\u1d4ant d\u0259s\u02c8Id \u00f0\u00e6t \u02c8i\u00f0\u0259\u0279.",
+  "s4_01": "\u00f0\u02c8\u025b\u0279f\u02cc\u0254\u0279, \u0250 l\u02c8up.",
+  "s4_02": "k\u02c8\u0254l \u00f0\u0259 m\u02c8\u0251d\u1d4al.",
+  "s4_03": "\u02cc\u026af \u026ats \u0279\u0259pl\u02c8I \u026az \u0250 t\u02c8ul k\u02c8\u0254l, \u0279\u02c8\u028cn \u00f0\u0259 t\u02c8ul, \u00e6nd \u02c8\u00e6d \u00f0\u0259 \u0279\u0259z\u02c8\u028clt t\u0259 \u00f0\u0259 k\u02c8\u0251nt\u025bkst.",
+  "s4_04": "\u00f0\u02c8\u025bn k\u02c8\u0254l \u00f0\u0259 m\u02c8\u0251d\u1d4al \u0259\u0261\u02c8\u025bn.",
+  "s4_05": "st\u02c8\u0251p w\u02cc\u025bn \u026at \u0279\u1d7bpl\u02c8Iz w\u026a\u00f0\u02c8Wt \u0250 t\u02c8ul k\u02c8\u0254l, \u0254\u0279 \u02c8\u00e6ft\u0259\u0279 tw\u02c8\u025bnti k\u02c8\u0254lz, \u026an k\u02c8As \u026at n\u02c8\u025bv\u0259\u0279 d\u02c8\u028cz.",
+  "s4_06": "\u00f0\u02c8\u00e6t l\u02c8up, w\u026a\u00f0 \u0250 m\u02c8\u0251d\u1d4al \u00e6nd s\u02cc\u028cm t\u02c8ulz, \u026az \u0250n \u02c8A\u02a4\u1d4ant.",
+  "s4_07": "w\u02c8\u028cn k\u02c8\u0251m\u0259n d\u02cc\u025bf\u0259n\u02c8\u026a\u0283\u0259n s\u02c8\u025bz \u02a4\u02c8\u028cst \u00f0\u02c8\u00e6t: \u0250n \u02c8\u025bl \u02c8\u025bl \u02c8\u025bm \u02c8A\u02a4\u1d4ant \u0279\u02c8\u028cnz t\u02c8ulz \u026an \u0250 l\u02c8up t\u028a \u0259\u02a7\u02c8iv \u0250 \u0261\u02c8Ol.",
+  "s4_08": "h\u02c8\u026a\u0279z \u0279\u02c8\u028cn \u02c8A, w\u02c8\u028cn k\u02c8\u0254l \u00e6t \u0250 t\u02c8Im.",
+  "s4_09": "\u02cc\u026at l\u02c8\u026asts \u00f0\u0259 f\u02c8Ilz, \u0279\u02c8idz \u00f0\u0259 t\u02c8\u025bst, \u00e6nd \u0279\u02c8idz \u00f0\u0259 k\u02c8Od.",
+  "s4_10": "\u02cc\u00e6nd \u026at sp\u02c8\u0251ts \u0250 b\u02c8\u028c\u0261: \u00f0\u0259 k\u02c8Od \u02c8\u00e6dz \u00f0\u0259 j\u02c8un\u0259ts t\u0259 \u00f0\u0259 p\u0279\u02c8Is, w\u02cc\u025b\u0279 \u026at \u0283\u02cc\u028ad m\u02c8\u028clt\u0259pl\u02ccI \u00f0\u02cc\u025bm.",
+  "s4_11": "\u02cc\u026at \u0279i\u0279\u02c8Its \u00f0\u02c8\u00e6t l\u02c8In, \u00f0\u02c8\u025bn \u02c8\u00e6sks t\u0259 \u0279\u02c8\u028cn \u00f0\u0259 t\u02c8\u025bst.",
+  "s4_12": "p\u02c8\u0254z h\u02c8\u026a\u0279, \u00e6nd m\u02ccAk \u0250 p\u0279id\u02c8\u026ak\u0283\u0259n.",
+  "s4_13": "\u00f0\u0259 m\u02c8\u0251d\u1d4al f\u02c8Wnd \u0250 \u0279\u02c8i\u1d4al b\u02c8\u028c\u0261, \u00e6nd f\u02c8\u026akst \u026at.",
+  "s4_14": "w\u02cc\u026al \u00f0\u0259 t\u02c8\u025bst p\u02c8\u00e6s?",
+  "s5_01": "\u02cc\u026at d\u02c8\u028cz\u1d4ant.",
+  "s5_02": "\u00f0\u0259 t\u02c8\u025bst f\u02c8Alz w\u026a\u00f0 \u0250 k\u02c8i \u02c8\u025b\u0279\u0259\u0279: \u00f0\u025b\u0279z n\u02c8O k\u02c8\u0251l\u0259m k\u02c8\u0254ld \u201c\u0279\u02c8i\u02a4\u1d4an\u201d.",
+  "s5_03": "\u00f0\u02c8\u00e6t \u0279\u0259z\u02c8\u028clt \u0261\u02c8Oz \u02c8\u026antu \u00f0\u0259 k\u02c8\u0251nt\u025bkst, l\u02c8Ik \u02c8\u025bni \u02c8\u028c\u00f0\u0259\u0279.",
+  "s5_04": "\u02cc\u026ats \u00f0\u0259 w\u02c8\u025c\u0279ldz \u02c8\u00e6ns\u0259\u0279, n\u02cc\u0251t \u00f0\u0259 m\u02c8\u0251d\u1d4alz \u0261\u02c8\u025bs: w\u02cc\u028ct \u00e6n\u03b8\u0279\u02c8\u0251p\u026aks \u0261\u02c8Id t\u028a \u02c8A\u02a4\u1d4ants k\u02c8\u0254lz \u0261\u0279\u02c8Wnd t\u0279\u02c8u\u03b8.",
+  "s5_05": "\u02cc\u00e6nd \u02cc\u0254n \u00f0\u0259 n\u02c8\u025bkst k\u02c8\u0254l, \u00f0\u0259 m\u02c8\u0251d\u1d4al \u0279\u02c8idz \u026at, \u00e6nd \u02a7\u02c8An\u02a4\u1d7bz k\u02c8\u0254\u0279s: \u026at \u02c8\u00e6sks t\u0259 s\u02c8i \u00f0\u0259 d\u02c8AT\u0259 f\u02c8Il.",
+  "s5_06": "\u00f0\u0259 f\u02c8Il b\u0259\u0261\u02c8\u026anz w\u026a\u00f0 \u0250n \u026anv\u02c8\u026az\u0259b\u1d4al k\u02c8\u025b\u0279\u0259kt\u0259\u0279, k\u02c8\u0254ld \u0250 b\u02c8It \u02c8\u0254\u0279d\u0259\u0279 m\u02c8\u0251\u0279k, \u0261l\u02c8ud t\u0259 \u00f0\u0259 f\u0279\u02c8\u028cnt \u028cv \u00f0\u0259 w\u02c8\u025c\u0279d \u201c\u0279\u02c8i\u02a4\u1d4an\u201d.",
+  "s5_07": "\u00f0\u0259 k\u02c8Od w\u028cz \u02c8Onli h\u02c8\u00e6f \u00f0\u0259 p\u0279\u02c8\u0251bl\u0259m.",
+  "s5_08": "\u00f0\u0259 m\u02c8\u0251d\u1d4al \u02a7\u02c8An\u02a4\u1d7bz h\u02ccW \u00f0\u0259 f\u02c8Il \u026az \u02c8Op\u1d4and, s\u02ccO \u00f0\u0259 m\u02c8\u0251\u0279k \u026az sk\u02c8\u026apt.",
+  "s5_09": "\u02cc\u026at \u0279\u02c8\u028cnz \u00f0\u0259 t\u02c8\u025bst \u0259\u0261\u02c8\u025bn, \u00e6nd \u00f0\u026as t\u02c8Im \u026at p\u02c8\u00e6s\u1d7bz.",
+  "s5_10": "\u00f0\u02c8\u025bn \u026at \u0279\u1d7bpl\u02c8Iz w\u026a\u00f0 n\u02c8O t\u02c8ul k\u02c8\u0254l, \u00e6nd \u00f0\u0259 l\u02c8up \u02c8\u025bndz.",
+  "s5_11": "n\u02c8OT\u0259s h\u02ccu d\u0259s\u02c8Id\u1d7bd t\u0259 l\u02c8\u028ak \u00e6t \u00f0\u0259 d\u02c8AT\u0259 f\u02c8Il.",
+  "s5_12": "n\u02cc\u0251t \u02ccW\u0259\u0279 k\u02c8Od: \u026at \u02c8Onli \u0279\u02c8\u00e6n w\u02cc\u028ct w\u028cz \u02c8\u00e6skt.",
+  "s5_13": "n\u02c8Ob\u02cc\u0251di \u0279\u02c8Ot \u00f0\u02c8\u00e6t st\u02c8\u025bp \u026an \u0259dv\u02c8\u00e6ns.",
+  "s5_14": "s\u0259p\u02c8Oz wi h\u00e6d sk\u0279\u02c8\u026apt\u1d7bd \u00f0\u0259 st\u02c8\u025bps \u026anst\u02c8\u025bd: \u0279\u02c8id, \u00f0\u02c8\u025bn f\u02c8\u026aks, \u00f0\u02c8\u025bn t\u02c8\u025bst.",
+  "s5_15": "\u00f0\u02c8\u00e6t k\u02c8Ind \u028cv p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m \u026az k\u02c8\u0254ld \u0250 w\u02c8\u025c\u0279kfl\u02ccO.",
+  "s5_16": "\u02c8W\u0259\u0279z w\u028ad h\u00e6v st\u02c8\u0251pt \u00e6t \u00f0\u0259 k\u02c8i \u02c8\u025b\u0279\u0259\u0279, w\u026a\u00f0 n\u02c8O st\u02c8\u025bp f\u0254\u0279 w\u02cc\u028ct k\u02c8Am n\u02c8\u025bkst.",
+  "s5_17": "\u026an \u0250n \u02c8A\u02a4\u1d4ant, \u00f0\u0259 m\u02c8\u0251d\u1d4al p\u02c8\u026aks \u02c8i\u02a7 n\u02c8\u025bkst st\u02c8\u025bp f\u0279\u028cm w\u02cc\u028cts \u026an \u026ats k\u02c8\u0251nt\u025bkst.",
+  "s5_18": "h\u02c8\u026a\u0279, \u00f0\u02c8\u00e6t \u026ankl\u02c8ud\u1d7bd \u0261\u0279\u02c8Wnd t\u0279\u02c8u\u03b8 f\u0279\u028cm \u00f0\u0259 t\u02c8\u025bst.",
+  "s6_01": "\u0279\u02c8\u028cn \u0250 k\u02c8\u0254ld \u00f0\u0259 m\u02c8\u0251d\u1d4al n\u02c8In t\u02c8Imz: \u02c8At t\u02c8ul k\u02c8\u0254lz, \u00f0\u02c8\u025bn \u00f0\u0259 f\u02c8In\u1d4al \u0279\u0259pl\u02c8I.",
+  "s6_02": "\u02cc\u026at l\u02c8\u028aks \u00e6z \u026af \u00f0\u0259 m\u02c8\u0251d\u1d4al w\u02c8\u025c\u0279kt \u03b8\u0279u \u00f0\u0259 p\u0279\u02c8\u0251bl\u0259m, \u0279\u1d7bm\u02c8\u025bmb\u0259\u0279\u026a\u014b w\u02cc\u028ct \u026at h\u00e6d t\u0279\u02c8Id.",
+  "s6_03": "\u02cc\u026at d\u02c8\u026ad\u1d4ant.",
+  "s6_04": "\u02c8i\u02a7 \u028cv \u00f0Oz k\u02c8\u0254lz st\u02c8\u0251\u0279T\u1d7bd f\u0279\u028cm n\u02c8\u028c\u03b8\u026a\u014b.",
+  "s6_05": "\u00f0\u0259 m\u02c8\u0251d\u1d4al k\u02c8ips n\u02c8\u028c\u03b8\u026a\u014b b\u0259tw\u02c8in k\u02c8\u0254lz.",
+  "s6_06": "s\u02ccO \u02ccW\u0259\u0279 l\u02c8up s\u02c8\u025bndz \u026at \u00f0\u0259 h\u02c8Ol k\u02c8\u0251nt\u025bkst \u02c8\u025bv\u0259\u0279i t\u02c8Im: \u00f0i \u026anst\u0279\u02c8\u028ck\u0283\u0259nz, \u00f0\u0259 t\u02c8\u00e6sk, \u00e6nd \u02c8\u025bv\u0259\u0279i t\u02c8ul k\u02c8\u0254l \u00e6nd \u0279\u0259z\u02c8\u028clt s\u02ccO f\u02c8\u0251\u0279.",
+  "s6_07": "h\u02c8\u026a\u0279z h\u02ccW m\u02c8\u028c\u02a7 \u026at \u0279\u02c8\u025bd \u02cc\u0254n \u02c8i\u02a7 k\u02c8\u0254l, k\u02c8Wnt\u1d7bd \u026an t\u02c8Ok\u1d4anz, \u00f0\u0259 \u02a7\u02c8\u028c\u014bks \u028cv t\u02c8\u025bkst \u0250 m\u02c8\u0251d\u1d4al \u0279\u02c8idz.",
+  "s6_08": "\u00f0\u0259 f\u02c8\u025c\u0279st k\u02c8\u0254l \u0279\u02c8\u025bd \u0259b\u02c8Wt f\u02cc\u0254\u0279t\u02c8in h\u02c8\u028cnd\u0279\u0259d.",
+  "s6_09": "m\u02c8Ost \u028cv \u00f0\u02c8\u00e6t \u026az f\u02c8\u026akst t\u02c8\u025bkst: \u02ccW\u0259\u0279 \u026anst\u0279\u02c8\u028ck\u0283\u0259nz, \u00e6nd n\u02c8Ots \u00f0\u00e6t \u00f0\u0259 k\u0259m\u02c8\u00e6ndl\u02ccIn t\u02c8ul wi k\u02c8\u0254l \u00f0\u0259 m\u02c8\u0251d\u1d4al \u03b8\u0279u \u02c8\u00e6dz t\u028a \u02c8\u025bv\u0259\u0279i k\u02c8\u0254l.",
+  "s6_10": "\u00f0\u0259 n\u02c8In\u03b8 \u0279\u02c8id \u0259b\u02c8Wt tw\u02c8\u025bntis\u02cc\u025bv\u0259n h\u02c8\u028cnd\u0279\u0259d: \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b \u00f0\u0259 f\u02c8\u025c\u0279st k\u02c8\u0254l \u0279\u02c8id, \u00e6nd \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b s\u02c8\u026ans.",
+  "s6_11": "t\u0259\u0261\u02c8\u025b\u00f0\u0259\u0279, \u00f0\u0259 n\u02c8In k\u02c8\u0254lz \u0279\u02c8\u025bd \u0259b\u02c8Wt \u02ccAt\u02c8in \u00e6nd \u0250 h\u02c8\u00e6f \u03b8\u02c8Wz\u1d4and t\u02c8Ok\u1d4anz, t\u0259 \u02a7\u02c8An\u02a4 t\u02c8u l\u02c8Inz \u028cv k\u02c8Od.",
+  "s6_12": "\u00f0\u02cc\u026as \u02c8\u026az\u1d4ant \u0250 kw\u02c8\u025c\u0279k \u028cv \u02ccW\u0259\u0279 k\u02c8Od.",
+  "s6_13": "\u00e6n\u03b8\u0279\u02c8\u0251p\u026aks d\u02cc\u0251kj\u0259m\u0259nt\u02c8A\u0283\u0259n s\u02c8\u025bz \u00f0\u0259 s\u02c8Am \u028cv \u026ats m\u02c8\u025bs\u026a\u02a4\u1d7bz \u02c8A p\u02c8i \u02ccI: \u026ats st\u02c8Atl\u0259s, s\u02ccO \u02c8\u025bv\u0259\u0279i \u0279\u0259kw\u02c8\u025bst k\u02c8\u025b\u0279iz \u00f0\u0259 h\u02c8Ol k\u02c8\u0251nt\u025bkst \u0259\u0261\u02c8\u025bn.",
+  "s6_14": "\u00f0\u0259 m\u02c8\u0251d\u1d4al st\u02c8\u026al n\u02c8Oz w\u02cc\u028ct \u026at l\u02c8\u025c\u0279nd \u026an t\u0279\u02c8An\u026a\u014b.",
+  "s6_15": "\u00f0\u02c8\u00e6ts h\u02ccW \u026at n\u02c8u w\u02cc\u028ct \u0250 b\u02c8It \u02c8\u0254\u0279d\u0259\u0279 m\u02c8\u0251\u0279k w\u028cz.",
+  "s6_16": "b\u02cc\u028ct w\u02cc\u028ct \u026at h\u00e6z t\u0279\u02c8Id \u026an \u00f0\u026as t\u02c8\u00e6sk, \u00e6nd w\u02cc\u028ct k\u02c8Am b\u02c8\u00e6k, \u026at n\u02c8Oz \u02c8Onli f\u0279\u028cm \u026ats k\u02c8\u0251nt\u025bkst.",
+  "s6_17": "\u00f0\u0259 k\u02c8\u0251nt\u025bkst \u026az \u026ats \u02c8Onli m\u02c8\u025bm\u0259\u0279i \u028cv \u00f0\u0259 t\u02c8\u00e6sk.",
+  "s7_01": "n\u02c8W \u0279\u02c8\u028cn b\u02c8i m\u02ccAks s\u02c8\u025bns.",
+  "s7_02": "\u02cc\u026ats \u00f0\u0259 s\u02c8Am l\u02c8up \u00e6nd \u00f0\u0259 s\u02c8Am m\u02c8\u0251d\u1d4al.",
+  "s7_03": "\u00f0i \u02c8Onli d\u02c8\u026af\u0259\u0279\u0259ns \u026az \u00f0\u0259 t\u02c8ul l\u02c8\u026ast: \u00f0\u025b\u0279z n\u02c8O \u0279\u02c8\u028cn t\u02c8\u025bsts.",
+  "s7_04": "\u02cc\u026ats f\u02c8\u025c\u0279st f\u02c8\u0254\u0279 st\u02c8\u025bps m\u02c8\u00e6\u02a7 \u0279\u02c8\u028cn \u02c8Az.",
+  "s7_05": "\u00f0\u02c8\u025bn, w\u02cc\u025b\u0279 \u0279\u02c8\u028cn \u02c8A \u02c8\u00e6skt t\u0259 \u0279\u02c8\u028cn \u00f0\u0259 t\u02c8\u025bst, \u0279\u02c8\u028cn b\u02c8i h\u00e6d n\u02c8\u028c\u03b8\u026a\u014b t\u028a \u02c8\u00e6sk f\u0254\u0279.",
+  "s7_06": "s\u02ccO \u026at \u0279\u1d7bpl\u02c8Id.",
+  "s7_07": "l\u02c8\u028ak \u00e6t \u026ats k\u02c8\u0251nt\u025bkst w\u02cc\u025bn \u026at d\u02c8\u026ad: \u026ats \u02c8On f\u02c8\u026aks, \u00e6nd n\u02c8\u028c\u03b8\u026a\u014b \u02c8\u00e6ft\u0259\u0279 \u026at.",
+  "s7_08": "n\u02c8O t\u02c8ul \u0279\u0259z\u02c8\u028clt k\u028ad h\u00e6v t\u02c8Old \u026at \u00f0\u0259 f\u02c8\u026aks w\u028cz \u02cc\u026ank\u0259mpl\u02c8it.",
+  "s7_09": "\u02cc\u026at l\u02c8\u028aks \u00e6z \u026af \u00f0\u0259 m\u02c8\u0251d\u1d4al n\u02c8u \u026at h\u00e6d s\u0259ks\u02c8id\u1d7bd.",
+  "s7_10": "\u02cc\u026at d\u02c8\u026ad\u1d4ant.",
+  "s7_11": "\u02cc\u026at \u02c8Onli n\u02c8u \u00f0\u00e6t n\u02c8\u028c\u03b8\u026a\u014b \u026an \u026ats k\u02c8\u0251nt\u025bkst s\u02c8\u025bd \u02c8\u028c\u00f0\u0259\u0279w\u02ccIz.",
+  "s7_12": "\u02cc\u026ats \u201cf\u02c8\u026akst\u201d w\u02c8\u028cz\u1d4ant \u0250 l\u02c8I.",
+  "s7_13": "\u02cc\u026at w\u028cz \u0250 \u0279\u02c8iz\u0259n\u0259b\u1d4al k\u0259nkl\u02c8u\u0292\u0259n, f\u0279\u028cm \u0250 k\u02c8\u0251nt\u025bkst w\u026a\u00f0 n\u02c8O \u02c8\u025bv\u0259d\u1d4ans \u0259\u0261\u02c8\u025bnst \u026at.",
+  "s7_14": "\u02cc\u026at k\u028ad h\u00e6v \u0279\u02c8\u025bd \u00f0\u0259 d\u02c8AT\u0259 f\u02c8Il.",
+  "s7_15": "\u02cc\u026at h\u00e6d \u00f0\u0259 t\u02c8ul.",
+  "s7_16": "\u02cc\u026at \u02a4\u02c8\u028cst d\u02c8\u026ad\u1d4ant s\u02c8i \u0250 \u0279\u02c8iz\u1d4an tu.",
+  "s7_17": "s\u02ccO \u00f0\u026as \u026az w\u02ccI \u02c8A\u02a4\u1d4ants w\u02c8\u025c\u0279k, \u00e6nd \u00f0\u0259 f\u02c8\u025c\u0279st w\u02c8A \u00f0A b\u0279\u02c8Ak d\u02ccWn.",
+  "s7_18": "\u02c8i\u02a7 st\u02c8\u025bp k\u00e6n p\u02cc\u028at \u0261\u0279\u02c8Wnd t\u0279\u02c8u\u03b8 \u02c8\u026antu \u00f0\u0259 k\u02c8\u0251nt\u025bkst.",
+  "s7_19": "w\u02cc\u025b\u0279 n\u02c8\u028c\u03b8\u026a\u014b \u02a7\u02c8\u025bks \u00f0\u0259 w\u02c8\u025c\u0279k, \u00f0\u0259 m\u02c8\u0251d\u1d4alz \u02c8On \u0261\u02c8\u025bs h\u00e6z \u00f0\u0259 l\u02c8\u00e6st w\u02c8\u025c\u0279d.",
+  "s7_20": "\u02cc\u026af \u00f0\u02c8\u00e6t \u0261\u02c8\u025bs w\u025c\u0279 w\u02c8\u028cn st\u02c8\u025bp \u026an \u0250 l\u02c8\u0254\u014b\u0261\u0259\u0279 t\u02c8\u00e6sk, \u00f0\u0259 n\u02c8\u025bkst k\u02c8\u0254l w\u028ad \u0279\u02c8id \u026at \u00e6z f\u02c8\u00e6kt \u00e6nd b\u02c8\u026ald \u02cc\u0254n \u026at.",
+  "s7_21": "n\u02c8\u028c\u03b8\u026a\u014b h\u02c8\u026a\u0279 w\u028ad k\u02c8\u025b\u02a7 \u00f0\u02c8\u00e6t \u02c8i\u00f0\u0259\u0279.",
+  "s7_22": "\u02cc\u026ats k\u02c8\u0254ld k\u0259mp\u02c8Wnd\u026a\u014b \u02c8\u025b\u0279\u0259\u0279z.",
+  "s7_23": "w\u02cc\u028ad \u0250 m\u02c8\u0254\u0279 k\u02c8Ap\u0259b\u1d4al m\u02c8\u0251d\u1d4al d\u02c8u b\u02c8\u025bT\u0259\u0279?",
+  "s7_24": "w\u02cci \u0261\u02c8Av \u0279\u02c8\u028cn b\u02c8iz s\u02c8\u025bT\u02cc\u028cp t\u0259 w\u02c8\u028cn, \u03b8\u0279\u02c8i t\u02c8Imz.",
+  "s7_25": "tw\u02c8Is, w\u026a\u00f0 n\u02c8O w\u02c8A t\u0259 \u0279\u02c8\u028cn \u00f0\u0259 t\u02c8\u025bst, \u026at \u0279\u02c8\u025bd \u00f0\u0259 d\u02c8AT\u0259 f\u02c8Il t\u0259 \u02a7\u02c8\u025bk \u00f0\u0259 s\u02c8\u028cmz bI h\u02c8\u00e6nd.",
+  "s7_26": "\u02cc\u026at f\u02c8Wnd \u00f0\u0259 m\u02c8\u0251\u0279k, \u00e6nd f\u02c8\u026akst b\u02c8O\u03b8 b\u02c8\u028c\u0261z.",
+  "s7_27": "\u02cc\u00e6nd \u026at s\u02c8\u025bd pl\u02c8Anli \u00f0\u00e6t \u026at k\u02cc\u028ad\u1d4ant \u0279\u02c8\u028cn \u00f0\u0259 t\u02c8\u025bst.",
+  "s7_28": "\u02cc\u026at d\u02c8\u026ad b\u02c8\u025bT\u0259\u0279 \u00f0\u0259 s\u02c8Am w\u02c8A \u0279\u02c8\u028cn \u02c8A d\u02c8\u026ad: \u026at p\u02cc\u028at m\u02c8\u0254\u0279 \u0261\u0279\u02c8Wnd t\u0279\u02c8u\u03b8 \u02c8\u026antu \u026ats \u02c8On k\u02c8\u0251nt\u025bkst.",
+  "s7_29": "\u00f0\u0259 \u03b8\u02c8\u025c\u0279d t\u02c8Im, \u026at \u02c8\u00e6skt f\u0254\u0279 \u00f0\u0259 d\u02c8AT\u0259 f\u02c8Il \u026an \u0250 f\u02c8\u0254\u0279m\u02cc\u00e6t \u02ccW\u0259\u0279 k\u02c8Od d\u02c8\u026ad\u1d4ant \u0279\u02c8\u025bk\u0259\u0261n\u02ccIz.",
+  "s7_30": "\u02ccW\u0259\u0279 l\u02c8up s\u02c8\u0254 n\u02c8O t\u02c8ul k\u02c8\u0254l, t\u02c8\u028ak \u00f0\u0259 \u0279\u0259pl\u02c8I \u00e6z f\u02c8In\u1d4al, \u00e6nd st\u02c8\u0251pt.",
+  "s7_31": "\u00f0\u02c8\u00e6t f\u02c8Alj\u0259\u0279 w\u02c8\u028cz\u1d4ant \u00f0\u0259 m\u02c8\u0251d\u1d4alz.",
+  "s7_32": "\u02cc\u026ats \u02a7\u02c8\u00e6pt\u0259\u0279 \u03b8\u0279\u02c8i \u0259\u0261\u02c8\u025bn: \u00f0\u0259 m\u02c8\u0251d\u1d4al k\u00e6n \u02c8Onli \u02c8\u00e6sk, \u00e6nd \u02ccW\u0259\u0279 k\u02c8Od d\u0259s\u02c8Idz w\u02cc\u028ct k\u02c8Wnts \u00e6z \u02c8\u00e6sk\u026a\u014b, \u00e6nd w\u02cc\u028ct k\u02c8Wnts \u00e6z d\u02c8\u028cn.",
+  "s7_33": "\u00f0\u0259 k\u02c8Od \u0259\u0279\u02c8Wnd \u00f0\u0259 m\u02c8\u0251d\u1d4al \u02c8\u026az\u1d4ant pl\u02c8\u028cm\u026a\u014b.",
+  "s8_01": "\u00f0\u0259 s\u02c8\u025bk\u0259nd w\u02c8A \u02c8A\u02a4\u1d4ants b\u0279\u02c8Ak d\u02ccWn \u026az \u026an \u00f0\u0259 st\u02c8\u025b\u0279k\u02ccAs.",
+  "s8_02": "\u026an \u0250 l\u02c8up l\u02c8Ik \u02c8W\u0259\u0279z, \u00f0\u0259 k\u02c8\u0251nt\u025bkst \u02c8Onli \u0261\u0279\u02c8Oz.",
+  "s8_03": "\u02c8\u025bv\u0259\u0279i st\u02c8\u025bp \u02c8\u00e6dz t\u028a \u026at, \u00e6nd \u02c8\u025bv\u0259\u0279i k\u02c8\u0254l \u0279\u02c8idz \u02c8\u0254l \u028cv \u026at.",
+  "s8_04": "h\u02c8\u026a\u0279z \u00f0\u0259 s\u02c8Am t\u02c8\u00e6sk, \u0279\u02c8\u028cn w\u02c8\u028cns bI kl\u02c8\u0254d k\u02c8Od, \u00e6n\u03b8\u0279\u02c8\u0251p\u026aks k\u02c8Od\u026a\u014b \u02c8A\u02a4\u1d4ant.",
+  "s8_05": "\u02cc\u026ats \u00f0\u0259 s\u02c8Am k\u0259m\u02c8\u00e6ndl\u02ccIn t\u02c8ul wiv b\u026an k\u02c8\u0254l\u026a\u014b \u00f0\u0259 m\u02c8\u0251d\u1d4al \u03b8\u0279\u02c8u, n\u02c8W \u0279\u02c8\u028cn\u026a\u014b \u026ats \u02c8On l\u02c8up, w\u026a\u00f0 \u026ats t\u02c8ulz n\u02c8\u025b\u0279Od t\u0259 m\u02c8\u00e6\u02a7 \u02c8W\u0259\u0279z: \u0279\u02c8id, \u02c8\u025bd\u0259t, \u00e6nd \u0279\u02c8\u028cn \u00f0\u0259 t\u02c8\u025bst.",
+  "s8_06": "\u02cc\u026ats f\u02c8\u025c\u0279st k\u02c8\u0254l \u0279\u02c8\u025bd \u0259b\u02c8Wt \u0259l\u02c8\u025bv\u1d4an \u03b8\u02c8Wz\u1d4and s\u02c8\u026aks h\u02c8\u028cnd\u0279\u0259d t\u02c8Ok\u1d4anz: \u026ats \u026anst\u0279\u02c8\u028ck\u0283\u0259nz, \u026ats t\u02c8ul d\u0259sk\u0279\u02c8\u026ap\u0283\u0259nz, \u00e6nd \u02ccW\u0259\u0279 t\u02c8\u00e6sk.",
+  "s8_07": "\u02cc\u026at f\u02c8Wnd b\u02c8O\u03b8 b\u02c8\u028c\u0261z \u026an n\u02c8In k\u02c8\u0254lz, l\u02c8Ik \u0279\u02c8\u028cn \u02c8A",
+  "s8_08": "b\u02cc\u028ct \u026at \u0279\u02c8\u025bd \u00f0Oz \u026anst\u0279\u02c8\u028ck\u0283\u0259nz \u0259\u0261\u02c8\u025bn \u02cc\u0254n \u02c8\u025bv\u0259\u0279i k\u02c8\u0254l, s\u02ccO \u026an \u02c8\u0254l \u026at \u0279\u02c8\u025bd \u02c8Ov\u0259\u0279 \u0250 h\u02c8\u028cnd\u0279\u0259d \u00e6nd tw\u02c8\u025bnti \u03b8\u02c8Wz\u1d4and t\u02c8Ok\u1d4anz.",
+  "s8_09": "\u02cc\u00e6nd \u0250 l\u02c8\u0254\u014b\u0261\u0259\u0279 t\u02c8\u00e6sk m\u02c8inz m\u02c8\u0254\u0279 \u0279\u02c8id\u026a\u014b \u00f0\u0259n \u026ats l\u02c8\u025b\u014b\u03b8 s\u0259\u0261\u02a4\u02c8\u025bsts.",
+  "s8_10": "\u02c8i\u02a7 n\u02c8u k\u02c8\u0254l \u0279\u02cci\u0279\u02c8idz \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b b\u0259f\u02c8\u0254\u0279 \u026at, s\u02ccO tw\u02c8Is \u00f0\u0259 k\u02c8\u0254lz m\u02c8inz m\u02c8\u0254\u0279 \u00f0\u0259n tw\u02c8Is \u00f0\u0259 \u0279\u02c8id\u026a\u014b.",
+  "s8_11": "\u00f0\u0259 \u0279\u02c8id\u026a\u014b h\u00e6z \u0250 p\u0279\u02c8Is bij\u02c8\u0251nd t\u02c8Im.",
+  "s8_12": "\u02cc\u00e6z \u0250 k\u02c8\u0251nt\u025bkst \u0261\u0279\u02c8Oz, m\u02c8\u0251d\u1d4alz \u0261\u025bt w\u02c8\u025c\u0279s \u00e6t \u0279\u0259k\u02c8\u0254l\u026a\u014b w\u02cc\u028cts \u026an \u026at.",
+  "s8_13": "\u0279\u0259s\u02c8\u025c\u0279\u02a7\u0259\u0279z k\u02c8\u0254l \u00f0\u026as k\u02c8\u0251nt\u025bkst \u0279\u02c8\u0251t.",
+  "s8_14": "\u02ccW\u0259\u0279 \u0279\u02c8\u028cnz \u0251\u0279 f\u02c8\u0251\u0279 t\u02c8u \u0283\u02c8\u0254\u0279t t\u0259 \u0283\u02c8O \u026at.",
+  "s8_15": "p\u0279\u0259d\u02c8\u028ck\u0283\u0259n \u02c8A\u02a4\u1d4ants, kl\u02c8\u0254d k\u02c8Od \u0259m\u02c8\u028c\u014b \u00f0\u02cc\u025bm, k\u02c8ip \u00f0\u0259 k\u02c8\u0251nt\u025bkst \u026an \u02a7\u02c8\u025bk bI s\u02c8\u028cm\u0259\u0279\u02ccIz\u026a\u014b \u026at w\u02cc\u025bn \u026at \u0261\u025bts l\u02c8\u0254\u014b.",
+  "s8_16": "\u00f0\u02c8\u00e6ts k\u02c8\u0254ld k\u0259mp\u02c8\u00e6k\u0283\u0259n.",
+  "s8_17": "b\u02cc\u028ct \u0250 s\u02c8\u028cm\u0259\u0279i \u026az st\u02c8\u026al \u00f0\u0259 m\u02c8\u0251d\u1d4alz \u02c8Onli m\u02c8\u025bm\u0259\u0279i.",
+  "s8_18": "w\u0259T\u02c8\u025bv\u0259\u0279 \u026at l\u02c8ivz \u02c8Wt, \u00f0\u0259 m\u02c8\u0251d\u1d4al n\u02c8O l\u02c8\u0254\u014b\u0261\u0259\u0279 n\u02c8Oz.",
+  "s9_01": "s\u02ccO w\u02ccI d\u02c8\u026ad w\u02c8\u028cn m\u02c8\u026as\u026a\u014b t\u02c8ul l\u02c8iv \u0279\u02c8\u028cn b\u02c8i \u0283\u02c8\u028a\u0279 \u028cv s\u02c8\u028cm\u03b8\u02cc\u026a\u014b f\u02c8\u0254ls?",
+  "s9_02": "b\u0259k\u02c8\u028cz \u0250n \u02c8A\u02a4\u1d4ant \u026az \u0250 m\u02c8\u0251d\u1d4al \u00f0\u00e6t p\u02c8\u026aks \u02c8i\u02a7 n\u02c8\u025bkst st\u02c8\u025bp f\u0279\u028cm \u026ats k\u02c8\u0251nt\u025bkst, n\u02cc\u0251t f\u0279\u028cm st\u02c8\u025bps \u0279\u02c8\u026atn \u026an \u0259dv\u02c8\u00e6ns, \u00e6z \u0250 w\u02c8\u025c\u0279kfl\u02ccO w\u02c8\u028ad.",
+  "s9_03": "\u02cc\u00e6nd \u0250 l\u02c8up \u00f0\u00e6t \u0279\u02c8\u028cnz \u00f0Oz st\u02c8\u025bps, \u00e6nd \u0279\u02c8Its \u00f0\u0259 \u0279\u0259z\u02c8\u028clts b\u02c8\u00e6k \u02c8\u026an.",
+  "s9_04": "\u0259b\u02c8Wt \u00f0\u0259 t\u02c8\u00e6sk, \u00f0\u0259 m\u02c8\u0251d\u1d4al \u0279\u0259m\u02c8\u025bmb\u0259\u0279z n\u02c8\u028c\u03b8\u026a\u014b \u02c8\u025bls.",
+  "s9_05": "\u0279\u02c8\u028cn \u02c8Az k\u02c8\u0251nt\u025bkst h\u02c8\u025bld \u0261\u0279\u02c8Wnd t\u0279\u02c8u\u03b8 f\u0279\u028cm \u00f0\u0259 t\u02c8\u025bst.",
+  "s9_06": "\u0279\u02c8\u028cn b\u02c8iz h\u02c8\u025bld \u02c8Onli \u026ats \u02c8On f\u02c8\u026aks.",
+  "s9_07": "s\u02c8Am m\u02c8\u0251d\u1d4al, d\u02c8\u026af\u0259\u0279\u0259nt k\u02c8\u0251nt\u025bkst.",
+  "s9_08": "\u00f0\u0259 m\u02c8\u0254\u0279 k\u02c8Ap\u0259b\u1d4al m\u02c8\u0251d\u1d4al d\u02c8\u026ad b\u02c8\u025bT\u0259\u0279 \u026an \u02a4\u02c8\u028cst \u00f0\u02c8\u00e6t w\u02c8A: \u026at \u0279\u02c8\u025bd \u00f0\u0259 d\u02c8AT\u0259 f\u0254\u0279 \u026ats\u02c8\u025blf.",
+  "s9_09": "\u02cc\u00e6nd \u026at s\u02c8\u025bd w\u02cc\u028ct \u026at h\u02c8\u00e6d\u1d4ant b\u026an \u02c8Ab\u1d4al t\u0259 \u02a7\u02c8\u025bk.",
+  "s9_10": "\u00f0\u02c8\u00e6ts \u02c8\u0254lsO w\u02ccI k\u02c8Od\u026a\u014b s\u02c8uts \u02c8A\u02a4\u1d4ants s\u02ccO w\u02c8\u025bl, \u00e6z \u00e6n\u03b8\u0279\u02c8\u0251p\u026aks \u0261\u02c8Id p\u02c8Ynts \u02c8Wt.",
+  "s9_11": "k\u02c8Od k\u02c8\u028cmz w\u026a\u00f0 t\u02c8\u025bsts: \u0250n \u02c8\u00e6ns\u0259\u0279 \u00f0i \u02c8A\u02a4\u1d4ant k\u00e6n \u02a7\u02c8\u025bk \u026ats w\u02c8\u025c\u0279k \u0259\u0261\u02c8\u025bnst \u00e6t \u02c8\u025bv\u0259\u0279i st\u02c8\u025bp.",
+  "s9_12": "w\u02cciv sk\u02c8\u026apt \u0250 l\u02c8\u0251t h\u02c8\u026a\u0279: pl\u02c8\u00e6n\u026a\u014b, m\u02c8\u025bm\u0259\u0279i \u00f0\u00e6t l\u02c8\u00e6sts b\u0259tw\u02c8in t\u02c8\u00e6sks, \u00e6nd t\u02c8imz \u028cv \u02c8A\u02a4\u1d4ants.",
+  "s9_13": "b\u02cc\u028ct \u02c8i\u02a7 \u028cv \u00f0Oz st\u02c8\u026al \u0279\u02c8i\u02a7\u1d7bz \u00f0\u0259 m\u02c8\u0251d\u1d4al \u00f0\u0259 s\u02c8Am w\u02c8A: \u03b8\u0279u \u026ats k\u02c8\u0251nt\u025bkst.",
+  "s9_14": "s\u02ccO w\u02cc\u025bn ju b\u02c8\u026ald \u0250n \u02c8A\u02a4\u1d4ant, \u0254\u0279 h\u02c8\u00e6nd w\u02c8\u028cn \u0250 t\u02c8\u00e6sk, d\u02c8Ont \u02c8Onli \u02c8\u00e6sk h\u02ccW kl\u02c8\u025bv\u0259\u0279 \u00f0\u0259 m\u02c8\u0251d\u1d4al \u026az.",
+  "s9_15": "\u02c8\u00e6sk w\u02cc\u028ct w\u026al t\u02c8\u025bl \u026at \u00f0\u00e6t \u026ats \u0279\u02c8\u0254\u014b."
+ },
+ "peak": 0.7373796105384827
+}

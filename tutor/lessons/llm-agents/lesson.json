@@ -1,0 +1,2 @@
+{"title": "It Said It Was Fixed", "version": "v1", "poster": ["s1_17", -0.1],
+ "description": "Why the same LLM, given the same failing test twice, said “Fixed” both times and was right once: what an agent is (a model, tools and a loop), why its context is its only memory of the task, and where agents break down."}
