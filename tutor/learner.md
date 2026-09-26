@@ -2,7 +2,7 @@
 
 What the tutor knows about the one person these lessons are for. Everything here comes from what they said or did; anything else is marked unknown. Every lesson's student reviewer plays this person, and every revision starts by updating this file.
 
-Last updated: 2026-09-26, when the queueing, tail latency, idempotency, reactive, concurrency and desired-state lessons were delivered, before any notes on them.
+Last updated: 2026-09-26, when the queueing, tail latency, idempotency, reactive, concurrency, desired-state and Nix lessons were delivered, before any notes on them.
 
 ## Background
 
@@ -32,6 +32,7 @@ Last updated: 2026-09-26, when the queueing, tail latency, idempotency, reactive
 | Reactive ("What the Spreadsheet Knows", v1, 7:35) | Delivered; no notes yet. Predicted, not confirmed: the doubling leap in the stacked diamonds (1024 for ten), the cluster of names in chapter 3 (glitch, topological order, height), and early cutoff and laziness arriving back to back. | Growth claims need each doubling shown, not just the endpoint; one new mechanism per chapter. |
 | Concurrency models ("Share Memory, or Pass Messages?", v1, 10:20) | Delivered; no notes yet. Predicted, not confirmed: "only two orders of the six steps are safe" (asserted, not shown), race condition and data race named one sentence apart, "C and C++ promise nothing" (undefined behaviour is never named), and whether the study's "hangs" means deadlocks. | Counting claims need the enumeration on screen; two neighbouring terms need a contrast before the second name. |
 | Desired state ("Make It So", v1, 7:36) | Delivered; no notes yet. Predicted, not confirmed: replica count and pod arriving together, which loop marks a dead machine unreachable, and edge/level-triggered landing back to back; chapter 6's moving target and fighting tools are faster and more abstract than the rest. | When two mechanisms share one story (the node loop and the pod loop), name both or show both. |
+| Nix ("A Hash in Every Path", v1, 7:24) | Delivered; no notes yet. Predicted, not confirmed: the closure's list of libraries, and the compiler being both excluded and (as its runtime library) included; chapter 3 carries four ideas (recipe and derivation, pure function, isolation, the hash computed before the build). | Lists of names need a picture of how they connect; a named exception needs its own label on screen. |
 
 ## Standing instructions for the student reviewer
 
