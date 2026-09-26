@@ -1,0 +1,194 @@
+{
+ "before": {
+  "price": 20,
+  "qty": 2,
+  "subtotal": 40,
+  "tax": 4,
+  "total": 44,
+  "free_shipping": false,
+  "banner": "Spend $50 for free shipping"
+ },
+ "naive": [
+  [
+   "subtotal",
+   60
+  ],
+  [
+   "tax",
+   6
+  ],
+  [
+   "total",
+   66
+  ],
+  [
+   "free_shipping",
+   true
+  ],
+  [
+   "banner",
+   "Free shipping!"
+  ],
+  [
+   "total",
+   66
+  ],
+  [
+   "free_shipping",
+   true
+  ],
+  [
+   "banner",
+   "Free shipping!"
+  ]
+ ],
+ "naive_total_first": [
+  [
+   "subtotal",
+   60
+  ],
+  [
+   "total",
+   64
+  ],
+  [
+   "free_shipping",
+   true
+  ],
+  [
+   "banner",
+   "Free shipping!"
+  ],
+  [
+   "tax",
+   6
+  ],
+  [
+   "total",
+   66
+  ],
+  [
+   "free_shipping",
+   true
+  ],
+  [
+   "banner",
+   "Free shipping!"
+  ]
+ ],
+ "height": [
+  [
+   "subtotal",
+   60
+  ],
+  [
+   "tax",
+   6
+  ],
+  [
+   "total",
+   66
+  ],
+  [
+   "free_shipping",
+   true
+  ],
+  [
+   "banner",
+   "Free shipping!"
+  ]
+ ],
+ "after": {
+  "price": 20,
+  "qty": 3,
+  "subtotal": 60,
+  "tax": 6,
+  "total": 66,
+  "free_shipping": true,
+  "banner": "Free shipping!"
+ },
+ "cutoff_qty4": [
+  [
+   "subtotal",
+   80
+  ],
+  [
+   "tax",
+   8
+  ],
+  [
+   "total",
+   88
+  ],
+  [
+   "free_shipping",
+   true
+  ]
+ ],
+ "nocutoff_qty4": [
+  [
+   "subtotal",
+   80
+  ],
+  [
+   "tax",
+   8
+  ],
+  [
+   "total",
+   88
+  ],
+  [
+   "free_shipping",
+   true
+  ],
+  [
+   "banner",
+   "Free shipping!"
+  ]
+ ],
+ "stacked": [
+  {
+   "diamonds": 1,
+   "last_naive": 2,
+   "last_height": 1,
+   "all_naive": 4,
+   "all_height": 3
+  },
+  {
+   "diamonds": 2,
+   "last_naive": 4,
+   "last_height": 1,
+   "all_naive": 12,
+   "all_height": 6
+  },
+  {
+   "diamonds": 3,
+   "last_naive": 8,
+   "last_height": 1,
+   "all_naive": 28,
+   "all_height": 9
+  },
+  {
+   "diamonds": 5,
+   "last_naive": 32,
+   "last_height": 1,
+   "all_naive": 124,
+   "all_height": 15
+  },
+  {
+   "diamonds": 10,
+   "last_naive": 1024,
+   "last_height": 1,
+   "all_naive": 4092,
+   "all_height": 30
+  },
+  {
+   "diamonds": 20,
+   "last_naive": 1048576,
+   "last_height": 1,
+   "all_naive": 4194300,
+   "all_height": 60
+  }
+ ]
+}
