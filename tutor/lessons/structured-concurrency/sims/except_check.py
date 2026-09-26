@@ -40,10 +40,28 @@ async def star_connectionerror():
         pass
 
 
+RETURN_IN_STAR = """
+def handler():
+    try:
+        pass
+    except* Exception:
+        return "error"
+"""
+
+
+def compile_check():
+    try:
+        compile(RETURN_IN_STAR, "<card>", "exec")
+        print(f"{'return inside except*:':<34} compiles")
+    except SyntaxError as e:
+        print(f"{'return inside except*:':<34} SyntaxError: {e.msg}")
+
+
 async def main():
     await run("except ConnectionError:", plain_connectionerror)
     await run("except Exception:  (gets the group)", plain_exception)
     await run("except* ConnectionError:", star_connectionerror)
+    compile_check()
     print(f"Python {sys.version.split()[0]}")
 
 asyncio.run(main())

@@ -22,19 +22,19 @@ class S8(CueScene):
 
         # 03-05: a block that owns its tasks (chapter 5's run)
         self.at("03")
-        tt = Timeline(t, y=-0.8, gap=0.55, x0=-3.6)
+        tt = Timeline(t, y=-0.65, gap=0.55, x0=-3.6)
         lt = mono("task group (ch. 5)", 17, INK).move_to([-5.9, tt.ys["fetch_user"] + 0.5, 0], aligned_edge=LEFT)
         tt_fail, tt_cut, tt_ret = when(t, "fetch_orders", "raises"), when(t, "fetch_user", "cancelled"), when(t, "handler", "has returned")
         bars2 = VGroup(tt.bar("fetch_user", 0, tt_cut, h=0.28), tt.cut("fetch_user", tt_cut),
                        tt.bar("fetch_orders", 0, tt_fail, h=0.28), tt.cross("fetch_orders", tt_fail))
         self.play(FadeIn(tt), FadeIn(lt), FadeIn(bars2), run_time=0.7)
         top, bot = tt.ys["fetch_user"] + 0.3, tt.ys["fetch_orders"] - 0.3
-        blk = RoundedRectangle(corner_radius=0.06, width=tt.X(tt_ret) - tt.X(0) + 0.3, height=top - bot, stroke_color=ICE, stroke_width=2.5)
-        blk.move_to([(tt.X(0) + tt.X(tt_ret)) / 2, (top + bot) / 2, 0])
+        blk = RoundedRectangle(corner_radius=0.06, width=tt.X(tt_ret) - tt.X(0) + 0.2, height=top - bot, stroke_color=ICE, stroke_width=2.5)
+        blk.move_to([(tt.X(0) + tt.X(tt_ret)) / 2 + 0.03, (top + bot) / 2, 0])
         bl = mono(f"the block: ends at {tt_ret:.2f} s, with its tasks", 15, ICE).next_to(blk, RIGHT, 0.35).shift(0.12 * UP)
         self.play(Create(blk), FadeIn(bl), run_time=0.6)
         self.at("04")
-        e = mono("one fails → the others cancelled · the error comes back", 15, ICE).move_to([0, -2.45, 0])
+        e = mono("one fails → the others cancelled · the error comes back", 15, ICE).move_to([0, tt.axis_y - 0.72, 0])
         self.play(FadeIn(e), run_time=0.4)
         self.at("05")
         e2 = mono(f"caller cancelled → its tasks too (ch. 5: both cancelled at {when('cancel_taskgroup', 'caller', 'gave up'):.2f} s)", 15, ICE)
@@ -51,7 +51,7 @@ class S8(CueScene):
 
         # 07: the takeaway
         self.at("07")
-        tk = T("Give every task an owner, and “returned” means “done”.", 26, INK).to_edge(DOWN, buff=0.3)
+        tk = T("Give every task an owner, and “returned” means “done”.", 26, INK).to_edge(DOWN, buff=0.28)
         self.play(FadeIn(tk), run_time=0.6)
 
         # end card

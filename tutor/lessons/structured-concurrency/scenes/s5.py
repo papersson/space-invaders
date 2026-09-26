@@ -18,7 +18,7 @@ class S5(CueScene):
 
         # 01: the code
         self.at("01")
-        code = code_card(TGH, 15, title="the handler (asyncio.TaskGroup)").move_to([1.2, 1.95, 0])
+        code = code_card(TGH, 15, title="the handler (asyncio.TaskGroup)").move_to([1.8, 1.7, 0])
         self.play(FadeIn(c), FadeIn(code), run_time=0.6)
 
         # 02-03: the real run: orders fails, user cancelled at once
@@ -63,19 +63,19 @@ class S5(CueScene):
         cnt = mono(f"{many['n']:,} requests at once · all handlers returned · tasks still running: {many['alive']}", 17, ICE).move_to([0, S3, 0])
         self.play(FadeIn(cnt), run_time=0.4)
 
-        # 11: the client gives up at 0.5 s (the real run, a different setup): both cancelled
+        # 11: the client gives up at 0.5 s (the real run, a different setup, so the old chart goes): both cancelled
         self.at("11")
-        self.play(*[FadeOut(m) for m in self.mobjects if m not in (c, code)], run_time=0.4)
+        self.play(*[FadeOut(m) for m in self.mobjects if m is not c], run_time=0.4)
         run2 = "cancel_taskgroup"
-        tl2 = Timeline(run2, y=-1.05)
+        tl2 = Timeline(run2, y=-0.3)
         t_c = when(run2, "caller", "gave up")
-        tg2 = tag("this run: both requests take 1.0 s, neither fails", tl2)
+        tg2 = tag("this run: both requests take 1.0 s, neither fails", tl2).shift(0.25 * UP)
         self.play(FadeIn(tl2), FadeIn(tg2), run_time=0.3)
         b1, b2 = tl2.bar("fetch_user", 0, t_c), tl2.bar("fetch_orders", 0, t_c)
         self.play(tl2.grow(b1, 1.0), tl2.grow(b2, 1.0))
         gv = tl2.vline(t_c, f"client gives up ({t_c:.2f} s)", color=MUTED)
         self.play(Create(gv[0]), FadeIn(gv[1]), Create(tl2.cut("fetch_user", t_c)), Create(tl2.cut("fetch_orders", t_c)), run_time=0.5)
-        both = mono(f"both cancelled at {t_c:.2f} s", 17, ICE).move_to([0, S1, 0])
+        both = mono(f"both cancelled at {t_c:.2f} s", 17, ICE).move_to([0, tl2.axis_y - 0.8, 0])
         self.play(FadeIn(both), run_time=0.3)
 
         # 12-15: the spec from chapter 3, each box ticked as its guarantee is said, with the measured evidence

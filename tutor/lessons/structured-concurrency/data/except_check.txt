@@ -1,4 +1,5 @@
 except ConnectionError:            NOT caught: ExceptionGroup
 except Exception:  (gets the group) caught inside the handler
 except* ConnectionError:           caught inside the handler
+return inside except*:             SyntaxError: 'break', 'continue' and 'return' cannot appear in an except* block
 Python 3.11.15
