@@ -1,6 +1,6 @@
 # Where Did That Task Go?
 
-Status: in review round 5
+Status: in review round 6
 
 ## Argument
 
@@ -110,7 +110,7 @@ No length target: the length follows the argument (about 150 words per minute).
 > The fix was structured programming: blocks, conditionals, loops and function calls, where control goes in at the top and comes out at the bottom.
 > Fifty years later, in 2018, Nathaniel Smith pointed out that starting a task is the same kind of jump. Control goes in, and part of it never has to come out, so you can no longer treat a function as a black box. His essay was called "Notes on structured concurrency, or: Go statement considered harmful".
 > The fix is the same too: a block. Tasks started inside it can't outlive it. The block doesn't end until every task in it has finished.
-> That rule is called structured concurrency, a name Martin Sústrik gave it. Smith built it into his own library, Trio, and Python's asyncio later added the same kind of block, the task group, in version three point eleven.
+> That rule is called structured concurrency, a name Martin Sústrik had given it two years earlier. Smith built it into his own library, Trio, and Python's asyncio later added the same kind of block, the task group, in version three point eleven.
 
 *Screen:* four small arrow diagrams side by side, drawn in turn (after Smith 2018): "sequential" (one arrow in, one out); "goto" (an arrow that jumps out of its box); "start a task" (an arrow that splits, one branch leaving the box); "block" (an arrow that splits inside a box and rejoins before the bottom edge). The block's box is labelled "task group". Then the code: `async with asyncio.TaskGroup() as tg:` with two indented `tg.create_task(...)` lines, and a bracket on the `async with` block: "tasks can't outlive this block". Names on screen: "Dijkstra 1968 · Sústrik 2016 · Smith 2018 · asyncio.TaskGroup: Python 3.11".
 
@@ -132,7 +132,7 @@ No length target: the length follows the argument (about 150 words per minute).
 > Here's a retry loop with a bare except, an except with no type, which catches everything, cancellation included. When the orders service fails, the user request catches its cancellation and tries again.
 > The task group has to wait for it. The handler returns after one point one seconds, instead of a tenth.
 > Before, the stubborn work ran on after the handler returned. Now it can't escape the block, so the handler waits for it instead.
-> And the rule covers only tasks started through the task group. asyncio still has plain create_task, and a task started that way is on its own again.
+> And the rule covers only tasks started through the task group, with its own create_task. A task started with plain asyncio.create_task is on its own again.
 > And it's about lifetimes, not shared data. Two tasks in the same group can still race on a variable, or deadlock.
 
 *Screen:* a code card for the retrying fetch_user: `for attempt in (1, 2):`, `try: await asyncio.sleep(1.0) ...`, `except:  # a bare except: it catches CancelledError too`, with `retry` (sims/handler.py, `fetch_user_retrying`). The real run ("retrying"): fetch_orders' cross at 0.10 s; the cancellation arrow hits fetch_user at 0.10 s, "caught CancelledError, retrying" (amber), and its bar continues to 1.10 s; the handler's line moves out to 1.10 s. Then three small labels: "cancellation: a request, delivered at an await", "only tasks started inside", "not about shared data: races and deadlocks still possible".
@@ -140,12 +140,12 @@ No length target: the length follows the argument (about 150 words per minute).
 ### 7. Not just Python
 
 > But this isn't a quirk of Python. Here's the same handler in Go, with plain goroutines. After a thousand requests, a thousand goroutines are left, and they never finish: each is waiting to hand its result to a handler that has already returned.
-> Go has no task group in the language. Its convention is an error group, Go's closest thing to a task group.
+> Go has no task group in the language. A common convention is an error group, from Go's extended libraries: the closest thing Go has to a task group.
 > An error group works with a context, Go's standard way of passing cancellation, and deadlines, to goroutines.
 > With an error group, none are left. The first error cancels the context, and each goroutine checks the context and returns.
-> Kotlin, Swift and Java have the same kind of block built in. Java's is still a preview feature.
+> Swift and Java have the same kind of block built in, Java's still as a preview feature. Kotlin has it in its official coroutines library.
 
-*Screen:* the real Go run (sims/goleak, data/runs.txt): the bare-goroutine handler reduced to its key lines (`go func() { u, _ := fetchUser(context.Background()); users <- u }()` and its twin for fetchOrders) and a small picture of one goroutine holding a result at a channel whose other end, the handler, is gone; then the count "bare goroutines: 1,000 left over" and, checked again 1.2 s later, after every request's one second has passed, "still 1,000" (amber). Then the errgroup handler's key lines (`g, ctx := errgroup.WithContext(...)`, `g.Go(func() error { _, err := fetchUser(ctx); return err })`) and "errgroup + context: 0 left over; 1.2 s later: 0" (blue). Last, one small line of names: "Kotlin: coroutineScope · Swift: task groups · Java: StructuredTaskScope (preview)".
+*Screen:* the real Go run (sims/goleak, data/runs.txt): the bare-goroutine handler reduced to its key lines (`go func() { u, _ := fetchUser(context.Background()); users <- u }()` and its twin for fetchOrders) and a small picture of one goroutine holding a result at a channel whose other end, the handler, is gone; then the count "bare goroutines: 1,000 left over" and, checked again 1.2 s later, after every request's one second has passed, "still 1,000" (amber). Then the errgroup handler's key lines (`g, ctx := errgroup.WithContext(...)`, `g.Go(func() error { _, err := fetchUser(ctx); return err })`) and "errgroup + context: 0 left over; 1.2 s later: 0" (blue). Last, one small line of names: "Swift: task groups (built in) · Java: StructuredTaskScope (built in, preview) · Kotlin: coroutineScope (kotlinx.coroutines library)".
 
 ### 8. The answer
 
@@ -176,7 +176,7 @@ No length target: the length follows the argument (about 150 words per minute).
 | Smith's essay "Notes on structured concurrency, or: Go statement considered harmful" (2018-04-25); Trio nurseries; starting a task compared to goto | Smith 2018b; research/canonical_web_agent.md §2-3 |
 | The term was coined by Martin Sústrik (2016) and popularized by Smith | JEP 505 and JEP 543 text ("coined by Martin Sústrik and popularized by Nathaniel J. Smith"), per research/canonical_web_agent.md; Sústrik 2016 |
 | asyncio.TaskGroup added in Python 3.11 | Python docs, "Coroutines and Tasks" (Task Groups, "Added in version 3.11") |
-| Kotlin coroutineScope, Swift task groups and async let (Swift 5.5), Java StructuredTaskScope (preview through JDK 27, JEP 533; JEP 543, a Candidate, proposes finalizing in JDK 28, checked at openjdk.org in research/verified_primary_sources.md), Go errgroup + context (library convention) | research/canonical_web_agent.md §8 |
+| Kotlin coroutineScope (in kotlinx.coroutines, JetBrains' official library, not the standard library), Swift task groups and async let (Swift 5.5), Java StructuredTaskScope (preview through JDK 27, JEP 533; JEP 543, a Candidate, proposes finalizing in JDK 28, checked at openjdk.org in research/verified_primary_sources.md), Go errgroup + context (library convention) | research/canonical_web_agent.md §8 |
 | Go: bare goroutines left 1,000 goroutines after 1,000 concurrent requests, still 1,000 after 1.2 s (blocked sending on an unbuffered channel nobody reads); errgroup.WithContext left 0 | sims/goleak/main.go, data/runs.txt (go1.26.0, golang.org/x/sync v0.23.0) |
 | errgroup: the first error cancels the derived context; Wait returns after all goroutines return; goroutines stop only if they check the context | errgroup package docs; research/canonical_web_agent.md §4 G4 |
 
@@ -208,3 +208,10 @@ No length target: the length follows the argument (about 150 words per minute).
 - Expert: Dijkstra's argument is now stated as his (with jumps that can lead anywhere, it's hard to follow what a program does from its text), and the black-box framing is given to Smith, whose essay makes it; Trio is credited as the library Smith built the rule into, before asyncio added its task group (not claimed to be modelled on it); chapter 5 says cancelling "asks" the request to stop, ahead of chapter 6; Go's context is "Go's standard way of passing cancellation, and deadlines, to goroutines".
 - Expert, not taken: re-verifying the JEP numbers. They were checked at openjdk.org today (research/verified_primary_sources.md): JEP 533 delivered in JDK 27, JEP 543 a Candidate for JDK 28.
 - Student: lost at "even when there's only one" (the exception group is now "a container that can hold the errors of several tasks"), at two facts in the cancellation sentence (split in two), and at "error group" and "context" in one breath (now one sentence each).
+
+**Round 5:** expert REVISE, editor PASS, student retold the question and answer correctly (lost "a few times").
+- Expert, blocking: "Kotlin, Swift and Java have the same kind of block built in" was wrong for Kotlin, whose `coroutineScope` comes from kotlinx.coroutines, JetBrains' official library, not the language or its standard library; the script had drawn exactly that line for Go. Now: Swift and Java have it built in (Java's as a preview), Kotlin in its official coroutines library; the screen line says which is which.
+- Expert: errgroup is "a common convention ... from Go's extended libraries", not "the" convention; Sústrik's naming is placed "two years earlier", so the narration alone doesn't credit Smith with the term.
+- Expert, not taken: re-checking the JEP numbers again. They were checked at openjdk.org on the day of this build (research/verified_primary_sources.md); the page makes no claim beyond that date.
+- Editor, not taken: deriving the exception group from a visible two-failure case, demonstrating races and deadlocks, and illustrating Kotlin, Swift and Java. Each is a generalization given one sentence, as the research's essential/extra split and the depth-over-breadth rule ask; the exception group is named because it is the type the viewer's own code will catch.
+- Student: lost at the difference between the task group's create_task and plain asyncio.create_task (chapter 6 now names both); the chapter 4 names and dates are unchanged apart from the Sústrik clause.

@@ -86,6 +86,15 @@ class S3(CueScene):
         ob2 = tl2.bar("fetch_orders", t_c, t_end, color=AMBER)
         rn = mono("runs on", 14, AMBER).next_to(ob2, DOWN, 0.1).align_to(ob2, RIGHT)
         self.play(tl2.grow(ob2, 1.2), FadeIn(rn))
+
+        # 15-18: so a fix has to do three things (the spec, boxes left empty)
+        self.at("15")
+        self.play(*[FadeOut(m) for m in self.mobjects if m is not c], run_time=0.4)
+        head = mono("a real fix has to", 22, INK).move_to([0, 1.6, 0])
+        self.play(FadeIn(head), run_time=0.4)
+        for i, cue in enumerate(("16", "17", "18")):
+            self.at(cue)
+            self.play(FadeIn(spec_row(i, y=0.6 - 0.75 * i)), run_time=0.4)
         self.until(self.dur - 0.5)
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.45)
         self.finish()

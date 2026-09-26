@@ -123,3 +123,19 @@ def flow(kind, c=(0, 0), w=2.2, h=2.4, color=ICE):
               ArcBetweenPoints(a, b, angle=-TAU / 5, stroke_color=AMBER, stroke_width=3.5),
               Arrow(b, bot, color=color, **kw), Dot(a, radius=0.07, color=color), Dot(b, radius=0.07, color=color))
     return g
+
+
+SPEC = ["wait for every task", "one fails → cancel the rest, pass the error on", "caller gives up → cancel them all"]
+
+
+def spec_row(i, x=-4.6, y=0.0, size=18):
+    """One line of the spec, with an empty check box."""
+    box = Square(side_length=0.32, stroke_color=MUTED, stroke_width=2).move_to([x, y, 0])
+    txt = mono(SPEC[i], size, INK).next_to(box, RIGHT, 0.25)
+    return VGroup(box, txt)
+
+
+def tick(box, color=ICE):
+    c = box.get_center()
+    return VMobject(stroke_color=color, stroke_width=5).set_points_as_corners(
+        [c + [-0.12, 0.0, 0], c + [-0.03, -0.1, 0], c + [0.14, 0.12, 0]])

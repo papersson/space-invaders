@@ -62,17 +62,19 @@ class S5(CueScene):
         both = mono("both cancelled", 15, ICE).move_to([tl2.X(0.95), tl2.ys["fetch_user"], 0])
         self.play(FadeIn(both), run_time=0.3)
 
-        # 10-13: three guarantees
+        # 10-13: the spec from chapter 3, ticked off, with the measured evidence
         self.at("10")
         self.play(*[FadeOut(m) for m in self.mobjects if m is not c], run_time=0.4)
-        head = mono("a task group guarantees", 20, INK).move_to([0, 1.9, 0])
-        self.play(FadeIn(head), run_time=0.4)
-        items = [("11", "1. the block waits for every task started in it"),
-                 ("12", "2. one fails → the others are cancelled, the error reaches the caller"),
-                 ("13", "3. cancel the caller → its tasks are cancelled")]
-        for i, (cue, text) in enumerate(items):
+        head = mono("a task group guarantees", 22, INK).move_to([0, 1.9, 0])
+        rows = [spec_row(i, x=-5.6, y=0.9 - 0.95 * i) for i in range(3)]
+        self.play(FadeIn(head), *[FadeIn(r) for r in rows], run_time=0.5)
+        ev = [f"handler returned at {t_ret:.2f} s · tasks left: 0",
+              f"fetch_user cancelled at {t_cut:.2f} s · ExceptionGroup: [ConnectionError]",
+              f"both cancelled at {when('cancel_taskgroup', 'caller', 'gave up'):.2f} s"]
+        for i, cue in enumerate(("11", "12", "13")):
             self.at(cue)
-            self.play(FadeIn(mono(text, 18, ICE).move_to([0, 0.9 - 0.7 * i, 0])), run_time=0.4)
+            e = mono(ev[i], 14, ICE).next_to(rows[i][1], DOWN, 0.1).align_to(rows[i][1], LEFT)
+            self.play(Create(tick(rows[i][0])), rows[i][0].animate.set_stroke(ICE), FadeIn(e), run_time=0.5)
         self.until(self.dur - 0.5)
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.45)
         self.finish()
