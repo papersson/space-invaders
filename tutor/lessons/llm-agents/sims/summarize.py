@@ -10,11 +10,11 @@ from agent import parse_tool_call
 caps = sorted(Path(sys.argv[1]).glob("*.json"))
 for p in caps:
     r = json.loads(p.read_text())
-    if "transcript" not in r:  # the Claude Code capture has its own format
+    if "context" not in r:  # the Claude Code capture has its own format
         continue
     calls = r["calls"]
     steps = []
-    for role, text in r["transcript"]:
+    for role, text in r["context"]:
         if role == "model":
             t = parse_tool_call(text)
             steps.append(t["tool"] + (f"({t['path']})" if "path" in t else "") if t else "reply")
@@ -23,7 +23,7 @@ for p in caps:
           f" ({r['test_after'].strip().splitlines()[-1]})")
     print(f"   steps: {' > '.join(steps)}")
     print(f"   tokens read per call: {', '.join(f'{c:,}' for c in ctx)}; total {sum(ctx):,}")
-    last = r["transcript"][-1]
+    last = r["context"][-1]
     if last[0] == "model" and parse_tool_call(last[1]) is None:
         print(f"   final reply: {last[1][:400]!r}")
     print()

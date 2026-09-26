@@ -6,9 +6,12 @@ The model is Claude, called through the `claude` command-line tool with its own 
 (`--tools ""`), so each call is plain text in, text out, and each call is a fresh process that
 remembers nothing. The command-line tool adds about 1,150 tokens of its own to every call
 (reminders such as the working directory and the date); the model runs from WORKDIR.
-Everything an agent does beyond that is in this file: it pastes the whole transcript into every
+Everything an agent does beyond that is in this file: it pastes the whole context into every
 call, reads the tool request out of the reply, runs it itself, and appends the result. The tools
 are plain Python functions confined to WORKDIR; run_tests runs one fixed command.
+
+AGENT_MODEL, when set, is passed to the command-line tool's --model option (used once, to rerun
+no_tests with a more capable model; the default model made every other run).
 
 Variants (same model, same task, same project):
   bare      one call, no tools described
@@ -17,6 +20,7 @@ Variants (same model, same task, same project):
   no_tests  the agent without run_tests
 """
 import json
+import os
 import re
 import subprocess
 import sys
@@ -82,17 +86,18 @@ class Tools:
 
 
 # --- the model: one call is one fresh process ----------------------------------------------------
-def render(transcript):
+def render(context):
     heads = {"task": "TASK", "model": "YOU WROTE", "result": "TOOL RESULT"}
-    return "\n\n".join(f"{heads[role]}\n{text}" for role, text in transcript)
+    return "\n\n".join(f"{heads[role]}\n{text}" for role, text in context)
 
 
-def call_model(tools, transcript):
-    """Send the system prompt and the whole transcript; return the model's reply."""
-    prompt = render(transcript)
+def call_model(tools, context):
+    """Send the system prompt and the whole context; return the model's reply."""
+    prompt = render(context)
+    model = ["--model", os.environ["AGENT_MODEL"]] if os.environ.get("AGENT_MODEL") else []
     r = subprocess.run(["claude", "-p", "--tools", "", "--system-prompt", system_prompt(tools.names),
                         "--output-format", "json", "--no-session-persistence", "--safe-mode",
-                        "--disable-slash-commands", "--strict-mcp-config"],
+                        "--disable-slash-commands", "--strict-mcp-config", *model],
                        input=prompt, capture_output=True, text=True, timeout=600, cwd=tools.root)
     out = json.loads(r.stdout)
     u = out["usage"]
@@ -118,33 +123,33 @@ def parse_tool_call(reply):
 # --- three versions, each built from the last ----------------------------------------------------
 def bare(task, tools):
     """One call. The model can only answer with text."""
-    transcript = [("task", task)]
-    transcript.append(("model", call_model(tools, transcript)))
-    return transcript
+    context = [("task", task)]
+    context.append(("model", call_model(tools, context)))
+    return context
 
 
 def one_tool(task, tools):
     """One call; if it asks for a tool, run it and call once more. No loop."""
-    transcript = [("task", task)]
-    reply = call_model(tools, transcript)
-    transcript.append(("model", reply))
+    context = [("task", task)]
+    reply = call_model(tools, context)
+    context.append(("model", reply))
     request = parse_tool_call(reply)
     if request is not None:
-        transcript.append(("result", tools.run(request)))
-        transcript.append(("model", call_model(tools, transcript)))
-    return transcript
+        context.append(("result", tools.run(request)))
+        context.append(("model", call_model(tools, context)))
+    return context
 
 
 def agent(task, tools, max_calls=20):
-    transcript = [("task", task)]
+    context = [("task", task)]
     for _ in range(max_calls):
-        reply = call_model(tools, transcript)
-        transcript.append(("model", reply))
+        reply = call_model(tools, context)
+        context.append(("model", reply))
         request = parse_tool_call(reply)
         if request is None:
-            return transcript
-        transcript.append(("result", tools.run(request)))
-    return transcript
+            return context
+        context.append(("result", tools.run(request)))
+    return context
 
 
 ALL = ["list_files", "read_file", "write_file", "run_tests"]
@@ -161,16 +166,16 @@ def main():
     run, names = VARIANTS[variant]
     tools = Tools(workdir, names)
     t0 = time.time()
-    transcript = run(TASK, tools)
+    context = run(TASK, tools)
     # Afterwards, and outside the agent: does the test really pass?
     after = Tools(workdir, ["run_tests"]).run_tests()
     record = {"variant": variant, "task": TASK, "system": system_prompt(names),
-              "transcript": transcript, "calls": tools.log, "seconds": round(time.time() - t0, 1),
+              "context": context, "calls": tools.log, "seconds": round(time.time() - t0, 1),
               "test_after": after, "passed_after": after.rstrip().endswith("OK")}
     Path(out).write_text(json.dumps(record, indent=1))
     for c in tools.log:
         print(f"call {c['call']:2d}: context {c['context_tokens']:6,d} tokens")
-    for role, text in transcript:
+    for role, text in context:
         print(f"--- {role}\n{text[:600]}")
     print("TEST AFTER:", "PASS" if record["passed_after"] else "FAIL", after.strip().splitlines()[-1])
 

@@ -44,3 +44,14 @@ https://arxiv.org/abs/2503.14499
 - "Current frontier AI models such as Claude 3.7 Sonnet have a 50% time horizon of around 50 minutes."
 - "Frontier AI time horizon has been doubling approximately every seven months since 2019, though the trend may have accelerated in 2024."
 - Title: the web-research pass reports "Measuring AI Ability to Complete Long Tasks"; the arXiv page fetched today gives "Measuring AI Ability to Complete Long Software Tasks" (probably a later version's title). Not used on screen unless re-checked.
+
+## Context rot: origin of the term (checked 2026-09-26)
+- Anthropic's essay: "Studies on needle-in-a-haystack style benchmarking have uncovered the concept of context rot: as the number of tokens in the context window increases, the model's ability to accurately recall information from that context decreases." The term links to Chroma's report.
+- Hong, Troynikov and Huber (Chroma), "Context Rot: How Increasing Input Tokens Impacts LLM Performance", July 14, 2025, https://www.trychroma.com/research/context-rot: "LLMs do not maintain consistent performance across input lengths. Even on tasks as simple as non-lexical retrieval or text replication, we see increasing non-uniformity in performance as input length grows."
+- So the narration credits "researchers", not Anthropic, with the term.
+
+## Compaction (Anthropic, "Effective context engineering for AI agents", checked 2026-09-26)
+- "Compaction is the practice of taking a conversation nearing the context window limit, summarizing its contents, and reinitiating a new context window with the summary."
+- "In Claude Code, for example, we implement this by passing the message history to the model to summarize and compress the most critical details."
+- "overly aggressive compaction can result in the loss of subtle but critical context whose importance only becomes apparent later."
+- The captured Claude Code stream (captures/claude_code_1.jsonl) reports autocompact "enabled": true in its first event.

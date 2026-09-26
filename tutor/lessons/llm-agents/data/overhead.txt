@@ -1,0 +1,10 @@
+# What the claude command-line tool adds to every model call (measured 2026-09-26)
+# Command: echo x | claude -p --tools "" --system-prompt "x" --output-format json --no-session-persistence \
+#          --safe-mode --disable-slash-commands --strict-mcp-config    (run from a copy of sims/project)
+# Tokens read (input + cache creation + cache read): 1179
+# So about 1,180 tokens of each call are the tool's own notes (a model asked to list them named: the working
+# directory, the date, the model's name, a token budget, and account and git-attribution reminders).
+# Run A's first call read 1,423 tokens, so our system prompt (the tool list) and the request were about 240.
+baseline_tokens=1179
+loop_first_call_tokens=1423
+ours_estimate=244
