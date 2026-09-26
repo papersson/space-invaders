@@ -1,0 +1,2 @@
+{"title": "Why Busy Servers Get Slow", "version": "v1", "poster": ["s5_12", -0.2],
+ "description": "Why a server that is fine at 80% busy doubles its response time at 90%: queues, variability and spare capacity."}

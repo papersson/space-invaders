@@ -1,0 +1,1 @@
+A software engineer working in industry. Knows programming, basic probability (averages, percentiles, independent events) and how web services, databases and APIs are built and called. Has not studied this topic formally.

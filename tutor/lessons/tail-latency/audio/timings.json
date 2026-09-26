@@ -1,0 +1,580 @@
+{
+ "voice": "af_heart",
+ "speed": 0.92,
+ "total": 294.623,
+ "segments": [
+  {
+   "id": "s1",
+   "title": "The question",
+   "start": 0.0,
+   "lines": [
+    {
+     "id": "s1_01",
+     "text": "Your backend servers are fast.",
+     "caption": "Your backend servers are fast.",
+     "paragraph": 0,
+     "start": 0.8,
+     "end": 2.39
+    },
+    {
+     "id": "s1_02",
+     "text": "A typical request takes ten milliseconds.",
+     "caption": "A typical request takes ten milliseconds.",
+     "paragraph": 0,
+     "start": 2.69,
+     "end": 5.106
+    },
+    {
+     "id": "s1_03",
+     "text": "But about one request in a hundred hits a hiccup, and takes a full second.",
+     "caption": "But about one request in a hundred hits a hiccup, and takes a full second.",
+     "paragraph": 1,
+     "start": 5.606,
+     "end": 9.864
+    },
+    {
+     "id": "s1_04",
+     "text": "One slow request in a hundred sounds rare enough to live with.",
+     "caption": "One slow request in a hundred sounds rare enough to live with.",
+     "paragraph": 2,
+     "start": 10.364,
+     "end": 13.736
+    },
+    {
+     "id": "s1_05",
+     "text": "Now a user's page calls a hundred of these servers at once, and waits until every one has answered.",
+     "caption": "Now a user's page calls a hundred of these servers at once, and waits until every one has answered.",
+     "paragraph": 3,
+     "start": 14.236,
+     "end": 20.36
+    },
+    {
+     "id": "s1_06",
+     "text": "How often is the page slow?",
+     "caption": "How often is the page slow?",
+     "paragraph": 4,
+     "start": 20.86,
+     "end": 22.398
+    }
+   ],
+   "end": 26.048
+  },
+  {
+   "id": "s2",
+   "title": "One in a hundred, a hundred times",
+   "start": 26.048,
+   "lines": [
+    {
+     "id": "s2_01",
+     "text": "The page is fast only if all hundred calls are fast.",
+     "caption": "The page is fast only if all hundred calls are fast.",
+     "paragraph": 0,
+     "start": 26.398,
+     "end": 29.372
+    },
+    {
+     "id": "s2_02",
+     "text": "Each call is fast ninety-nine times out of a hundred.",
+     "caption": "Each call is fast ninety-nine times out of a hundred.",
+     "paragraph": 1,
+     "start": 29.872,
+     "end": 32.901
+    },
+    {
+     "id": "s2_03",
+     "text": "Assume the hiccups are independent: one server hitting a hiccup doesn't make another more likely to.",
+     "caption": "Assume the hiccups are independent: one server hitting a hiccup doesn't make another more likely to.",
+     "paragraph": 1,
+     "start": 33.201,
+     "end": 39.091
+    },
+    {
+     "id": "s2_04",
+     "text": "Then the hundred calls are like a hundred separate coin flips, each coin weighted to come up fast ninety-nine times in a hundred.",
+     "caption": "Then the hundred calls are like a hundred separate coin flips, each coin weighted to come up fast ninety-nine times in a hundred.",
+     "paragraph": 1,
+     "start": 39.391,
+     "end": 46.887
+    },
+    {
+     "id": "s2_05",
+     "text": "The chance that all hundred come up fast is ninety-nine percent, times ninety-nine percent, a hundred times over.",
+     "caption": "The chance that all hundred come up fast is ninety-nine percent, times ninety-nine percent, a hundred times over.",
+     "paragraph": 2,
+     "start": 47.387,
+     "end": 54.16
+    },
+    {
+     "id": "s2_06",
+     "text": "That comes to about thirty-seven percent.",
+     "caption": "That comes to about thirty-seven percent.",
+     "paragraph": 3,
+     "start": 54.66,
+     "end": 56.783
+    },
+    {
+     "id": "s2_07",
+     "text": "So sixty-three percent of pages wait at least a second.",
+     "caption": "So sixty-three percent of pages wait at least a second.",
+     "paragraph": 4,
+     "start": 57.283,
+     "end": 60.483
+    },
+    {
+     "id": "s2_08",
+     "text": "For one server, a slow call was the rare case.",
+     "caption": "For one server, a slow call was the rare case.",
+     "paragraph": 5,
+     "start": 61.783,
+     "end": 64.499
+    },
+    {
+     "id": "s2_09",
+     "text": "For the page, it's the usual case.",
+     "caption": "For the page, it's the usual case.",
+     "paragraph": 5,
+     "start": 64.799,
+     "end": 66.709
+    }
+   ],
+   "end": 67.559
+  },
+  {
+   "id": "s3",
+   "title": "What the dashboard shows",
+   "start": 67.559,
+   "lines": [
+    {
+     "id": "s3_01",
+     "text": "A dashboard of each server's average response time wouldn't warn you.",
+     "caption": "A dashboard of each server's average response time wouldn't warn you.",
+     "paragraph": 0,
+     "start": 67.909,
+     "end": 71.561
+    },
+    {
+     "id": "s3_02",
+     "text": "Ninety-nine calls at ten milliseconds and one at a second average out to about twenty milliseconds, which looks healthy.",
+     "caption": "Ninety-nine calls at ten milliseconds and one at a second average out to about twenty milliseconds, which looks healthy.",
+     "paragraph": 0,
+     "start": 71.861,
+     "end": 78.902
+    },
+    {
+     "id": "s3_03",
+     "text": "The slow calls show up in the percentiles.",
+     "caption": "The slow calls show up in the percentiles.",
+     "paragraph": 1,
+     "start": 79.402,
+     "end": 81.615
+    },
+    {
+     "id": "s3_04",
+     "text": "The ninety-ninth percentile is the time that ninety-nine percent of calls finish within.",
+     "caption": "The ninety-ninth percentile is the time that ninety-nine percent of calls finish within.",
+     "paragraph": 1,
+     "start": 81.915,
+     "end": 86.908
+    },
+    {
+     "id": "s3_05",
+     "text": "For these servers, it's about a second.",
+     "caption": "For these servers, it's about a second.",
+     "paragraph": 1,
+     "start": 87.208,
+     "end": 89.246
+    },
+    {
+     "id": "s3_06",
+     "text": "Those rare, slow calls make up the long tail of each server's latency distribution.",
+     "caption": "Those rare, slow calls make up the long tail of each server's latency distribution.",
+     "paragraph": 2,
+     "start": 89.746,
+     "end": 94.618
+    },
+    {
+     "id": "s3_07",
+     "text": "That's why this is called tail latency.",
+     "caption": "That's why this is called tail latency.",
+     "paragraph": 2,
+     "start": 94.918,
+     "end": 96.961
+    },
+    {
+     "id": "s3_08",
+     "text": "Most pages that wait on a hundred servers include a call from their slowest one percent.",
+     "caption": "Most pages that wait on a hundred servers include a call from their slowest one percent.",
+     "paragraph": 3,
+     "start": 97.461,
+     "end": 102.575
+    },
+    {
+     "id": "s3_09",
+     "text": "So with a hundred calls, the typical page is as slow as the servers' ninety-ninth percentile, not their average.",
+     "caption": "So with a hundred calls, the typical page is as slow as the servers' ninety-ninth percentile, not their average.",
+     "paragraph": 3,
+     "start": 102.875,
+     "end": 109.737
+    },
+    {
+     "id": "s3_10",
+     "text": "With more calls per page, an even rarer, slower percentile decides.",
+     "caption": "With more calls per page, an even rarer, slower percentile decides.",
+     "paragraph": 3,
+     "start": 110.037,
+     "end": 114.414
+    },
+    {
+     "id": "s3_11",
+     "text": "Turn that around.",
+     "caption": "Turn that around.",
+     "paragraph": 4,
+     "start": 114.914,
+     "end": 115.907
+    },
+    {
+     "id": "s3_12",
+     "text": "For the page itself to be slow only one time in a hundred, each of its hundred servers would have to be slow only one time in ten thousand.",
+     "caption": "For the page itself to be slow only one time in a hundred, each of its hundred servers would have to be slow only one time in ten thousand.",
+     "paragraph": 4,
+     "start": 116.207,
+     "end": 124.577
+    }
+   ],
+   "end": 126.427
+  },
+  {
+   "id": "s4",
+   "title": "Why not fix the slow calls?",
+   "start": 126.427,
+   "lines": [
+    {
+     "id": "s4_01",
+     "text": "Why not just find the slow one percent and fix it?",
+     "caption": "Why not just find the slow one percent and fix it?",
+     "paragraph": 0,
+     "start": 126.777,
+     "end": 129.269
+    },
+    {
+     "id": "s4_02",
+     "text": "Because hiccups have many causes, and most are brief.",
+     "caption": "Because hiccups have many causes, and most are brief.",
+     "paragraph": 1,
+     "start": 129.769,
+     "end": 132.592
+    },
+    {
+     "id": "s4_03",
+     "text": "A burst of traffic builds a queue.",
+     "caption": "A burst of traffic builds a queue.",
+     "paragraph": 1,
+     "start": 132.892,
+     "end": 134.668
+    },
+    {
+     "id": "s4_04",
+     "text": "A garbage collector pauses the program.",
+     "caption": "A garbage collector pauses the program.",
+     "paragraph": 1,
+     "start": 134.968,
+     "end": 137.236
+    },
+    {
+     "id": "s4_05",
+     "text": "A background job, or another program on the same machine, borrows the disk or the processor for a moment.",
+     "caption": "A background job, or another program on the same machine, borrows the disk or the processor for a moment.",
+     "paragraph": 1,
+     "start": 137.536,
+     "end": 143.702
+    },
+    {
+     "id": "s4_06",
+     "text": "Each one is short, and lands on whichever calls happen to be running.",
+     "caption": "Each one is short, and lands on whichever calls happen to be running.",
+     "paragraph": 2,
+     "start": 144.202,
+     "end": 147.878
+    },
+    {
+     "id": "s4_07",
+     "text": "You can remove some causes and make hiccups rarer, but in a large system you can't make them all go away.",
+     "caption": "You can remove some causes and make hiccups rarer, but in a large system you can't make them all go away.",
+     "paragraph": 2,
+     "start": 148.178,
+     "end": 154.137
+    },
+    {
+     "id": "s4_08",
+     "text": "So large systems are built to tolerate them, the way they tolerate machines that fail.",
+     "caption": "So large systems are built to tolerate them, the way they tolerate machines that fail.",
+     "paragraph": 3,
+     "start": 154.637,
+     "end": 159.63
+    }
+   ],
+   "end": 160.48
+  },
+  {
+   "id": "s5",
+   "title": "Hedged requests",
+   "start": 160.48,
+   "lines": [
+    {
+     "id": "s5_01",
+     "text": "One standard technique is the hedged request.",
+     "caption": "One standard technique is the hedged request.",
+     "paragraph": 0,
+     "start": 160.83,
+     "end": 163.222
+    },
+    {
+     "id": "s5_02",
+     "text": "Send the call to one server.",
+     "caption": "Send the call to one server.",
+     "paragraph": 1,
+     "start": 163.722,
+     "end": 165.177
+    },
+    {
+     "id": "s5_03",
+     "text": "If it hasn't answered by the ninety-fifth percentile, the time that ninety-five percent of calls finish within, send a copy to a second server that holds the same data.",
+     "caption": "If it hasn't answered by the ninety-fifth percentile, the time that ninety-five percent of calls finish within, send a copy to a second server that holds the same data.",
+     "paragraph": 1,
+     "start": 165.477,
+     "end": 175.435
+    },
+    {
+     "id": "s5_04",
+     "text": "Use whichever answer comes back first.",
+     "caption": "Use whichever answer comes back first.",
+     "paragraph": 1,
+     "start": 175.735,
+     "end": 177.954
+    },
+    {
+     "id": "s5_05",
+     "text": "A call that hit a hiccup is usually rescued by the copy, as long as the two servers don't hit a hiccup at the same moment.",
+     "caption": "A call that hit a hiccup is usually rescued by the copy, as long as the two servers don't hit a hiccup at the same moment.",
+     "paragraph": 2,
+     "start": 178.454,
+     "end": 185.286
+    },
+    {
+     "id": "s5_06",
+     "text": "So the copy goes to a server on a different machine, where the same hiccup is unlikely to reach it.",
+     "caption": "So the copy goes to a server on a different machine, where the same hiccup is unlikely to reach it.",
+     "paragraph": 2,
+     "start": 185.586,
+     "end": 191.029
+    },
+    {
+     "id": "s5_07",
+     "text": "The cost is small.",
+     "caption": "The cost is small.",
+     "paragraph": 3,
+     "start": 191.529,
+     "end": 192.553
+    },
+    {
+     "id": "s5_08",
+     "text": "Only calls slower than the ninety-fifth percentile get a copy, so the servers see about five percent more requests.",
+     "caption": "Only calls slower than the ninety-fifth percentile get a copy, so the servers see about five percent more requests.",
+     "paragraph": 3,
+     "start": 192.853,
+     "end": 199.568
+    },
+    {
+     "id": "s5_09",
+     "text": "In our simulation, hedging cut the share of slow pages from sixty-three percent to about one percent.",
+     "caption": "In our simulation, hedging cut the share of slow pages from sixty-three percent to about one percent.",
+     "paragraph": 4,
+     "start": 200.068,
+     "end": 206.249
+    },
+    {
+     "id": "s5_10",
+     "text": "Google measured hedging on a real system.",
+     "caption": "Google measured hedging on a real system.",
+     "paragraph": 5,
+     "start": 207.549,
+     "end": 209.777
+    },
+    {
+     "id": "s5_11",
+     "text": "In one benchmark, each request read a thousand values from a hundred servers.",
+     "caption": "In one benchmark, each request read a thousand values from a hundred servers.",
+     "paragraph": 5,
+     "start": 210.077,
+     "end": 214.672
+    },
+    {
+     "id": "s5_12",
+     "text": "Across many of these requests, hedging after a fixed ten milliseconds cut the ninety-nine point nine percentile, the time that 99.9 percent of them finish within, from one point eight seconds to seventy-four milliseconds.",
+     "caption": "Across many of these requests, hedging after a fixed ten milliseconds cut the 99.9th percentile, the time that 99.9 percent of them finish within, from 1.8 seconds to 74 milliseconds.",
+     "paragraph": 5,
+     "start": 214.972,
+     "end": 229.693
+    },
+    {
+     "id": "s5_13",
+     "text": "It cost only two percent more requests.",
+     "caption": "It cost only two percent more requests.",
+     "paragraph": 5,
+     "start": 229.993,
+     "end": 232.194
+    },
+    {
+     "id": "s5_14",
+     "text": "But hedge too early, and every call gets a copy.",
+     "caption": "But hedge too early, and every call gets a copy.",
+     "paragraph": 6,
+     "start": 233.894,
+     "end": 236.655
+    },
+    {
+     "id": "s5_15",
+     "text": "That's twice the load, and more load means longer queues, so busier servers answer more slowly.",
+     "caption": "That's twice the load, and more load means longer queues, so busier servers answer more slowly.",
+     "paragraph": 6,
+     "start": 236.955,
+     "end": 242.881
+    },
+    {
+     "id": "s5_16",
+     "text": "Waiting for the ninety-fifth percentile keeps the extra load small.",
+     "caption": "Waiting for the ninety-fifth percentile keeps the extra load small.",
+     "paragraph": 6,
+     "start": 243.181,
+     "end": 246.919
+    },
+    {
+     "id": "s5_17",
+     "text": "Hedging suits reads.",
+     "caption": "Hedging suits reads.",
+     "paragraph": 7,
+     "start": 247.419,
+     "end": 248.612
+    },
+    {
+     "id": "s5_18",
+     "text": "A copy of a write, like a payment, could happen twice, and making that safe is the next lesson.",
+     "caption": "A copy of a write, like a payment, could happen twice, and making that safe is the next lesson.",
+     "paragraph": 7,
+     "start": 248.912,
+     "end": 254.347
+    }
+   ],
+   "end": 255.197
+  },
+  {
+   "id": "s6",
+   "title": "The answer",
+   "start": 255.197,
+   "lines": [
+    {
+     "id": "s6_01",
+     "text": "So the page was slow sixty-three percent of the time because it waited on a hundred servers, and a one-in-a-hundred hiccup is more likely than not to hit at least one of them.",
+     "caption": "So the page was slow sixty-three percent of the time because it waited on a hundred servers, and a one-in-a-hundred hiccup is more likely than not to hit at least one of them.",
+     "paragraph": 0,
+     "start": 255.547,
+     "end": 265.726
+    },
+    {
+     "id": "s6_02",
+     "text": "When a request fans out, watch your servers' ninety-ninth percentile, their tail latency, not their average.",
+     "caption": "When a request fans out, watch your servers' ninety-ninth percentile, their tail latency, not their average.",
+     "paragraph": 1,
+     "start": 266.226,
+     "end": 272.621
+    },
+    {
+     "id": "s6_03",
+     "text": "And instead of hunting every hiccup, design the fan-out to tolerate them.",
+     "caption": "And instead of hunting every hiccup, design the fan-out to tolerate them.",
+     "paragraph": 1,
+     "start": 272.921,
+     "end": 276.837
+    },
+    {
+     "id": "s6_04",
+     "text": "All of this assumes the hiccups are independent.",
+     "caption": "All of this assumes the hiccups are independent.",
+     "paragraph": 2,
+     "start": 277.337,
+     "end": 279.84
+    },
+    {
+     "id": "s6_05",
+     "text": "When one cause hits many servers at once, like a network blip, the arithmetic changes, and a hedge's copy may be slow too.",
+     "caption": "When one cause hits many servers at once, like a network blip, the arithmetic changes, and a hedge's copy may be slow too.",
+     "paragraph": 2,
+     "start": 280.14,
+     "end": 287.623
+    }
+   ],
+   "end": 294.623
+  }
+ ],
+ "phonemes": {
+  "s1_01": "j\u02cc\u028a\u0279 b\u02c8\u00e6k\u0259nd s\u02c8\u025c\u0279v\u0259\u0279z \u0251\u0279 f\u02c8\u00e6st.",
+  "s1_02": "\u0250 t\u02c8\u026ap\u0259k\u1d4al \u0279\u0259kw\u02c8\u025bst t\u02c8Aks t\u02c8\u025bn m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz.",
+  "s1_03": "b\u02cc\u028ct \u0259b\u02c8Wt w\u02c8\u028cn \u0279\u0259kw\u02c8\u025bst \u026an \u0250 h\u02c8\u028cnd\u0279\u0259d h\u02c8\u026ats \u0250 h\u02c8\u026ak\u0259p, \u00e6nd t\u02c8Aks \u0250 f\u02c8\u028al s\u02c8\u025bk\u0259nd.",
+  "s1_04": "w\u02c8\u028cn sl\u02c8O \u0279\u0259kw\u02c8\u025bst \u026an \u0250 h\u02c8\u028cnd\u0279\u0259d s\u02c8Wndz \u0279\u02c8\u025b\u0279 \u026an\u02c8\u028cf t\u0259 l\u02c8\u026av w\u026a\u00f0.",
+  "s1_05": "n\u02c8W \u0250 j\u02c8uz\u0259\u0279z p\u02c8A\u02a4 k\u02c8\u0254lz \u0250 h\u02c8\u028cnd\u0279\u0259d \u028cv \u00f0iz s\u02c8\u025c\u0279v\u0259\u0279z \u00e6t w\u02c8\u028cns, \u00e6nd w\u02c8Ats \u02cc\u028cnt\u02c8\u026al \u02c8\u025bv\u0259\u0279i w\u02c8\u028cn h\u00e6z \u02c8\u00e6ns\u0259\u0279d.",
+  "s1_06": "h\u02ccW \u02c8\u0254f\u1d4an \u026az \u00f0\u0259 p\u02c8A\u02a4 sl\u02c8O?",
+  "s2_01": "\u00f0\u0259 p\u02c8A\u02a4 \u026az f\u02c8\u00e6st \u02c8Onli \u026af \u02c8\u0254l h\u02c8\u028cnd\u0279\u0259d k\u02c8\u0254lz \u0251\u0279 f\u02c8\u00e6st.",
+  "s2_02": "\u02c8i\u02a7 k\u02c8\u0254l \u026az f\u02c8\u00e6st n\u02c8Indin\u02ccIn t\u02c8Imz \u02c8Wt \u028cv \u0250 h\u02c8\u028cnd\u0279\u0259d.",
+  "s2_03": "\u0259s\u02c8um \u00f0\u0259 h\u02c8\u026ak\u0259ps \u0251\u0279 \u02cc\u026and\u0259p\u02c8\u025bnd\u0259nt: w\u02c8\u028cn s\u02c8\u025c\u0279v\u0259\u0279 h\u02c8\u026aT\u026a\u014b \u0250 h\u02c8\u026ak\u0259p d\u02c8\u028cz\u1d4ant m\u02ccAk \u0259n\u02c8\u028c\u00f0\u0259\u0279 m\u02c8\u0254\u0279 l\u02c8Ikli tu.",
+  "s2_04": "\u00f0\u02c8\u025bn \u00f0\u0259 h\u02c8\u028cnd\u0279\u0259d k\u02c8\u0254lz \u0251\u0279 l\u02c8Ik \u0250 h\u02c8\u028cnd\u0279\u0259d s\u02c8\u025bp\u0259\u0279\u0259t k\u02c8Yn fl\u02c8\u026aps, \u02c8i\u02a7 k\u02c8Yn w\u02c8AT\u1d7bd t\u0259 k\u02c8\u028cm \u02cc\u028cp f\u02c8\u00e6st n\u02c8Indin\u02ccIn t\u02c8Imz \u026an \u0250 h\u02c8\u028cnd\u0279\u0259d.",
+  "s2_05": "\u00f0\u0259 \u02a7\u02c8\u00e6ns \u00f0\u00e6t \u02c8\u0254l h\u02c8\u028cnd\u0279\u0259d k\u02c8\u028cm \u02cc\u028cp f\u02c8\u00e6st \u026az n\u02c8Indin\u02ccIn p\u0259\u0279s\u02c8\u025bnt, t\u02c8Imz n\u02c8Indin\u02ccIn p\u0259\u0279s\u02c8\u025bnt, \u0250 h\u02c8\u028cnd\u0279\u0259d t\u02c8Imz \u02c8Ov\u0259\u0279.",
+  "s2_06": "\u00f0\u02c8\u00e6t k\u02c8\u028cmz t\u028a \u0259b\u02c8Wt \u03b8\u02cc\u025c\u0279Tis\u02c8\u025bv\u0259n p\u0259\u0279s\u02c8\u025bnt.",
+  "s2_07": "s\u02ccO s\u02c8\u026aksti\u03b8\u0279\u02cci p\u0259\u0279s\u02c8\u025bnt \u028cv p\u02c8A\u02a4\u1d7bz w\u02c8At \u00e6t l\u02c8ist \u0250 s\u02c8\u025bk\u0259nd.",
+  "s2_08": "f\u02cc\u0254\u0279 w\u02c8\u028cn s\u02c8\u025c\u0279v\u0259\u0279, \u0250 sl\u02c8O k\u02c8\u0254l w\u028cz \u00f0\u0259 \u0279\u02c8\u025b\u0279 k\u02c8As.",
+  "s2_09": "f\u02cc\u0254\u0279 \u00f0\u0259 p\u02c8A\u02a4, \u026ats \u00f0\u0259 j\u02c8u\u0292\u0259w\u0259l k\u02c8As.",
+  "s3_01": "\u0250 d\u02c8\u00e6\u0283b\u02cc\u0254\u0279d \u028cv \u02c8i\u02a7 s\u02c8\u025c\u0279v\u0259\u0279z \u02c8\u00e6v\u0259\u0279\u026a\u02a4 \u0279\u0259sp\u02c8\u0251ns t\u02c8Im w\u02c8\u028ad\u1d4ant w\u02c8\u0254\u0279n ju.",
+  "s3_02": "n\u02c8Indin\u02ccIn k\u02c8\u0254lz \u00e6t t\u02c8\u025bn m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz \u00e6nd w\u02c8\u028cn \u00e6t \u0250 s\u02c8\u025bk\u0259nd \u02c8\u00e6v\u0259\u0279\u026a\u02a4 \u02c8Wt t\u028a \u0259b\u02c8Wt tw\u02c8\u025bnti m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz, w\u02cc\u026a\u02a7 l\u02c8\u028aks h\u02c8\u025bl\u03b8i.",
+  "s3_03": "\u00f0\u0259 sl\u02c8O k\u02c8\u0254lz \u0283\u02c8O \u02cc\u028cp \u026an \u00f0\u0259 p\u0259\u0279s\u02c8\u025bnt\u02ccIlz.",
+  "s3_04": "\u00f0\u0259 n\u02c8Indin\u02ccIn\u03b8 p\u0259\u0279s\u02c8\u025bnt\u02ccIl \u026az \u00f0\u0259 t\u02c8Im \u00f0\u00e6t n\u02c8Indin\u02ccIn p\u0259\u0279s\u02c8\u025bnt \u028cv k\u02c8\u0254lz f\u02c8\u026an\u0259\u0283 w\u026a\u00f0\u02c8\u026an.",
+  "s3_05": "f\u02cc\u0254\u0279 \u00f0iz s\u02c8\u025c\u0279v\u0259\u0279z, \u026ats \u0259b\u02c8Wt \u0250 s\u02c8\u025bk\u0259nd.",
+  "s3_06": "\u00f0\u02ccOz \u0279\u02c8\u025b\u0279, sl\u02c8O k\u02c8\u0254lz m\u02ccAk \u02cc\u028cp \u00f0\u0259 l\u02c8\u0254\u014b t\u02c8Al \u028cv \u02c8i\u02a7 s\u02c8\u025c\u0279v\u0259\u0279z l\u02c8At\u1d4ansi d\u02cc\u026ast\u0279\u0259bj\u02c8u\u0283\u0259n.",
+  "s3_07": "\u00f0\u02c8\u00e6ts w\u02ccI \u00f0\u026as \u026az k\u02c8\u0254ld t\u02c8Al l\u02c8At\u1d4ansi.",
+  "s3_08": "m\u02c8Ost p\u02c8A\u02a4\u1d7bz \u00f0\u00e6t w\u02c8At \u02cc\u0254n \u0250 h\u02c8\u028cnd\u0279\u0259d s\u02c8\u025c\u0279v\u0259\u0279z \u026ankl\u02c8ud \u0250 k\u02c8\u0254l f\u0279\u028cm \u00f0\u025b\u0279 sl\u02c8O\u1d7bst w\u02c8\u028cn p\u0259\u0279s\u02c8\u025bnt.",
+  "s3_09": "s\u02ccO w\u026a\u00f0 \u0250 h\u02c8\u028cnd\u0279\u0259d k\u02c8\u0254lz, \u00f0\u0259 t\u02c8\u026ap\u0259k\u1d4al p\u02c8A\u02a4 \u026az \u00e6z sl\u02c8O \u00e6z \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279z n\u02c8Indin\u02ccIn\u03b8 p\u0259\u0279s\u02c8\u025bnt\u02ccIl, n\u02cc\u0251t \u00f0\u025b\u0279 \u02c8\u00e6v\u0259\u0279\u026a\u02a4.",
+  "s3_10": "w\u02cc\u026a\u00f0 m\u02c8\u0254\u0279 k\u02c8\u0254lz p\u025c\u0279 p\u02c8A\u02a4, \u0250n \u02c8iv\u0259n \u0279\u02c8\u025b\u0279\u0259\u0279, sl\u02c8O\u0259\u0279 p\u0259\u0279s\u02c8\u025bnt\u02ccIl d\u0259s\u02c8Idz.",
+  "s3_11": "t\u02c8\u025c\u0279n \u00f0\u02c8\u00e6t \u0259\u0279\u02c8Wnd.",
+  "s3_12": "f\u02cc\u0254\u0279 \u00f0\u0259 p\u02c8A\u02a4 \u026ats\u02c8\u025blf t\u0259 bi sl\u02c8O \u02c8Onli w\u02c8\u028cn t\u02c8Im \u026an \u0250 h\u02c8\u028cnd\u0279\u0259d, \u02c8i\u02a7 \u028cv \u026ats h\u02c8\u028cnd\u0279\u0259d s\u02c8\u025c\u0279v\u0259\u0279z w\u028ad h\u00e6v t\u0259 bi sl\u02c8O \u02c8Onli w\u02c8\u028cn t\u02c8Im \u026an t\u02c8\u025bn \u03b8\u02c8Wz\u1d4and.",
+  "s4_01": "w\u02ccI n\u02cc\u0251t \u02a4\u02c8\u028cst f\u02c8Ind \u00f0\u0259 sl\u02c8O w\u02c8\u028cn p\u0259\u0279s\u02c8\u025bnt \u00e6nd f\u02c8\u026aks \u026at?",
+  "s4_02": "b\u0259k\u02c8\u028cz h\u02c8\u026ak\u0259ps h\u00e6v m\u02c8\u025bni k\u02c8\u0254z\u1d7bz, \u00e6nd m\u02c8Ost \u0251\u0279 b\u0279\u02c8if.",
+  "s4_03": "\u0250 b\u02c8\u025c\u0279st \u028cv t\u0279\u02c8\u00e6f\u026ak b\u02c8\u026aldz \u0250 kj\u02c8u.",
+  "s4_04": "\u0250 \u0261\u02c8\u0251\u0279b\u026a\u02a4 k\u0259l\u02c8\u025bkt\u0259\u0279 p\u02c8\u0254z\u1d7bz \u00f0\u0259 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m.",
+  "s4_05": "\u0250 b\u02c8\u00e6k\u0261\u0279\u02ccWnd \u02a4\u02c8\u0251b, \u0254\u0279 \u0259n\u02c8\u028c\u00f0\u0259\u0279 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m \u02cc\u0254n \u00f0\u0259 s\u02c8Am m\u0259\u0283\u02c8in, b\u02c8\u0251\u0279Oz \u00f0\u0259 d\u02c8\u026ask \u0254\u0279 \u00f0\u0259 p\u0279\u02c8\u0251s\u02cc\u025bs\u0259\u0279 f\u0254\u0279 \u0250 m\u02c8Om\u1d4ant.",
+  "s4_06": "\u02c8i\u02a7 w\u02c8\u028cn \u026az \u0283\u02c8\u0254\u0279t, \u00e6nd l\u02c8\u00e6ndz \u02cc\u0254n w\u02cc\u026a\u02a7\u02c8\u025bv\u0259\u0279 k\u02c8\u0254lz h\u02c8\u00e6p\u0259n t\u0259 bi \u0279\u02c8\u028cn\u026a\u014b.",
+  "s4_07": "j\u02ccu k\u00e6n \u0279\u0259m\u02c8uv s\u02cc\u028cm k\u02c8\u0254z\u1d7bz \u00e6nd m\u02ccAk h\u02c8\u026ak\u0259ps \u0279\u02c8\u025b\u0279\u0259\u0279, b\u02cc\u028ct \u026an \u0250 l\u02c8\u0251\u0279\u02a4 s\u02c8\u026ast\u0259m ju k\u02c8\u00e6nt m\u02ccAk \u00f0\u02cc\u025bm \u02c8\u0254l \u0261\u02ccO \u0259w\u02c8A.",
+  "s4_08": "s\u02ccO l\u02c8\u0251\u0279\u02a4 s\u02c8\u026ast\u0259mz \u0251\u0279 b\u02c8\u026alt t\u0259 t\u02c8\u0251l\u0259\u0279\u02ccAt \u00f0\u02cc\u025bm, \u00f0\u0259 w\u02c8A \u00f0A t\u02c8\u0251l\u0259\u0279\u02ccAt m\u0259\u0283\u02c8inz \u00f0\u00e6t f\u02c8Al.",
+  "s5_01": "w\u02c8\u028cn st\u02c8\u00e6nd\u0259\u0279d t\u025bkn\u02c8ik \u026az \u00f0\u0259 h\u02c8\u025b\u02a4d \u0279\u0259kw\u02c8\u025bst.",
+  "s5_02": "s\u02c8\u025bnd \u00f0\u0259 k\u02c8\u0254l t\u0259 w\u02c8\u028cn s\u02c8\u025c\u0279v\u0259\u0279.",
+  "s5_03": "\u02cc\u026af \u026at h\u02c8\u00e6z\u1d4ant \u02c8\u00e6ns\u0259\u0279d bI \u00f0\u0259 n\u02c8Indif\u02cc\u026af\u03b8 p\u0259\u0279s\u02c8\u025bnt\u02ccIl, \u00f0\u0259 t\u02c8Im \u00f0\u00e6t n\u02c8Indif\u02ccIv p\u0259\u0279s\u02c8\u025bnt \u028cv k\u02c8\u0254lz f\u02c8\u026an\u0259\u0283 w\u026a\u00f0\u02c8\u026an, s\u02c8\u025bnd \u0250 k\u02c8\u0251pi t\u0259 \u0250 s\u02c8\u025bk\u0259nd s\u02c8\u025c\u0279v\u0259\u0279 \u00f0\u00e6t h\u02c8Oldz \u00f0\u0259 s\u02c8Am d\u02c8AT\u0259.",
+  "s5_04": "j\u02c8uz w\u02cc\u026a\u02a7\u02c8\u025bv\u0259\u0279 \u02c8\u00e6ns\u0259\u0279 k\u02c8\u028cmz b\u02c8\u00e6k f\u02c8\u025c\u0279st.",
+  "s5_05": "\u0250 k\u02c8\u0254l \u00f0\u00e6t h\u02c8\u026at \u0250 h\u02c8\u026ak\u0259p \u026az j\u02c8u\u0292\u0259w\u0259li \u0279\u02c8\u025bskjud bI \u00f0\u0259 k\u02c8\u0251pi, \u00e6z l\u02c8\u0254\u014b \u00e6z \u00f0\u0259 t\u02c8u s\u02c8\u025c\u0279v\u0259\u0279z d\u02c8Ont h\u02c8\u026at \u0250 h\u02c8\u026ak\u0259p \u00e6t \u00f0\u0259 s\u02c8Am m\u02c8Om\u1d4ant.",
+  "s5_06": "s\u02ccO \u00f0\u0259 k\u02c8\u0251pi \u0261\u02c8Oz t\u0259 \u0250 s\u02c8\u025c\u0279v\u0259\u0279 \u02cc\u0254n \u0250 d\u02c8\u026af\u0259\u0279\u0259nt m\u0259\u0283\u02c8in, w\u02cc\u025b\u0279 \u00f0\u0259 s\u02c8Am h\u02c8\u026ak\u0259p \u026az \u02cc\u028cnl\u02c8Ikli t\u0259 \u0279\u02c8i\u02a7 \u026at.",
+  "s5_07": "\u00f0\u0259 k\u02c8\u0254st \u026az sm\u02c8\u0254l.",
+  "s5_08": "\u02c8Onli k\u02c8\u0254lz sl\u02c8O\u0259\u0279 \u00f0\u0259n \u00f0\u0259 n\u02c8Indif\u02cc\u026af\u03b8 p\u0259\u0279s\u02c8\u025bnt\u02ccIl \u0261\u025bt \u0250 k\u02c8\u0251pi, s\u02ccO \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279z s\u02c8i \u0259b\u02c8Wt f\u02c8Iv p\u0259\u0279s\u02c8\u025bnt m\u02c8\u0254\u0279 \u0279\u0259kw\u02c8\u025bsts.",
+  "s5_09": "\u026an \u02ccW\u0259\u0279 s\u02cc\u026amj\u0259l\u02c8A\u0283\u0259n, h\u02c8\u025b\u02a4\u026a\u014b k\u02c8\u028ct \u00f0\u0259 \u0283\u02c8\u025b\u0279 \u028cv sl\u02c8O p\u02c8A\u02a4\u1d7bz f\u0279\u028cm s\u02c8\u026aksti\u03b8\u0279\u02cci p\u0259\u0279s\u02c8\u025bnt t\u028a \u0259b\u02c8Wt w\u02c8\u028cn p\u0259\u0279s\u02c8\u025bnt.",
+  "s5_10": "\u0261\u02c8u\u0261\u1d4al m\u02c8\u025b\u0292\u0259\u0279d h\u02c8\u025b\u02a4\u026a\u014b \u02cc\u0254n \u0250 \u0279\u02c8i\u1d4al s\u02c8\u026ast\u0259m.",
+  "s5_11": "\u026an w\u02c8\u028cn b\u02c8\u025bn\u02a7m\u02cc\u0251\u0279k, \u02c8i\u02a7 \u0279\u0259kw\u02c8\u025bst \u0279\u02c8\u025bd \u0250 \u03b8\u02c8Wz\u1d4and v\u02c8\u00e6ljuz f\u0279\u028cm \u0250 h\u02c8\u028cnd\u0279\u0259d s\u02c8\u025c\u0279v\u0259\u0279z.",
+  "s5_12": "\u0259k\u0279\u02c8\u0254s m\u02c8\u025bni \u028cv \u00f0iz \u0279\u0259kw\u02c8\u025bsts, h\u02c8\u025b\u02a4\u026a\u014b \u02c8\u00e6ft\u0259\u0279 \u0250 f\u02c8\u026akst t\u02c8\u025bn m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz k\u02c8\u028ct \u00f0\u0259 n\u02c8Indin\u02ccIn p\u02c8Ynt n\u02c8In p\u0259\u0279s\u02c8\u025bnt\u02ccIl, \u00f0\u0259 t\u02c8Im \u00f0\u00e6t n\u02c8Indi n\u02c8In pYnt n\u02c8In p\u0259\u0279s\u02c8\u025bnt \u028cv \u00f0\u02cc\u025bm f\u02c8\u026an\u0259\u0283 w\u026a\u00f0\u02c8\u026an, f\u0279\u028cm w\u02c8\u028cn p\u02c8Ynt \u02c8At s\u02c8\u025bk\u0259ndz t\u0259 s\u02c8\u025bv\u0259ntif\u02cc\u0254\u0279 m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz.",
+  "s5_13": "\u02cc\u026at k\u02c8\u0254st \u02c8Onli t\u02c8u p\u0259\u0279s\u02c8\u025bnt m\u02c8\u0254\u0279 \u0279\u0259kw\u02c8\u025bsts.",
+  "s5_14": "b\u02cc\u028ct h\u02c8\u025b\u02a4 t\u02c8u \u02c8\u025c\u0279li, \u00e6nd \u02c8\u025bv\u0259\u0279i k\u02c8\u0254l \u0261\u025bts \u0250 k\u02c8\u0251pi.",
+  "s5_15": "\u00f0\u02c8\u00e6ts tw\u02c8Is \u00f0\u0259 l\u02c8Od, \u00e6nd m\u02c8\u0254\u0279 l\u02c8Od m\u02c8inz l\u02c8\u0254\u014b\u0261\u0259\u0279 kj\u02c8uz, s\u02ccO b\u02c8\u026azi\u0259\u0279 s\u02c8\u025c\u0279v\u0259\u0279z \u02c8\u00e6ns\u0259\u0279 m\u02c8\u0254\u0279 sl\u02c8Oli.",
+  "s5_16": "w\u02c8AT\u026a\u014b f\u0254\u0279 \u00f0\u0259 n\u02c8Indif\u02cc\u026af\u03b8 p\u0259\u0279s\u02c8\u025bnt\u02ccIl k\u02c8ips \u00f0i \u02c8\u025bkst\u0279\u0259 l\u02c8Od sm\u02c8\u0254l.",
+  "s5_17": "h\u02c8\u025b\u02a4\u026a\u014b s\u02c8uts \u0279\u02c8idz.",
+  "s5_18": "\u0250 k\u02c8\u0251pi \u028cv \u0250 \u0279\u02c8It, l\u02c8Ik \u0250 p\u02c8Am\u1d4ant, k\u028ad h\u02c8\u00e6p\u0259n tw\u02c8Is, \u00e6nd m\u02c8Ak\u026a\u014b \u00f0\u02c8\u00e6t s\u02c8Af \u026az \u00f0\u0259 n\u02c8\u025bkst l\u02c8\u025bs\u0259n.",
+  "s6_01": "s\u02ccO \u00f0\u0259 p\u02c8A\u02a4 w\u028cz sl\u02c8O s\u02c8\u026aksti\u03b8\u0279\u02cci p\u0259\u0279s\u02c8\u025bnt \u028cv \u00f0\u0259 t\u02c8Im b\u0259k\u02c8\u028cz \u026at w\u02c8AT\u1d7bd \u02cc\u0254n \u0250 h\u02c8\u028cnd\u0279\u0259d s\u02c8\u025c\u0279v\u0259\u0279z, \u00e6nd \u0250 w\u02c8\u028cn\u026an\u0250h\u02c8\u028cnd\u0279\u0259d h\u02c8\u026ak\u0259p \u026az m\u02c8\u0254\u0279 l\u02c8Ikli \u00f0\u0259n n\u02cc\u0251t t\u0259 h\u02c8\u026at \u00e6t l\u02c8ist w\u02c8\u028cn \u028cv \u00f0\u02cc\u025bm.",
+  "s6_02": "w\u02cc\u025bn \u0250 \u0279\u0259kw\u02c8\u025bst f\u02c8\u00e6nz \u02c8Wt, w\u02c8\u0251\u02a7 j\u028a\u0279 s\u02c8\u025c\u0279v\u0259\u0279z n\u02c8Indin\u02ccIn\u03b8 p\u0259\u0279s\u02c8\u025bnt\u02ccIl, \u00f0\u025b\u0279 t\u02c8Al l\u02c8At\u1d4ansi, n\u02cc\u0251t \u00f0\u025b\u0279 \u02c8\u00e6v\u0259\u0279\u026a\u02a4.",
+  "s6_03": "\u02cc\u00e6nd \u026anst\u02c8\u025bd \u028cv h\u02c8\u028cnt\u026a\u014b \u02c8\u025bv\u0259\u0279i h\u02c8\u026ak\u0259p, d\u0259z\u02c8In \u00f0\u0259 f\u02c8\u00e6n\u02ccWt t\u0259 t\u02c8\u0251l\u0259\u0279\u02ccAt \u00f0\u02cc\u025bm.",
+  "s6_04": "\u02c8\u0254l \u028cv \u00f0\u026as \u0259s\u02c8umz \u00f0\u0259 h\u02c8\u026ak\u0259ps \u0251\u0279 \u02cc\u026and\u0259p\u02c8\u025bnd\u0259nt.",
+  "s6_05": "w\u02cc\u025bn w\u02c8\u028cn k\u02c8\u0254z h\u02c8\u026ats m\u02c8\u025bni s\u02c8\u025c\u0279v\u0259\u0279z \u00e6t w\u02c8\u028cns, l\u02c8Ik \u0250 n\u02c8\u025btw\u02cc\u025c\u0279k bl\u02c8\u026ap, \u00f0i \u02cc\u025b\u0279\u026a\u03b8m\u02c8\u025bT\u026ak \u02a7\u02c8An\u02a4\u1d7bz, \u00e6nd \u0250 h\u02c8\u025b\u02a4\u1d7bz k\u02c8\u0251pi m\u02c8A bi sl\u02c8O t\u02c8u."
+ },
+ "peak": 0.7285789847373962
+}

@@ -1,0 +1,588 @@
+{
+ "voice": "af_heart",
+ "speed": 0.92,
+ "total": 274.781,
+ "segments": [
+  {
+   "id": "s1",
+   "title": "The question",
+   "start": 0.0,
+   "lines": [
+    {
+     "id": "s1_01",
+     "text": "A checkout page asks the payment server to charge a customer fifty dollars.",
+     "caption": "A checkout page asks the payment server to charge a customer fifty dollars.",
+     "paragraph": 0,
+     "start": 0.8,
+     "end": 5.208
+    },
+    {
+     "id": "s1_02",
+     "text": "Then the network goes quiet.",
+     "caption": "Then the network goes quiet.",
+     "paragraph": 1,
+     "start": 5.708,
+     "end": 7.228
+    },
+    {
+     "id": "s1_03",
+     "text": "After a few seconds with no reply, the client gives up: a timeout.",
+     "caption": "After a few seconds with no reply, the client gives up: a timeout.",
+     "paragraph": 1,
+     "start": 7.528,
+     "end": 11.527
+    },
+    {
+     "id": "s1_04",
+     "text": "Did the charge go through?",
+     "caption": "Did the charge go through?",
+     "paragraph": 2,
+     "start": 12.027,
+     "end": 13.204
+    },
+    {
+     "id": "s1_05",
+     "text": "If it did and the client tries again, the customer pays twice.",
+     "caption": "If it did and the client tries again, the customer pays twice.",
+     "paragraph": 3,
+     "start": 13.704,
+     "end": 17.35
+    },
+    {
+     "id": "s1_06",
+     "text": "If it didn't and the client gives up, the sale is lost.",
+     "caption": "If it didn't and the client gives up, the sale is lost.",
+     "paragraph": 3,
+     "start": 17.65,
+     "end": 20.679
+    },
+    {
+     "id": "s1_07",
+     "text": "So what should the client do?",
+     "caption": "So what should the client do?",
+     "paragraph": 4,
+     "start": 21.179,
+     "end": 22.534
+    }
+   ],
+   "end": 26.184
+  },
+  {
+   "id": "s2",
+   "title": "Silence looks the same",
+   "start": 26.184,
+   "lines": [
+    {
+     "id": "s2_01",
+     "text": "From the client's side, three different failures look exactly alike.",
+     "caption": "From the client's side, three different failures look exactly alike.",
+     "paragraph": 0,
+     "start": 26.534,
+     "end": 30.248
+    },
+    {
+     "id": "s2_02",
+     "text": "The request might have been lost on the way, so nothing happened.",
+     "caption": "The request might have been lost on the way, so nothing happened.",
+     "paragraph": 1,
+     "start": 30.748,
+     "end": 34.064
+    },
+    {
+     "id": "s2_03",
+     "text": "The server might still be working on it.",
+     "caption": "The server might still be working on it.",
+     "paragraph": 2,
+     "start": 34.564,
+     "end": 36.367
+    },
+    {
+     "id": "s2_04",
+     "text": "Or it might have crashed partway through.",
+     "caption": "Or it might have crashed partway through.",
+     "paragraph": 3,
+     "start": 36.867,
+     "end": 38.598
+    },
+    {
+     "id": "s2_05",
+     "text": "Or the charge went through, and the reply was lost on the way back.",
+     "caption": "Or the charge went through, and the reply was lost on the way back.",
+     "paragraph": 4,
+     "start": 39.098,
+     "end": 42.649
+    },
+    {
+     "id": "s2_06",
+     "text": "In every case, the client sees the same thing: nothing.",
+     "caption": "In every case, the client sees the same thing: nothing.",
+     "paragraph": 5,
+     "start": 43.149,
+     "end": 46.314
+    },
+    {
+     "id": "s2_07",
+     "text": "It could ask the server whether the charge happened.",
+     "caption": "It could ask the server whether the charge happened.",
+     "paragraph": 6,
+     "start": 47.614,
+     "end": 49.963
+    },
+    {
+     "id": "s2_08",
+     "text": "But the question and its answer cross the same network, and can be lost the same way.",
+     "caption": "But the question and its answer cross the same network, and can be lost the same way.",
+     "paragraph": 6,
+     "start": 50.263,
+     "end": 54.826
+    },
+    {
+     "id": "s2_09",
+     "text": "Every confirmation is another message that can be lost, so whoever sends the last message never knows it arrived.",
+     "caption": "Every confirmation is another message that can be lost, so whoever sends the last message never knows it arrived.",
+     "paragraph": 7,
+     "start": 55.326,
+     "end": 62.394
+    },
+    {
+     "id": "s2_10",
+     "text": "However many messages the client sends, it can't be certain.",
+     "caption": "However many messages the client sends, it can't be certain.",
+     "paragraph": 7,
+     "start": 62.694,
+     "end": 66.002
+    },
+    {
+     "id": "s2_11",
+     "text": "So no protocol over an unreliable network can promise that a request is delivered exactly once.",
+     "caption": "So no protocol over an unreliable network can promise that a request is delivered exactly once.",
+     "paragraph": 7,
+     "start": 66.302,
+     "end": 72.825
+    }
+   ],
+   "end": 74.475
+  },
+  {
+   "id": "s3",
+   "title": "At most once, or at least once",
+   "start": 74.475,
+   "lines": [
+    {
+     "id": "s3_01",
+     "text": "That leaves two choices.",
+     "caption": "That leaves two choices.",
+     "paragraph": 0,
+     "start": 74.825,
+     "end": 76.155
+    },
+    {
+     "id": "s3_02",
+     "text": "Send the request once and never retry.",
+     "caption": "Send the request once and never retry.",
+     "paragraph": 1,
+     "start": 76.655,
+     "end": 78.854
+    },
+    {
+     "id": "s3_03",
+     "text": "Nothing is ever done twice, but a lost request is simply lost.",
+     "caption": "Nothing is ever done twice, but a lost request is simply lost.",
+     "paragraph": 1,
+     "start": 79.154,
+     "end": 83.156
+    },
+    {
+     "id": "s3_04",
+     "text": "That's called at most once.",
+     "caption": "That's called at most once.",
+     "paragraph": 1,
+     "start": 83.456,
+     "end": 84.901
+    },
+    {
+     "id": "s3_05",
+     "text": "Or keep retrying until a reply arrives.",
+     "caption": "Or keep retrying until a reply arrives.",
+     "paragraph": 2,
+     "start": 85.401,
+     "end": 87.581
+    },
+    {
+     "id": "s3_06",
+     "text": "As long as the client keeps trying, nothing is lost, but whenever only a reply was lost, the request is carried out again.",
+     "caption": "As long as the client keeps trying, nothing is lost, but whenever only a reply was lost, the request is carried out again.",
+     "paragraph": 2,
+     "start": 87.881,
+     "end": 95.469
+    },
+    {
+     "id": "s3_07",
+     "text": "That's at least once: one time or more.",
+     "caption": "That's at least once: one time or more.",
+     "paragraph": 2,
+     "start": 95.769,
+     "end": 98.007
+    },
+    {
+     "id": "s3_08",
+     "text": "A payment can't just be lost, so the client retries.",
+     "caption": "A payment can't just be lost, so the client retries.",
+     "paragraph": 3,
+     "start": 98.507,
+     "end": 101.565
+    },
+    {
+     "id": "s3_09",
+     "text": "That means the server has to make a repeated request harmless.",
+     "caption": "That means the server has to make a repeated request harmless.",
+     "paragraph": 4,
+     "start": 102.065,
+     "end": 105.556
+    }
+   ],
+   "end": 107.006
+  },
+  {
+   "id": "s4",
+   "title": "Safe to repeat",
+   "start": 107.006,
+   "lines": [
+    {
+     "id": "s4_01",
+     "text": "An operation is idempotent if doing it any number of times has the same effect as doing it once.",
+     "caption": "An operation is idempotent if doing it any number of times has the same effect as doing it once.",
+     "paragraph": 0,
+     "start": 107.356,
+     "end": 113.712
+    },
+    {
+     "id": "s4_02",
+     "text": "\"Set the shipping address to this\" is idempotent.",
+     "caption": "\"Set the shipping address to this\" is idempotent.",
+     "paragraph": 1,
+     "start": 114.212,
+     "end": 116.809
+    },
+    {
+     "id": "s4_03",
+     "text": "Do it again, and the address is still the same.",
+     "caption": "Do it again, and the address is still the same.",
+     "paragraph": 1,
+     "start": 117.109,
+     "end": 119.491
+    },
+    {
+     "id": "s4_04",
+     "text": "\"Delete order seven\" is idempotent too.",
+     "caption": "\"Delete order seven\" is idempotent too.",
+     "paragraph": 2,
+     "start": 119.991,
+     "end": 122.399
+    },
+    {
+     "id": "s4_05",
+     "text": "The second time, there's nothing left to delete.",
+     "caption": "The second time, there's nothing left to delete.",
+     "paragraph": 2,
+     "start": 122.699,
+     "end": 125.238
+    },
+    {
+     "id": "s4_06",
+     "text": "\"Charge fifty dollars\" is not.",
+     "caption": "\"Charge fifty dollars\" is not.",
+     "paragraph": 3,
+     "start": 125.738,
+     "end": 127.493
+    },
+    {
+     "id": "s4_07",
+     "text": "Every copy charges the card again.",
+     "caption": "Every copy charges the card again.",
+     "paragraph": 3,
+     "start": 127.793,
+     "end": 129.662
+    },
+    {
+     "id": "s4_08",
+     "text": "So the charge has to be made safe to repeat.",
+     "caption": "So the charge has to be made safe to repeat.",
+     "paragraph": 4,
+     "start": 130.162,
+     "end": 132.448
+    }
+   ],
+   "end": 133.298
+  },
+  {
+   "id": "s5",
+   "title": "Idempotency keys",
+   "start": 133.298,
+   "lines": [
+    {
+     "id": "s5_01",
+     "text": "The standard way is an idempotency key.",
+     "caption": "The standard way is an idempotency key.",
+     "paragraph": 0,
+     "start": 133.648,
+     "end": 136.059
+    },
+    {
+     "id": "s5_02",
+     "text": "Before its first attempt, the client makes up a key for this payment: a long random ID, like a U U I D, so long that two payments picking the same one is practically impossible.",
+     "caption": "Before its first attempt, the client makes up a key for this payment: a long random ID, like a UUID, so long that two payments picking the same one is practically impossible.",
+     "paragraph": 1,
+     "start": 136.559,
+     "end": 148.146
+    },
+    {
+     "id": "s5_03",
+     "text": "It sends that same key with every attempt at this payment.",
+     "caption": "It sends that same key with every attempt at this payment.",
+     "paragraph": 1,
+     "start": 148.446,
+     "end": 151.398
+    },
+    {
+     "id": "s5_04",
+     "text": "The first time the server sees the key, it charges the card, and saves the result under that key.",
+     "caption": "The first time the server sees the key, it charges the card, and saves the result under that key.",
+     "paragraph": 2,
+     "start": 151.898,
+     "end": 157.699
+    },
+    {
+     "id": "s5_05",
+     "text": "When a retry arrives with the same key, the server doesn't charge again.",
+     "caption": "When a retry arrives with the same key, the server doesn't charge again.",
+     "paragraph": 3,
+     "start": 158.199,
+     "end": 162.209
+    },
+    {
+     "id": "s5_06",
+     "text": "It looks up the saved result and sends that back.",
+     "caption": "It looks up the saved result and sends that back.",
+     "paragraph": 3,
+     "start": 162.509,
+     "end": 165.125
+    },
+    {
+     "id": "s5_07",
+     "text": "So in the lost-reply case, the retry gets back a saved copy of the reply that was lost, and the customer pays once.",
+     "caption": "So in the lost-reply case, the retry gets back a saved copy of the reply that was lost, and the customer pays once.",
+     "paragraph": 4,
+     "start": 165.625,
+     "end": 173.019
+    },
+    {
+     "id": "s5_08",
+     "text": "Payment APIs such as Stripe's work this way.",
+     "caption": "Payment APIs such as Stripe's work this way.",
+     "paragraph": 5,
+     "start": 174.319,
+     "end": 176.939
+    },
+    {
+     "id": "s5_09",
+     "text": "The client puts the key in a request header called Idempotency Key.",
+     "caption": "The client puts the key in a request header called Idempotency-Key.",
+     "paragraph": 5,
+     "start": 177.239,
+     "end": 181.113
+    }
+   ],
+   "end": 181.963
+  },
+  {
+   "id": "s6",
+   "title": "Where it can still go wrong",
+   "start": 181.963,
+   "lines": [
+    {
+     "id": "s6_01",
+     "text": "A few details decide whether this works.",
+     "caption": "A few details decide whether this works.",
+     "paragraph": 0,
+     "start": 182.313,
+     "end": 184.592
+    },
+    {
+     "id": "s6_02",
+     "text": "First, a crash must never leave a charge without its saved result, or the retry finds no record and charges again.",
+     "caption": "First, a crash must never leave a charge without its saved result, or the retry finds no record and charges again.",
+     "paragraph": 1,
+     "start": 185.092,
+     "end": 192.322
+    },
+    {
+     "id": "s6_03",
+     "text": "When the charge and the result live in the server's own database, it saves them in one database transaction, so either both are saved or neither is.",
+     "caption": "When the charge and the result live in the server's own database, it saves them in one database transaction, so either both are saved or neither is.",
+     "paragraph": 1,
+     "start": 192.622,
+     "end": 201.758
+    },
+    {
+     "id": "s6_04",
+     "text": "And when charging the card means calling another company's service, that call crosses an unreliable network too.",
+     "caption": "And when charging the card means calling another company's service, that call crosses an unreliable network too.",
+     "paragraph": 1,
+     "start": 202.058,
+     "end": 208.488
+    },
+    {
+     "id": "s6_05",
+     "text": "So the server does what the client did: it sends that call with an idempotency key of its own, and can safely repeat it.",
+     "caption": "So the server does what the client did: it sends that call with an idempotency key of its own, and can safely repeat it.",
+     "paragraph": 1,
+     "start": 208.788,
+     "end": 215.985
+    },
+    {
+     "id": "s6_06",
+     "text": "Second, a retry can arrive while the first attempt is still running.",
+     "caption": "Second, a retry can arrive while the first attempt is still running.",
+     "paragraph": 2,
+     "start": 216.485,
+     "end": 220.349
+    },
+    {
+     "id": "s6_07",
+     "text": "The server checks the key and marks it as in progress in one step, so two attempts can't both find it unused.",
+     "caption": "The server checks the key and marks it as in progress in one step, so two attempts can't both find it unused.",
+     "paragraph": 2,
+     "start": 220.649,
+     "end": 227.042
+    },
+    {
+     "id": "s6_08",
+     "text": "Then it turns the retry away with \"still in progress, try again\", instead of starting a second charge.",
+     "caption": "Then it turns the retry away with \"still in progress, try again\", instead of starting a second charge.",
+     "paragraph": 2,
+     "start": 227.342,
+     "end": 233.166
+    },
+    {
+     "id": "s6_09",
+     "text": "Third, a key belongs to one payment.",
+     "caption": "Third, a key belongs to one payment.",
+     "paragraph": 3,
+     "start": 233.666,
+     "end": 235.808
+    },
+    {
+     "id": "s6_10",
+     "text": "A request that reuses a key with a different amount is rejected, not answered with the old receipt.",
+     "caption": "A request that reuses a key with a different amount is rejected, not answered with the old receipt.",
+     "paragraph": 3,
+     "start": 236.108,
+     "end": 242.021
+    }
+   ],
+   "end": 243.671
+  },
+  {
+   "id": "s7",
+   "title": "The answer",
+   "start": 243.671,
+   "lines": [
+    {
+     "id": "s7_01",
+     "text": "So after a timeout, the client should retry, with the same idempotency key.",
+     "caption": "So after a timeout, the client should retry, with the same idempotency key.",
+     "paragraph": 0,
+     "start": 244.021,
+     "end": 248.451
+    },
+    {
+     "id": "s7_02",
+     "text": "The network can't deliver a request exactly once.",
+     "caption": "The network can't deliver a request exactly once.",
+     "paragraph": 1,
+     "start": 248.951,
+     "end": 251.888
+    },
+    {
+     "id": "s7_03",
+     "text": "But delivering it at least once, to a server that makes repeats harmless, charges the customer exactly once.",
+     "caption": "But delivering it at least once, to a server that makes repeats harmless, charges the customer exactly once.",
+     "paragraph": 1,
+     "start": 252.188,
+     "end": 258.506
+    },
+    {
+     "id": "s7_04",
+     "text": "This is often called effectively-once processing: exactly-once delivery is impossible, but an exactly-once effect isn't.",
+     "caption": "This is often called effectively-once processing: exactly-once delivery is impossible, but an exactly-once effect isn't.",
+     "paragraph": 1,
+     "start": 258.806,
+     "end": 266.781
+    }
+   ],
+   "end": 274.781
+  }
+ ],
+ "phonemes": {
+  "s1_01": "\u0250 \u02a7\u02c8\u025bk\u02ccWt p\u02c8A\u02a4 \u02c8\u00e6sks \u00f0\u0259 p\u02c8Am\u1d4ant s\u02c8\u025c\u0279v\u0259\u0279 t\u0259 \u02a7\u02c8\u0251\u0279\u02a4 \u0250 k\u02c8\u028cst\u0259m\u0259\u0279 f\u02c8\u026afti d\u02c8\u0251l\u0259\u0279z.",
+  "s1_02": "\u00f0\u02c8\u025bn \u00f0\u0259 n\u02c8\u025btw\u02cc\u025c\u0279k \u0261\u02c8Oz kw\u02c8I\u0259t.",
+  "s1_03": "\u02c8\u00e6ft\u0259\u0279 \u0250 fj\u02c8u s\u02c8\u025bk\u0259ndz w\u026a\u00f0 n\u02c8O \u0279\u0259pl\u02c8I, \u00f0\u0259 kl\u02c8I\u0259nt \u0261\u02c8\u026avz \u02cc\u028cp: \u0250 t\u02c8ImWt.",
+  "s1_04": "d\u02c8\u026ad \u00f0\u0259 \u02a7\u02c8\u0251\u0279\u02a4 \u0261\u02ccO \u03b8\u0279\u02c8u?",
+  "s1_05": "\u02cc\u026af \u026at d\u02c8\u026ad \u00e6nd \u00f0\u0259 kl\u02c8I\u0259nt t\u0279\u02c8Iz \u0259\u0261\u02c8\u025bn, \u00f0\u0259 k\u02c8\u028cst\u0259m\u0259\u0279 p\u02c8Az tw\u02c8Is.",
+  "s1_06": "\u02cc\u026af \u026at d\u02c8\u026ad\u1d4ant \u00e6nd \u00f0\u0259 kl\u02c8I\u0259nt \u0261\u02c8\u026avz \u02cc\u028cp, \u00f0\u0259 s\u02c8Al \u026az l\u02c8\u0254st.",
+  "s1_07": "s\u02ccO w\u02cc\u028ct \u0283\u02cc\u028ad \u00f0\u0259 kl\u02c8I\u0259nt d\u02c8u?",
+  "s2_01": "f\u0279\u02cc\u028cm \u00f0\u0259 kl\u02c8I\u0259nts s\u02c8Id, \u03b8\u0279\u02c8i d\u02c8\u026af\u0259\u0279\u0259nt f\u02c8Alj\u0259\u0279z l\u02c8\u028ak \u026a\u0261z\u02c8\u00e6ktli \u0259l\u02c8Ik.",
+  "s2_02": "\u00f0\u0259 \u0279\u0259kw\u02c8\u025bst m\u02ccIt h\u00e6v b\u026an l\u02c8\u0254st \u02cc\u0254n \u00f0\u0259 w\u02c8A, s\u02ccO n\u02c8\u028c\u03b8\u026a\u014b h\u02c8\u00e6p\u0259nd.",
+  "s2_03": "\u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 m\u02ccIt st\u02c8\u026al bi w\u02c8\u025c\u0279k\u026a\u014b \u02cc\u0254n \u026at.",
+  "s2_04": "\u02cc\u0254\u0279 \u026at m\u02ccIt h\u00e6v k\u0279\u02c8\u00e6\u0283t p\u02c8\u0251\u0279tw\u02ccA \u03b8\u0279\u02c8u.",
+  "s2_05": "\u02cc\u0254\u0279 \u00f0\u0259 \u02a7\u02c8\u0251\u0279\u02a4 w\u02c8\u025bnt \u03b8\u0279\u02c8u, \u00e6nd \u00f0\u0259 \u0279\u0259pl\u02c8I w\u028cz l\u02c8\u0254st \u02cc\u0254n \u00f0\u0259 w\u02c8A b\u02c8\u00e6k.",
+  "s2_06": "\u026an \u02c8\u025bv\u0259\u0279i k\u02c8As, \u00f0\u0259 kl\u02c8I\u0259nt s\u02c8iz \u00f0\u0259 s\u02c8Am \u03b8\u02c8\u026a\u014b: n\u02c8\u028c\u03b8\u026a\u014b.",
+  "s2_07": "\u02cc\u026at k\u028ad \u02c8\u00e6sk \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 w\u02c8\u025b\u00f0\u0259\u0279 \u00f0\u0259 \u02a7\u02c8\u0251\u0279\u02a4 h\u02c8\u00e6p\u0259nd.",
+  "s2_08": "b\u02cc\u028ct \u00f0\u0259 kw\u02c8\u025bs\u02a7\u1d4an \u00e6nd \u026ats \u02c8\u00e6ns\u0259\u0279 k\u0279\u02c8\u0254s \u00f0\u0259 s\u02c8Am n\u02c8\u025btw\u02cc\u025c\u0279k, \u00e6nd k\u00e6n bi l\u02c8\u0254st \u00f0\u0259 s\u02c8Am w\u02c8A.",
+  "s2_09": "\u02c8\u025bv\u0259\u0279i k\u02cc\u0251nf\u0259\u0279m\u02c8A\u0283\u0259n \u026az \u0259n\u02c8\u028c\u00f0\u0259\u0279 m\u02c8\u025bs\u026a\u02a4 \u00f0\u00e6t k\u00e6n bi l\u02c8\u0254st, s\u02ccO hu\u02c8\u025bv\u0259\u0279 s\u02c8\u025bndz \u00f0\u0259 l\u02c8\u00e6st m\u02c8\u025bs\u026a\u02a4 n\u02c8\u025bv\u0259\u0279 n\u02c8Oz \u026at \u0259\u0279\u02c8Ivd.",
+  "s2_10": "hW\u02c8\u025bv\u0259\u0279 m\u02c8\u025bni m\u02c8\u025bs\u026a\u02a4\u1d7bz \u00f0\u0259 kl\u02c8I\u0259nt s\u02c8\u025bndz, \u026at k\u02c8\u00e6nt bi s\u02c8\u025c\u0279tn.",
+  "s2_11": "s\u02ccO n\u02c8O p\u0279\u02c8OT\u0259k\u02cc\u0254l \u02c8Ov\u0259\u0279 \u0250n \u02cc\u028cn\u0279\u0259l\u02c8I\u0259b\u1d4al n\u02c8\u025btw\u02cc\u025c\u0279k k\u00e6n p\u0279\u02c8\u0251m\u0259s \u00f0\u00e6t \u0250 \u0279\u0259kw\u02c8\u025bst \u026az d\u0259l\u02c8\u026av\u0259\u0279d \u026a\u0261z\u02c8\u00e6ktli w\u02c8\u028cns.",
+  "s3_01": "\u00f0\u02c8\u00e6t l\u02c8ivz t\u02c8u \u02a7\u02c8Ys\u1d7bz.",
+  "s3_02": "s\u02c8\u025bnd \u00f0\u0259 \u0279\u0259kw\u02c8\u025bst w\u02c8\u028cns \u00e6nd n\u02c8\u025bv\u0259\u0279 \u0279it\u0279\u02c8I.",
+  "s3_03": "n\u02c8\u028c\u03b8\u026a\u014b \u026az \u02c8\u025bv\u0259\u0279 d\u02c8\u028cn tw\u02c8Is, b\u02cc\u028ct \u0250 l\u02c8\u0254st \u0279\u0259kw\u02c8\u025bst \u026az s\u02c8\u026ampli l\u02c8\u0254st.",
+  "s3_04": "\u00f0\u02c8\u00e6ts k\u02c8\u0254ld \u00e6t m\u02c8Ost w\u02c8\u028cns.",
+  "s3_05": "\u02cc\u0254\u0279 k\u02c8ip \u0279\u02c8it\u0279I\u026a\u014b \u02cc\u028cnt\u02c8\u026al \u0250 \u0279\u0259pl\u02c8I \u0259\u0279\u02c8Ivz.",
+  "s3_06": "\u02cc\u00e6z l\u02c8\u0254\u014b \u00e6z \u00f0\u0259 kl\u02c8I\u0259nt k\u02c8ips t\u0279\u02c8I\u026a\u014b, n\u02c8\u028c\u03b8\u026a\u014b \u026az l\u02c8\u0254st, b\u02cc\u028ct w\u0259n\u02c8\u025bv\u0259\u0279 \u02c8Onli \u0250 \u0279\u0259pl\u02c8I w\u028cz l\u02c8\u0254st, \u00f0\u0259 \u0279\u0259kw\u02c8\u025bst \u026az k\u02c8\u025b\u0279id \u02c8Wt \u0259\u0261\u02c8\u025bn.",
+  "s3_07": "\u00f0\u02c8\u00e6ts \u00e6t l\u02c8ist w\u02c8\u028cns: w\u02c8\u028cn t\u02c8Im \u0254\u0279 m\u02c8\u0254\u0279.",
+  "s3_08": "\u0250 p\u02c8Am\u1d4ant k\u02c8\u00e6nt \u02a4\u02c8\u028cst bi l\u02c8\u0254st, s\u02ccO \u00f0\u0259 kl\u02c8I\u0259nt \u0279it\u0279\u02c8Iz.",
+  "s3_09": "\u00f0\u02c8\u00e6t m\u02c8inz \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 h\u00e6z t\u0259 m\u02ccAk \u0250 \u0279\u0259p\u02c8iT\u1d7bd \u0279\u0259kw\u02c8\u025bst h\u02c8\u0251\u0279ml\u0259s.",
+  "s4_01": "\u0250n \u02cc\u0251p\u0259\u0279\u02c8A\u0283\u0259n \u026az \u02ccId\u025bmp\u02c8Ot\u1d4ant \u026af d\u02c8u\u026a\u014b \u026at \u02c8\u025bni n\u02c8\u028cmb\u0259\u0279 \u028cv t\u02c8Imz h\u00e6z \u00f0\u0259 s\u02c8Am \u0259f\u02c8\u025bkt \u00e6z d\u02c8u\u026a\u014b \u026at w\u02c8\u028cns.",
+  "s4_02": "\u201cs\u02c8\u025bt \u00f0\u0259 \u0283\u02c8\u026ap\u026a\u014b \u0259d\u0279\u02c8\u025bs t\u0259 \u00f0\u026as\u201d \u026az \u02ccId\u025bmp\u02c8Ot\u1d4ant.",
+  "s4_03": "d\u02c8u \u026at \u0259\u0261\u02c8\u025bn, \u00e6nd \u00f0i \u0259d\u0279\u02c8\u025bs \u026az st\u02c8\u026al \u00f0\u0259 s\u02c8Am.",
+  "s4_04": "\u201cd\u0259l\u02c8it \u02c8\u0254\u0279d\u0259\u0279 s\u02c8\u025bv\u0259n\u201d \u026az \u02ccId\u025bmp\u02c8Ot\u1d4ant t\u02c8u.",
+  "s4_05": "\u00f0\u0259 s\u02c8\u025bk\u0259nd t\u02c8Im, \u00f0\u025b\u0279z n\u02c8\u028c\u03b8\u026a\u014b l\u02c8\u025bft t\u0259 d\u0259l\u02c8it.",
+  "s4_06": "\u201c\u02a7\u02c8\u0251\u0279\u02a4 f\u02c8\u026afti d\u02c8\u0251l\u0259\u0279z\u201d \u026az n\u02cc\u0251t.",
+  "s4_07": "\u02c8\u025bv\u0259\u0279i k\u02c8\u0251pi \u02a7\u02c8\u0251\u0279\u02a4\u1d7bz \u00f0\u0259 k\u02c8\u0251\u0279d \u0259\u0261\u02c8\u025bn.",
+  "s4_08": "s\u02ccO \u00f0\u0259 \u02a7\u02c8\u0251\u0279\u02a4 h\u00e6z t\u0259 bi m\u02ccAd s\u02c8Af t\u0259 \u0279\u0259p\u02c8it.",
+  "s5_01": "\u00f0\u0259 st\u02c8\u00e6nd\u0259\u0279d w\u02c8A \u026az \u0250n \u02c8IdmpOt\u0259nsi k\u02c8i.",
+  "s5_02": "b\u0259f\u02c8\u0254\u0279 \u026ats f\u02c8\u025c\u0279st \u0259t\u02c8\u025bmpt, \u00f0\u0259 kl\u02c8I\u0259nt m\u02ccAks \u02cc\u028cp \u0250 k\u02c8i f\u0254\u0279 \u00f0\u026as p\u02c8Am\u1d4ant: \u0250 l\u02c8\u0254\u014b \u0279\u02c8\u00e6nd\u0259m \u02ccId\u02c8i, l\u02c8Ik \u0250 j\u02c8u j\u02c8u \u02c8I d\u02c8i, s\u02ccO l\u02c8\u0254\u014b \u00f0\u00e6t t\u02c8u p\u02c8Am\u1d4ants p\u02c8\u026ak\u026a\u014b \u00f0\u0259 s\u02c8Am w\u02c8\u028cn \u026az p\u0279\u02c8\u00e6kt\u0259k\u1d4ali \u026amp\u02c8\u0251s\u0259b\u1d4al.",
+  "s5_03": "\u02cc\u026at s\u02c8\u025bndz \u00f0\u02c8\u00e6t s\u02c8Am k\u02c8i w\u026a\u00f0 \u02c8\u025bv\u0259\u0279i \u0259t\u02c8\u025bmpt \u00e6t \u00f0\u026as p\u02c8Am\u1d4ant.",
+  "s5_04": "\u00f0\u0259 f\u02c8\u025c\u0279st t\u02c8Im \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 s\u02c8iz \u00f0\u0259 k\u02c8i, \u026at \u02a7\u02c8\u0251\u0279\u02a4\u1d7bz \u00f0\u0259 k\u02c8\u0251\u0279d, \u00e6nd s\u02c8Avz \u00f0\u0259 \u0279\u0259z\u02c8\u028clt \u02c8\u028cnd\u0259\u0279 \u00f0\u02c8\u00e6t k\u02c8i.",
+  "s5_05": "w\u02cc\u025bn \u0250 \u0279it\u0279\u02c8I \u0259\u0279\u02c8Ivz w\u026a\u00f0 \u00f0\u0259 s\u02c8Am k\u02c8i, \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 d\u02c8\u028cz\u1d4ant \u02a7\u02c8\u0251\u0279\u02a4 \u0259\u0261\u02c8\u025bn.",
+  "s5_06": "\u02cc\u026at l\u02c8\u028aks \u02cc\u028cp \u00f0\u0259 s\u02c8Avd \u0279\u0259z\u02c8\u028clt \u00e6nd s\u02c8\u025bndz \u00f0\u02c8\u00e6t b\u02c8\u00e6k.",
+  "s5_07": "s\u02ccO \u026an \u00f0\u0259 l\u02cc\u0254st\u0279\u0259pl\u02c8I k\u02c8As, \u00f0\u0259 \u0279it\u0279\u02c8I \u0261\u025bts b\u02c8\u00e6k \u0250 s\u02c8Avd k\u02c8\u0251pi \u028cv \u00f0\u0259 \u0279\u0259pl\u02c8I \u00f0\u00e6t w\u028cz l\u02c8\u0254st, \u00e6nd \u00f0\u0259 k\u02c8\u028cst\u0259m\u0259\u0279 p\u02c8Az w\u02c8\u028cns.",
+  "s5_08": "p\u02c8Am\u1d4ant \u02ccAp\u02cci\u02c8Iz s\u02c8\u028c\u02a7 \u00e6z st\u0279\u02c8Ips w\u02c8\u025c\u0279k \u00f0\u026as w\u02c8A.",
+  "s5_09": "\u00f0\u0259 kl\u02c8I\u0259nt p\u02cc\u028ats \u00f0\u0259 k\u02c8i \u026an \u0250 \u0279\u0259kw\u02c8\u025bst h\u02c8\u025bd\u0259\u0279 k\u02c8\u0254ld \u02c8IdmpOt\u0259nsi k\u02c8i.",
+  "s6_01": "\u0250 fj\u02c8u d\u0259t\u02c8Alz d\u0259s\u02c8Id w\u02c8\u025b\u00f0\u0259\u0279 \u00f0\u026as w\u02c8\u025c\u0279ks.",
+  "s6_02": "f\u02c8\u025c\u0279st, \u0250 k\u0279\u02c8\u00e6\u0283 m\u02c8\u028cst n\u02c8\u025bv\u0259\u0279 l\u02c8iv \u0250 \u02a7\u02c8\u0251\u0279\u02a4 w\u026a\u00f0\u02c8Wt \u026ats s\u02c8Avd \u0279\u0259z\u02c8\u028clt, \u0254\u0279 \u00f0\u0259 \u0279it\u0279\u02c8I f\u02c8Indz n\u02c8O \u0279\u02c8\u025bk\u0259\u0279d \u00e6nd \u02a7\u02c8\u0251\u0279\u02a4\u1d7bz \u0259\u0261\u02c8\u025bn.",
+  "s6_03": "w\u02cc\u025bn \u00f0\u0259 \u02a7\u02c8\u0251\u0279\u02a4 \u00e6nd \u00f0\u0259 \u0279\u0259z\u02c8\u028clt l\u02c8\u026av \u026an \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279z \u02c8On d\u02c8\u00e6T\u0259b\u02ccAs, \u026at s\u02c8Avz \u00f0\u02cc\u025bm \u026an w\u02c8\u028cn d\u02c8\u00e6T\u0259b\u02ccAs t\u0279\u00e6nz\u02c8\u00e6k\u0283\u0259n, s\u02ccO \u02c8i\u00f0\u0259\u0279 b\u02c8O\u03b8 \u0251\u0279 s\u02c8Avd \u0254\u0279 n\u02c8i\u00f0\u0259\u0279 \u026az.",
+  "s6_04": "\u02cc\u00e6nd w\u02cc\u025bn \u02a7\u02c8\u0251\u0279\u02a4\u026a\u014b \u00f0\u0259 k\u02c8\u0251\u0279d m\u02c8inz k\u02c8\u0254l\u026a\u014b \u0259n\u02c8\u028c\u00f0\u0259\u0279 k\u02c8\u028cmp\u1d4aniz s\u02c8\u025c\u0279v\u0259s, \u00f0\u00e6t k\u02c8\u0254l k\u0279\u02c8\u0254s\u1d7bz \u0250n \u02cc\u028cn\u0279\u0259l\u02c8I\u0259b\u1d4al n\u02c8\u025btw\u02cc\u025c\u0279k t\u02c8u.",
+  "s6_05": "s\u02ccO \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 d\u02c8\u028cz w\u02cc\u028ct \u00f0\u0259 kl\u02c8I\u0259nt d\u02c8\u026ad: \u026at s\u02c8\u025bndz \u00f0\u00e6t k\u02c8\u0254l w\u026a\u00f0 \u0250n \u02c8IdmpOt\u0259nsi k\u02c8i \u028cv \u026ats \u02c8On, \u00e6nd k\u00e6n s\u02c8Afli \u0279\u0259p\u02c8it \u026at.",
+  "s6_06": "s\u02c8\u025bk\u0259nd, \u0250 \u0279it\u0279\u02c8I k\u00e6n \u0259\u0279\u02c8Iv w\u02ccIl \u00f0\u0259 f\u02c8\u025c\u0279st \u0259t\u02c8\u025bmpt \u026az st\u02c8\u026al \u0279\u02c8\u028cn\u026a\u014b.",
+  "s6_07": "\u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 \u02a7\u02c8\u025bks \u00f0\u0259 k\u02c8i \u00e6nd m\u02c8\u0251\u0279ks \u026at \u00e6z \u026an p\u0279\u02c8\u0251\u0261\u0279\u0259s \u026an w\u02c8\u028cn st\u02c8\u025bp, s\u02ccO t\u02c8u \u0259t\u02c8\u025bmpts k\u02c8\u00e6nt b\u02c8O\u03b8 f\u02c8Ind \u026at \u02cc\u028cnj\u02c8uzd.",
+  "s6_08": "\u00f0\u02c8\u025bn \u026at t\u02c8\u025c\u0279nz \u00f0\u0259 \u0279it\u0279\u02c8I \u0259w\u02c8A w\u026a\u00f0 \u201cst\u02c8\u026al \u026an p\u0279\u02c8\u0251\u0261\u0279\u0259s, t\u0279\u02c8I \u0259\u0261\u02c8\u025bn\u201d, \u026anst\u02c8\u025bd \u028cv st\u02c8\u0251\u0279T\u026a\u014b \u0250 s\u02c8\u025bk\u0259nd \u02a7\u02c8\u0251\u0279\u02a4.",
+  "s6_09": "\u03b8\u02c8\u025c\u0279d, \u0250 k\u02c8i b\u0259l\u02c8\u0254\u014bz t\u0259 w\u02c8\u028cn p\u02c8Am\u1d4ant.",
+  "s6_10": "\u0250 \u0279\u0259kw\u02c8\u025bst \u00f0\u00e6t \u0279ij\u02c8uz\u1d7bz \u0250 k\u02c8i w\u026a\u00f0 \u0250 d\u02c8\u026af\u0259\u0279\u0259nt \u0259m\u02c8Wnt \u026az \u0279\u0259\u02a4\u02c8\u025bkt\u1d7bd, n\u02cc\u0251t \u02c8\u00e6ns\u0259\u0279d w\u026a\u00f0 \u00f0i \u02c8Old \u0279\u0259s\u02c8it.",
+  "s7_01": "s\u02ccO \u02c8\u00e6ft\u0259\u0279 \u0250 t\u02c8ImWt, \u00f0\u0259 kl\u02c8I\u0259nt \u0283\u02cc\u028ad \u0279it\u0279\u02c8I, w\u026a\u00f0 \u00f0\u0259 s\u02c8Am \u02c8IdmpOt\u0259nsi k\u02c8i.",
+  "s7_02": "\u00f0\u0259 n\u02c8\u025btw\u02cc\u025c\u0279k k\u02c8\u00e6nt d\u0259l\u02c8\u026av\u0259\u0279 \u0250 \u0279\u0259kw\u02c8\u025bst \u026a\u0261z\u02c8\u00e6ktli w\u02c8\u028cns.",
+  "s7_03": "b\u02cc\u028ct d\u0259l\u02c8\u026av\u0259\u0279\u026a\u014b \u026at \u00e6t l\u02c8ist w\u02c8\u028cns, t\u0259 \u0250 s\u02c8\u025c\u0279v\u0259\u0279 \u00f0\u00e6t m\u02ccAks \u0279\u0259p\u02c8its h\u02c8\u0251\u0279ml\u0259s, \u02a7\u02c8\u0251\u0279\u02a4\u1d7bz \u00f0\u0259 k\u02c8\u028cst\u0259m\u0259\u0279 \u026a\u0261z\u02c8\u00e6ktli w\u02c8\u028cns.",
+  "s7_04": "\u00f0\u02cc\u026as \u026az \u02c8\u0254f\u1d4an k\u02c8\u0254ld \u0259f\u02c8\u025bkt\u0259vliw\u02cc\u028cns p\u0279\u02c8\u0251s\u025bs\u026a\u014b: \u026a\u0261z\u02c8\u00e6ktliw\u02cc\u028cns d\u0259l\u02c8\u026av\u0259\u0279i \u026az \u026amp\u02c8\u0251s\u0259b\u1d4al, b\u02cc\u028ct \u0250n \u026a\u0261z\u02c8\u00e6ktliw\u02cc\u028cns \u0259f\u02c8\u025bkt \u02c8\u026az\u1d4ant."
+ },
+ "peak": 0.7531493306159973
+}

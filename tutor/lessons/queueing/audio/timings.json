@@ -1,0 +1,589 @@
+{
+ "voice": "af_heart",
+ "speed": 0.92,
+ "total": 293.393,
+ "segments": [
+  {
+   "id": "s1",
+   "title": "The question",
+   "start": 0.0,
+   "lines": [
+    {
+     "id": "s1_01",
+     "text": "Here's a server that does ten milliseconds of work per request, on average.",
+     "caption": "Here's a server that does ten milliseconds of work per request, on average.",
+     "paragraph": 0,
+     "start": 0.8,
+     "end": 5.197
+    },
+    {
+     "id": "s1_02",
+     "text": "Send it eighty requests a second, and it's working eighty percent of the time: it's eighty percent busy.",
+     "caption": "Send it eighty requests a second, and it's working eighty percent of the time: it's eighty percent busy.",
+     "paragraph": 1,
+     "start": 5.697,
+     "end": 11.469
+    },
+    {
+     "id": "s1_03",
+     "text": "A request then takes fifty milliseconds on average, from arrival to reply.",
+     "caption": "A request then takes fifty milliseconds on average, from arrival to reply.",
+     "paragraph": 1,
+     "start": 11.769,
+     "end": 16.353
+    },
+    {
+     "id": "s1_04",
+     "text": "Send it ninety requests a second, an eighth more traffic, and it's ninety percent busy.",
+     "caption": "Send it ninety requests a second, an eighth more traffic, and it's ninety percent busy.",
+     "paragraph": 2,
+     "start": 16.853,
+     "end": 21.952
+    },
+    {
+     "id": "s1_05",
+     "text": "Requests now take a hundred milliseconds.",
+     "caption": "Requests now take a hundred milliseconds.",
+     "paragraph": 2,
+     "start": 22.252,
+     "end": 24.605
+    },
+    {
+     "id": "s1_06",
+     "text": "You might expect a little more traffic to mean a little more delay.",
+     "caption": "You might expect a little more traffic to mean a little more delay.",
+     "paragraph": 3,
+     "start": 25.105,
+     "end": 28.338
+    },
+    {
+     "id": "s1_07",
+     "text": "Instead, the response time doubled.",
+     "caption": "Instead, the response time doubled.",
+     "paragraph": 3,
+     "start": 28.638,
+     "end": 30.63
+    },
+    {
+     "id": "s1_08",
+     "text": "Why?",
+     "caption": "Why?",
+     "paragraph": 4,
+     "start": 31.13,
+     "end": 31.559
+    },
+    {
+     "id": "s1_09",
+     "text": "And even at eighty percent, where do forty of those fifty milliseconds come from, when the work only takes ten?",
+     "caption": "And even at eighty percent, where do forty of those fifty milliseconds come from, when the work only takes ten?",
+     "paragraph": 4,
+     "start": 31.859,
+     "end": 38.123
+    }
+   ],
+   "end": 41.773
+  },
+  {
+   "id": "s2",
+   "title": "Waiting, not working",
+   "start": 41.773,
+   "lines": [
+    {
+     "id": "s2_01",
+     "text": "A request's response time has two parts: the time the server spends working on it, and the time it spends waiting for the server to be free.",
+     "caption": "A request's response time has two parts: the time the server spends working on it, and the time it spends waiting for the server to be free.",
+     "paragraph": 0,
+     "start": 42.123,
+     "end": 49.942
+    },
+    {
+     "id": "s2_02",
+     "text": "The work takes ten milliseconds on average, however busy the server is.",
+     "caption": "The work takes ten milliseconds on average, however busy the server is.",
+     "paragraph": 1,
+     "start": 50.442,
+     "end": 54.625
+    },
+    {
+     "id": "s2_03",
+     "text": "So at eighty percent busy, a request waits forty milliseconds in a queue, four times the average work.",
+     "caption": "So at eighty percent busy, a request waits forty milliseconds in a queue, four times the average work.",
+     "paragraph": 2,
+     "start": 55.125,
+     "end": 61.562
+    },
+    {
+     "id": "s2_04",
+     "text": "At ninety percent, it waits ninety.",
+     "caption": "At ninety percent, it waits ninety.",
+     "paragraph": 2,
+     "start": 61.862,
+     "end": 63.888
+    },
+    {
+     "id": "s2_05",
+     "text": "The question is really about queues.",
+     "caption": "The question is really about queues.",
+     "paragraph": 3,
+     "start": 64.388,
+     "end": 66.17
+    },
+    {
+     "id": "s2_06",
+     "text": "Why do they get so long, when the server still has time to spare?",
+     "caption": "Why do they get so long, when the server still has time to spare?",
+     "paragraph": 3,
+     "start": 66.47,
+     "end": 69.823
+    }
+   ],
+   "end": 71.273
+  },
+  {
+   "id": "s3",
+   "title": "Where queues come from",
+   "start": 71.273,
+   "lines": [
+    {
+     "id": "s3_01",
+     "text": "Suppose requests arrived evenly spaced, and every one took exactly ten milliseconds.",
+     "caption": "Suppose requests arrived evenly spaced, and every one took exactly ten milliseconds.",
+     "paragraph": 0,
+     "start": 71.623,
+     "end": 77.296
+    },
+    {
+     "id": "s3_02",
+     "text": "At ninety percent busy, ten milliseconds of work fills ninety percent of the gap between requests, so a new one arrives about every eleven milliseconds.",
+     "caption": "At ninety percent busy, ten milliseconds of work fills ninety percent of the gap between requests, so a new one arrives about every eleven milliseconds.",
+     "paragraph": 1,
+     "start": 77.796,
+     "end": 86.985
+    },
+    {
+     "id": "s3_03",
+     "text": "It finds the server already done with the last one.",
+     "caption": "It finds the server already done with the last one.",
+     "paragraph": 2,
+     "start": 87.485,
+     "end": 90.084
+    },
+    {
+     "id": "s3_04",
+     "text": "Nobody ever waits, and every response takes ten milliseconds, even at ninety percent busy.",
+     "caption": "Nobody ever waits, and every response takes ten milliseconds, even at ninety percent busy.",
+     "paragraph": 2,
+     "start": 90.384,
+     "end": 96.115
+    },
+    {
+     "id": "s3_05",
+     "text": "Real traffic varies in two ways.",
+     "caption": "Real traffic varies in two ways.",
+     "paragraph": 3,
+     "start": 97.415,
+     "end": 99.364
+    },
+    {
+     "id": "s3_06",
+     "text": "Requests arrive at random, so sometimes several come close together.",
+     "caption": "Requests arrive at random, so sometimes several come close together.",
+     "paragraph": 3,
+     "start": 99.664,
+     "end": 103.437
+    },
+    {
+     "id": "s3_07",
+     "text": "And some requests need much more work than others.",
+     "caption": "And some requests need much more work than others.",
+     "paragraph": 3,
+     "start": 103.737,
+     "end": 106.406
+    },
+    {
+     "id": "s3_08",
+     "text": "When a clump arrives, the server can only work on one at a time, and the rest wait in a queue.",
+     "caption": "When a clump arrives, the server can only work on one at a time, and the rest wait in a queue.",
+     "paragraph": 4,
+     "start": 106.906,
+     "end": 112.186
+    },
+    {
+     "id": "s3_09",
+     "text": "So queues come from variability.",
+     "caption": "So queues come from variability.",
+     "paragraph": 5,
+     "start": 113.686,
+     "end": 115.482
+    },
+    {
+     "id": "s3_10",
+     "text": "What decides how long they last?",
+     "caption": "What decides how long they last?",
+     "paragraph": 5,
+     "start": 115.782,
+     "end": 117.354
+    }
+   ],
+   "end": 118.204
+  },
+  {
+   "id": "s4",
+   "title": "Spare capacity",
+   "start": 118.204,
+   "lines": [
+    {
+     "id": "s4_01",
+     "text": "A queue shrinks only when the server finishes work faster than new work arrives.",
+     "caption": "A queue shrinks only when the server finishes work faster than new work arrives.",
+     "paragraph": 0,
+     "start": 118.554,
+     "end": 123.194
+    },
+    {
+     "id": "s4_02",
+     "text": "At eighty percent busy, new work keeps arriving at eighty percent of what the server can do.",
+     "caption": "At eighty percent busy, new work keeps arriving at eighty percent of what the server can do.",
+     "paragraph": 1,
+     "start": 123.694,
+     "end": 128.764
+    },
+    {
+     "id": "s4_03",
+     "text": "So while there's a queue, only the other twenty percent of its effort actually shrinks it.",
+     "caption": "So while there's a queue, only the other twenty percent of its effort actually shrinks it.",
+     "paragraph": 1,
+     "start": 129.064,
+     "end": 133.776
+    },
+    {
+     "id": "s4_04",
+     "text": "Call that twenty percent the spare capacity: it's what clears the queue.",
+     "caption": "Call that twenty percent the spare capacity: it's what clears the queue.",
+     "paragraph": 1,
+     "start": 134.076,
+     "end": 137.977
+    },
+    {
+     "id": "s4_05",
+     "text": "At ninety percent busy, the spare capacity is only ten percent.",
+     "caption": "At ninety percent busy, the spare capacity is only ten percent.",
+     "paragraph": 2,
+     "start": 138.477,
+     "end": 142.462
+    },
+    {
+     "id": "s4_06",
+     "text": "On average, the same queue takes about twice as long to clear, and more requests pile on while that happens.",
+     "caption": "On average, the same queue takes about twice as long to clear, and more requests pile on while that happens.",
+     "paragraph": 2,
+     "start": 142.762,
+     "end": 149.324
+    },
+    {
+     "id": "s4_07",
+     "text": "That's the intuition; the exact answer comes next.",
+     "caption": "That's the intuition; the exact answer comes next.",
+     "paragraph": 2,
+     "start": 149.624,
+     "end": 152.835
+    },
+    {
+     "id": "s4_08",
+     "text": "Here's the same random stream of requests at both loads.",
+     "caption": "Here's the same random stream of requests at both loads.",
+     "paragraph": 3,
+     "start": 153.335,
+     "end": 156.452
+    },
+    {
+     "id": "s4_09",
+     "text": "At ninety percent, the queue builds higher and lasts longer.",
+     "caption": "At ninety percent, the queue builds higher and lasts longer.",
+     "paragraph": 3,
+     "start": 156.752,
+     "end": 159.919
+    }
+   ],
+   "end": 161.969
+  },
+  {
+   "id": "s5",
+   "title": "The curve",
+   "start": 161.969,
+   "lines": [
+    {
+     "id": "s5_01",
+     "text": "The fraction of time a server is busy is called its utilization.",
+     "caption": "The fraction of time a server is busy is called its utilization.",
+     "paragraph": 0,
+     "start": 162.319,
+     "end": 166.155
+    },
+    {
+     "id": "s5_02",
+     "text": "For the simplest case, queueing theory gives the exact average response time.",
+     "caption": "For the simplest case, queueing theory gives the exact average response time.",
+     "paragraph": 1,
+     "start": 166.655,
+     "end": 171.222
+    },
+    {
+     "id": "s5_03",
+     "text": "The case is one server, requests arriving at random, each unrelated to the others, and work times that vary just as randomly: mostly short, sometimes several times longer.",
+     "caption": "The case is one server, requests arriving at random, each unrelated to the others, and work times that vary just as randomly: mostly short, sometimes several times longer.",
+     "paragraph": 1,
+     "start": 171.523,
+     "end": 182.945
+    },
+    {
+     "id": "s5_04",
+     "text": "The answer is the work time divided by the spare capacity: ten milliseconds divided by one minus the utilization.",
+     "caption": "The answer is the work time divided by the spare capacity: ten milliseconds divided by one minus the utilization.",
+     "paragraph": 2,
+     "start": 183.445,
+     "end": 190.969
+    },
+    {
+     "id": "s5_05",
+     "text": "At fifty percent busy, that's twenty milliseconds.",
+     "caption": "At fifty percent busy, that's twenty milliseconds.",
+     "paragraph": 3,
+     "start": 191.469,
+     "end": 194.38
+    },
+    {
+     "id": "s5_06",
+     "text": "At eighty, fifty.",
+     "caption": "At eighty, fifty.",
+     "paragraph": 3,
+     "start": 194.68,
+     "end": 195.718
+    },
+    {
+     "id": "s5_07",
+     "text": "At ninety, a hundred.",
+     "caption": "At ninety, a hundred.",
+     "paragraph": 3,
+     "start": 196.018,
+     "end": 197.391
+    },
+    {
+     "id": "s5_08",
+     "text": "At ninety-five, two hundred.",
+     "caption": "At ninety-five, two hundred.",
+     "paragraph": 3,
+     "start": 197.691,
+     "end": 199.239
+    },
+    {
+     "id": "s5_09",
+     "text": "A simulation of twenty million requests at each load lands on the curve.",
+     "caption": "A simulation of twenty million requests at each load lands on the curve.",
+     "paragraph": 4,
+     "start": 199.739,
+     "end": 203.843
+    },
+    {
+     "id": "s5_10",
+     "text": "It's almost flat at first, then steep.",
+     "caption": "It's almost flat at first, then steep.",
+     "paragraph": 5,
+     "start": 205.143,
+     "end": 207.044
+    },
+    {
+     "id": "s5_11",
+     "text": "From eighty to ninety percent, the spare capacity halves, and the response time doubles.",
+     "caption": "From eighty to ninety percent, the spare capacity halves, and the response time doubles.",
+     "paragraph": 5,
+     "start": 207.344,
+     "end": 212.365
+    },
+    {
+     "id": "s5_12",
+     "text": "From ninety to ninety-five, it halves and doubles again.",
+     "caption": "From ninety to ninety-five, it halves and doubles again.",
+     "paragraph": 5,
+     "start": 212.665,
+     "end": 215.832
+    }
+   ],
+   "end": 217.682
+  },
+  {
+   "id": "s6",
+   "title": "The answer",
+   "start": 217.682,
+   "lines": [
+    {
+     "id": "s6_01",
+     "text": "So that's where the forty milliseconds went: not into work, but into waiting.",
+     "caption": "So that's where the forty milliseconds went: not into work, but into waiting.",
+     "paragraph": 0,
+     "start": 218.032,
+     "end": 222.404
+    },
+    {
+     "id": "s6_02",
+     "text": "A little more traffic halved the spare capacity, from twenty percent to ten, and the response time doubled with it, from fifty milliseconds to a hundred.",
+     "caption": "A little more traffic halved the spare capacity, from twenty percent to ten, and the response time doubled with it, from fifty milliseconds to a hundred.",
+     "paragraph": 0,
+     "start": 222.704,
+     "end": 231.644
+    },
+    {
+     "id": "s6_03",
+     "text": "Burstier traffic, or more variable work, makes this worse.",
+     "caption": "Burstier traffic, or more variable work, makes this worse.",
+     "paragraph": 1,
+     "start": 232.144,
+     "end": 235.447
+    },
+    {
+     "id": "s6_04",
+     "text": "Bigger clumps of requests, or a few very long ones, build bigger queues, and the same spare capacity takes longer to clear them.",
+     "caption": "Bigger clumps of requests, or a few very long ones, build bigger queues, and the same spare capacity takes longer to clear them.",
+     "paragraph": 1,
+     "start": 235.747,
+     "end": 243.453
+    },
+    {
+     "id": "s6_05",
+     "text": "So they need more spare capacity for the same response time.",
+     "caption": "So they need more spare capacity for the same response time.",
+     "paragraph": 1,
+     "start": 243.753,
+     "end": 247.045
+    },
+    {
+     "id": "s6_06",
+     "text": "That's why capacity plans leave headroom.",
+     "caption": "That's why capacity plans leave headroom.",
+     "paragraph": 2,
+     "start": 247.545,
+     "end": 249.755
+    },
+    {
+     "id": "s6_07",
+     "text": "Decide how slow requests may get, and read a first estimate of the load limit off the curve.",
+     "caption": "Decide how slow requests may get, and read a first estimate of the load limit off the curve.",
+     "paragraph": 2,
+     "start": 250.055,
+     "end": 255.568
+    },
+    {
+     "id": "s6_08",
+     "text": "On this curve, if a request may take five times its work time on average, keep the server at or below eighty percent busy.",
+     "caption": "On this curve, if a request may take five times its work time on average, keep the server at or below eighty percent busy.",
+     "paragraph": 2,
+     "start": 255.868,
+     "end": 263.442
+    },
+    {
+     "id": "s6_09",
+     "text": "Real systems, with burstier traffic and more than one busy resource, usually need more headroom than this curve says.",
+     "caption": "Real systems, with burstier traffic and more than one busy resource, usually need more headroom than this curve says.",
+     "paragraph": 2,
+     "start": 263.742,
+     "end": 270.827
+    },
+    {
+     "id": "s6_10",
+     "text": "These are averages, and some requests take several times longer.",
+     "caption": "These are averages, and some requests take several times longer.",
+     "paragraph": 3,
+     "start": 271.327,
+     "end": 274.839
+    },
+    {
+     "id": "s6_11",
+     "text": "The slowest requests are the next lesson.",
+     "caption": "The slowest requests are the next lesson.",
+     "paragraph": 3,
+     "start": 275.139,
+     "end": 277.251
+    },
+    {
+     "id": "s6_12",
+     "text": "And never plan to run a server at a hundred percent busy.",
+     "caption": "And never plan to run a server at a hundred percent busy.",
+     "paragraph": 4,
+     "start": 277.751,
+     "end": 281.042
+    },
+    {
+     "id": "s6_13",
+     "text": "With no spare capacity, nothing clears the queue, and it keeps growing.",
+     "caption": "With no spare capacity, nothing clears the queue, and it keeps growing.",
+     "paragraph": 4,
+     "start": 281.342,
+     "end": 285.393
+    }
+   ],
+   "end": 293.393
+  }
+ ],
+ "phonemes": {
+  "s1_01": "h\u02c8\u026a\u0279z \u0250 s\u02c8\u025c\u0279v\u0259\u0279 \u00f0\u00e6t d\u02c8\u028cz t\u02c8\u025bn m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz \u028cv w\u02c8\u025c\u0279k p\u025c\u0279 \u0279\u0259kw\u02c8\u025bst, \u02cc\u0254n \u02c8\u00e6v\u0259\u0279\u026a\u02a4.",
+  "s1_02": "s\u02c8\u025bnd \u026at \u02c8ATi \u0279\u0259kw\u02c8\u025bsts \u0250 s\u02c8\u025bk\u0259nd, \u00e6nd \u026ats w\u02c8\u025c\u0279k\u026a\u014b \u02c8ATi p\u0259\u0279s\u02c8\u025bnt \u028cv \u00f0\u0259 t\u02c8Im: \u026ats \u02c8ATi p\u0259\u0279s\u02c8\u025bnt b\u02c8\u026azi.",
+  "s1_03": "\u0250 \u0279\u0259kw\u02c8\u025bst \u00f0\u02c8\u025bn t\u02c8Aks f\u02c8\u026afti m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz \u02cc\u0254n \u02c8\u00e6v\u0259\u0279\u026a\u02a4, f\u0279\u028cm \u0259\u0279\u02c8Iv\u0259l t\u0259 \u0279\u0259pl\u02c8I.",
+  "s1_04": "s\u02c8\u025bnd \u026at n\u02c8Indi \u0279\u0259kw\u02c8\u025bsts \u0250 s\u02c8\u025bk\u0259nd, \u0250n \u02c8A\u03b8 m\u02c8\u0254\u0279 t\u0279\u02c8\u00e6f\u026ak, \u00e6nd \u026ats n\u02c8Indi p\u0259\u0279s\u02c8\u025bnt b\u02c8\u026azi.",
+  "s1_05": "\u0279\u0259kw\u02c8\u025bsts n\u02c8W t\u02c8Ak \u0250 h\u02c8\u028cnd\u0279\u0259d m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz.",
+  "s1_06": "j\u02ccu m\u02ccIt \u026aksp\u02c8\u025bkt \u0250 l\u02c8\u026aT\u1d4al m\u02c8\u0254\u0279 t\u0279\u02c8\u00e6f\u026ak t\u0259 m\u02c8in \u0250 l\u02c8\u026aT\u1d4al m\u02c8\u0254\u0279 d\u0259l\u02c8A.",
+  "s1_07": "\u026anst\u02c8\u025bd, \u00f0\u0259 \u0279\u0259sp\u02c8\u0251ns t\u02c8Im d\u02c8\u028cb\u1d4ald.",
+  "s1_08": "w\u02ccI?",
+  "s1_09": "\u02cc\u00e6nd \u02c8iv\u0259n \u00e6t \u02c8ATi p\u0259\u0279s\u02c8\u025bnt, w\u02cc\u025b\u0279 d\u02c8u f\u02c8\u0254\u0279Ti \u028cv \u00f0Oz f\u02c8\u026afti m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz k\u02c8\u028cm f\u0279\u028cm, w\u02cc\u025bn \u00f0\u0259 w\u02c8\u025c\u0279k \u02c8Onli t\u02c8Aks t\u02c8\u025bn?",
+  "s2_01": "\u0250 \u0279\u0259kw\u02c8\u025bsts \u0279\u0259sp\u02c8\u0251ns t\u02c8Im h\u00e6z t\u02c8u p\u02c8\u0251\u0279ts: \u00f0\u0259 t\u02c8Im \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 sp\u02c8\u025bndz w\u02c8\u025c\u0279k\u026a\u014b \u02cc\u0254n \u026at, \u00e6nd \u00f0\u0259 t\u02c8Im \u026at sp\u02c8\u025bndz w\u02c8AT\u026a\u014b f\u0254\u0279 \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 t\u0259 bi f\u0279\u02c8i.",
+  "s2_02": "\u00f0\u0259 w\u02c8\u025c\u0279k t\u02c8Aks t\u02c8\u025bn m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz \u02cc\u0254n \u02c8\u00e6v\u0259\u0279\u026a\u02a4, hW\u02c8\u025bv\u0259\u0279 b\u02c8\u026azi \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 \u026az.",
+  "s2_03": "s\u02ccO \u00e6t \u02c8ATi p\u0259\u0279s\u02c8\u025bnt b\u02c8\u026azi, \u0250 \u0279\u0259kw\u02c8\u025bst w\u02c8Ats f\u02c8\u0254\u0279Ti m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz \u026an \u0250 kj\u02c8u, f\u02c8\u0254\u0279 t\u02c8Imz \u00f0i \u02c8\u00e6v\u0259\u0279\u026a\u02a4 w\u02c8\u025c\u0279k.",
+  "s2_04": "\u02cc\u00e6t n\u02c8Indi p\u0259\u0279s\u02c8\u025bnt, \u026at w\u02c8Ats n\u02c8Indi.",
+  "s2_05": "\u00f0\u0259 kw\u02c8\u025bs\u02a7\u1d4an \u026az \u0279\u02c8i\u1d4ali \u0259b\u02c8Wt kj\u02c8uz.",
+  "s2_06": "w\u02ccI d\u02c8u \u00f0A \u0261\u025bt s\u02ccO l\u02c8\u0254\u014b, w\u02cc\u025bn \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 st\u02c8\u026al h\u00e6z t\u02c8Im t\u0259 sp\u02c8\u025b\u0279?",
+  "s3_01": "s\u0259p\u02c8Oz \u0279\u0259kw\u02c8\u025bsts \u0259\u0279\u02c8Ivd \u02c8iv\u0259nli sp\u02c8Ast, \u00e6nd \u02c8\u025bv\u0259\u0279i w\u02c8\u028cn t\u02c8\u028ak \u026a\u0261z\u02c8\u00e6ktli t\u02c8\u025bn m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz.",
+  "s3_02": "\u02cc\u00e6t n\u02c8Indi p\u0259\u0279s\u02c8\u025bnt b\u02c8\u026azi, t\u02c8\u025bn m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz \u028cv w\u02c8\u025c\u0279k f\u02c8\u026alz n\u02c8Indi p\u0259\u0279s\u02c8\u025bnt \u028cv \u00f0\u0259 \u0261\u02c8\u00e6p b\u0259tw\u02c8in \u0279\u0259kw\u02c8\u025bsts, s\u02ccO \u0250 n\u02c8u w\u02c8\u028cn \u0259\u0279\u02c8Ivz \u0259b\u02c8Wt \u02c8\u025bv\u0259\u0279i \u0259l\u02c8\u025bv\u1d4an m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz.",
+  "s3_03": "\u02cc\u026at f\u02c8Indz \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 \u02cc\u0254l\u0279\u02c8\u025bdi d\u02c8\u028cn w\u026a\u00f0 \u00f0\u0259 l\u02c8\u00e6st w\u02c8\u028cn.",
+  "s3_04": "n\u02c8Ob\u02cc\u0251di \u02c8\u025bv\u0259\u0279 w\u02c8Ats, \u00e6nd \u02c8\u025bv\u0259\u0279i \u0279\u0259sp\u02c8\u0251ns t\u02c8Aks t\u02c8\u025bn m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz, \u02c8iv\u0259n \u00e6t n\u02c8Indi p\u0259\u0279s\u02c8\u025bnt b\u02c8\u026azi.",
+  "s3_05": "\u0279\u02c8i\u1d4al t\u0279\u02c8\u00e6f\u026ak v\u02c8\u025b\u0279iz \u026an t\u02c8u w\u02c8Az.",
+  "s3_06": "\u0279\u0259kw\u02c8\u025bsts \u0259\u0279\u02c8Iv \u00e6t \u0279\u02c8\u00e6nd\u0259m, s\u02ccO s\u02c8\u028cmt\u02ccImz s\u02c8\u025bv\u0259\u0279\u0259l k\u02c8\u028cm kl\u02c8Os t\u0259\u0261\u02c8\u025b\u00f0\u0259\u0279.",
+  "s3_07": "\u02cc\u00e6nd s\u02cc\u028cm \u0279\u0259kw\u02c8\u025bsts n\u02c8id m\u02c8\u028c\u02a7 m\u02c8\u0254\u0279 w\u02c8\u025c\u0279k \u00f0\u0259n \u02c8\u028c\u00f0\u0259\u0279z.",
+  "s3_08": "w\u02cc\u025bn \u0250 kl\u02c8\u028cmp \u0259\u0279\u02c8Ivz, \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 k\u00e6n \u02c8Onli w\u02c8\u025c\u0279k \u02cc\u0254n w\u02c8\u028cn \u00e6t \u0250 t\u02c8Im, \u00e6nd \u00f0\u0259 \u0279\u02c8\u025bst w\u02c8At \u026an \u0250 kj\u02c8u.",
+  "s3_09": "s\u02ccO kj\u02c8uz k\u02c8\u028cm f\u0279\u028cm v\u02cc\u025b\u0279i\u0259b\u02c8\u026al\u0259Ti.",
+  "s3_10": "w\u02cc\u028ct d\u0259s\u02c8Idz h\u02ccW l\u02c8\u0254\u014b \u00f0A l\u02c8\u00e6st?",
+  "s4_01": "\u0250 kj\u02c8u \u0283\u0279\u02c8\u026a\u014bks \u02c8Onli w\u02cc\u025bn \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 f\u02c8\u026an\u0259\u0283\u1d7bz w\u02c8\u025c\u0279k f\u02c8\u00e6st\u0259\u0279 \u00f0\u0259n n\u02c8u w\u02c8\u025c\u0279k \u0259\u0279\u02c8Ivz.",
+  "s4_02": "\u02cc\u00e6t \u02c8ATi p\u0259\u0279s\u02c8\u025bnt b\u02c8\u026azi, n\u02c8u w\u02c8\u025c\u0279k k\u02c8ips \u0259\u0279\u02c8Iv\u026a\u014b \u00e6t \u02c8ATi p\u0259\u0279s\u02c8\u025bnt \u028cv w\u02cc\u028ct \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 k\u00e6n d\u02c8u.",
+  "s4_03": "s\u02ccO w\u02ccIl \u00f0\u025b\u0279z \u0250 kj\u02c8u, \u02c8Onli \u00f0i \u02c8\u028c\u00f0\u0259\u0279 tw\u02c8\u025bnti p\u0259\u0279s\u02c8\u025bnt \u028cv \u026ats \u02c8\u025bf\u0259\u0279t \u02c8\u00e6k\u02a7\u0259w\u0259li \u0283\u0279\u02c8\u026a\u014bks \u026at.",
+  "s4_04": "k\u02c8\u0254l \u00f0\u02c8\u00e6t tw\u02c8\u025bnti p\u0259\u0279s\u02c8\u025bnt \u00f0\u0259 sp\u02c8\u025b\u0279 k\u0259p\u02c8\u00e6s\u0259Ti: \u026ats w\u02cc\u028ct kl\u02c8\u026a\u0279z \u00f0\u0259 kj\u02c8u.",
+  "s4_05": "\u02cc\u00e6t n\u02c8Indi p\u0259\u0279s\u02c8\u025bnt b\u02c8\u026azi, \u00f0\u0259 sp\u02c8\u025b\u0279 k\u0259p\u02c8\u00e6s\u0259Ti \u026az \u02c8Onli t\u02c8\u025bn p\u0259\u0279s\u02c8\u025bnt.",
+  "s4_06": "\u02cc\u0254n \u02c8\u00e6v\u0259\u0279\u026a\u02a4, \u00f0\u0259 s\u02c8Am kj\u02c8u t\u02c8Aks \u0259b\u02c8Wt tw\u02c8Is \u00e6z l\u02c8\u0254\u014b t\u0259 kl\u02c8\u026a\u0279, \u00e6nd m\u02c8\u0254\u0279 \u0279\u0259kw\u02c8\u025bsts p\u02c8Il \u02cc\u0254n w\u02ccIl \u00f0\u02c8\u00e6t h\u02c8\u00e6p\u0259nz.",
+  "s4_07": "\u00f0\u02c8\u00e6ts \u00f0i \u02cc\u026antu\u02c8\u026a\u0283\u0259n; \u00f0i \u026a\u0261z\u02c8\u00e6kt \u02c8\u00e6ns\u0259\u0279 k\u02c8\u028cmz n\u02c8\u025bkst.",
+  "s4_08": "h\u02c8\u026a\u0279z \u00f0\u0259 s\u02c8Am \u0279\u02c8\u00e6nd\u0259m st\u0279\u02c8im \u028cv \u0279\u0259kw\u02c8\u025bsts \u00e6t b\u02c8O\u03b8 l\u02c8Odz.",
+  "s4_09": "\u02cc\u00e6t n\u02c8Indi p\u0259\u0279s\u02c8\u025bnt, \u00f0\u0259 kj\u02c8u b\u02c8\u026aldz h\u02c8I\u0259\u0279 \u00e6nd l\u02c8\u00e6sts l\u02c8\u0254\u014b\u0261\u0259\u0279.",
+  "s5_01": "\u00f0\u0259 f\u0279\u02c8\u00e6k\u0283\u0259n \u028cv t\u02c8Im \u0250 s\u02c8\u025c\u0279v\u0259\u0279 \u026az b\u02c8\u026azi \u026az k\u02c8\u0254ld \u026ats j\u02ccuT\u0259l\u0259z\u02c8A\u0283\u0259n.",
+  "s5_02": "f\u02cc\u0254\u0279 \u00f0\u0259 s\u02c8\u026amp\u1d4al\u1d7bst k\u02c8As, kj\u02c8u\u026a\u014b \u03b8\u02c8\u026a\u0279i \u0261\u02c8\u026avz \u00f0i \u026a\u0261z\u02c8\u00e6kt \u02c8\u00e6v\u0259\u0279\u026a\u02a4 \u0279\u0259sp\u02c8\u0251ns t\u02c8Im.",
+  "s5_03": "\u00f0\u0259 k\u02c8As \u026az w\u02c8\u028cn s\u02c8\u025c\u0279v\u0259\u0279, \u0279\u0259kw\u02c8\u025bsts \u0259\u0279\u02c8Iv\u026a\u014b \u00e6t \u0279\u02c8\u00e6nd\u0259m, \u02c8i\u02a7 \u02cc\u028cn\u0279\u0259l\u02c8AT\u1d7bd t\u0259 \u00f0i \u02c8\u028c\u00f0\u0259\u0279z, \u00e6nd w\u02c8\u025c\u0279k t\u02c8Imz \u00f0\u00e6t v\u02c8\u025b\u0279i \u02a4\u02c8\u028cst \u00e6z \u0279\u02c8\u00e6nd\u0259mli: m\u02c8Ostli \u0283\u02c8\u0254\u0279t, s\u02c8\u028cmt\u02ccImz s\u02c8\u025bv\u0259\u0279\u0259l t\u02c8Imz l\u02c8\u0254\u014b\u0261\u0259\u0279.",
+  "s5_04": "\u00f0i \u02c8\u00e6ns\u0259\u0279 \u026az \u00f0\u0259 w\u02c8\u025c\u0279k t\u02c8Im d\u0259v\u02c8Id\u1d7bd bI \u00f0\u0259 sp\u02c8\u025b\u0279 k\u0259p\u02c8\u00e6s\u0259Ti: t\u02c8\u025bn m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz d\u0259v\u02c8Id\u1d7bd bI w\u02c8\u028cn m\u02c8In\u0259s \u00f0\u0259 j\u02ccuT\u0259l\u0259z\u02c8A\u0283\u0259n.",
+  "s5_05": "\u02cc\u00e6t f\u02c8\u026afti p\u0259\u0279s\u02c8\u025bnt b\u02c8\u026azi, \u00f0\u02c8\u00e6ts tw\u02c8\u025bnti m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz.",
+  "s5_06": "\u02cc\u00e6t \u02c8ATi, f\u02c8\u026afti.",
+  "s5_07": "\u02cc\u00e6t n\u02c8Indi, \u0250 h\u02c8\u028cnd\u0279\u0259d.",
+  "s5_08": "\u02cc\u00e6t n\u02c8Indif\u02ccIv, t\u02c8u h\u02c8\u028cnd\u0279\u0259d.",
+  "s5_09": "\u0250 s\u02cc\u026amj\u0259l\u02c8A\u0283\u0259n \u028cv tw\u02c8\u025bnti m\u02c8\u026alj\u1d4an \u0279\u0259kw\u02c8\u025bsts \u00e6t \u02c8i\u02a7 l\u02c8Od l\u02c8\u00e6ndz \u02cc\u0254n \u00f0\u0259 k\u02c8\u025c\u0279v.",
+  "s5_10": "\u02cc\u026ats \u02c8\u0254lmOst fl\u02c8\u00e6t \u00e6t f\u02c8\u025c\u0279st, \u00f0\u02c8\u025bn st\u02c8ip.",
+  "s5_11": "f\u0279\u02cc\u028cm \u02c8ATi t\u0259 n\u02c8Indi p\u0259\u0279s\u02c8\u025bnt, \u00f0\u0259 sp\u02c8\u025b\u0279 k\u0259p\u02c8\u00e6s\u0259Ti h\u02c8\u00e6vz, \u00e6nd \u00f0\u0259 \u0279\u0259sp\u02c8\u0251ns t\u02c8Im d\u02c8\u028cb\u1d4alz.",
+  "s5_12": "f\u0279\u02cc\u028cm n\u02c8Indi t\u0259 n\u02c8Indif\u02ccIv, \u026at h\u02c8\u00e6vz \u00e6nd d\u02c8\u028cb\u1d4alz \u0259\u0261\u02c8\u025bn.",
+  "s6_01": "s\u02ccO \u00f0\u02c8\u00e6ts w\u02cc\u025b\u0279 \u00f0\u0259 f\u02c8\u0254\u0279Ti m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz w\u02c8\u025bnt: n\u02cc\u0251t \u02c8\u026antu w\u02c8\u025c\u0279k, b\u02cc\u028ct \u02c8\u026antu w\u02c8AT\u026a\u014b.",
+  "s6_02": "\u0250 l\u02c8\u026aT\u1d4al m\u02c8\u0254\u0279 t\u0279\u02c8\u00e6f\u026ak h\u02c8\u00e6vd \u00f0\u0259 sp\u02c8\u025b\u0279 k\u0259p\u02c8\u00e6s\u0259Ti, f\u0279\u028cm tw\u02c8\u025bnti p\u0259\u0279s\u02c8\u025bnt t\u0259 t\u02c8\u025bn, \u00e6nd \u00f0\u0259 \u0279\u0259sp\u02c8\u0251ns t\u02c8Im d\u02c8\u028cb\u1d4ald w\u026a\u00f0 \u026at, f\u0279\u028cm f\u02c8\u026afti m\u02c8\u026al\u0259s\u02cc\u025bk\u0259ndz t\u0259 \u0250 h\u02c8\u028cnd\u0279\u0259d.",
+  "s6_03": "b\u02c8\u025c\u0279sti\u0259\u0279 t\u0279\u02c8\u00e6f\u026ak, \u0254\u0279 m\u02c8\u0254\u0279 v\u02c8\u025b\u0279i\u0259b\u1d4al w\u02c8\u025c\u0279k, m\u02ccAks \u00f0\u026as w\u02c8\u025c\u0279s.",
+  "s6_04": "b\u02c8\u026a\u0261\u0259\u0279 kl\u02c8\u028cmps \u028cv \u0279\u0259kw\u02c8\u025bsts, \u0254\u0279 \u0250 fj\u02c8u v\u02c8\u025b\u0279i l\u02c8\u0254\u014b w\u02c8\u028cnz, b\u02c8\u026ald b\u02c8\u026a\u0261\u0259\u0279 kj\u02c8uz, \u00e6nd \u00f0\u0259 s\u02c8Am sp\u02c8\u025b\u0279 k\u0259p\u02c8\u00e6s\u0259Ti t\u02c8Aks l\u02c8\u0254\u014b\u0261\u0259\u0279 t\u0259 kl\u02c8\u026a\u0279 \u00f0\u02cc\u025bm.",
+  "s6_05": "s\u02ccO \u00f0A n\u02c8id m\u02c8\u0254\u0279 sp\u02c8\u025b\u0279 k\u0259p\u02c8\u00e6s\u0259Ti f\u0254\u0279 \u00f0\u0259 s\u02c8Am \u0279\u0259sp\u02c8\u0251ns t\u02c8Im.",
+  "s6_06": "\u00f0\u02c8\u00e6ts w\u02ccI k\u0259p\u02c8\u00e6s\u0259Ti pl\u02c8\u00e6nz l\u02c8iv h\u02c8\u025bd\u0279\u02ccum.",
+  "s6_07": "d\u0259s\u02c8Id h\u02ccW sl\u02c8O \u0279\u0259kw\u02c8\u025bsts m\u02c8A \u0261\u02c8\u025bt, \u00e6nd \u0279\u02c8\u025bd \u0250 f\u02c8\u025c\u0279st \u02c8\u025bst\u0259m\u0259t \u028cv \u00f0\u0259 l\u02c8Od l\u02c8\u026am\u0259t \u02c8\u0254f \u00f0\u0259 k\u02c8\u025c\u0279v.",
+  "s6_08": "\u02cc\u0254n \u00f0\u026as k\u02c8\u025c\u0279v, \u026af \u0250 \u0279\u0259kw\u02c8\u025bst m\u02c8A t\u02c8Ak f\u02c8Iv t\u02c8Imz \u026ats w\u02c8\u025c\u0279k t\u02c8Im \u02cc\u0254n \u02c8\u00e6v\u0259\u0279\u026a\u02a4, k\u02c8ip \u00f0\u0259 s\u02c8\u025c\u0279v\u0259\u0279 \u00e6t \u0254\u0279 b\u0259l\u02c8O \u02c8ATi p\u0259\u0279s\u02c8\u025bnt b\u02c8\u026azi.",
+  "s6_09": "\u0279\u02c8i\u1d4al s\u02c8\u026ast\u0259mz, w\u026a\u00f0 b\u02c8\u025c\u0279sti\u0259\u0279 t\u0279\u02c8\u00e6f\u026ak \u00e6nd m\u02c8\u0254\u0279 \u00f0\u0259n w\u02c8\u028cn b\u02c8\u026azi \u0279\u02c8is\u02cc\u0254\u0279s, j\u02c8u\u0292\u0259w\u0259li n\u02c8id m\u02c8\u0254\u0279 h\u02c8\u025bd\u0279\u02ccum \u00f0\u0259n \u00f0\u026as k\u02c8\u025c\u0279v s\u02c8\u025bz.",
+  "s6_10": "\u00f0\u02cciz \u0251\u0279 \u02c8\u00e6v\u0259\u0279\u026a\u02a4\u1d7bz, \u00e6nd s\u02cc\u028cm \u0279\u0259kw\u02c8\u025bsts t\u02c8Ak s\u02c8\u025bv\u0259\u0279\u0259l t\u02c8Imz l\u02c8\u0254\u014b\u0261\u0259\u0279.",
+  "s6_11": "\u00f0\u0259 sl\u02c8O\u1d7bst \u0279\u0259kw\u02c8\u025bsts \u0251\u0279 \u00f0\u0259 n\u02c8\u025bkst l\u02c8\u025bs\u0259n.",
+  "s6_12": "\u02cc\u00e6nd n\u02c8\u025bv\u0259\u0279 pl\u02c8\u00e6n t\u0259 \u0279\u02c8\u028cn \u0250 s\u02c8\u025c\u0279v\u0259\u0279 \u00e6t \u0250 h\u02c8\u028cnd\u0279\u0259d p\u0259\u0279s\u02c8\u025bnt b\u02c8\u026azi.",
+  "s6_13": "w\u02cc\u026a\u00f0 n\u02c8O sp\u02c8\u025b\u0279 k\u0259p\u02c8\u00e6s\u0259Ti, n\u02c8\u028c\u03b8\u026a\u014b kl\u02c8\u026a\u0279z \u00f0\u0259 kj\u02c8u, \u00e6nd \u026at k\u02c8ips \u0261\u0279\u02c8O\u026a\u014b."
+ },
+ "peak": 0.6810357570648193
+}

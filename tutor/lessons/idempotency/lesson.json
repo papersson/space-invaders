@@ -1,0 +1,2 @@
+{"title": "Charged Twice", "version": "v1", "poster": ["s5_07", -0.2],
+ "description": "Why a client can't know whether a timed-out payment went through, and how idempotency keys make retries charge exactly once."}

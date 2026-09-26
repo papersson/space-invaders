@@ -1,0 +1,165 @@
+<title>Why Busy Servers Get Slow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0E1216;--surface:#151B22;--raise:#1B232C;--line:#27303A;--ink:#E6EBF0;--muted:#8C97A4;--faint:#5E6874;
+  --amber:#F2A93B;--ice:#8FD3FF;--coral:#E4715F;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-inline:20px;padding-block:28px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
+h1{font-weight:600;font-size:clamp(22px,3vw,30px);line-height:1.15;margin:0;text-wrap:balance}
+.len{font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+.player{background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/9;max-width:100%}
+video{display:block;width:100%;height:100%}
+.chapters{display:flex;gap:6px}
+.ch{all:unset;cursor:pointer;min-width:0;flex-basis:0;display:flex;flex-direction:column;gap:7px}
+.ch-bar{height:6px;border-radius:3px;background:var(--raise);position:relative;overflow:hidden}
+.ch-bar::after{content:"";position:absolute;inset:0;width:var(--p,0%);background:var(--ice)}
+.ch-name{font-size:13px;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch.on .ch-name{color:var(--ink)}
+.ch:hover .ch-name{color:var(--ink)}
+.ch:focus-visible .ch-bar{outline:2px solid var(--ice);outline-offset:3px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);
+  border:1.5px solid var(--line);border-radius:6px;padding:6px 11px;white-space:nowrap}
+.btn:hover{color:var(--ink);border-color:var(--faint)}
+.btn:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.btn[aria-pressed="true"]{color:var(--bg);background:var(--ice);border-color:var(--ice)}
+.btn.lost{color:var(--amber);border-color:rgba(242,169,59,.45)}
+.btn.lost:hover{border-color:var(--amber)}
+.btn.primary{color:var(--bg);background:var(--amber);border-color:var(--amber)}
+.right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.status{font-size:13px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel .where{font:500 12px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.panel blockquote{margin:0;padding-left:12px;border-left:2px solid var(--amber);color:var(--ink);max-width:70ch}
+.panel blockquote .prev{display:block;color:var(--muted);font-size:14px;margin-bottom:4px}
+.panel label{font-size:14px;color:var(--muted)}
+textarea{font:15px/1.45 "IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);
+  border-radius:6px;padding:10px;min-height:72px;resize:vertical;width:100%;box-sizing:border-box}
+textarea:focus-visible{outline:2px solid var(--ice);outline-offset:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+details{color:var(--muted);font-size:14px}
+summary{cursor:pointer;width:max-content}
+summary:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.notes{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.notes li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:baseline}
+.notes .t{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--ice);font-variant-numeric:tabular-nums}
+.notes .t:focus-visible{outline:2px solid var(--ice)}
+.notes .txt{color:var(--ink)}
+.notes .txt i{color:var(--muted)}
+.notes .x{all:unset;cursor:pointer;color:var(--faint);font-size:13px}
+.notes .x:hover{color:var(--coral)}
+@media (max-width:640px){.ch-name{display:none}.chapters{gap:4px}}
+</style>
+<div class="wrap">
+  <header><h1>Why Busy Servers Get Slow</h1><span class="len">4:53</span></header>
+  <div class="player"><video id="v" controls preload="metadata" poster="poster.jpg" playsinline>
+    <source src="video.mp4" type="video/mp4"></video></div>
+  <nav class="chapters" aria-label="Chapters"><button class="ch" type="button" style="flex-grow:41.77" data-t="0.00" data-end="41.77" aria-label="Chapter 1: The question"><span class="ch-bar"></span><span class="ch-name">The question</span></button>
+<button class="ch" type="button" style="flex-grow:29.50" data-t="41.77" data-end="71.27" aria-label="Chapter 2: Waiting, not working"><span class="ch-bar"></span><span class="ch-name">Waiting, not working</span></button>
+<button class="ch" type="button" style="flex-grow:46.93" data-t="71.27" data-end="118.20" aria-label="Chapter 3: Where queues come from"><span class="ch-bar"></span><span class="ch-name">Where queues come from</span></button>
+<button class="ch" type="button" style="flex-grow:43.77" data-t="118.20" data-end="161.97" aria-label="Chapter 4: Spare capacity"><span class="ch-bar"></span><span class="ch-name">Spare capacity</span></button>
+<button class="ch" type="button" style="flex-grow:55.71" data-t="161.97" data-end="217.68" aria-label="Chapter 5: The curve"><span class="ch-bar"></span><span class="ch-name">The curve</span></button>
+<button class="ch" type="button" style="flex-grow:75.71" data-t="217.68" data-end="293.39" aria-label="Chapter 6: The answer"><span class="ch-bar"></span><span class="ch-name">The answer</span></button></nav>
+  <div class="bar">
+    <button id="cc" class="btn" type="button" aria-pressed="false">Captions off</button>
+    <div class="right"><span id="status" class="status" role="status"></span>
+      <button id="lost" class="btn lost" type="button" hidden>Lost me here</button></div>
+  </div>
+  <section id="panel" class="panel" hidden aria-label="What lost you">
+    <div id="where" class="where"></div>
+    <blockquote id="quote"></blockquote>
+    <label for="note">What didn't make sense? A few words is plenty, and you can leave it empty.</label>
+    <textarea id="note" maxlength="2000"></textarea>
+    <div class="actions"><button id="save" class="btn primary" type="button">Save</button>
+      <button id="cancel" class="btn" type="button">Cancel</button></div>
+  </section>
+  <details id="mine" hidden><summary id="count"></summary><ul id="notes" class="notes"></ul></details>
+</div>
+<script>const CUES=[[0.8, 5.45, "Here's a server that does ten milliseconds of work per request, on average.", "s1_01"], [5.7, 11.72, "Send it eighty requests a second, and it's working eighty percent of the time: it's eighty percent busy.", "s1_02"], [11.77, 16.6, "A request then takes fifty milliseconds on average, from arrival to reply.", "s1_03"], [16.85, 22.2, "Send it ninety requests a second, an eighth more traffic, and it's ninety percent busy.", "s1_04"], [22.25, 24.86, "Requests now take a hundred milliseconds.", "s1_05"], [25.11, 28.59, "You might expect a little more traffic to mean a little more delay.", "s1_06"], [28.64, 30.88, "Instead, the response time doubled.", "s1_07"], [31.13, 31.81, "Why?", "s1_08"], [31.86, 38.37, "And even at eighty percent, where do forty of those fifty milliseconds come from, when the work only takes ten?", "s1_09"], [42.12, 50.19, "A request's response time has two parts: the time the server spends working on it, and the time it spends waiting for the server to be free.", "s2_01"], [50.44, 54.88, "The work takes ten milliseconds on average, however busy the server is.", "s2_02"], [55.12, 61.81, "So at eighty percent busy, a request waits forty milliseconds in a queue, four times the average work.", "s2_03"], [61.86, 64.14, "At ninety percent, it waits ninety.", "s2_04"], [64.39, 66.42, "The question is really about queues.", "s2_05"], [66.47, 70.07, "Why do they get so long, when the server still has time to spare?", "s2_06"], [71.62, 77.55, "Suppose requests arrived evenly spaced, and every one took exactly ten milliseconds.", "s3_01"], [77.8, 87.23, "At ninety percent busy, ten milliseconds of work fills ninety percent of the gap between requests, so a new one arrives about every eleven milliseconds.", "s3_02"], [87.48, 90.33, "It finds the server already done with the last one.", "s3_03"], [90.38, 96.36, "Nobody ever waits, and every response takes ten milliseconds, even at ninety percent busy.", "s3_04"], [97.42, 99.61, "Real traffic varies in two ways.", "s3_05"], [99.66, 103.69, "Requests arrive at random, so sometimes several come close together.", "s3_06"], [103.74, 106.66, "And some requests need much more work than others.", "s3_07"], [106.91, 112.44, "When a clump arrives, the server can only work on one at a time, and the rest wait in a queue.", "s3_08"], [113.69, 115.73, "So queues come from variability.", "s3_09"], [115.78, 117.6, "What decides how long they last?", "s3_10"], [118.55, 123.44, "A queue shrinks only when the server finishes work faster than new work arrives.", "s4_01"], [123.69, 129.01, "At eighty percent busy, new work keeps arriving at eighty percent of what the server can do.", "s4_02"], [129.06, 134.03, "So while there's a queue, only the other twenty percent of its effort actually shrinks it.", "s4_03"], [134.08, 138.23, "Call that twenty percent the spare capacity: it's what clears the queue.", "s4_04"], [138.48, 142.71, "At ninety percent busy, the spare capacity is only ten percent.", "s4_05"], [142.76, 149.57, "On average, the same queue takes about twice as long to clear, and more requests pile on while that happens.", "s4_06"], [149.62, 153.09, "That's the intuition; the exact answer comes next.", "s4_07"], [153.34, 156.7, "Here's the same random stream of requests at both loads.", "s4_08"], [156.75, 160.17, "At ninety percent, the queue builds higher and lasts longer.", "s4_09"], [162.32, 166.41, "The fraction of time a server is busy is called its utilization.", "s5_01"], [166.66, 171.47, "For the simplest case, queueing theory gives the exact average response time.", "s5_02"], [171.52, 183.19, "The case is one server, requests arriving at random, each unrelated to the others, and work times that vary just as randomly: mostly short, sometimes several times longer.", "s5_03"], [183.44, 191.22, "The answer is the work time divided by the spare capacity: ten milliseconds divided by one minus the utilization.", "s5_04"], [191.47, 194.63, "At fifty percent busy, that's twenty milliseconds.", "s5_05"], [194.68, 195.97, "At eighty, fifty.", "s5_06"], [196.02, 197.64, "At ninety, a hundred.", "s5_07"], [197.69, 199.49, "At ninety-five, two hundred.", "s5_08"], [199.74, 204.09, "A simulation of twenty million requests at each load lands on the curve.", "s5_09"], [205.14, 207.29, "It's almost flat at first, then steep.", "s5_10"], [207.34, 212.62, "From eighty to ninety percent, the spare capacity halves, and the response time doubles.", "s5_11"], [212.66, 216.08, "From ninety to ninety-five, it halves and doubles again.", "s5_12"], [218.03, 222.65, "So that's where the forty milliseconds went: not into work, but into waiting.", "s6_01"], [222.7, 231.89, "A little more traffic halved the spare capacity, from twenty percent to ten, and the response time doubled with it, from fifty milliseconds to a hundred.", "s6_02"], [232.14, 235.7, "Burstier traffic, or more variable work, makes this worse.", "s6_03"], [235.75, 243.7, "Bigger clumps of requests, or a few very long ones, build bigger queues, and the same spare capacity takes longer to clear them.", "s6_04"], [243.75, 247.29, "So they need more spare capacity for the same response time.", "s6_05"], [247.54, 250.0, "That's why capacity plans leave headroom.", "s6_06"], [250.06, 255.82, "Decide how slow requests may get, and read a first estimate of the load limit off the curve.", "s6_07"], [255.87, 263.69, "On this curve, if a request may take five times its work time on average, keep the server at or below eighty percent busy.", "s6_08"], [263.74, 271.08, "Real systems, with burstier traffic and more than one busy resource, usually need more headroom than this curve says.", "s6_09"], [271.33, 275.09, "These are averages, and some requests take several times longer.", "s6_10"], [275.14, 277.5, "The slowest requests are the next lesson.", "s6_11"], [277.75, 281.29, "And never plan to run a server at a hundred percent busy.", "s6_12"], [281.34, 285.64, "With no spare capacity, nothing clears the queue, and it keeps growing.", "s6_13"]];const CHAPTERS=["The question", "Waiting, not working", "Where queues come from", "Spare capacity", "The curve", "The answer"];const VERSION="v1";
+const v=document.getElementById('v');
+const chs=[...document.querySelectorAll('.ch')];
+const titles=CHAPTERS;
+chs.forEach(b=>b.addEventListener('click',()=>{v.currentTime=+b.dataset.t;v.play().catch(()=>{});}));
+function tick(){
+  const t=v.currentTime;
+  chs.forEach(c=>{const a=+c.dataset.t,b=+c.dataset.end;c.classList.toggle('on',t>=a&&t<b);
+    c.style.setProperty('--p',(t>=b?100:t<=a?0:(t-a)/(b-a)*100)+'%');});
+}
+v.addEventListener('timeupdate',tick);v.addEventListener('seeked',tick);tick();
+
+const track=v.addTextTrack('captions','English','en');
+CUES.forEach(c=>track.addCue(new VTTCue(c[0],c[1],c[2])));
+track.mode='hidden';
+const cc=document.getElementById('cc');
+cc.addEventListener('click',()=>{const on=track.mode!=='showing';track.mode=on?'showing':'hidden';
+  cc.setAttribute('aria-pressed',on);cc.textContent='Captions '+(on?'on':'off');});
+
+function mmss(t){t=Math.max(0,t);return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');}
+function cueAt(t){let k=-1;CUES.forEach((c,i)=>{if(c[0]<=t)k=i;});return k;}
+function chapterAt(t){let k=0;chs.forEach((c,i)=>{if(+c.dataset.t<=t)k=i;});return k;}
+
+const lost=document.getElementById('lost'), panel=document.getElementById('panel'), status=document.getElementById('status');
+const note=document.getElementById('note'), where=document.getElementById('where'), quote=document.getElementById('quote');
+const save=document.getElementById('save'), cancel=document.getElementById('cancel');
+const box=document.getElementById('mine'), list=document.getElementById('notes'), count=document.getElementById('count');
+let db=null, moment=null;
+
+function openPanel(){
+  v.pause();
+  const t=v.currentTime, k=cueAt(t), ch=chapterAt(t);
+  moment={t:Math.round(t*10)/10, chapter:'s'+(ch+1), chapter_title:titles[ch],
+          sentence:k>=0?CUES[k][3]:null, sentence_text:k>=0?CUES[k][2]:'',
+          previous:k>0?CUES[k-1][3]:null, previous_text:k>0?CUES[k-1][2]:''};
+  where.textContent=mmss(t)+' · '+titles[ch];
+  quote.replaceChildren();
+  if(moment.previous_text){const p=document.createElement('span');p.className='prev';p.textContent=moment.previous_text;quote.append(p);}
+  quote.append(document.createTextNode(moment.sentence_text||'(before the narration starts)'));
+  panel.hidden=false;note.focus();status.textContent='';
+}
+function closePanel(){panel.hidden=true;note.value='';moment=null;lost.focus();}
+lost.addEventListener('click',openPanel);
+cancel.addEventListener('click',closePanel);
+save.addEventListener('click',async()=>{
+  if(!db||!moment)return;
+  save.disabled=true;
+  const body=Object.assign({},moment,{note:note.value.trim().slice(0,2000),version:VERSION,at:new Date().toISOString()});
+  try{
+    await db.collection('feedback').add(body);
+    status.textContent='Saved at '+mmss(body.t)+'. The tutor reads these and revises that part.';
+    closePanel();
+  }catch(e){
+    status.textContent=e&&e.code==='quota_exceeded'?'The notes store is full; delete some notes below.'
+      :'Could not save this note. Try again in a moment.';
+  }finally{save.disabled=false;}
+});
+
+function render(snap){
+  const docs=snap.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.t-b.t);
+  box.hidden=docs.length===0;
+  count.textContent=docs.length+(docs.length===1?' note':' notes')+' saved';
+  list.replaceChildren(...docs.map(d=>{
+    const li=document.createElement('li');
+    const t=document.createElement('button');t.className='t';t.type='button';t.textContent=mmss(d.t);
+    t.addEventListener('click',()=>{v.currentTime=Math.max(0,d.t-3);v.play().catch(()=>{});});
+    const txt=document.createElement('span');txt.className='txt';
+    if(d.note){txt.textContent=d.note;}else{const i=document.createElement('i');i.textContent='(no note) '+(d.chapter_title||'');txt.append(i);}
+    const x=document.createElement('button');x.className='x';x.type='button';x.textContent='Delete';
+    x.setAttribute('aria-label','Delete the note at '+mmss(d.t));
+    x.addEventListener('click',()=>db.doc('feedback/'+d.id).delete().catch(()=>{status.textContent='Could not delete that note.';}));
+    li.append(t,txt,x);return li;}));
+}
+
+(async()=>{
+  try{db=await (window.claude&&window.claude.use?window.claude.use('db'):null);}catch(e){db=null;}
+  if(!db)return;
+  lost.hidden=false;
+  db.collection('feedback').onSnapshot(render,()=>{box.hidden=true;});
+})();
+</script>

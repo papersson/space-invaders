@@ -1,0 +1,4 @@
+{"tail": 8.0,
+ "holds": {"s1_07": 2.8, "s2_06": 0.8, "s2_11": 0.8, "s3_09": 0.6, "s5_07": 0.8, "s6_10": 0.8},
+ "spoken": [["UUID", "U U I D"], ["Idempotency-Key", "Idempotency Key"]],
+ "spoken_by_id": {}}
