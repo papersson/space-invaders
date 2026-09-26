@@ -1,0 +1,2 @@
+{"title": "A Hash in Every Path", "version": "v1", "poster": ["s4_07", -0.2],
+ "description": "Why Nix puts a hash in every package path, and how that one idea gives side-by-side versions, exact dependencies, and rollback for a program or a whole NixOS machine."}

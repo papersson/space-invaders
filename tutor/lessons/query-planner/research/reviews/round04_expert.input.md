@@ -1,73 +1,7 @@
-# Same Query, Different Plan
+You are a professor who has taught this material for years. Below is the script of a short narrated explainer video, with a note of what is on screen at each moment, followed by the list of numbers it uses and where each comes from. Review it for correctness and canonicity. You are the only domain expert who will see it before it is produced, so be exacting. Report every problem with: severity (BLOCKING = wrong, misleading, or non-canonical in a way a professor would object to; SHOULD FIX = imprecise, a missing caveat, non-standard terminology; NIT), the exact quote, what is wrong, and the corrected wording. Check every factual and numerical claim including arithmetic and units; that terminology and notation match the standard sources and simplifications teach nothing false; whether anything essential is missing or anything peripheral gets too much weight; and overstated claims about optimality, generality and real systems. End with "VERDICT: PASS" if there are no BLOCKING items, otherwise "VERDICT: REVISE".
 
-Status: in review round 4
 
-## Argument
-
-**Question.** The same SQL query, `SELECT count(*), sum(amount) FROM orders WHERE customer_id = ?`, takes fifteen microseconds for one customer and 135 milliseconds for another, on the same table, on the same machine. Nothing in the query says how to run it. So who decides, and why is the same query sometimes fast and sometimes slow?
-
-**Answer.** SQL is declarative: you say what rows you want, not how to find them. The database's query planner considers the ways it could run the query (read every page of the table, or use an index to read only the pages that hold matching rows; for a join, which table first and which join method), estimates the cost of each from statistics it keeps about the data (how many rows, how common each value is), and runs the cheapest estimate. For a rare customer, the index means reading ten pages instead of 12,739, and forcing a full scan is thousands of times slower. For a customer with 30% of the rows, those rows are on every page, so every plan reads the whole table: the index saves nothing, and no plan is fast. The same goes for joins: a few matching customers suit a nested loop of index lookups, and almost all of them suit a hash join. The plan is only as good as the estimate: when the statistics are out of date, the planner can pick a plan that is thousands of times slower, and `ANALYZE` fixes it. So the same query is fast or slow depending on the data it touches and on what the planner believes about that data.
-
-**Takeaway.** You say what; the planner decides how, by estimating how many rows each step will touch. Fast or slow depends on the data and on the planner's estimate of it. When a query is slow, compare the estimated rows with the actual rows in `EXPLAIN ANALYZE`.
-
-**Wrong model.** The database runs the query the way it's written, the same way every time; an index always makes it faster; and if it's slow, add an index.
-
-**Objectives.**
-1. Contrast a declarative query with a hand-written loop, and say what the database is free to choose.
-2. Describe the two basic ways to find rows (a full scan, an index) in terms of pages read, and when the index saves work.
-3. Explain how the planner chooses: estimated rows from statistics, estimated cost, cheapest estimate.
-4. Explain how a join's method depends on how many rows match (nested loop vs hash join).
-5. Explain how stale statistics lead to a bad plan, how to see it (estimated vs actual rows), and how `ANALYZE` fixes it.
-
-## Chain
-
-1. The question: one query, fifteen microseconds for one customer, 135 ms for another. Who decides how it runs?
-2. Because SQL is declarative: the query says what, not how. The database is free to choose, and must.
-3. Therefore two ways to find a customer's orders: read every page, or use the index to read only the pages with matching rows. The index saves work only if those rows are on few pages, which depends on the customer.
-4. Therefore the planner estimates: from statistics it knows how common each customer is, estimates rows and cost for each plan, and picks the cheapest. Real plans: ten pages for the rare customer (a full scan forced: nearly 5,000 times slower); every page for the common one (a full scan forced: no faster).
-5. Therefore joins, too: nested loop or hash join, depending on how many rows match (real: 5 ms for Tromsø; 721 ms for Oslo, and 2 s with a nested loop forced).
-6. But the estimate can be wrong: statistics are a snapshot. After the data changed, the planner expected 420,000 rows, found 294, and took 137 ms; after ANALYZE, 0.061 ms. No index was added.
-7. Therefore the answer.
-
-Deviation from the canonical progression: join order search (dynamic programming over subsets) and the cost model's formulas are left out; the research lists them as the textbook core, but the practitioner question is answered by scan choice, join method and estimates. Random versus sequential access is left out too: every run here has the data in memory, and the page count carries the argument. The declarative-vs-imperative contrast is kept short.
-
-## Format
-
-| Chapter | Format | Why |
-|---|---|---|
-| 1-2 | Narrated animation | A query card, two timings; the same query written as a loop. |
-| 3-4 | Narrated animation with real output | A table as a grid of pages, a scan sweeping all of them, an index lighting only the pages it needs; plan trees, page counts and timings from real `EXPLAIN ANALYZE` runs. |
-| 5 | Narrated animation with real output | Two join plans side by side. |
-| 6 | Narrated animation with real output | Estimated vs actual rows, before and after `ANALYZE`. |
-| 7 | Narrated animation | Payoff. |
-| (not built) | Hands-on exercise | Run `EXPLAIN ANALYZE` on your own tables; sweep a filter value and watch the plan flip; run a query before and after `ANALYZE`. The research names doing as the way plan flips are understood; offered, not added. |
-| (not built) | Reading | Join-order search, the cost model's parameters, extended statistics for correlated columns, plan caching. |
-
-## Ledgers
-
-**Setups and payoffs.**
-- 15 µs vs 135 ms (ch. 1) is explained in ch. 3-4: ten pages vs every page.
-- "Nothing in the query says how" (ch. 1) is declarativeness (ch. 2).
-- Pages (ch. 3) return in every plan: 10, 12,739, 1,346, 7.
-- The estimate of 33 against 10 actual (ch. 4, "close enough") sets up the estimate that is far off (ch. 6).
-- The index (ch. 3) returns in ch. 6: it was there all along.
-
-**Vocabulary.**
-| Term | First use | Meaning |
-|---|---|---|
-| declarative | ch. 2 | saying what result you want, not how to compute it |
-| page | ch. 3 | the block a table is stored in, about 150 rows here; the unit a scan reads |
-| full scan | ch. 3 | reading every page of the table (PostgreSQL's plan node: Seq Scan) |
-| index | ch. 3 | a sorted list of one column's values, each pointing to its rows |
-| query planner | ch. 4 | the part of the database that chooses how to run a query |
-| statistics | ch. 4 | the planner's summary of the data: row counts, common values and how common they are |
-| cost | ch. 4 | the planner's estimate of a plan's work, in its own units, from the pages and rows it expects to touch |
-| bitmap scan | ch. 4 | PostgreSQL's way of using an index for more than a few rows: collect the row locations, sort them by page, read each page once |
-| plan | ch. 4 | the chosen way to run a query: which scans, which join methods, in what order |
-| nested loop / hash join | ch. 5 | for each row of one table, look up matches in the other / build a lookup table from one side, then stream the other through it |
-| ANALYZE | ch. 6 | the command that refreshes the statistics |
-
-**Numbers to remember.** 15 µs vs 135 ms for the same query: 10 pages vs all 12,739. With stale statistics, 137 ms; after ANALYZE, 0.061 ms.
+---
 
 ## Script
 
@@ -147,6 +81,7 @@ No length target: the length follows the argument (about 150 words per minute).
 
 *Screen:* the two cards from chapter 1 again (0.015 ms, 135.4 ms) with their page counts underneath (10 pages, 12,739 pages). Three lines: "rare → index → 10 pages", "common → every page, whatever the plan", "stale statistics → wrong plan → ANALYZE". An EXPLAIN ANALYZE line with its estimated and actual rows highlighted. End card with the takeaway and references: Selinger et al., "Access Path Selection in a Relational Database Management System", SIGMOD (1979); PostgreSQL documentation, §14.1 "Using EXPLAIN" and §14.2 "Statistics Used by the Planner"; Kleppmann, Designing Data-Intensive Applications (2017), ch. 2; Winand, Use The Index, Luke; Leis et al., "How Good Are Query Optimizers, Really?", PVLDB (2015).
 
+
 ## Evidence
 
 | Claim | Source |
@@ -165,22 +100,3 @@ No length target: the length follows the argument (about 150 words per minute).
 | Cardinality misestimates are the main cause of bad plans | Leis et al., PVLDB 2015; Lohman, SIGMOD blog (2014) |
 | EXPLAIN ANALYZE shows estimated and actual rows per plan node | PostgreSQL docs §14.1 |
 
-## Review log
-
-**Round 1:** expert REVISE, editor REVISE, student retold the question and answer correctly (lost "a few times").
-- Expert and editor, blocking: "nothing can make it much faster" was contradicted by the forced index scan two sentences later, and the "one jump per row" picture didn't match the bitmap scan PostgreSQL actually ran. New measurements settled it. Customer 1's rows are on all 12,739 pages of the table (Heap Blocks: exact=12739), so every plan reads every page, and a forced full scan is no faster (135.6 vs 135.4 ms). Customer 4242's are on 10. Chapters 3 and 4 are rebuilt on pages: the index reads only the pages it needs, which PostgreSQL does as a bitmap scan (named in chapter 4, after the mechanism is shown). The disk-versus-memory aside is cut; random versus sequential access is listed as a deviation.
-- Measurement: every timing is now the median of seven runs with the data in memory (the queries warm the cache first), so the numbers changed. 15 µs vs 135 ms in the hook; the forced full scan for 4242 is nearly 5,000 times slower; stale statistics 137 ms, after ANALYZE 0.061 ms.
-- Expert: the hash table is built from the Oslo customers; the stale-statistics table is named on screen as a copy of orders; "about one point four million rows"; the loop's literal is 4242.
-- Editor: the join chapter opens by posing the problem; "cost" is defined aloud (the planner's own units, from the rows and pages it expects to touch); "full scan" is the one narration term (Seq Scan only on screen); chapter 6 says aloud that nobody added an index; the forced nested loop for Oslo (2 s vs 721 ms) now backs "lookups would be slow" with a measurement.
-- Student: lost at "jumps" without a mechanism (now pages), the 33-vs-10 estimate (now "close enough to choose well", which sets up chapter 6), the forced-index contradiction (gone) and the unexplained bitmap labels (now explained).
-
-**Round 2:** expert REVISE, editor PASS, student retold the question and answer correctly (lost "a few times"). The expert's list has no BLOCKING item, so by the reviewers' own rule it is a pass: the gate is passed, the should-fix items are applied once, and round 3 decides the lock.
-- Expert: "about six hundred thousand"; the query card shows literal values, not `?` (which suggests a prepared statement and PostgreSQL's cached generic plans); the caption says execution time, planning excluded; the recap says a nested loop needs an index to look the matches up; "about a hundred and sixty rows" and "about three hundred and thirty" match the numbers on screen.
-- Editor: the "just add an index" instinct is said aloud before chapter 6 knocks it down; the autovacuum caption says why it matters; the unused 1,346-row figure is off the Tromsø card; 4242 is written as digits (spoken "forty-two forty-two") after the numbers are introduced.
-- Student: lost at "cost in its own units" (now "a number for comparing plans rather than a time"), at why customer one's rows are on every page (orders are stored as they arrived, not by customer), and at two page numbers back to back (now one follows from the other).
-
-**Round 3 (meant as the final round):** expert REVISE, editor PASS, student retold the question and answer correctly (lost "a few times"). The gate failed on one blocking item, so it is fixed and round 4 runs.
-- Expert, blocking: "the same work whoever the customer is" was contradicted by the video's own forced full scans (72.0 ms for 4242, 135.6 ms for customer 1): the pages are the same, but adding up 600,698 rows costs more than adding up 10. Chapter 3 now says the full scan "reads the same pages whoever the customer is", and chapter 4 says the forced full scan for customer 1 "reads the same pages, and still has six hundred thousand rows to add up".
-- Expert: "each once" belongs to the bitmap scan, not to every index, so chapter 3 says only "the pages that hold them" and chapter 4 adds "sort them by page"; the caption says parallel query was off; the hook says "to execute", so the ratio isn't taken for end-to-end latency; "about five" and "about seven hundred" milliseconds; the bitmap scan's two plan nodes are explained ("one reads the index, the other reads the pages").
-- Editor: "cost" is paid off with the real costs for customer 4242 (about 130 for the index, about 38,000 for a full scan, in the planner's units); "Heap Blocks (pages)" and "Seq Scan (full scan)" are glossed on screen; "almost all of the hundred thousand" replaces 99,900; chapter 6 says the remaining orders are all at the very end before the 1.4 million.
-- Student: lost at "cost" (now shown with numbers) and at the order-number scan in chapter 6 (now explained).

@@ -1,0 +1,1101 @@
+{
+ "voice": "af_heart",
+ "speed": 0.92,
+ "total": 456.017,
+ "segments": [
+  {
+   "id": "s1",
+   "title": "The question",
+   "start": 0.0,
+   "lines": [
+    {
+     "id": "s1_01",
+     "text": "You tell Kubernetes to keep three copies of a web app running.",
+     "caption": "You tell Kubernetes to keep three copies of a web app running.",
+     "paragraph": 0,
+     "start": 0.8,
+     "end": 4.105
+    },
+    {
+     "id": "s1_02",
+     "text": "At three in the morning, a machine dies, and takes one copy with it.",
+     "caption": "At three in the morning, a machine dies, and takes one copy with it.",
+     "paragraph": 1,
+     "start": 4.605,
+     "end": 8.346
+    },
+    {
+     "id": "s1_03",
+     "text": "Nobody is awake, and nobody runs a command.",
+     "caption": "Nobody is awake, and nobody runs a command.",
+     "paragraph": 1,
+     "start": 8.646,
+     "end": 11.272
+    },
+    {
+     "id": "s1_04",
+     "text": "A few minutes later, there are three copies again.",
+     "caption": "A few minutes later, there are three copies again.",
+     "paragraph": 1,
+     "start": 11.572,
+     "end": 14.261
+    },
+    {
+     "id": "s1_05",
+     "text": "Now take Terraform.",
+     "caption": "Now take Terraform.",
+     "paragraph": 2,
+     "start": 15.961,
+     "end": 17.101
+    },
+    {
+     "id": "s1_06",
+     "text": "You tell it you want five servers, and it creates them.",
+     "caption": "You tell it you want five servers, and it creates them.",
+     "paragraph": 2,
+     "start": 17.401,
+     "end": 20.219
+    },
+    {
+     "id": "s1_07",
+     "text": "Then someone deletes one by hand.",
+     "caption": "Then someone deletes one by hand.",
+     "paragraph": 2,
+     "start": 20.519,
+     "end": 22.376
+    },
+    {
+     "id": "s1_08",
+     "text": "This time nothing happens.",
+     "caption": "This time nothing happens.",
+     "paragraph": 3,
+     "start": 22.876,
+     "end": 24.346
+    },
+    {
+     "id": "s1_09",
+     "text": "Terraform only notices the next time someone runs it.",
+     "caption": "Terraform only notices the next time someone runs it.",
+     "paragraph": 3,
+     "start": 24.646,
+     "end": 27.598
+    },
+    {
+     "id": "s1_10",
+     "text": "Both tools take a description of what you want, and make it real.",
+     "caption": "Both tools take a description of what you want, and make it real.",
+     "paragraph": 4,
+     "start": 28.898,
+     "end": 32.223
+    },
+    {
+     "id": "s1_11",
+     "text": "How do they do that, and keep it that way?",
+     "caption": "How do they do that, and keep it that way?",
+     "paragraph": 4,
+     "start": 32.523,
+     "end": 34.658
+    },
+    {
+     "id": "s1_12",
+     "text": "And why does one repair things by itself, while the other waits for you?",
+     "caption": "And why does one repair things by itself, while the other waits for you?",
+     "paragraph": 4,
+     "start": 34.958,
+     "end": 38.722
+    }
+   ],
+   "end": 42.372
+  },
+  {
+   "id": "s2",
+   "title": "Say what, not how",
+   "start": 42.372,
+   "lines": [
+    {
+     "id": "s2_01",
+     "text": "There are two ways to tell a machine what to do.",
+     "caption": "There are two ways to tell a machine what to do.",
+     "paragraph": 0,
+     "start": 42.722,
+     "end": 44.934
+    },
+    {
+     "id": "s2_02",
+     "text": "You can list the steps: start two more servers.",
+     "caption": "You can list the steps: start two more servers.",
+     "paragraph": 0,
+     "start": 45.234,
+     "end": 47.908
+    },
+    {
+     "id": "s2_03",
+     "text": "Or you can describe the end state: there should be three servers.",
+     "caption": "Or you can describe the end state: there should be three servers.",
+     "paragraph": 0,
+     "start": 48.208,
+     "end": 51.721
+    },
+    {
+     "id": "s2_04",
+     "text": "The difference shows up when you run it twice.",
+     "caption": "The difference shows up when you run it twice.",
+     "paragraph": 1,
+     "start": 52.221,
+     "end": 54.252
+    },
+    {
+     "id": "s2_05",
+     "text": "Here's a script that says \"start two more servers\".",
+     "caption": "Here's a script that says \"start two more servers\".",
+     "paragraph": 2,
+     "start": 54.752,
+     "end": 57.46
+    },
+    {
+     "id": "s2_06",
+     "text": "Run it once: two servers.",
+     "caption": "Run it once: two servers.",
+     "paragraph": 2,
+     "start": 57.76,
+     "end": 59.401
+    },
+    {
+     "id": "s2_07",
+     "text": "Run it again: four.",
+     "caption": "Run it again: four.",
+     "paragraph": 2,
+     "start": 59.701,
+     "end": 61.014
+    },
+    {
+     "id": "s2_08",
+     "text": "Every run repeats its work.",
+     "caption": "Every run repeats its work.",
+     "paragraph": 2,
+     "start": 61.314,
+     "end": 62.96
+    },
+    {
+     "id": "s2_09",
+     "text": "Here's Terraform, told there should be three servers.",
+     "caption": "Here's Terraform, told there should be three servers.",
+     "paragraph": 3,
+     "start": 64.06,
+     "end": 66.861
+    },
+    {
+     "id": "s2_10",
+     "text": "The first run creates three.",
+     "caption": "The first run creates three.",
+     "paragraph": 3,
+     "start": 67.161,
+     "end": 68.64
+    },
+    {
+     "id": "s2_11",
+     "text": "Run it again, with nothing changed, and it says: no changes; your infrastructure matches the configuration.",
+     "caption": "Run it again, with nothing changed, and it says: no changes; your infrastructure matches the configuration.",
+     "paragraph": 3,
+     "start": 68.94,
+     "end": 75.586
+    },
+    {
+     "id": "s2_12",
+     "text": "Change the three to five, and it doesn't start five more.",
+     "caption": "Change the three to five, and it doesn't start five more.",
+     "paragraph": 4,
+     "start": 76.086,
+     "end": 79.162
+    },
+    {
+     "id": "s2_13",
+     "text": "It compares what you want with what exists, and plans exactly two.",
+     "caption": "It compares what you want with what exists, and plans exactly two.",
+     "paragraph": 4,
+     "start": 79.462,
+     "end": 83.347
+    },
+    {
+     "id": "s2_14",
+     "text": "Listing the steps is called imperative.",
+     "caption": "Listing the steps is called imperative.",
+     "paragraph": 5,
+     "start": 84.647,
+     "end": 86.657
+    },
+    {
+     "id": "s2_15",
+     "text": "Describing the end state is called declarative.",
+     "caption": "Describing the end state is called declarative.",
+     "paragraph": 5,
+     "start": 86.957,
+     "end": 89.596
+    },
+    {
+     "id": "s2_16",
+     "text": "The end state you describe is the desired state; what exists right now is the current state.",
+     "caption": "The end state you describe is the desired state; what exists right now is the current state.",
+     "paragraph": 5,
+     "start": 89.896,
+     "end": 95.537
+    },
+    {
+     "id": "s2_17",
+     "text": "The tool's job is to make the current state match the desired one.",
+     "caption": "The tool's job is to make the current state match the desired one.",
+     "paragraph": 5,
+     "start": 95.837,
+     "end": 99.483
+    },
+    {
+     "id": "s2_18",
+     "text": "So it's tempting to picture apply like running a script: once it has run, the job is done.",
+     "caption": "So it's tempting to picture apply like running a script: once it has run, the job is done.",
+     "paragraph": 6,
+     "start": 99.983,
+     "end": 105.302
+    },
+    {
+     "id": "s2_19",
+     "text": "But running it again did nothing at all.",
+     "caption": "But running it again did nothing at all.",
+     "paragraph": 6,
+     "start": 105.602,
+     "end": 107.655
+    },
+    {
+     "id": "s2_20",
+     "text": "That wasn't \"already ran\".",
+     "caption": "That wasn't \"already ran\".",
+     "paragraph": 6,
+     "start": 107.955,
+     "end": 109.442
+    },
+    {
+     "id": "s2_21",
+     "text": "It was \"already matches\".",
+     "caption": "It was \"already matches\".",
+     "paragraph": 6,
+     "start": 109.742,
+     "end": 111.088
+    }
+   ],
+   "end": 112.738
+  },
+  {
+   "id": "s3",
+   "title": "The loop",
+   "start": 112.738,
+   "lines": [
+    {
+     "id": "s3_01",
+     "text": "A thermostat is the classic picture of how that job gets done.",
+     "caption": "A thermostat is the classic picture of how that job gets done.",
+     "paragraph": 0,
+     "start": 113.088,
+     "end": 116.732
+    },
+    {
+     "id": "s3_02",
+     "text": "You set the temperature you want.",
+     "caption": "You set the temperature you want.",
+     "paragraph": 0,
+     "start": 117.032,
+     "end": 118.58
+    },
+    {
+     "id": "s3_03",
+     "text": "The thermostat measures the room, compares, and turns the heating on or off.",
+     "caption": "The thermostat measures the room, compares, and turns the heating on or off.",
+     "paragraph": 0,
+     "start": 118.88,
+     "end": 123.197
+    },
+    {
+     "id": "s3_04",
+     "text": "Then it measures again, and keeps going.",
+     "caption": "Then it measures again, and keeps going.",
+     "paragraph": 0,
+     "start": 123.497,
+     "end": 125.491
+    },
+    {
+     "id": "s3_05",
+     "text": "Kubernetes works the same way.",
+     "caption": "Kubernetes works the same way.",
+     "paragraph": 1,
+     "start": 126.591,
+     "end": 128.219
+    },
+    {
+     "id": "s3_06",
+     "text": "For each kind of thing it manages, a program called a controller runs a loop: look at the desired state, look at the current state, and act on the difference.",
+     "caption": "For each kind of thing it manages, a program called a controller runs a loop: look at the desired state, look at the current state, and act on the difference.",
+     "paragraph": 1,
+     "start": 128.519,
+     "end": 137.681
+    },
+    {
+     "id": "s3_07",
+     "text": "Then do it again.",
+     "caption": "Then do it again.",
+     "paragraph": 1,
+     "start": 137.981,
+     "end": 138.953
+    },
+    {
+     "id": "s3_08",
+     "text": "For the web app, the desired state is three copies.",
+     "caption": "For the web app, the desired state is three copies.",
+     "paragraph": 2,
+     "start": 139.453,
+     "end": 142.319
+    },
+    {
+     "id": "s3_09",
+     "text": "Kubernetes calls that number the replica count, and each running copy a pod.",
+     "caption": "Kubernetes calls that number the replica count, and each running copy a pod.",
+     "paragraph": 2,
+     "start": 142.619,
+     "end": 147.034
+    },
+    {
+     "id": "s3_10",
+     "text": "The controller counts the pods.",
+     "caption": "The controller counts the pods.",
+     "paragraph": 2,
+     "start": 147.334,
+     "end": 148.968
+    },
+    {
+     "id": "s3_11",
+     "text": "If it finds two, it starts one.",
+     "caption": "If it finds two, it starts one.",
+     "paragraph": 2,
+     "start": 149.268,
+     "end": 151.147
+    },
+    {
+     "id": "s3_12",
+     "text": "If it finds four, it deletes one.",
+     "caption": "If it finds four, it deletes one.",
+     "paragraph": 2,
+     "start": 151.447,
+     "end": 153.426
+    },
+    {
+     "id": "s3_13",
+     "text": "If it finds three, it does nothing.",
+     "caption": "If it finds three, it does nothing.",
+     "paragraph": 2,
+     "start": 153.726,
+     "end": 155.58
+    },
+    {
+     "id": "s3_14",
+     "text": "That's what happened at three in the morning.",
+     "caption": "That's what happened at three in the morning.",
+     "paragraph": 3,
+     "start": 156.68,
+     "end": 158.544
+    },
+    {
+     "id": "s3_15",
+     "text": "The dead machine stopped reporting, and within a minute a separate loop, the one that watches machines, marked it as unreachable.",
+     "caption": "The dead machine stopped reporting, and within a minute a separate loop, the one that watches machines, marked it as unreachable.",
+     "paragraph": 3,
+     "start": 158.844,
+     "end": 166.396
+    },
+    {
+     "id": "s3_16",
+     "text": "Its copy then got a grace period, five minutes by default, in case the machine came back.",
+     "caption": "Its copy then got a grace period, five minutes by default, in case the machine came back.",
+     "paragraph": 3,
+     "start": 166.696,
+     "end": 172.107
+    },
+    {
+     "id": "s3_17",
+     "text": "When that ran out, about six minutes after the crash, the copy no longer counted.",
+     "caption": "When that ran out, about six minutes after the crash, the copy no longer counted.",
+     "paragraph": 3,
+     "start": 172.407,
+     "end": 177.033
+    },
+    {
+     "id": "s3_18",
+     "text": "The controller counting pods came up one short, and started a replacement.",
+     "caption": "The controller counting pods came up one short, and started a replacement.",
+     "paragraph": 3,
+     "start": 177.333,
+     "end": 181.351
+    },
+    {
+     "id": "s3_19",
+     "text": "Nobody had to do anything.",
+     "caption": "Nobody had to do anything.",
+     "paragraph": 3,
+     "start": 181.651,
+     "end": 183.123
+    },
+    {
+     "id": "s3_20",
+     "text": "A loop like this is called a reconciliation loop.",
+     "caption": "A loop like this is called a reconciliation loop.",
+     "paragraph": 4,
+     "start": 184.423,
+     "end": 187.197
+    }
+   ],
+   "end": 188.047
+  },
+  {
+   "id": "s4",
+   "title": "Compare states, not events",
+   "start": 188.047,
+   "lines": [
+    {
+     "id": "s4_01",
+     "text": "Why count the pods every time?",
+     "caption": "Why count the pods every time?",
+     "paragraph": 0,
+     "start": 188.397,
+     "end": 190.066
+    },
+    {
+     "id": "s4_02",
+     "text": "It would seem cheaper to react to events: when a pod dies, the system sends a \"pod died\" event, so start one pod.",
+     "caption": "It would seem cheaper to react to events: when a pod dies, the system sends a \"pod died\" event, so start one pod.",
+     "paragraph": 0,
+     "start": 190.366,
+     "end": 197.577
+    },
+    {
+     "id": "s4_03",
+     "text": "But events get lost.",
+     "caption": "But events get lost.",
+     "paragraph": 1,
+     "start": 198.077,
+     "end": 199.316
+    },
+    {
+     "id": "s4_04",
+     "text": "Here are two controllers keeping three pods running, on the same timeline.",
+     "caption": "Here are two controllers keeping three pods running, on the same timeline.",
+     "paragraph": 1,
+     "start": 199.616,
+     "end": 203.438
+    },
+    {
+     "id": "s4_05",
+     "text": "At second ten, a pod crashes.",
+     "caption": "At second ten, a pod crashes.",
+     "paragraph": 2,
+     "start": 203.938,
+     "end": 206.014
+    },
+    {
+     "id": "s4_06",
+     "text": "Both controllers see it, and both start a replacement.",
+     "caption": "Both controllers see it, and both start a replacement.",
+     "paragraph": 2,
+     "start": 206.314,
+     "end": 209.265
+    },
+    {
+     "id": "s4_07",
+     "text": "At second twenty, each controller is restarted, say for an upgrade, and is down for a few seconds.",
+     "caption": "At second twenty, each controller is restarted, say for an upgrade, and is down for a few seconds.",
+     "paragraph": 3,
+     "start": 210.365,
+     "end": 216.393
+    },
+    {
+     "id": "s4_08",
+     "text": "While it's down, another pod crashes.",
+     "caption": "While it's down, another pod crashes.",
+     "paragraph": 3,
+     "start": 216.693,
+     "end": 218.867
+    },
+    {
+     "id": "s4_09",
+     "text": "The first controller only reacts to events.",
+     "caption": "The first controller only reacts to events.",
+     "paragraph": 4,
+     "start": 220.167,
+     "end": 222.585
+    },
+    {
+     "id": "s4_10",
+     "text": "The \"pod died\" event arrived while it was down, so it never saw it.",
+     "caption": "The \"pod died\" event arrived while it was down, so it never saw it.",
+     "paragraph": 4,
+     "start": 222.885,
+     "end": 226.687
+    },
+    {
+     "id": "s4_11",
+     "text": "It never starts a replacement, and stays at two pods for good.",
+     "caption": "It never starts a replacement, and stays at two pods for good.",
+     "paragraph": 4,
+     "start": 226.987,
+     "end": 230.453
+    },
+    {
+     "id": "s4_12",
+     "text": "The second controller doesn't care about events.",
+     "caption": "The second controller doesn't care about events.",
+     "paragraph": 5,
+     "start": 231.953,
+     "end": 234.339
+    },
+    {
+     "id": "s4_13",
+     "text": "When it comes back, it counts two pods, wants three, and starts one.",
+     "caption": "When it comes back, it counts two pods, wants three, and starts one.",
+     "paragraph": 5,
+     "start": 234.639,
+     "end": 238.35
+    },
+    {
+     "id": "s4_14",
+     "text": "The first controller acts on each change; that's called edge-triggered.",
+     "caption": "The first controller acts on each change; that's called edge-triggered.",
+     "paragraph": 6,
+     "start": 239.85,
+     "end": 243.57
+    },
+    {
+     "id": "s4_15",
+     "text": "The second acts on the current state; that's called level-triggered.",
+     "caption": "The second acts on the current state; that's called level-triggered.",
+     "paragraph": 6,
+     "start": 243.87,
+     "end": 247.418
+    },
+    {
+     "id": "s4_16",
+     "text": "Kubernetes' design principles require the second: a controller has to get it right from the desired and current state alone, no matter how many updates it missed.",
+     "caption": "Kubernetes' design principles require the second: a controller has to get it right from the desired and current state alone, no matter how many updates it missed.",
+     "paragraph": 6,
+     "start": 247.718,
+     "end": 257.783
+    },
+    {
+     "id": "s4_17",
+     "text": "Events are only a hint to look again soon.",
+     "caption": "Events are only a hint to look again soon.",
+     "paragraph": 6,
+     "start": 258.083,
+     "end": 260.183
+    }
+   ],
+   "end": 261.033
+  },
+  {
+   "id": "s5",
+   "title": "Once, or forever",
+   "start": 261.033,
+   "lines": [
+    {
+     "id": "s5_01",
+     "text": "That explains how a loop stays right when it misses something.",
+     "caption": "That explains how a loop stays right when it misses something.",
+     "paragraph": 0,
+     "start": 261.383,
+     "end": 264.435
+    },
+    {
+     "id": "s5_02",
+     "text": "It doesn't say how often the loop runs, and that's where the two tools part ways.",
+     "caption": "It doesn't say how often the loop runs, and that's where the two tools part ways.",
+     "paragraph": 0,
+     "start": 264.735,
+     "end": 269.056
+    },
+    {
+     "id": "s5_03",
+     "text": "Both tools reconcile.",
+     "caption": "Both tools reconcile.",
+     "paragraph": 1,
+     "start": 269.556,
+     "end": 270.879
+    },
+    {
+     "id": "s5_04",
+     "text": "The difference is when.",
+     "caption": "The difference is when.",
+     "paragraph": 1,
+     "start": 271.179,
+     "end": 272.271
+    },
+    {
+     "id": "s5_05",
+     "text": "Terraform's command-line tool compares the desired and current state when you run it, and then stops.",
+     "caption": "Terraform's command-line tool compares the desired and current state when you run it, and then stops.",
+     "paragraph": 2,
+     "start": 272.771,
+     "end": 278.521
+    },
+    {
+     "id": "s5_06",
+     "text": "Here it is managing the five servers from before.",
+     "caption": "Here it is managing the five servers from before.",
+     "paragraph": 3,
+     "start": 279.021,
+     "end": 281.575
+    },
+    {
+     "id": "s5_07",
+     "text": "Someone deletes one of them by hand.",
+     "caption": "Someone deletes one of them by hand.",
+     "paragraph": 3,
+     "start": 281.875,
+     "end": 283.709
+    },
+    {
+     "id": "s5_08",
+     "text": "Terraform isn't running, so nothing happens, and it stays deleted.",
+     "caption": "Terraform isn't running, so nothing happens, and it stays deleted.",
+     "paragraph": 3,
+     "start": 284.009,
+     "end": 287.704
+    },
+    {
+     "id": "s5_09",
+     "text": "Terraform keeps its own record of what it created.",
+     "caption": "Terraform keeps its own record of what it created.",
+     "paragraph": 4,
+     "start": 289.204,
+     "end": 292.017
+    },
+    {
+     "id": "s5_10",
+     "text": "The next time someone runs terraform plan, it refreshes that record against what actually exists, finds four, and plans one to add.",
+     "caption": "The next time someone runs terraform plan, it refreshes that record against what actually exists, finds four, and plans one to add.",
+     "paragraph": 4,
+     "start": 292.317,
+     "end": 300.762
+    },
+    {
+     "id": "s5_11",
+     "text": "That's what the script picture gets wrong.",
+     "caption": "That's what the script picture gets wrong.",
+     "paragraph": 5,
+     "start": 302.062,
+     "end": 303.927
+    },
+    {
+     "id": "s5_12",
+     "text": "Applying didn't hold the system there.",
+     "caption": "Applying didn't hold the system there.",
+     "paragraph": 5,
+     "start": 304.227,
+     "end": 306.004
+    },
+    {
+     "id": "s5_13",
+     "text": "Terraform only checks it when you ask.",
+     "caption": "Terraform only checks it when you ask.",
+     "paragraph": 5,
+     "start": 306.304,
+     "end": 308.319
+    },
+    {
+     "id": "s5_14",
+     "text": "A Kubernetes controller's loop has no end.",
+     "caption": "A Kubernetes controller's loop has no end.",
+     "paragraph": 6,
+     "start": 308.819,
+     "end": 311.327
+    },
+    {
+     "id": "s5_15",
+     "text": "It runs all the time, comparing again and again, so a change nobody asked for is repaired on its own: within seconds for a deleted copy, and a few minutes for a dead machine, because of that grace period.",
+     "caption": "It runs all the time, comparing again and again, so a change nobody asked for is repaired on its own: within seconds for a deleted copy, and a few minutes for a dead machine, because of that grace period.",
+     "paragraph": 6,
+     "start": 311.627,
+     "end": 324.972
+    },
+    {
+     "id": "s5_16",
+     "text": "The current state moving away from the desired state is called drift.",
+     "caption": "The current state moving away from the desired state is called drift.",
+     "paragraph": 7,
+     "start": 325.472,
+     "end": 329.497
+    },
+    {
+     "id": "s5_17",
+     "text": "With Terraform, drift waits for the next run.",
+     "caption": "With Terraform, drift waits for the next run.",
+     "paragraph": 7,
+     "start": 329.797,
+     "end": 332.32
+    },
+    {
+     "id": "s5_18",
+     "text": "With a continuous loop, drift is repaired as soon as the loop notices.",
+     "caption": "With a continuous loop, drift is repaired as soon as the loop notices.",
+     "paragraph": 7,
+     "start": 332.62,
+     "end": 336.644
+    }
+   ],
+   "end": 338.294
+  },
+  {
+   "id": "s6",
+   "title": "What it doesn't promise",
+   "start": 338.294,
+   "lines": [
+    {
+     "id": "s6_01",
+     "text": "Change the web app from three copies to five, and apply it with cube control, Kubernetes' command-line tool.",
+     "caption": "Change the web app from three copies to five, and apply it with kubectl, Kubernetes' command-line tool.",
+     "paragraph": 0,
+     "start": 338.644,
+     "end": 345.06
+    },
+    {
+     "id": "s6_02",
+     "text": "It answers at once: configured.",
+     "caption": "It answers at once: configured.",
+     "paragraph": 0,
+     "start": 345.36,
+     "end": 347.325
+    },
+    {
+     "id": "s6_03",
+     "text": "But only three of the five copies are ready.",
+     "caption": "But only three of the five copies are ready.",
+     "paragraph": 0,
+     "start": 347.625,
+     "end": 349.832
+    },
+    {
+     "id": "s6_04",
+     "text": "A moment later, four.",
+     "caption": "A moment later, four.",
+     "paragraph": 0,
+     "start": 350.132,
+     "end": 351.333
+    },
+    {
+     "id": "s6_05",
+     "text": "Then five.",
+     "caption": "Then five.",
+     "paragraph": 0,
+     "start": 351.633,
+     "end": 352.426
+    },
+    {
+     "id": "s6_06",
+     "text": "That count comes from a field called status, where Kubernetes reports the current state it has observed.",
+     "caption": "That count comes from a field called status, where Kubernetes reports the current state it has observed.",
+     "paragraph": 1,
+     "start": 353.726,
+     "end": 359.642
+    },
+    {
+     "id": "s6_07",
+     "text": "Applying records what you want.",
+     "caption": "Applying records what you want.",
+     "paragraph": 2,
+     "start": 360.142,
+     "end": 361.812
+    },
+    {
+     "id": "s6_08",
+     "text": "Getting there is separate, and slower.",
+     "caption": "Getting there is separate, and slower.",
+     "paragraph": 2,
+     "start": 362.112,
+     "end": 364.001
+    },
+    {
+     "id": "s6_09",
+     "text": "Sometimes it never happens, if a copy can't start at all.",
+     "caption": "Sometimes it never happens, if a copy can't start at all.",
+     "paragraph": 2,
+     "start": 364.301,
+     "end": 367.509
+    },
+    {
+     "id": "s6_10",
+     "text": "To know a change took effect, you look at the status, not at the apply.",
+     "caption": "To know a change took effect, you look at the status, not at the apply.",
+     "paragraph": 2,
+     "start": 367.809,
+     "end": 371.811
+    },
+    {
+     "id": "s6_11",
+     "text": "The loop doesn't promise to settle, either.",
+     "caption": "The loop doesn't promise to settle, either.",
+     "paragraph": 3,
+     "start": 372.311,
+     "end": 374.271
+    },
+    {
+     "id": "s6_12",
+     "text": "If the desired state keeps changing, it chases a moving target.",
+     "caption": "If the desired state keeps changing, it chases a moving target.",
+     "paragraph": 3,
+     "start": 374.571,
+     "end": 378.344
+    },
+    {
+     "id": "s6_13",
+     "text": "And two tools can want different values for the same field.",
+     "caption": "And two tools can want different values for the same field.",
+     "paragraph": 4,
+     "start": 378.844,
+     "end": 381.987
+    },
+    {
+     "id": "s6_14",
+     "text": "An autoscaler changes the number of copies to match the load.",
+     "caption": "An autoscaler changes the number of copies to match the load.",
+     "paragraph": 4,
+     "start": 382.287,
+     "end": 385.895
+    },
+    {
+     "id": "s6_15",
+     "text": "Meanwhile, a job that re-applies your file every few minutes sets it back to the number written there.",
+     "caption": "Meanwhile, a job that re-applies your file every few minutes sets it back to the number written there.",
+     "paragraph": 4,
+     "start": 386.195,
+     "end": 392.018
+    },
+    {
+     "id": "s6_16",
+     "text": "They can undo each other's work over and over.",
+     "caption": "They can undo each other's work over and over.",
+     "paragraph": 4,
+     "start": 392.318,
+     "end": 394.542
+    },
+    {
+     "id": "s6_17",
+     "text": "And nothing repairs what no tool manages.",
+     "caption": "And nothing repairs what no tool manages.",
+     "paragraph": 5,
+     "start": 395.842,
+     "end": 398.26
+    },
+    {
+     "id": "s6_18",
+     "text": "A setting changed by hand on something outside the configuration is simply invisible to it.",
+     "caption": "A setting changed by hand on something outside the configuration is simply invisible to it.",
+     "paragraph": 5,
+     "start": 398.56,
+     "end": 404.412
+    }
+   ],
+   "end": 405.262
+  },
+  {
+   "id": "s7",
+   "title": "The answer",
+   "start": 405.262,
+   "lines": [
+    {
+     "id": "s7_01",
+     "text": "So how do these tools turn a description into reality and keep it there?",
+     "caption": "So how do these tools turn a description into reality and keep it there?",
+     "paragraph": 0,
+     "start": 405.612,
+     "end": 409.656
+    },
+    {
+     "id": "s7_02",
+     "text": "You declare the state you want.",
+     "caption": "You declare the state you want.",
+     "paragraph": 0,
+     "start": 409.956,
+     "end": 411.301
+    },
+    {
+     "id": "s7_03",
+     "text": "A loop keeps comparing it with what exists, and fixes the difference, like a thermostat.",
+     "caption": "A loop keeps comparing it with what exists, and fixes the difference, like a thermostat.",
+     "paragraph": 0,
+     "start": 411.601,
+     "end": 416.61
+    },
+    {
+     "id": "s7_04",
+     "text": "It compares whole states instead of reacting to events: level-triggered, not edge-triggered.",
+     "caption": "It compares whole states instead of reacting to events: level-triggered, not edge-triggered.",
+     "paragraph": 1,
+     "start": 417.11,
+     "end": 422.218
+    },
+    {
+     "id": "s7_05",
+     "text": "So a missed event is caught on the next pass.",
+     "caption": "So a missed event is caught on the next pass.",
+     "paragraph": 1,
+     "start": 422.518,
+     "end": 424.698
+    },
+    {
+     "id": "s7_06",
+     "text": "And it aims at an absolute target, so running it again does no harm.",
+     "caption": "And it aims at an absolute target, so running it again does no harm.",
+     "paragraph": 1,
+     "start": 424.998,
+     "end": 429.002
+    },
+    {
+     "id": "s7_07",
+     "text": "Kubernetes repairs things by itself because its loops never stop.",
+     "caption": "Kubernetes repairs things by itself because its loops never stop.",
+     "paragraph": 2,
+     "start": 429.502,
+     "end": 433.607
+    },
+    {
+     "id": "s7_08",
+     "text": "Terraform's command-line tool waits for you because it compares only when you run it.",
+     "caption": "Terraform's command-line tool waits for you because it compares only when you run it.",
+     "paragraph": 2,
+     "start": 433.907,
+     "end": 438.636
+    },
+    {
+     "id": "s7_09",
+     "text": "Either way, what you get is eventual agreement, not an instant guarantee: check the status, and watch for things no tool is managing.",
+     "caption": "Either way, what you get is eventual agreement, not an instant guarantee: check the status, and watch for things no tool is managing.",
+     "paragraph": 3,
+     "start": 439.136,
+     "end": 447.417
+    }
+   ],
+   "end": 456.017
+  }
+ ],
+ "phonemes": {
+  "s1_01": "j\u02ccu t\u02c8\u025bl k\u02ccub\u0259\u0279n\u02c8\u025bTiz t\u0259 k\u02c8ip \u03b8\u0279\u02c8i k\u02c8\u0251piz \u028cv \u0250 w\u02c8\u025bb \u02c8\u00e6p \u0279\u02c8\u028cn\u026a\u014b.",
+  "s1_02": "\u02cc\u00e6t \u03b8\u0279\u02c8i \u026an \u00f0\u0259 m\u02c8\u0254\u0279n\u026a\u014b, \u0250 m\u0259\u0283\u02c8in d\u02c8Iz, \u00e6nd t\u02c8Aks w\u02c8\u028cn k\u02c8\u0251pi w\u026a\u00f0 \u026at.",
+  "s1_03": "n\u02c8Ob\u02cc\u0251di \u026az \u0259w\u02c8Ak, \u00e6nd n\u02c8Ob\u02cc\u0251di \u0279\u02c8\u028cnz \u0250 k\u0259m\u02c8\u00e6nd.",
+  "s1_04": "\u0250 fj\u02c8u m\u02c8\u026an\u0259ts l\u02c8AT\u0259\u0279, \u00f0\u025b\u0279 \u0251\u0279 \u03b8\u0279\u02c8i k\u02c8\u0251piz \u0259\u0261\u02c8\u025bn.",
+  "s1_05": "n\u02c8W t\u02c8Ak t\u02c8\u025b\u0279\u0259f\u02cc\u0254\u0279m.",
+  "s1_06": "j\u02ccu t\u02c8\u025bl \u026at ju w\u02c8\u0251nt f\u02c8Iv s\u02c8\u025c\u0279v\u0259\u0279z, \u00e6nd \u026at k\u0279i\u02c8Ats \u00f0\u02cc\u025bm.",
+  "s1_07": "\u00f0\u02c8\u025bn s\u02c8\u028cmw\u02cc\u028cn d\u0259l\u02c8its w\u02c8\u028cn bI h\u02c8\u00e6nd.",
+  "s1_08": "\u00f0\u02cc\u026as t\u02c8Im n\u02c8\u028c\u03b8\u026a\u014b h\u02c8\u00e6p\u0259nz.",
+  "s1_09": "t\u02c8\u025b\u0279\u0259f\u02cc\u0254\u0279m \u02c8Onli n\u02c8OT\u0259s\u1d7bz \u00f0\u0259 n\u02c8\u025bkst t\u02c8Im s\u02c8\u028cmw\u02cc\u028cn \u0279\u02c8\u028cnz \u026at.",
+  "s1_10": "b\u02c8O\u03b8 t\u02c8ulz t\u02c8Ak \u0250 d\u0259sk\u0279\u02c8\u026ap\u0283\u0259n \u028cv w\u02cc\u028ct ju w\u02c8\u0251nt, \u00e6nd m\u02ccAk \u026at \u0279\u02c8i\u1d4al.",
+  "s1_11": "h\u02ccW d\u02c8u \u00f0A d\u02c8u \u00f0\u02c8\u00e6t, \u00e6nd k\u02c8ip \u026at \u00f0\u02c8\u00e6t w\u02c8A?",
+  "s1_12": "\u02cc\u00e6nd w\u02ccI d\u02c8\u028cz w\u02c8\u028cn \u0279\u0259p\u02c8\u025b\u0279 \u03b8\u02c8\u026a\u014bz bI \u026ats\u02c8\u025blf, w\u02ccIl \u00f0i \u02c8\u028c\u00f0\u0259\u0279 w\u02c8Ats f\u0254\u0279 ju?",
+  "s2_01": "\u00f0\u02cc\u025b\u0279 \u0251\u0279 t\u02c8u w\u02c8Az t\u0259 t\u02c8\u025bl \u0250 m\u0259\u0283\u02c8in w\u02cc\u028ct t\u0259 d\u02c8u.",
+  "s2_02": "j\u02ccu k\u00e6n l\u02c8\u026ast \u00f0\u0259 st\u02c8\u025bps: st\u02c8\u0251\u0279t t\u02c8u m\u02c8\u0254\u0279 s\u02c8\u025c\u0279v\u0259\u0279z.",
+  "s2_03": "\u02cc\u0254\u0279 ju k\u00e6n d\u0259sk\u0279\u02c8Ib \u00f0i \u02c8\u025bnd st\u02c8At: \u00f0\u025b\u0279 \u0283\u02cc\u028ad bi \u03b8\u0279\u02c8i s\u02c8\u025c\u0279v\u0259\u0279z.",
+  "s2_04": "\u00f0\u0259 d\u02c8\u026af\u0259\u0279\u0259ns \u0283\u02c8Oz \u02cc\u028cp w\u02cc\u025bn ju \u0279\u02c8\u028cn \u026at tw\u02c8Is.",
+  "s2_05": "h\u02c8\u026a\u0279z \u0250 sk\u0279\u02c8\u026apt \u00f0\u00e6t s\u02c8\u025bz \u201cst\u02c8\u0251\u0279t t\u02c8u m\u02c8\u0254\u0279 s\u02c8\u025c\u0279v\u0259\u0279z\u201d.",
+  "s2_06": "\u0279\u02c8\u028cn \u026at w\u02c8\u028cns: t\u02c8u s\u02c8\u025c\u0279v\u0259\u0279z.",
+  "s2_07": "\u0279\u02c8\u028cn \u026at \u0259\u0261\u02c8\u025bn: f\u02c8\u0254\u0279.",
+  "s2_08": "\u02c8\u025bv\u0259\u0279i \u0279\u02c8\u028cn \u0279\u0259p\u02c8its \u026ats w\u02c8\u025c\u0279k.",
+  "s2_09": "h\u02c8\u026a\u0279z t\u02c8\u025b\u0279\u0259f\u02cc\u0254\u0279m, t\u02c8Old \u00f0\u025b\u0279 \u0283\u02cc\u028ad bi \u03b8\u0279\u02c8i s\u02c8\u025c\u0279v\u0259\u0279z.",
+  "s2_10": "\u00f0\u0259 f\u02c8\u025c\u0279st \u0279\u02c8\u028cn k\u0279i\u02c8Ats \u03b8\u0279\u02c8i.",
+  "s2_11": "\u0279\u02c8\u028cn \u026at \u0259\u0261\u02c8\u025bn, w\u026a\u00f0 n\u02c8\u028c\u03b8\u026a\u014b \u02a7\u02c8An\u02a4d, \u00e6nd \u026at s\u02c8\u025bz: n\u02c8O \u02a7\u02c8An\u02a4\u1d7bz; j\u028a\u0279 \u02c8\u026anf\u0279\u0259st\u0279\u02cc\u028ck\u02a7\u0259\u0279 m\u02c8\u00e6\u02a7\u1d7bz \u00f0\u0259 k\u0259nf\u02cc\u026a\u0261j\u0259\u0279\u02c8A\u0283\u0259n.",
+  "s2_12": "\u02a7\u02c8An\u02a4 \u00f0\u0259 \u03b8\u0279\u02c8i t\u0259 f\u02c8Iv, \u00e6nd \u026at d\u02c8\u028cz\u1d4ant st\u02c8\u0251\u0279t f\u02c8Iv m\u02c8\u0254\u0279.",
+  "s2_13": "\u02cc\u026at k\u0259mp\u02c8\u025b\u0279z w\u02cc\u028ct ju w\u02c8\u0251nt w\u026a\u00f0 w\u02cc\u028ct \u026a\u0261z\u02c8\u026asts, \u00e6nd pl\u02c8\u00e6nz \u026a\u0261z\u02c8\u00e6ktli t\u02c8u.",
+  "s2_14": "l\u02c8\u026ast\u026a\u014b \u00f0\u0259 st\u02c8\u025bps \u026az k\u02c8\u0254ld \u026amp\u02c8\u025b\u0279\u0259T\u026av.",
+  "s2_15": "d\u1d7bsk\u0279\u02c8Ib\u026a\u014b \u00f0i \u02c8\u025bnd st\u02c8At \u026az k\u02c8\u0254ld d\u0259kl\u02c8\u025b\u0279\u0259T\u026av.",
+  "s2_16": "\u00f0i \u02c8\u025bnd st\u02c8At ju d\u0259sk\u0279\u02c8Ib \u026az \u00f0\u0259 d\u0259z\u02c8I\u0259\u0279d st\u02c8At; w\u02cc\u028ct \u026a\u0261z\u02c8\u026asts \u0279\u02c8It n\u02c8W \u026az \u00f0\u0259 k\u02c8\u025c\u0279\u0259nt st\u02c8At.",
+  "s2_17": "\u00f0\u0259 t\u02c8ulz \u02a4\u02c8\u0251b \u026az t\u0259 m\u02ccAk \u00f0\u0259 k\u02c8\u025c\u0279\u0259nt st\u02c8At m\u02c8\u00e6\u02a7 \u00f0\u0259 d\u0259z\u02c8I\u0259\u0279d w\u02c8\u028cn.",
+  "s2_18": "s\u02ccO \u026ats t\u02c8\u025bmpt\u026a\u014b t\u0259 p\u02c8\u026ak\u02a7\u0259\u0279 \u0259pl\u02c8I l\u02c8Ik \u0279\u02c8\u028cn\u026a\u014b \u0250 sk\u0279\u02c8\u026apt: w\u02c8\u028cns \u026at h\u00e6z \u0279\u02c8\u028cn, \u00f0\u0259 \u02a4\u02c8\u0251b \u026az d\u02c8\u028cn.",
+  "s2_19": "b\u02cc\u028ct \u0279\u02c8\u028cn\u026a\u014b \u026at \u0259\u0261\u02c8\u025bn d\u02c8\u026ad n\u02c8\u028c\u03b8\u026a\u014b \u00e6t \u02c8\u0254l.",
+  "s2_20": "\u00f0\u02c8\u00e6t w\u02c8\u028cz\u1d4ant \u201c\u02cc\u0254l\u0279\u02c8\u025bdi \u0279\u02c8\u00e6n\u201d.",
+  "s2_21": "\u02cc\u026at w\u028cz \u201c\u02cc\u0254l\u0279\u02c8\u025bdi m\u02c8\u00e6\u02a7\u1d7bz\u201d.",
+  "s3_01": "\u0250 \u03b8\u02c8\u025c\u0279m\u0259st\u02cc\u00e6t \u026az \u00f0\u0259 kl\u02c8\u00e6s\u026ak p\u02c8\u026ak\u02a7\u0259\u0279 \u028cv h\u02ccW \u00f0\u02c8\u00e6t \u02a4\u02c8\u0251b \u0261\u025bts d\u02c8\u028cn.",
+  "s3_02": "j\u02ccu s\u02c8\u025bt \u00f0\u0259 t\u02c8\u025bmp\u0279\u0259\u02a7\u0259\u0279 ju w\u02c8\u0251nt.",
+  "s3_03": "\u00f0\u0259 \u03b8\u02c8\u025c\u0279m\u0259st\u02cc\u00e6t m\u02c8\u025b\u0292\u0259\u0279z \u00f0\u0259 \u0279\u02c8um, k\u0259mp\u02c8\u025b\u0279z, \u00e6nd t\u02c8\u025c\u0279nz \u00f0\u0259 h\u02c8iT\u026a\u014b \u02cc\u0254n \u0254\u0279 \u02c8\u0254f.",
+  "s3_04": "\u00f0\u02c8\u025bn \u026at m\u02c8\u025b\u0292\u0259\u0279z \u0259\u0261\u02c8\u025bn, \u00e6nd k\u02c8ips \u0261\u02c8O\u026a\u014b.",
+  "s3_05": "k\u02ccub\u0259\u0279n\u02c8\u025bTiz w\u02c8\u025c\u0279ks \u00f0\u0259 s\u02c8Am w\u02c8A.",
+  "s3_06": "f\u02cc\u0254\u0279 \u02c8i\u02a7 k\u02c8Ind \u028cv \u03b8\u02c8\u026a\u014b \u026at m\u02c8\u00e6n\u026a\u02a4\u1d7bz, \u0250 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m k\u02c8\u0254ld \u0250 k\u0259nt\u0279\u02c8Ol\u0259\u0279 \u0279\u02c8\u028cnz \u0250 l\u02c8up: l\u02c8\u028ak \u00e6t \u00f0\u0259 d\u0259z\u02c8I\u0259\u0279d st\u02c8At, l\u02c8\u028ak \u00e6t \u00f0\u0259 k\u02c8\u025c\u0279\u0259nt st\u02c8At, \u00e6nd \u02c8\u00e6kt \u02cc\u0254n \u00f0\u0259 d\u02c8\u026af\u0259\u0279\u0259ns.",
+  "s3_07": "\u00f0\u02c8\u025bn d\u02c8u \u026at \u0259\u0261\u02c8\u025bn.",
+  "s3_08": "f\u02cc\u0254\u0279 \u00f0\u0259 w\u02c8\u025bb \u02c8\u00e6p, \u00f0\u0259 d\u0259z\u02c8I\u0259\u0279d st\u02c8At \u026az \u03b8\u0279\u02c8i k\u02c8\u0251piz.",
+  "s3_09": "k\u02ccub\u0259\u0279n\u02c8\u025bTiz k\u02c8\u0254lz \u00f0\u00e6t n\u02c8\u028cmb\u0259\u0279 \u00f0\u0259 \u0279\u02c8\u025bpl\u0259k\u0259 k\u02c8Wnt, \u00e6nd \u02c8i\u02a7 \u0279\u02c8\u028cn\u026a\u014b k\u02c8\u0251pi \u0250 p\u02c8\u0251d.",
+  "s3_10": "\u00f0\u0259 k\u0259nt\u0279\u02c8Ol\u0259\u0279 k\u02c8Wnts \u00f0\u0259 p\u02c8\u0251dz.",
+  "s3_11": "\u02cc\u026af \u026at f\u02c8Indz t\u02c8u, \u026at st\u02c8\u0251\u0279ts w\u02c8\u028cn.",
+  "s3_12": "\u02cc\u026af \u026at f\u02c8Indz f\u02c8\u0254\u0279, \u026at d\u0259l\u02c8its w\u02c8\u028cn.",
+  "s3_13": "\u02cc\u026af \u026at f\u02c8Indz \u03b8\u0279\u02c8i, \u026at d\u02c8\u028cz n\u02c8\u028c\u03b8\u026a\u014b.",
+  "s3_14": "\u00f0\u02c8\u00e6ts w\u02cc\u028ct h\u02c8\u00e6p\u0259nd \u00e6t \u03b8\u0279\u02c8i \u026an \u00f0\u0259 m\u02c8\u0254\u0279n\u026a\u014b.",
+  "s3_15": "\u00f0\u0259 d\u02c8\u025bd m\u0259\u0283\u02c8in st\u02c8\u0251pt \u0279\u1d7bp\u02c8\u0254\u0279T\u026a\u014b, \u00e6nd w\u026a\u00f0\u02c8\u026an \u0250 m\u02c8\u026an\u0259t \u0250 s\u02c8\u025bp\u0259\u0279\u0259t l\u02c8up, \u00f0\u0259 w\u02c8\u028cn \u00f0\u00e6t w\u02c8\u0251\u02a7\u1d7bz m\u0259\u0283\u02c8inz, m\u02c8\u0251\u0279kt \u026at \u00e6z \u02cc\u028cn\u0279\u02c8i\u02a7\u0259b\u1d4al.",
+  "s3_16": "\u02cc\u026ats k\u02c8\u0251pi \u00f0\u02c8\u025bn \u0261\u0251t \u0250 \u0261\u0279\u02c8As p\u02c8\u026a\u0279i\u0259d, f\u02c8Iv m\u02c8\u026an\u0259ts bI d\u0259f\u02c8\u0254lt, \u026an k\u02c8As \u00f0\u0259 m\u0259\u0283\u02c8in k\u02c8Am b\u02c8\u00e6k.",
+  "s3_17": "w\u02cc\u025bn \u00f0\u02c8\u00e6t \u0279\u02c8\u00e6n \u02c8Wt, \u0259b\u02c8Wt s\u02c8\u026aks m\u02c8\u026an\u0259ts \u02c8\u00e6ft\u0259\u0279 \u00f0\u0259 k\u0279\u02c8\u00e6\u0283, \u00f0\u0259 k\u02c8\u0251pi n\u02c8O l\u02c8\u0254\u014b\u0261\u0259\u0279 k\u02c8Wnt\u1d7bd.",
+  "s3_18": "\u00f0\u0259 k\u0259nt\u0279\u02c8Ol\u0259\u0279 k\u02c8Wnt\u026a\u014b p\u02c8\u0251dz k\u02c8Am \u02cc\u028cp w\u02c8\u028cn \u0283\u02c8\u0254\u0279t, \u00e6nd st\u02c8\u0251\u0279T\u1d7bd \u0250 \u0279\u0259pl\u02c8Asm\u1d4ant.",
+  "s3_19": "n\u02c8Ob\u02cc\u0251di h\u00e6d t\u0259 d\u02c8u \u02c8\u025bni\u03b8\u02cc\u026a\u014b.",
+  "s3_20": "\u0250 l\u02c8up l\u02c8Ik \u00f0\u026as \u026az k\u02c8\u0254ld \u0250 \u0279\u02cc\u025bk\u0259ns\u02cc\u026ali\u02c8A\u0283\u0259n l\u02c8up.",
+  "s4_01": "w\u02ccI k\u02c8Wnt \u00f0\u0259 p\u02c8\u0251dz \u02c8\u025bv\u0259\u0279i t\u02c8Im?",
+  "s4_02": "\u02cc\u026at w\u028ad s\u02c8im \u02a7\u02c8ip\u0259\u0279 t\u0259 \u0279i\u02c8\u00e6kt t\u028a \u0259v\u02c8\u025bnts: w\u02cc\u025bn \u0250 p\u02c8\u0251d d\u02c8Iz, \u00f0\u0259 s\u02c8\u026ast\u0259m s\u02c8\u025bndz \u0250 \u201cp\u02c8\u0251d d\u02c8Id\u201d \u0259v\u02c8\u025bnt, s\u02ccO st\u02c8\u0251\u0279t w\u02c8\u028cn p\u02c8\u0251d.",
+  "s4_03": "b\u02cc\u028ct \u0259v\u02c8\u025bnts \u0261\u025bt l\u02c8\u0254st.",
+  "s4_04": "h\u02c8\u026a\u0279 \u0251\u0279 t\u02c8u k\u0259nt\u0279\u02c8Ol\u0259\u0279z k\u02c8ip\u026a\u014b \u03b8\u0279\u02c8i p\u02c8\u0251dz \u0279\u02c8\u028cn\u026a\u014b, \u02cc\u0254n \u00f0\u0259 s\u02c8Am t\u02c8Iml\u02ccIn.",
+  "s4_05": "\u02cc\u00e6t s\u02c8\u025bk\u0259nd t\u02c8\u025bn, \u0250 p\u02c8\u0251d k\u0279\u02c8\u00e6\u0283\u1d7bz.",
+  "s4_06": "b\u02c8O\u03b8 k\u0259nt\u0279\u02c8Ol\u0259\u0279z s\u02c8i \u026at, \u00e6nd b\u02c8O\u03b8 st\u02c8\u0251\u0279t \u0250 \u0279\u0259pl\u02c8Asm\u1d4ant.",
+  "s4_07": "\u02cc\u00e6t s\u02c8\u025bk\u0259nd tw\u02c8\u025bnti, \u02c8i\u02a7 k\u0259nt\u0279\u02c8Ol\u0259\u0279 \u026az \u0279ist\u02c8\u0251\u0279T\u1d7bd, s\u02c8A f\u0254\u0279 \u0250n \u02c8\u028cp\u0261\u0279\u02ccAd, \u00e6nd \u026az d\u02ccWn f\u0254\u0279 \u0250 fj\u02c8u s\u02c8\u025bk\u0259ndz.",
+  "s4_08": "w\u02ccIl \u026ats d\u02ccWn, \u0259n\u02c8\u028c\u00f0\u0259\u0279 p\u02c8\u0251d k\u0279\u02c8\u00e6\u0283\u1d7bz.",
+  "s4_09": "\u00f0\u0259 f\u02c8\u025c\u0279st k\u0259nt\u0279\u02c8Ol\u0259\u0279 \u02c8Onli \u0279i\u02c8\u00e6kts t\u028a \u0259v\u02c8\u025bnts.",
+  "s4_10": "\u00f0\u0259 \u201cp\u02c8\u0251d d\u02c8Id\u201d \u0259v\u02c8\u025bnt \u0259\u0279\u02c8Ivd w\u02ccIl \u026at w\u028cz d\u02ccWn, s\u02ccO \u026at n\u02c8\u025bv\u0259\u0279 s\u02c8\u0254 \u026at.",
+  "s4_11": "\u02cc\u026at n\u02c8\u025bv\u0259\u0279 st\u02c8\u0251\u0279ts \u0250 \u0279\u0259pl\u02c8Asm\u1d4ant, \u00e6nd st\u02c8Az \u00e6t t\u02c8u p\u02c8\u0251dz f\u0254\u0279 \u0261\u02c8\u028ad.",
+  "s4_12": "\u00f0\u0259 s\u02c8\u025bk\u0259nd k\u0259nt\u0279\u02c8Ol\u0259\u0279 d\u02c8\u028cz\u1d4ant k\u02c8\u025b\u0279 \u0259b\u02c8Wt \u0259v\u02c8\u025bnts.",
+  "s4_13": "w\u02cc\u025bn \u026at k\u02c8\u028cmz b\u02c8\u00e6k, \u026at k\u02c8Wnts t\u02c8u p\u02c8\u0251dz, w\u02c8\u0251nts \u03b8\u0279\u02c8i, \u00e6nd st\u02c8\u0251\u0279ts w\u02c8\u028cn.",
+  "s4_14": "\u00f0\u0259 f\u02c8\u025c\u0279st k\u0259nt\u0279\u02c8Ol\u0259\u0279 \u02c8\u00e6kts \u02cc\u0254n \u02c8i\u02a7 \u02a7\u02c8An\u02a4; \u00f0\u02c8\u00e6ts k\u02c8\u0254ld \u02cc\u025b\u02a4t\u0279\u02c8\u026a\u0261\u0259\u0279d.",
+  "s4_15": "\u00f0\u0259 s\u02c8\u025bk\u0259nd \u02c8\u00e6kts \u02cc\u0254n \u00f0\u0259 k\u02c8\u025c\u0279\u0259nt st\u02c8At; \u00f0\u02c8\u00e6ts k\u02c8\u0254ld l\u02cc\u025bv\u1d4alt\u0279\u02c8\u026a\u0261\u0259\u0279d.",
+  "s4_16": "k\u02ccub\u0259\u0279n\u02c8\u025bTiz d\u0259z\u02c8In p\u0279\u02c8\u026ans\u0259p\u1d4alz \u0279\u0259kw\u02c8I\u0259\u0279 \u00f0\u0259 s\u02c8\u025bk\u0259nd: \u0250 k\u0259nt\u0279\u02c8Ol\u0259\u0279 h\u00e6z t\u0259 \u0261\u025bt \u026at \u0279\u02c8It f\u0279\u028cm \u00f0\u0259 d\u0259z\u02c8I\u0259\u0279d \u00e6nd k\u02c8\u025c\u0279\u0259nt st\u02c8At \u0259l\u02c8On, n\u02c8O m\u02c8\u00e6T\u0259\u0279 h\u02ccW m\u02c8\u025bni \u02c8\u028cpd\u02ccAts \u026at m\u02c8\u026ast.",
+  "s4_17": "\u0259v\u02c8\u025bnts \u0251\u0279 \u02c8Onli \u0250 h\u02c8\u026ant t\u0259 l\u02c8\u028ak \u0259\u0261\u02c8\u025bn s\u02c8un.",
+  "s5_01": "\u00f0\u02c8\u00e6t \u026akspl\u02c8Anz h\u02ccW \u0250 l\u02c8up st\u02c8Az \u0279\u02c8It w\u02cc\u025bn \u026at m\u02c8\u026as\u026az s\u02c8\u028cm\u03b8\u02cc\u026a\u014b.",
+  "s5_02": "\u02cc\u026at d\u02c8\u028cz\u1d4ant s\u02c8A h\u02ccW \u02c8\u0254f\u1d4an \u00f0\u0259 l\u02c8up \u0279\u02c8\u028cnz, \u00e6nd \u00f0\u02c8\u00e6ts w\u02cc\u025b\u0279 \u00f0\u0259 t\u02c8u t\u02c8ulz p\u02c8\u0251\u0279t w\u02c8Az.",
+  "s5_03": "b\u02c8O\u03b8 t\u02c8ulz \u0279\u02c8\u025bk\u0259ns\u02ccIl.",
+  "s5_04": "\u00f0\u0259 d\u02c8\u026af\u0259\u0279\u0259ns \u026az w\u02cc\u025bn.",
+  "s5_05": "t\u02c8\u025b\u0279\u0259f\u02cc\u0254\u0279mz k\u0259m\u02c8\u00e6ndl\u02ccIn t\u02c8ul k\u0259mp\u02c8\u025b\u0279z \u00f0\u0259 d\u0259z\u02c8I\u0259\u0279d \u00e6nd k\u02c8\u025c\u0279\u0259nt st\u02c8At w\u02cc\u025bn ju \u0279\u02c8\u028cn \u026at, \u00e6nd \u00f0\u02c8\u025bn st\u02c8\u0251ps.",
+  "s5_06": "h\u02c8\u026a\u0279 \u026at \u026az m\u02c8\u00e6n\u026a\u02a4\u026a\u014b \u00f0\u0259 f\u02c8Iv s\u02c8\u025c\u0279v\u0259\u0279z f\u0279\u028cm b\u0259f\u02c8\u0254\u0279.",
+  "s5_07": "s\u02c8\u028cmw\u02cc\u028cn d\u0259l\u02c8its w\u02c8\u028cn \u028cv \u00f0\u02cc\u025bm bI h\u02c8\u00e6nd.",
+  "s5_08": "t\u02c8\u025b\u0279\u0259f\u02cc\u0254\u0279m \u02c8\u026az\u1d4ant \u0279\u02c8\u028cn\u026a\u014b, s\u02ccO n\u02c8\u028c\u03b8\u026a\u014b h\u02c8\u00e6p\u0259nz, \u00e6nd \u026at st\u02c8Az d\u0259l\u02c8iT\u1d7bd.",
+  "s5_09": "t\u02c8\u025b\u0279\u0259f\u02cc\u0254\u0279m k\u02c8ips \u026ats \u02c8On \u0279\u02c8\u025bk\u0259\u0279d \u028cv w\u02cc\u028ct \u026at k\u0279i\u02c8AT\u1d7bd.",
+  "s5_10": "\u00f0\u0259 n\u02c8\u025bkst t\u02c8Im s\u02c8\u028cmw\u02cc\u028cn \u0279\u02c8\u028cnz t\u02c8\u025b\u0279\u0259f\u02cc\u0254\u0279m pl\u02c8\u00e6n, \u026at \u0279\u0259f\u0279\u02c8\u025b\u0283\u1d7bz \u00f0\u02c8\u00e6t \u0279\u0259k\u02c8\u0254\u0279d \u0259\u0261\u02c8\u025bnst w\u02cc\u028ct \u02c8\u00e6k\u02a7\u0259w\u0259li \u026a\u0261z\u02c8\u026asts, f\u02c8Indz f\u02c8\u0254\u0279, \u00e6nd pl\u02c8\u00e6nz w\u02c8\u028cn t\u028a \u02c8\u00e6d.",
+  "s5_11": "\u00f0\u02c8\u00e6ts w\u02cc\u028ct \u00f0\u0259 sk\u0279\u02c8\u026apt p\u02c8\u026ak\u02a7\u0259\u0279 \u0261\u025bts \u0279\u02c8\u0254\u014b.",
+  "s5_12": "\u0259pl\u02c8I\u026a\u014b d\u02c8\u026ad\u1d4ant h\u02c8Old \u00f0\u0259 s\u02c8\u026ast\u0259m \u00f0\u02c8\u025b\u0279.",
+  "s5_13": "t\u02c8\u025b\u0279\u0259f\u02cc\u0254\u0279m \u02c8Onli \u02a7\u02c8\u025bks \u026at w\u02cc\u025bn ju \u02c8\u00e6sk.",
+  "s5_14": "\u0250 k\u02ccub\u0259\u0279n\u02c8\u025bTiz k\u0259nt\u0279\u02c8Ol\u0259\u0279z l\u02c8up h\u00e6z n\u02c8O \u02c8\u025bnd.",
+  "s5_15": "\u02cc\u026at \u0279\u02c8\u028cnz \u02c8\u0254l \u00f0\u0259 t\u02c8Im, k\u0259mp\u02c8\u025b\u0279\u026a\u014b \u0259\u0261\u02c8\u025bn \u00e6nd \u0259\u0261\u02c8\u025bn, s\u02ccO \u0250 \u02a7\u02c8An\u02a4 n\u02c8Ob\u02cc\u0251di \u02c8\u00e6skt f\u0254\u0279 \u026az \u0279\u0259p\u02c8\u025b\u0279d \u02cc\u0254n \u026ats \u02c8On: w\u026a\u00f0\u02c8\u026an s\u02c8\u025bk\u0259ndz f\u0254\u0279 \u0250 d\u0259l\u02c8iT\u1d7bd k\u02c8\u0251pi, \u00e6nd \u0250 fj\u02c8u m\u02c8\u026an\u0259ts f\u0254\u0279 \u0250 d\u02c8\u025bd m\u0259\u0283\u02c8in, b\u0259k\u02c8\u028cz \u028cv \u00f0\u02c8\u00e6t \u0261\u0279\u02c8As p\u02c8\u026a\u0279i\u0259d.",
+  "s5_16": "\u00f0\u0259 k\u02c8\u025c\u0279\u0259nt st\u02c8At m\u02c8uv\u026a\u014b \u0259w\u02c8A f\u0279\u028cm \u00f0\u0259 d\u0259z\u02c8I\u0259\u0279d st\u02c8At \u026az k\u02c8\u0254ld d\u0279\u02c8\u026aft.",
+  "s5_17": "w\u02cc\u026a\u00f0 t\u02c8\u025b\u0279\u0259f\u02cc\u0254\u0279m, d\u0279\u02c8\u026aft w\u02c8Ats f\u0254\u0279 \u00f0\u0259 n\u02c8\u025bkst \u0279\u02c8\u028cn.",
+  "s5_18": "w\u02cc\u026a\u00f0 \u0250 k\u0259nt\u02c8\u026anj\u0259w\u0259s l\u02c8up, d\u0279\u02c8\u026aft \u026az \u0279\u0259p\u02c8\u025b\u0279d \u00e6z s\u02c8un \u00e6z \u00f0\u0259 l\u02c8up n\u02c8OT\u0259s\u1d7bz.",
+  "s6_01": "\u02a7\u02c8An\u02a4 \u00f0\u0259 w\u02c8\u025bb \u02c8\u00e6p f\u0279\u028cm \u03b8\u0279\u02c8i k\u02c8\u0251piz t\u0259 f\u02c8Iv, \u00e6nd \u0259pl\u02c8I \u026at w\u026a\u00f0 kj\u02c8ub k\u0259nt\u0279\u02c8Ol, k\u02ccub\u0259\u0279n\u02c8\u025bTiz k\u0259m\u02c8\u00e6ndl\u02ccIn t\u02c8ul.",
+  "s6_02": "\u02cc\u026at \u02c8\u00e6ns\u0259\u0279z \u00e6t w\u02c8\u028cns: k\u0259nf\u02c8\u026a\u0261j\u0259\u0279d.",
+  "s6_03": "b\u02cc\u028ct \u02c8Onli \u03b8\u0279\u02c8i \u028cv \u00f0\u0259 f\u02c8Iv k\u02c8\u0251piz \u0251\u0279 \u0279\u02c8\u025bdi.",
+  "s6_04": "\u0250 m\u02c8Om\u1d4ant l\u02c8AT\u0259\u0279, f\u02c8\u0254\u0279.",
+  "s6_05": "\u00f0\u02c8\u025bn f\u02c8Iv.",
+  "s6_06": "\u00f0\u02c8\u00e6t k\u02c8Wnt k\u02c8\u028cmz f\u0279\u028cm \u0250 f\u02c8ild k\u02c8\u0254ld st\u02c8AT\u0259s, w\u02cc\u025b\u0279 k\u02ccub\u0259\u0279n\u02c8\u025bTiz \u0279\u0259p\u02c8\u0254\u0279ts \u00f0\u0259 k\u02c8\u025c\u0279\u0259nt st\u02c8At \u026at h\u00e6z \u0259bz\u02c8\u025c\u0279vd.",
+  "s6_07": "\u0259pl\u02c8I\u026a\u014b \u0279\u02c8\u025bk\u0259\u0279dz w\u02cc\u028ct ju w\u02c8\u0251nt.",
+  "s6_08": "\u0261\u02c8\u025bT\u026a\u014b \u00f0\u025b\u0279 \u026az s\u02c8\u025bp\u0259\u0279\u0259t, \u00e6nd sl\u02c8O\u0259\u0279.",
+  "s6_09": "s\u02c8\u028cmt\u02ccImz \u026at n\u02c8\u025bv\u0259\u0279 h\u02c8\u00e6p\u0259nz, \u026af \u0250 k\u02c8\u0251pi k\u02c8\u00e6nt st\u02c8\u0251\u0279t \u00e6t \u02c8\u0254l.",
+  "s6_10": "t\u0259 n\u02c8O \u0250 \u02a7\u02c8An\u02a4 t\u02c8\u028ak \u0259f\u02c8\u025bkt, ju l\u02c8\u028ak \u00e6t \u00f0\u0259 st\u02c8AT\u0259s, n\u02cc\u0251t \u00e6t \u00f0i \u0259pl\u02c8I.",
+  "s6_11": "\u00f0\u0259 l\u02c8up d\u02c8\u028cz\u1d4ant p\u0279\u02c8\u0251m\u0259s t\u0259 s\u02c8\u025bT\u1d4al, \u02c8i\u00f0\u0259\u0279.",
+  "s6_12": "\u02cc\u026af \u00f0\u0259 d\u0259z\u02c8I\u0259\u0279d st\u02c8At k\u02c8ips \u02a7\u02c8An\u02a4\u026a\u014b, \u026at \u02a7\u02c8As\u1d7bz \u0250 m\u02c8uv\u026a\u014b t\u02c8\u0251\u0279\u0261\u0259t.",
+  "s6_13": "\u02cc\u00e6nd t\u02c8u t\u02c8ulz k\u00e6n w\u02c8\u0251nt d\u02c8\u026af\u0259\u0279\u0259nt v\u02c8\u00e6ljuz f\u0254\u0279 \u00f0\u0259 s\u02c8Am f\u02c8ild.",
+  "s6_14": "\u0250n \u02cc\u0254TOsk\u02c8Al\u0259\u0279 \u02a7\u02c8An\u02a4\u1d7bz \u00f0\u0259 n\u02c8\u028cmb\u0259\u0279 \u028cv k\u02c8\u0251piz t\u0259 m\u02c8\u00e6\u02a7 \u00f0\u0259 l\u02c8Od.",
+  "s6_15": "m\u02c8inhw\u02ccIl, \u0250 \u02a4\u02c8\u0251b \u00f0\u00e6t \u0279\u02cci\u0259pl\u02c8Iz j\u028a\u0279 f\u02c8Il \u02c8\u025bv\u0259\u0279i fj\u02c8u m\u02c8\u026an\u0259ts s\u02c8\u025bts \u026at b\u02c8\u00e6k t\u0259 \u00f0\u0259 n\u02c8\u028cmb\u0259\u0279 \u0279\u02c8\u026atn \u00f0\u02c8\u025b\u0279.",
+  "s6_16": "\u00f0\u02ccA k\u00e6n \u02cc\u028cnd\u02c8u \u02c8i\u02a7 \u02c8\u028c\u00f0\u0259\u0279z w\u02c8\u025c\u0279k \u02c8Ov\u0259\u0279 \u00e6nd \u02c8Ov\u0259\u0279.",
+  "s6_17": "\u02cc\u00e6nd n\u02c8\u028c\u03b8\u026a\u014b \u0279\u0259p\u02c8\u025b\u0279z w\u02cc\u028ct n\u02c8O t\u02c8ul m\u02c8\u00e6n\u026a\u02a4\u1d7bz.",
+  "s6_18": "\u0250 s\u02c8\u025bT\u026a\u014b \u02a7\u02c8An\u02a4d bI h\u02c8\u00e6nd \u02cc\u0254n s\u02c8\u028cm\u03b8\u02cc\u026a\u014b \u02ccWts\u02c8Id \u00f0\u0259 k\u0259nf\u02cc\u026a\u0261j\u0259\u0279\u02c8A\u0283\u0259n \u026az s\u02c8\u026ampli \u026anv\u02c8\u026az\u0259b\u1d4al t\u028a \u026at.",
+  "s7_01": "s\u02ccO h\u02ccW d\u02c8u \u00f0iz t\u02c8ulz t\u02c8\u025c\u0279n \u0250 d\u0259sk\u0279\u02c8\u026ap\u0283\u0259n \u02c8\u026antu \u0279i\u02c8\u00e6l\u0259Ti \u00e6nd k\u02c8ip \u026at \u00f0\u02c8\u025b\u0279?",
+  "s7_02": "j\u02ccu d\u0259kl\u02c8\u025b\u0279 \u00f0\u0259 st\u02c8At ju w\u02c8\u0251nt.",
+  "s7_03": "\u0250 l\u02c8up k\u02c8ips k\u0259mp\u02c8\u025b\u0279\u026a\u014b \u026at w\u026a\u00f0 w\u02cc\u028ct \u026a\u0261z\u02c8\u026asts, \u00e6nd f\u02c8\u026aks\u1d7bz \u00f0\u0259 d\u02c8\u026af\u0259\u0279\u0259ns, l\u02c8Ik \u0250 \u03b8\u02c8\u025c\u0279m\u0259st\u02cc\u00e6t.",
+  "s7_04": "\u02cc\u026at k\u0259mp\u02c8\u025b\u0279z h\u02c8Ol st\u02c8Ats \u026anst\u02c8\u025bd \u028cv \u0279\u026a\u02c8\u00e6kt\u026a\u014b t\u028a \u0259v\u02c8\u025bnts: l\u02cc\u025bv\u1d4alt\u0279\u02c8\u026a\u0261\u0259\u0279d, n\u02cc\u0251t \u02cc\u025b\u02a4t\u0279\u02c8\u026a\u0261\u0259\u0279d.",
+  "s7_05": "s\u02ccO \u0250 m\u02c8\u026ast \u0259v\u02c8\u025bnt \u026az k\u02c8\u0254t \u02cc\u0254n \u00f0\u0259 n\u02c8\u025bkst p\u02c8\u00e6s.",
+  "s7_06": "\u02cc\u00e6nd \u026at \u02c8Amz \u00e6t \u0250n \u02c8\u00e6bs\u0259l\u02ccut t\u02c8\u0251\u0279\u0261\u0259t, s\u02ccO \u0279\u02c8\u028cn\u026a\u014b \u026at \u0259\u0261\u02c8\u025bn d\u02c8\u028cz n\u02c8O h\u02c8\u0251\u0279m.",
+  "s7_07": "k\u02ccub\u0259\u0279n\u02c8\u025bTiz \u0279\u0259p\u02c8\u025b\u0279z \u03b8\u02c8\u026a\u014bz bI \u026ats\u02c8\u025blf b\u0259k\u02c8\u028cz \u026ats l\u02c8ups n\u02c8\u025bv\u0259\u0279 st\u02c8\u0251p.",
+  "s7_08": "t\u02c8\u025b\u0279\u0259f\u02cc\u0254\u0279mz k\u0259m\u02c8\u00e6ndl\u02ccIn t\u02c8ul w\u02c8Ats f\u0254\u0279 ju b\u0259k\u02c8\u028cz \u026at k\u0259mp\u02c8\u025b\u0279z \u02c8Onli w\u02cc\u025bn ju \u0279\u02c8\u028cn \u026at.",
+  "s7_09": "\u02c8i\u00f0\u0259\u0279 w\u02c8A, w\u02cc\u028ct ju \u0261\u025bt \u026az \u0259v\u02c8\u025bn\u02a7\u0259w\u0259l \u0259\u0261\u0279\u02c8im\u1d4ant, n\u02cc\u0251t \u0250n \u02c8\u026anst\u1d4ant \u0261\u02cc\u025b\u0279\u0259nt\u02c8i: \u02a7\u02c8\u025bk \u00f0\u0259 st\u02c8AT\u0259s, \u00e6nd w\u02c8\u0251\u02a7 f\u0254\u0279 \u03b8\u02c8\u026a\u014bz n\u02c8O t\u02c8ul \u026az m\u02c8\u00e6n\u026a\u02a4\u026a\u014b."
+ },
+ "peak": 0.7302020192146301
+}

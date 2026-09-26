@@ -1,0 +1,883 @@
+{
+ "voice": "af_heart",
+ "speed": 0.92,
+ "total": 444.425,
+ "segments": [
+  {
+   "id": "s1",
+   "title": "The question",
+   "start": 0.0,
+   "lines": [
+    {
+     "id": "s1_01",
+     "text": "Install guh-new Hello, the classic tiny test program, with a normal package manager, and it lands at slash user, slash bin, slash hello.",
+     "caption": "Install GNU Hello, the classic tiny test program, with a normal package manager, and it lands at slash usr, slash bin, slash hello.",
+     "paragraph": 0,
+     "start": 0.8,
+     "end": 9.648
+    },
+    {
+     "id": "s1_02",
+     "text": "Install it with Nix, and it lands somewhere stranger: a directory in slash nix, slash store, whose name starts with thirty-two characters of what looks like noise.",
+     "caption": "Install it with Nix, and it lands somewhere stranger: a directory in slash nix, slash store, whose name starts with thirty-two characters of what looks like noise.",
+     "paragraph": 1,
+     "start": 10.148,
+     "end": 20.207
+    },
+    {
+     "id": "s1_03",
+     "text": "That noise is a hash, and every package Nix installs has one.",
+     "caption": "That noise is a hash, and every package Nix installs has one.",
+     "paragraph": 2,
+     "start": 20.707,
+     "end": 24.472
+    },
+    {
+     "id": "s1_04",
+     "text": "Nix, and Nix O S, the Linux distribution built on it, make some unusual promises.",
+     "caption": "Nix, and NixOS, the Linux distribution built on it, make some unusual promises.",
+     "paragraph": 3,
+     "start": 25.972,
+     "end": 31.691
+    },
+    {
+     "id": "s1_05",
+     "text": "Build the same thing twice and, as far as possible, get the same result.",
+     "caption": "Build the same thing twice and, as far as possible, get the same result.",
+     "paragraph": 3,
+     "start": 31.991,
+     "end": 36.059
+    },
+    {
+     "id": "s1_06",
+     "text": "Keep two versions of a package side by side.",
+     "caption": "Keep two versions of a package side by side.",
+     "paragraph": 3,
+     "start": 36.359,
+     "end": 38.795
+    },
+    {
+     "id": "s1_07",
+     "text": "Roll back an upgrade, for one program or for the whole machine.",
+     "caption": "Roll back an upgrade, for one program or for the whole machine.",
+     "paragraph": 3,
+     "start": 39.095,
+     "end": 42.695
+    },
+    {
+     "id": "s1_08",
+     "text": "Why is there a hash in every path?",
+     "caption": "Why is there a hash in every path?",
+     "paragraph": 4,
+     "start": 43.195,
+     "end": 44.854
+    },
+    {
+     "id": "s1_09",
+     "text": "And how does that one idea deliver all of that?",
+     "caption": "And how does that one idea deliver all of that?",
+     "paragraph": 4,
+     "start": 45.154,
+     "end": 47.668
+    }
+   ],
+   "end": 51.318
+  },
+  {
+   "id": "s2",
+   "title": "The trouble with shared paths",
+   "start": 51.318,
+   "lines": [
+    {
+     "id": "s2_01",
+     "text": "Most package managers put everything in shared places.",
+     "caption": "Most package managers put everything in shared places.",
+     "paragraph": 0,
+     "start": 51.668,
+     "end": 54.869
+    },
+    {
+     "id": "s2_02",
+     "text": "Programs go in slash user, slash bin.",
+     "caption": "Programs go in slash usr, slash bin.",
+     "paragraph": 0,
+     "start": 55.169,
+     "end": 57.613
+    },
+    {
+     "id": "s2_03",
+     "text": "Libraries go in slash user, slash lib.",
+     "caption": "Libraries go in slash usr, slash lib.",
+     "paragraph": 0,
+     "start": 57.913,
+     "end": 60.439
+    },
+    {
+     "id": "s2_04",
+     "text": "Upgrade a library, and the new version overwrites the old one in place.",
+     "caption": "Upgrade a library, and the new version overwrites the old one in place.",
+     "paragraph": 1,
+     "start": 60.939,
+     "end": 64.921
+    },
+    {
+     "id": "s2_05",
+     "text": "Every program that used the old one now gets the new one, whether it was built for it or not.",
+     "caption": "Every program that used the old one now gets the new one, whether it was built for it or not.",
+     "paragraph": 1,
+     "start": 65.221,
+     "end": 70.255
+    },
+    {
+     "id": "s2_06",
+     "text": "Two programs that need different versions of the same library often can't both have what they need.",
+     "caption": "Two programs that need different versions of the same library often can't both have what they need.",
+     "paragraph": 2,
+     "start": 70.755,
+     "end": 76.262
+    },
+    {
+     "id": "s2_07",
+     "text": "Some libraries put a version number in the file name, but most things get exactly one path.",
+     "caption": "Some libraries put a version number in the file name, but most things get exactly one path.",
+     "paragraph": 2,
+     "start": 76.562,
+     "end": 81.901
+    },
+    {
+     "id": "s2_08",
+     "text": "And an upgrade that stops halfway, say the power goes out, leaves some files new and some old: a system that matches no version at all.",
+     "caption": "And an upgrade that stops halfway, say the power goes out, leaves some files new and some old: a system that matches no version at all.",
+     "paragraph": 3,
+     "start": 82.401,
+     "end": 90.629
+    }
+   ],
+   "end": 92.279
+  },
+  {
+   "id": "s3",
+   "title": "A build is a function of its inputs",
+   "start": 92.279,
+   "lines": [
+    {
+     "id": "s3_01",
+     "text": "Nix starts from a different picture.",
+     "caption": "Nix starts from a different picture.",
+     "paragraph": 0,
+     "start": 92.629,
+     "end": 94.363
+    },
+    {
+     "id": "s3_02",
+     "text": "Every package is built from a recipe, which Nix calls a derivation.",
+     "caption": "Every package is built from a recipe, which Nix calls a derivation.",
+     "paragraph": 0,
+     "start": 94.663,
+     "end": 98.727
+    },
+    {
+     "id": "s3_03",
+     "text": "Nix treats that build as a pure function of its inputs, and the inputs are everything the build uses: the source code, the build script, the compiler, the libraries, and every option.",
+     "caption": "Nix treats that build as a pure function of its inputs, and the inputs are everything the build uses: the source code, the build script, the compiler, the libraries, and every option.",
+     "paragraph": 0,
+     "start": 99.027,
+     "end": 110.268
+    },
+    {
+     "id": "s3_04",
+     "text": "On Linux, Nix runs each build isolated by default, so it can use only what it declared.",
+     "caption": "On Linux, Nix runs each build isolated by default, so it can use only what it declared.",
+     "paragraph": 1,
+     "start": 110.768,
+     "end": 116.267
+    },
+    {
+     "id": "s3_05",
+     "text": "Even a downloaded source file has to match a hash written in the recipe.",
+     "caption": "Even a downloaded source file has to match a hash written in the recipe.",
+     "paragraph": 1,
+     "start": 116.567,
+     "end": 120.804
+    },
+    {
+     "id": "s3_06",
+     "text": "Nix computes a hash over all of those inputs, and names the output after it: slash nix, slash store, the hash, then the package name.",
+     "caption": "Nix computes a hash over all of those inputs, and names the output after it: slash nix, slash store, the hash, then the package name.",
+     "paragraph": 2,
+     "start": 121.304,
+     "end": 129.369
+    },
+    {
+     "id": "s3_07",
+     "text": "It can do that before building anything.",
+     "caption": "It can do that before building anything.",
+     "paragraph": 3,
+     "start": 129.869,
+     "end": 131.907
+    },
+    {
+     "id": "s3_08",
+     "text": "On this machine, Nix computed Hello's path from its recipe, and the package then landed exactly there.",
+     "caption": "On this machine, Nix computed Hello's path from its recipe, and the package then landed exactly there.",
+     "paragraph": 3,
+     "start": 132.208,
+     "end": 138.726
+    },
+    {
+     "id": "s3_09",
+     "text": "So the hash is not a checksum of what came out.",
+     "caption": "So the hash is not a checksum of what came out.",
+     "paragraph": 4,
+     "start": 140.026,
+     "end": 142.263
+    },
+    {
+     "id": "s3_10",
+     "text": "It's a name for everything that went in.",
+     "caption": "It's a name for everything that went in.",
+     "paragraph": 4,
+     "start": 142.563,
+     "end": 144.493
+    }
+   ],
+   "end": 146.343
+  },
+  {
+   "id": "s4",
+   "title": "Change an input, change the path",
+   "start": 146.343,
+   "lines": [
+    {
+     "id": "s4_01",
+     "text": "Now change one input.",
+     "caption": "Now change one input.",
+     "paragraph": 0,
+     "start": 146.693,
+     "end": 148.036
+    },
+    {
+     "id": "s4_02",
+     "text": "Here, one option of Hello's build: whether to run its tests.",
+     "caption": "Here, one option of Hello's build: whether to run its tests.",
+     "paragraph": 0,
+     "start": 148.336,
+     "end": 151.922
+    },
+    {
+     "id": "s4_03",
+     "text": "The recipe is different, so the hash is different, and the new Hello gets a new path.",
+     "caption": "The recipe is different, so the hash is different, and the new Hello gets a new path.",
+     "paragraph": 1,
+     "start": 152.422,
+     "end": 157.054
+    },
+    {
+     "id": "s4_04",
+     "text": "A small script called greet runs Hello.",
+     "caption": "A small script called greet runs Hello.",
+     "paragraph": 2,
+     "start": 157.554,
+     "end": 159.521
+    },
+    {
+     "id": "s4_05",
+     "text": "Its inputs include Hello's path, so greet gets a new path too.",
+     "caption": "Its inputs include Hello's path, so greet gets a new path too.",
+     "paragraph": 2,
+     "start": 159.821,
+     "end": 163.604
+    },
+    {
+     "id": "s4_06",
+     "text": "The change ripples to everything built from it.",
+     "caption": "The change ripples to everything built from it.",
+     "paragraph": 2,
+     "start": 163.904,
+     "end": 166.264
+    },
+    {
+     "id": "s4_07",
+     "text": "Cow say doesn't use Hello, so its path stays exactly the same.",
+     "caption": "Cowsay doesn't use Hello, so its path stays exactly the same.",
+     "paragraph": 3,
+     "start": 166.764,
+     "end": 170.527
+    },
+    {
+     "id": "s4_08",
+     "text": "And nothing that was already built gets touched.",
+     "caption": "And nothing that was already built gets touched.",
+     "paragraph": 4,
+     "start": 171.827,
+     "end": 174.115
+    },
+    {
+     "id": "s4_09",
+     "text": "The old Hello and the new Hello now sit side by side in the store, each in its own directory.",
+     "caption": "The old Hello and the new Hello now sit side by side in the store, each in its own directory.",
+     "paragraph": 4,
+     "start": 174.415,
+     "end": 179.798
+    },
+    {
+     "id": "s4_10",
+     "text": "That's how two versions coexist: they can't overwrite each other, because they never share a path.",
+     "caption": "That's how two versions coexist: they can't overwrite each other, because they never share a path.",
+     "paragraph": 5,
+     "start": 180.298,
+     "end": 185.929
+    }
+   ],
+   "end": 187.579
+  },
+  {
+   "id": "s5",
+   "title": "The closure",
+   "start": 187.579,
+   "lines": [
+    {
+     "id": "s5_01",
+     "text": "But Hello isn't self-contained.",
+     "caption": "But Hello isn't self-contained.",
+     "paragraph": 0,
+     "start": 187.929,
+     "end": 189.616
+    },
+    {
+     "id": "s5_02",
+     "text": "It needs other things to run, like the C library.",
+     "caption": "It needs other things to run, like the C library.",
+     "paragraph": 0,
+     "start": 189.916,
+     "end": 192.742
+    },
+    {
+     "id": "s5_03",
+     "text": "So where does it find them, if not in slash user, slash lib?",
+     "caption": "So where does it find them, if not in slash usr, slash lib?",
+     "paragraph": 0,
+     "start": 193.042,
+     "end": 196.306
+    },
+    {
+     "id": "s5_04",
+     "text": "Its files refer to them by their full store paths, hashes included.",
+     "caption": "Its files refer to them by their full store paths, hashes included.",
+     "paragraph": 1,
+     "start": 196.806,
+     "end": 200.732
+    },
+    {
+     "id": "s5_05",
+     "text": "Nix finds those references by scanning the build's output for store paths.",
+     "caption": "Nix finds those references by scanning the build's output for store paths.",
+     "paragraph": 2,
+     "start": 201.232,
+     "end": 205.622
+    },
+    {
+     "id": "s5_06",
+     "text": "Follow them, and the references of those, and you get the package's closure: everything it needs at run time.",
+     "caption": "Follow them, and the references of those, and you get the package's closure: everything it needs at run time.",
+     "paragraph": 2,
+     "start": 205.922,
+     "end": 212.244
+    },
+    {
+     "id": "s5_07",
+     "text": "Hello's closure is five paths: Hello itself, the C library, a library the C library pulls in, another that one needs in turn, and a small runtime library that ships with the compiler and that compiled programs use.",
+     "caption": "Hello's closure is five paths: Hello itself, the C library, a library the C library pulls in, another that one needs in turn, and a small runtime library that ships with the compiler and that compiled programs use.",
+     "paragraph": 3,
+     "start": 212.744,
+     "end": 227.038
+    },
+    {
+     "id": "s5_08",
+     "text": "Copy those five paths to another machine of the same kind, and Hello runs there.",
+     "caption": "Copy those five paths to another machine of the same kind, and Hello runs there.",
+     "paragraph": 4,
+     "start": 228.538,
+     "end": 233.287
+    },
+    {
+     "id": "s5_09",
+     "text": "And things needed only to build it, like the compiler itself, aren't in the list.",
+     "caption": "And things needed only to build it, like the compiler itself, aren't in the list.",
+     "paragraph": 4,
+     "start": 233.587,
+     "end": 238.081
+    }
+   ],
+   "end": 239.531
+  },
+  {
+   "id": "s6",
+   "title": "Installing is switching a link",
+   "start": 239.531,
+   "lines": [
+    {
+     "id": "s6_01",
+     "text": "So what does it mean to have a program installed?",
+     "caption": "So what does it mean to have a program installed?",
+     "paragraph": 0,
+     "start": 239.881,
+     "end": 242.281
+    },
+    {
+     "id": "s6_02",
+     "text": "In Nix, what you have installed is a generation: a small directory of links into the store.",
+     "caption": "In Nix, what you have installed is a generation: a small directory of links into the store.",
+     "paragraph": 1,
+     "start": 242.781,
+     "end": 248.138
+    },
+    {
+     "id": "s6_03",
+     "text": "Your profile is a link to one generation.",
+     "caption": "Your profile is a link to one generation.",
+     "paragraph": 1,
+     "start": 248.438,
+     "end": 250.829
+    },
+    {
+     "id": "s6_04",
+     "text": "Install Hello: that's generation one.",
+     "caption": "Install Hello: that's generation one.",
+     "paragraph": 2,
+     "start": 251.329,
+     "end": 253.724
+    },
+    {
+     "id": "s6_05",
+     "text": "Install cow say: Nix creates generation two, with links to both, and then switches the profile's link to it, in a single step.",
+     "caption": "Install cowsay: Nix creates generation two, with links to both, and then switches the profile's link to it, in a single step.",
+     "paragraph": 2,
+     "start": 254.024,
+     "end": 262.022
+    },
+    {
+     "id": "s6_06",
+     "text": "There's no moment when the profile is half old and half new.",
+     "caption": "There's no moment when the profile is half old and half new.",
+     "paragraph": 3,
+     "start": 262.522,
+     "end": 265.51
+    },
+    {
+     "id": "s6_07",
+     "text": "It points to one generation, then to the other.",
+     "caption": "It points to one generation, then to the other.",
+     "paragraph": 3,
+     "start": 265.81,
+     "end": 268.374
+    },
+    {
+     "id": "s6_08",
+     "text": "Roll back, and the link switches back to generation one.",
+     "caption": "Roll back, and the link switches back to generation one.",
+     "paragraph": 4,
+     "start": 269.474,
+     "end": 272.528
+    },
+    {
+     "id": "s6_09",
+     "text": "Hello is there, cow say is gone from the profile, and nothing in the store was deleted.",
+     "caption": "Hello is there, cowsay is gone from the profile, and nothing in the store was deleted.",
+     "paragraph": 4,
+     "start": 272.828,
+     "end": 277.828
+    },
+    {
+     "id": "s6_10",
+     "text": "Old generations stay until you delete them.",
+     "caption": "Old generations stay until you delete them.",
+     "paragraph": 5,
+     "start": 279.128,
+     "end": 281.659
+    },
+    {
+     "id": "s6_11",
+     "text": "Only then can Nix's garbage collector remove the store paths nothing else uses.",
+     "caption": "Only then can Nix's garbage collector remove the store paths nothing else uses.",
+     "paragraph": 5,
+     "start": 281.959,
+     "end": 287.055
+    }
+   ],
+   "end": 287.905
+  },
+  {
+   "id": "s7",
+   "title": "A whole system",
+   "start": 287.905,
+   "lines": [
+    {
+     "id": "s7_01",
+     "text": "Nix O S applies the same idea to an entire operating system.",
+     "caption": "NixOS applies the same idea to an entire operating system.",
+     "paragraph": 0,
+     "start": 288.255,
+     "end": 292.621
+    },
+    {
+     "id": "s7_02",
+     "text": "You describe the system in configuration dot nix, a file that can pull in others: the packages, the settings, the services to run.",
+     "caption": "You describe the system in configuration.nix, a file that can pull in others: the packages, the settings, the services to run.",
+     "paragraph": 1,
+     "start": 293.121,
+     "end": 301.618
+    },
+    {
+     "id": "s7_03",
+     "text": "Nix builds all of it, the programs, the configuration files, the start-up scripts, into one store path.",
+     "caption": "Nix builds all of it, the programs, the configuration files, the start-up scripts, into one store path.",
+     "paragraph": 1,
+     "start": 301.918,
+     "end": 308.231
+    },
+    {
+     "id": "s7_04",
+     "text": "Here's a minimal configuration, evaluated on this machine.",
+     "caption": "Here's a minimal configuration, evaluated on this machine.",
+     "paragraph": 2,
+     "start": 308.731,
+     "end": 312.368
+    },
+    {
+     "id": "s7_05",
+     "text": "It has one system path.",
+     "caption": "It has one system path.",
+     "paragraph": 2,
+     "start": 312.668,
+     "end": 313.973
+    },
+    {
+     "id": "s7_06",
+     "text": "Add one line, turning on the engine X web server, and the system gets a different path.",
+     "caption": "Add one line, turning on the nginx web server, and the system gets a different path.",
+     "paragraph": 2,
+     "start": 314.273,
+     "end": 319.254
+    },
+    {
+     "id": "s7_07",
+     "text": "Remove the line, and the path is exactly the first one again.",
+     "caption": "Remove the line, and the path is exactly the first one again.",
+     "paragraph": 2,
+     "start": 319.554,
+     "end": 323.185
+    },
+    {
+     "id": "s7_08",
+     "text": "Switching to a new configuration makes a new system generation, and adds it to the boot menu.",
+     "caption": "Switching to a new configuration makes a new system generation, and adds it to the boot menu.",
+     "paragraph": 3,
+     "start": 324.685,
+     "end": 330.533
+    },
+    {
+     "id": "s7_09",
+     "text": "If an upgrade goes wrong, you pick the previous generation when the machine starts, or roll back from the command line.",
+     "caption": "If an upgrade goes wrong, you pick the previous generation when the machine starts, or roll back from the command line.",
+     "paragraph": 3,
+     "start": 330.833,
+     "end": 337.539
+    },
+    {
+     "id": "s7_10",
+     "text": "The link to the new generation switches in one step.",
+     "caption": "The link to the new generation switches in one step.",
+     "paragraph": 4,
+     "start": 338.039,
+     "end": 341.004
+    },
+    {
+     "id": "s7_11",
+     "text": "Bringing the running machine in line with it takes longer: services restart one by one, and a new kernel needs a reboot.",
+     "caption": "Bringing the running machine in line with it takes longer: services restart one by one, and a new kernel needs a reboot.",
+     "paragraph": 4,
+     "start": 341.304,
+     "end": 348.591
+    }
+   ],
+   "end": 350.041
+  },
+  {
+   "id": "s8",
+   "title": "What the hash doesn't promise",
+   "start": 350.041,
+   "lines": [
+    {
+     "id": "s8_01",
+     "text": "The hash promises the same inputs.",
+     "caption": "The hash promises the same inputs.",
+     "paragraph": 0,
+     "start": 350.391,
+     "end": 352.305
+    },
+    {
+     "id": "s8_02",
+     "text": "It doesn't always promise the same bytes.",
+     "caption": "It doesn't always promise the same bytes.",
+     "paragraph": 0,
+     "start": 352.605,
+     "end": 354.632
+    },
+    {
+     "id": "s8_03",
+     "text": "Some builds stamp in the date, or vary in small ways from run to run: same path, different bytes.",
+     "caption": "Some builds stamp in the date, or vary in small ways from run to run: same path, different bytes.",
+     "paragraph": 1,
+     "start": 355.132,
+     "end": 361.247
+    },
+    {
+     "id": "s8_04",
+     "text": "A twenty twenty-five study rebuilt about seven hundred thousand packages from old Nix packages snapshots.",
+     "caption": "A 2025 study rebuilt about seven hundred thousand packages from old Nixpkgs snapshots.",
+     "paragraph": 1,
+     "start": 361.547,
+     "end": 368.094
+    },
+    {
+     "id": "s8_05",
+     "text": "Between sixty-nine and ninety-one percent came out bit-for-bit identical, rising over the years.",
+     "caption": "Between sixty-nine and ninety-one percent came out bit-for-bit identical, rising over the years.",
+     "paragraph": 1,
+     "start": 368.394,
+     "end": 374.415
+    },
+    {
+     "id": "s8_06",
+     "text": "And the inputs are only fixed if you fix them.",
+     "caption": "And the inputs are only fixed if you fix them.",
+     "paragraph": 2,
+     "start": 375.715,
+     "end": 378.029
+    },
+    {
+     "id": "s8_07",
+     "text": "Nix packages, the collection the recipes come from, keeps moving.",
+     "caption": "Nixpkgs, the collection the recipes come from, keeps moving.",
+     "paragraph": 2,
+     "start": 378.329,
+     "end": 382.133
+    },
+    {
+     "id": "s8_08",
+     "text": "To get the same inputs next year, pin the exact revision.",
+     "caption": "To get the same inputs next year, pin the exact revision.",
+     "paragraph": 2,
+     "start": 382.433,
+     "end": 385.847
+    },
+    {
+     "id": "s8_09",
+     "text": "Rollback switches the software and its configuration.",
+     "caption": "Rollback switches the software and its configuration.",
+     "paragraph": 3,
+     "start": 386.347,
+     "end": 389.603
+    },
+    {
+     "id": "s8_10",
+     "text": "It doesn't touch your data.",
+     "caption": "It doesn't touch your data.",
+     "paragraph": 3,
+     "start": 389.903,
+     "end": 391.183
+    },
+    {
+     "id": "s8_11",
+     "text": "Say a new version of a database converted its files to a new format.",
+     "caption": "Say a new version of a database converted its files to a new format.",
+     "paragraph": 3,
+     "start": 391.483,
+     "end": 395.567
+    },
+    {
+     "id": "s8_12",
+     "text": "Roll back, and you get the old program, but the files stay converted, and the old program may not be able to read them.",
+     "caption": "Roll back, and you get the old program, but the files stay converted, and the old program may not be able to read them.",
+     "paragraph": 3,
+     "start": 395.867,
+     "end": 402.955
+    }
+   ],
+   "end": 404.605
+  },
+  {
+   "id": "s9",
+   "title": "The answer",
+   "start": 404.605,
+   "lines": [
+    {
+     "id": "s9_01",
+     "text": "So why a hash in every path?",
+     "caption": "So why a hash in every path?",
+     "paragraph": 0,
+     "start": 404.955,
+     "end": 406.385
+    },
+    {
+     "id": "s9_02",
+     "text": "Because the path names a build by everything that went into it.",
+     "caption": "Because the path names a build by everything that went into it.",
+     "paragraph": 0,
+     "start": 406.685,
+     "end": 410.028
+    },
+    {
+     "id": "s9_03",
+     "text": "That's what keeps anything from being overwritten.",
+     "caption": "That's what keeps anything from being overwritten.",
+     "paragraph": 1,
+     "start": 410.528,
+     "end": 412.746
+    },
+    {
+     "id": "s9_04",
+     "text": "Versions coexist because they never share a path.",
+     "caption": "Versions coexist because they never share a path.",
+     "paragraph": 1,
+     "start": 413.046,
+     "end": 415.933
+    },
+    {
+     "id": "s9_05",
+     "text": "Dependencies are exact, because they're referred to by their paths.",
+     "caption": "Dependencies are exact, because they're referred to by their paths.",
+     "paragraph": 1,
+     "start": 416.233,
+     "end": 420.019
+    },
+    {
+     "id": "s9_06",
+     "text": "And an upgrade, or a rollback, is switching one link, for a program or for a whole system.",
+     "caption": "And an upgrade, or a rollback, is switching one link, for a program or for a whole system.",
+     "paragraph": 1,
+     "start": 420.319,
+     "end": 425.332
+    },
+    {
+     "id": "s9_07",
+     "text": "What the hash fixes is the inputs.",
+     "caption": "What the hash fixes is the inputs.",
+     "paragraph": 2,
+     "start": 425.832,
+     "end": 427.734
+    },
+    {
+     "id": "s9_08",
+     "text": "Pin them, and you get the same recipe again; the bytes usually, but not always, follow.",
+     "caption": "Pin them, and you get the same recipe again; the bytes usually, but not always, follow.",
+     "paragraph": 2,
+     "start": 428.034,
+     "end": 433.065
+    },
+    {
+     "id": "s9_09",
+     "text": "And back up your data, because rollback won't.",
+     "caption": "And back up your data, because rollback won't.",
+     "paragraph": 2,
+     "start": 433.365,
+     "end": 435.825
+    }
+   ],
+   "end": 444.425
+  }
+ ],
+ "phonemes": {
+  "s1_01": "\u026anst\u02c8\u0254l \u0261\u02c8\u028cn\u02c8u h\u0259l\u02c8O, \u00f0\u0259 kl\u02c8\u00e6s\u026ak t\u02c8Ini t\u02c8\u025bst p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m, w\u026a\u00f0 \u0250 n\u02c8\u0254\u0279m\u1d4al p\u02c8\u00e6k\u026a\u02a4 m\u02c8\u00e6n\u026a\u02a4\u0259\u0279, \u00e6nd \u026at l\u02c8\u00e6ndz \u00e6t sl\u02c8\u00e6\u0283 j\u02c8uz\u0259\u0279, sl\u02c8\u00e6\u0283 b\u02c8\u026an, sl\u02c8\u00e6\u0283 h\u0259l\u02c8O.",
+  "s1_02": "\u026anst\u02c8\u0254l \u026at w\u026a\u00f0 n\u02c8\u026aks, \u00e6nd \u026at l\u02c8\u00e6ndz s\u02c8\u028cmhw\u02cc\u025b\u0279 st\u0279\u02c8An\u02a4\u0259\u0279: \u0250 d\u0259\u0279\u02c8\u025bkt\u0259\u0279i \u026an sl\u02c8\u00e6\u0283 n\u02c8\u026aks, sl\u02c8\u00e6\u0283 st\u02c8\u0254\u0279, h\u02ccuz n\u02c8Am st\u02c8\u0251\u0279ts w\u026a\u00f0 \u03b8\u02c8\u025c\u0279Tit\u02ccu k\u02c8\u025b\u0279\u0259kt\u0259\u0279z \u028cv w\u02cc\u028ct l\u02c8\u028aks l\u02c8Ik n\u02c8Yz.",
+  "s1_03": "\u00f0\u02c8\u00e6t n\u02c8Yz \u026az \u0250 h\u02c8\u00e6\u0283, \u00e6nd \u02c8\u025bv\u0259\u0279i p\u02c8\u00e6k\u026a\u02a4 n\u02c8\u026aks \u026anst\u02c8\u0254lz h\u00e6z w\u02c8\u028cn.",
+  "s1_04": "n\u02c8\u026aks, \u00e6nd n\u02c8\u026aks \u02c8O \u02c8\u025bs, \u00f0\u0259 l\u02c8\u026an\u0259ks d\u02cc\u026ast\u0279\u0259bj\u02c8u\u0283\u0259n b\u02c8\u026alt \u02cc\u0254n \u026at, m\u02ccAk s\u02cc\u028cm \u02cc\u028cnj\u02c8u\u0292\u0259w\u0259l p\u0279\u02c8\u0251m\u0259s\u1d7bz.",
+  "s1_05": "b\u02c8\u026ald \u00f0\u0259 s\u02c8Am \u03b8\u02c8\u026a\u014b tw\u02c8Is \u00e6nd, \u00e6z f\u02c8\u0251\u0279 \u00e6z p\u02c8\u0251s\u0259b\u1d4al, \u0261\u025bt \u00f0\u0259 s\u02c8Am \u0279\u0259z\u02c8\u028clt.",
+  "s1_06": "k\u02c8ip t\u02c8u v\u02c8\u025c\u0279\u0292\u0259nz \u028cv \u0250 p\u02c8\u00e6k\u026a\u02a4 s\u02c8Id bI s\u02c8Id.",
+  "s1_07": "\u0279\u02c8Ol b\u02c8\u00e6k \u0250n \u02c8\u028cp\u0261\u0279\u02ccAd, f\u0254\u0279 w\u02c8\u028cn p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m \u0254\u0279 f\u0254\u0279 \u00f0\u0259 h\u02c8Ol m\u0259\u0283\u02c8in.",
+  "s1_08": "w\u02ccI \u026az \u00f0\u025b\u0279 \u0250 h\u02c8\u00e6\u0283 \u026an \u02c8\u025bv\u0259\u0279i p\u02c8\u00e6\u03b8?",
+  "s1_09": "\u02cc\u00e6nd h\u02ccW d\u02c8\u028cz \u00f0\u02c8\u00e6t w\u02c8\u028cn Id\u02c8i\u0259 d\u0259l\u02c8\u026av\u0259\u0279 \u02c8\u0254l \u028cv \u00f0\u02c8\u00e6t?",
+  "s2_01": "m\u02c8Ost p\u02c8\u00e6k\u026a\u02a4 m\u02c8\u00e6n\u026a\u02a4\u0259\u0279z p\u02cc\u028at \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b \u026an \u0283\u02c8\u025b\u0279d pl\u02c8As\u1d7bz.",
+  "s2_02": "p\u0279\u02c8O\u0261\u0279\u02cc\u00e6mz \u0261\u02ccO \u026an sl\u02c8\u00e6\u0283 j\u02c8uz\u0259\u0279, sl\u02c8\u00e6\u0283 b\u02c8\u026an.",
+  "s2_03": "l\u02c8Ib\u0279\u02cc\u025b\u0279iz \u0261\u02ccO \u026an sl\u02c8\u00e6\u0283 j\u02c8uz\u0259\u0279, sl\u02c8\u00e6\u0283 l\u02c8\u026ab.",
+  "s2_04": "\u02c8\u028cp\u0261\u0279\u02ccAd \u0250 l\u02c8Ib\u0279\u02cc\u025b\u0279i, \u00e6nd \u00f0\u0259 n\u02c8u v\u02c8\u025c\u0279\u0292\u0259n \u02ccOv\u0259\u0279\u0279\u02c8Its \u00f0i \u02c8Old w\u02c8\u028cn \u026an pl\u02c8As.",
+  "s2_05": "\u02c8\u025bv\u0259\u0279i p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m \u00f0\u00e6t j\u02c8uzd \u00f0i \u02c8Old w\u02c8\u028cn n\u02c8W \u0261\u025bts \u00f0\u0259 n\u02c8u w\u02c8\u028cn, w\u02c8\u025b\u00f0\u0259\u0279 \u026at w\u028cz b\u02c8\u026alt f\u0254\u0279 \u026at \u0254\u0279 n\u02cc\u0251t.",
+  "s2_06": "t\u02c8u p\u0279\u02c8O\u0261\u0279\u02cc\u00e6mz \u00f0\u00e6t n\u02c8id d\u02c8\u026af\u0259\u0279\u0259nt v\u02c8\u025c\u0279\u0292\u0259nz \u028cv \u00f0\u0259 s\u02c8Am l\u02c8Ib\u0279\u02cc\u025b\u0279i \u02c8\u0254f\u1d4an k\u02c8\u00e6nt b\u02c8O\u03b8 h\u00e6v w\u02cc\u028ct \u00f0A n\u02c8id.",
+  "s2_07": "s\u02cc\u028cm l\u02c8Ib\u0279\u02cc\u025b\u0279iz p\u02cc\u028at \u0250 v\u02c8\u025c\u0279\u0292\u0259n n\u02c8\u028cmb\u0259\u0279 \u026an \u00f0\u0259 f\u02c8Il n\u02c8Am, b\u02cc\u028ct m\u02c8Ost \u03b8\u02c8\u026a\u014bz \u0261\u025bt \u026a\u0261z\u02c8\u00e6ktli w\u02c8\u028cn p\u02c8\u00e6\u03b8.",
+  "s2_08": "\u02cc\u00e6nd \u0250n \u02c8\u028cp\u0261\u0279\u02ccAd \u00f0\u00e6t st\u02c8\u0251ps h\u02cc\u00e6fw\u02c8A, s\u02c8A \u00f0\u0259 p\u02c8W\u0259\u0279 \u0261\u02c8Oz \u02c8Wt, l\u02c8ivz s\u02cc\u028cm f\u02c8Ilz n\u02c8u \u00e6nd s\u02cc\u028cm \u02c8Old: \u0250 s\u02c8\u026ast\u0259m \u00f0\u00e6t m\u02c8\u00e6\u02a7\u1d7bz n\u02c8O v\u02c8\u025c\u0279\u0292\u0259n \u00e6t \u02c8\u0254l.",
+  "s3_01": "n\u02c8\u026aks st\u02c8\u0251\u0279ts f\u0279\u028cm \u0250 d\u02c8\u026af\u0259\u0279\u0259nt p\u02c8\u026ak\u02a7\u0259\u0279.",
+  "s3_02": "\u02c8\u025bv\u0259\u0279i p\u02c8\u00e6k\u026a\u02a4 \u026az b\u02c8\u026alt f\u0279\u028cm \u0250 \u0279\u02c8\u025bs\u0259p\u02cci, w\u02cc\u026a\u02a7 n\u02c8\u026aks k\u02c8\u0254lz \u0250 d\u02cc\u025b\u0279\u0259v\u02c8A\u0283\u0259n.",
+  "s3_03": "n\u02c8\u026aks t\u0279\u02c8its \u00f0\u00e6t b\u02c8\u026ald \u00e6z \u0250 pj\u02c8\u028a\u0279 f\u02c8\u028c\u014bk\u0283\u0259n \u028cv \u026ats \u02c8\u026anp\u02cc\u028ats, \u00e6nd \u00f0i \u02c8\u026anp\u02cc\u028ats \u0251\u0279 \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b \u00f0\u0259 b\u02c8\u026ald j\u02c8us\u1d7bz: \u00f0\u0259 s\u02c8\u0254\u0279s k\u02c8Od, \u00f0\u0259 b\u02c8\u026ald sk\u0279\u02c8\u026apt, \u00f0\u0259 k\u0259mp\u02c8Il\u0259\u0279, \u00f0\u0259 l\u02c8Ib\u0279\u02cc\u025b\u0279iz, \u00e6nd \u02c8\u025bv\u0259\u0279i \u02c8\u0251p\u0283\u0259n.",
+  "s3_04": "\u02cc\u0254n l\u02c8\u026an\u0259ks, n\u02c8\u026aks \u0279\u02c8\u028cnz \u02c8i\u02a7 b\u02c8\u026ald \u02c8Is\u0259l\u02ccAT\u1d7bd bI d\u0259f\u02c8\u0254lt, s\u02ccO \u026at k\u00e6n j\u02c8uz \u02c8Onli w\u02cc\u028ct \u026at d\u0259kl\u02c8\u025b\u0279d.",
+  "s3_05": "\u02c8iv\u0259n \u0250 d\u02c8Wnl\u02ccOd\u1d7bd s\u02c8\u0254\u0279s f\u02c8Il h\u00e6z t\u0259 m\u02c8\u00e6\u02a7 \u0250 h\u02c8\u00e6\u0283 \u0279\u02c8\u026atn \u026an \u00f0\u0259 \u0279\u02c8\u025bs\u0259p\u02cci.",
+  "s3_06": "n\u02c8\u026aks k\u0259mpj\u02c8uts \u0250 h\u02c8\u00e6\u0283 \u02c8Ov\u0259\u0279 \u02c8\u0254l \u028cv \u00f0Oz \u02c8\u026anp\u02cc\u028ats, \u00e6nd n\u02c8Amz \u00f0i \u02c8Wtp\u02cc\u028at \u02c8\u00e6ft\u0259\u0279 \u026at: sl\u02c8\u00e6\u0283 n\u02c8\u026aks, sl\u02c8\u00e6\u0283 st\u02c8\u0254\u0279, \u00f0\u0259 h\u02c8\u00e6\u0283, \u00f0\u02c8\u025bn \u00f0\u0259 p\u02c8\u00e6k\u026a\u02a4 n\u02c8Am.",
+  "s3_07": "\u02cc\u026at k\u00e6n d\u02c8u \u00f0\u02c8\u00e6t b\u0259f\u02c8\u0254\u0279 b\u02c8\u026ald\u026a\u014b \u02c8\u025bni\u03b8\u02cc\u026a\u014b.",
+  "s3_08": "\u02cc\u0254n \u00f0\u026as m\u0259\u0283\u02c8in, n\u02c8\u026aks k\u0259mpj\u02c8uT\u1d7bd h\u0259l\u02c8Oz p\u02c8\u00e6\u03b8 f\u0279\u028cm \u026ats \u0279\u02c8\u025bs\u0259p\u02cci, \u00e6nd \u00f0\u0259 p\u02c8\u00e6k\u026a\u02a4 \u00f0\u02c8\u025bn l\u02c8\u00e6nd\u1d7bd \u026a\u0261z\u02c8\u00e6ktli \u00f0\u02c8\u025b\u0279.",
+  "s3_09": "s\u02ccO \u00f0\u0259 h\u02c8\u00e6\u0283 \u026az n\u02cc\u0251t \u0250 \u02a7\u02c8\u025bks\u02cc\u028cm \u028cv w\u02cc\u028ct k\u02c8Am \u02c8Wt.",
+  "s3_10": "\u02cc\u026ats \u0250 n\u02c8Am f\u0254\u0279 \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b \u00f0\u00e6t w\u02c8\u025bnt \u02c8\u026an.",
+  "s4_01": "n\u02c8W \u02a7\u02c8An\u02a4 w\u02c8\u028cn \u02c8\u026anp\u02cc\u028at.",
+  "s4_02": "h\u02c8\u026a\u0279, w\u02c8\u028cn \u02c8\u0251p\u0283\u0259n \u028cv h\u0259l\u02c8Oz b\u02c8\u026ald: w\u02c8\u025b\u00f0\u0259\u0279 t\u0259 \u0279\u02c8\u028cn \u026ats t\u02c8\u025bsts.",
+  "s4_03": "\u00f0\u0259 \u0279\u02c8\u025bs\u0259p\u02cci \u026az d\u02c8\u026af\u0259\u0279\u0259nt, s\u02ccO \u00f0\u0259 h\u02c8\u00e6\u0283 \u026az d\u02c8\u026af\u0259\u0279\u0259nt, \u00e6nd \u00f0\u0259 n\u02c8u h\u0259l\u02c8O \u0261\u025bts \u0250 n\u02c8u p\u02c8\u00e6\u03b8.",
+  "s4_04": "\u0250 sm\u02c8\u0254l sk\u0279\u02c8\u026apt k\u02c8\u0254ld \u0261\u0279\u02c8it \u0279\u02c8\u028cnz h\u0259l\u02c8O.",
+  "s4_05": "\u02cc\u026ats \u02c8\u026anp\u02cc\u028ats \u026ankl\u02c8ud h\u0259l\u02c8Oz p\u02c8\u00e6\u03b8, s\u02ccO \u0261\u0279\u02c8it \u0261\u025bts \u0250 n\u02c8u p\u02c8\u00e6\u03b8 t\u02c8u.",
+  "s4_06": "\u00f0\u0259 \u02a7\u02c8An\u02a4 \u0279\u02c8\u026ap\u1d4alz t\u028a \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b b\u02c8\u026alt f\u0279\u028cm \u026at.",
+  "s4_07": "k\u02c8W s\u02c8A d\u02c8\u028cz\u1d4ant j\u02c8uz h\u0259l\u02c8O, s\u02ccO \u026ats p\u02c8\u00e6\u03b8 st\u02c8Az \u026a\u0261z\u02c8\u00e6ktli \u00f0\u0259 s\u02c8Am.",
+  "s4_08": "\u02cc\u00e6nd n\u02c8\u028c\u03b8\u026a\u014b \u00f0\u00e6t w\u028cz \u02cc\u0254l\u0279\u02c8\u025bdi b\u02c8\u026alt \u0261\u025bts t\u02c8\u028c\u02a7t.",
+  "s4_09": "\u00f0i \u02c8Old h\u0259l\u02c8O \u00e6nd \u00f0\u0259 n\u02c8u h\u0259l\u02c8O n\u02c8W s\u02c8\u026at s\u02c8Id bI s\u02c8Id \u026an \u00f0\u0259 st\u02c8\u0254\u0279, \u02c8i\u02a7 \u026an \u026ats \u02c8On d\u0259\u0279\u02c8\u025bkt\u0259\u0279i.",
+  "s4_10": "\u00f0\u02c8\u00e6ts h\u02ccW t\u02c8u v\u02c8\u025c\u0279\u0292\u0259nz k\u02ccO\u0259\u0261z\u02c8\u026ast: \u00f0A k\u02c8\u00e6nt \u02ccOv\u0259\u0279\u0279\u02c8It \u02c8i\u02a7 \u02c8\u028c\u00f0\u0259\u0279, b\u0259k\u02c8\u028cz \u00f0A n\u02c8\u025bv\u0259\u0279 \u0283\u02c8\u025b\u0279 \u0250 p\u02c8\u00e6\u03b8.",
+  "s5_01": "b\u02cc\u028ct h\u0259l\u02c8O \u02c8\u026az\u1d4ant s\u02cc\u025blfk\u0259nt\u02c8And.",
+  "s5_02": "\u02cc\u026at n\u02c8idz \u02c8\u028c\u00f0\u0259\u0279 \u03b8\u02c8\u026a\u014bz t\u0259 \u0279\u02c8\u028cn, l\u02c8Ik \u00f0\u0259 s\u02c8i l\u02c8Ib\u0279\u02cc\u025b\u0279i.",
+  "s5_03": "s\u02ccO w\u02cc\u025b\u0279 d\u02c8\u028cz \u026at f\u02c8Ind \u00f0\u02cc\u025bm, \u026af n\u02cc\u0251t \u026an sl\u02c8\u00e6\u0283 j\u02c8uz\u0259\u0279, sl\u02c8\u00e6\u0283 l\u02c8\u026ab?",
+  "s5_04": "\u02cc\u026ats f\u02c8Ilz \u0279\u0259f\u02c8\u025c\u0279 t\u0259 \u00f0\u02cc\u025bm bI \u00f0\u025b\u0279 f\u02c8\u028al st\u02c8\u0254\u0279 p\u02c8\u00e6\u00f0z, h\u02c8\u00e6\u0283\u1d7bz \u026ankl\u02c8ud\u1d7bd.",
+  "s5_05": "n\u02c8\u026aks f\u02c8Indz \u00f0Oz \u0279\u02c8\u025bf\u0259\u0279\u0259ns\u1d7bz bI sk\u02c8\u00e6n\u026a\u014b \u00f0\u0259 b\u02c8\u026aldz \u02c8Wtp\u02cc\u028at f\u0254\u0279 st\u02c8\u0254\u0279 p\u02c8\u00e6\u00f0z.",
+  "s5_06": "f\u02c8\u0251lO \u00f0\u02cc\u025bm, \u00e6nd \u00f0\u0259 \u0279\u02c8\u025bf\u0259\u0279\u0259ns\u1d7bz \u028cv \u00f0\u02c8Oz, \u00e6nd ju \u0261\u025bt \u00f0\u0259 p\u02c8\u00e6k\u026a\u02a4\u1d7bz kl\u02c8O\u0292\u0259\u0279: \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b \u026at n\u02c8idz \u00e6t \u0279\u02c8\u028cn t\u02c8Im.",
+  "s5_07": "h\u0259l\u02c8Oz kl\u02c8O\u0292\u0259\u0279 \u026az f\u02c8Iv p\u02c8\u00e6\u00f0z: h\u0259l\u02c8O \u026ats\u02c8\u025blf, \u00f0\u0259 s\u02c8i l\u02c8Ib\u0279\u02cc\u025b\u0279i, \u0250 l\u02c8Ib\u0279\u02cc\u025b\u0279i \u00f0\u0259 s\u02c8i l\u02c8Ib\u0279\u02cc\u025b\u0279i p\u02c8\u028alz \u02c8\u026an, \u0259n\u02c8\u028c\u00f0\u0259\u0279 \u00f0\u00e6t w\u02c8\u028cn n\u02c8idz \u026an t\u02c8\u025c\u0279n, \u00e6nd \u0250 sm\u02c8\u0254l \u0279\u02c8\u028cntIm l\u02c8Ib\u0279\u02cc\u025b\u0279i \u00f0\u00e6t \u0283\u02c8\u026aps w\u026a\u00f0 \u00f0\u0259 k\u0259mp\u02c8Il\u0259\u0279 \u00e6nd \u00f0\u00e6t k\u0259mp\u02c8Ild p\u0279\u02c8O\u0261\u0279\u02cc\u00e6mz j\u02c8us.",
+  "s5_08": "k\u02c8\u0251pi \u00f0Oz f\u02c8Iv p\u02c8\u00e6\u00f0z t\u028a \u0259n\u02c8\u028c\u00f0\u0259\u0279 m\u0259\u0283\u02c8in \u028cv \u00f0\u0259 s\u02c8Am k\u02c8Ind, \u00e6nd h\u0259l\u02c8O \u0279\u02c8\u028cnz \u00f0\u02c8\u025b\u0279.",
+  "s5_09": "\u02cc\u00e6nd \u03b8\u02c8\u026a\u014bz n\u02c8id\u1d7bd \u02c8Onli t\u0259 b\u02c8\u026ald \u026at, l\u02c8Ik \u00f0\u0259 k\u0259mp\u02c8Il\u0259\u0279 \u026ats\u02c8\u025blf, \u02cc\u0251\u0279nt \u026an \u00f0\u0259 l\u02c8\u026ast.",
+  "s6_01": "s\u02ccO w\u02cc\u028ct d\u02c8\u028cz \u026at m\u02c8in t\u0259 h\u00e6v \u0250 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m \u026anst\u02c8\u0254ld?",
+  "s6_02": "\u026an n\u02c8\u026aks, w\u02cc\u028ct ju h\u00e6v \u026anst\u02c8\u0254ld \u026az \u0250 \u02a4\u02cc\u025bn\u0259\u0279\u02c8A\u0283\u0259n: \u0250 sm\u02c8\u0254l d\u0259\u0279\u02c8\u025bkt\u0259\u0279i \u028cv l\u02c8\u026a\u014bks \u02c8\u026antu \u00f0\u0259 st\u02c8\u0254\u0279.",
+  "s6_03": "j\u02cc\u028a\u0279 p\u0279\u02c8Of\u02ccIl \u026az \u0250 l\u02c8\u026a\u014bk t\u0259 w\u02c8\u028cn \u02a4\u02cc\u025bn\u0259\u0279\u02c8A\u0283\u0259n.",
+  "s6_04": "\u026anst\u02c8\u0254l h\u0259l\u02c8O: \u00f0\u02c8\u00e6ts \u02a4\u02cc\u025bn\u0259\u0279\u02c8A\u0283\u0259n w\u02c8\u028cn.",
+  "s6_05": "\u026anst\u02c8\u0254l k\u02c8W s\u02c8A: n\u02c8\u026aks k\u0279i\u02c8Ats \u02a4\u02cc\u025bn\u0259\u0279\u02c8A\u0283\u0259n t\u02c8u, w\u026a\u00f0 l\u02c8\u026a\u014bks t\u0259 b\u02c8O\u03b8, \u00e6nd \u00f0\u02c8\u025bn sw\u02c8\u026a\u02a7\u1d7bz \u00f0\u0259 p\u0279\u02c8Of\u02ccIlz l\u02c8\u026a\u014bk t\u028a \u026at, \u026an \u0250 s\u02c8\u026a\u014b\u0261\u1d4al st\u02c8\u025bp.",
+  "s6_06": "\u00f0\u02cc\u025b\u0279z n\u02c8O m\u02c8Om\u1d4ant w\u02cc\u025bn \u00f0\u0259 p\u0279\u02c8Of\u02ccIl \u026az h\u02c8\u00e6f \u02c8Old \u00e6nd h\u02c8\u00e6f n\u02c8u.",
+  "s6_07": "\u02cc\u026at p\u02c8Ynts t\u0259 w\u02c8\u028cn \u02a4\u02cc\u025bn\u0259\u0279\u02c8A\u0283\u0259n, \u00f0\u02c8\u025bn t\u0259 \u00f0i \u02c8\u028c\u00f0\u0259\u0279.",
+  "s6_08": "\u0279\u02c8Ol b\u02c8\u00e6k, \u00e6nd \u00f0\u0259 l\u02c8\u026a\u014bk sw\u02c8\u026a\u02a7\u1d7bz b\u02c8\u00e6k t\u0259 \u02a4\u02cc\u025bn\u0259\u0279\u02c8A\u0283\u0259n w\u02c8\u028cn.",
+  "s6_09": "h\u0259l\u02c8O \u026az \u00f0\u02c8\u025b\u0279, k\u02c8W s\u02c8A \u026az \u0261\u0254n f\u0279\u028cm \u00f0\u0259 p\u0279\u02c8Of\u02ccIl, \u00e6nd n\u02c8\u028c\u03b8\u026a\u014b \u026an \u00f0\u0259 st\u02c8\u0254\u0279 w\u028cz d\u0259l\u02c8iT\u1d7bd.",
+  "s6_10": "\u02c8Old \u02a4\u02cc\u025bn\u0259\u0279\u02c8A\u0283\u0259nz st\u02c8A \u02cc\u028cnt\u02c8\u026al ju d\u0259l\u02c8it \u00f0\u02cc\u025bm.",
+  "s6_11": "\u02c8Onli \u00f0\u02c8\u025bn k\u00e6n n\u02c8\u026aks\u1d7bz \u0261\u02c8\u0251\u0279b\u026a\u02a4 k\u0259l\u02c8\u025bkt\u0259\u0279 \u0279\u0259m\u02c8uv \u00f0\u0259 st\u02c8\u0254\u0279 p\u02c8\u00e6\u00f0z n\u02c8\u028c\u03b8\u026a\u014b \u02c8\u025bls j\u02c8uz\u1d7bz.",
+  "s7_01": "n\u02c8\u026aks \u02c8O \u02c8\u025bs \u0259pl\u02c8Iz \u00f0\u0259 s\u02c8Am Id\u02c8i\u0259 t\u0259 \u0250n \u0259nt\u02c8I\u0259\u0279 \u02c8\u0251p\u0259\u0279\u02ccAT\u026a\u014b s\u02c8\u026ast\u0259m.",
+  "s7_02": "j\u02ccu d\u0259sk\u0279\u02c8Ib \u00f0\u0259 s\u02c8\u026ast\u0259m \u026an k\u0259nf\u02cc\u026a\u0261j\u0259\u0279\u02c8A\u0283\u0259n d\u02c8\u0251t n\u02c8\u026aks, \u0250 f\u02c8Il \u00f0\u00e6t k\u00e6n p\u02c8\u028al \u02c8\u026an \u02c8\u028c\u00f0\u0259\u0279z: \u00f0\u0259 p\u02c8\u00e6k\u026a\u02a4\u1d7bz, \u00f0\u0259 s\u02c8\u025bT\u026a\u014bz, \u00f0\u0259 s\u02c8\u025c\u0279v\u0259s\u1d7bz t\u0259 \u0279\u02c8\u028cn.",
+  "s7_03": "n\u02c8\u026aks b\u02c8\u026aldz \u02c8\u0254l \u028cv \u026at, \u00f0\u0259 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6mz, \u00f0\u0259 k\u0259nf\u02cc\u026a\u0261j\u0259\u0279\u02c8A\u0283\u0259n f\u02c8Ilz, \u00f0\u0259 st\u02c8\u0251\u0279t\u02cc\u028cp sk\u0279\u02c8\u026apts, \u02c8\u026antu w\u02c8\u028cn st\u02c8\u0254\u0279 p\u02c8\u00e6\u03b8.",
+  "s7_04": "h\u02c8\u026a\u0279z \u0250 m\u02c8\u026an\u0259m\u1d4al k\u0259nf\u02cc\u026a\u0261j\u0259\u0279\u02c8A\u0283\u0259n, \u0259v\u02c8\u00e6lj\u028a\u02ccAT\u1d7bd \u02cc\u0254n \u00f0\u026as m\u0259\u0283\u02c8in.",
+  "s7_05": "\u02cc\u026at h\u00e6z w\u02c8\u028cn s\u02c8\u026ast\u0259m p\u02c8\u00e6\u03b8.",
+  "s7_06": "\u02c8\u00e6d w\u02c8\u028cn l\u02c8In, t\u02c8\u025c\u0279n\u026a\u014b \u02cc\u0254n \u00f0i \u02c8\u025bn\u02a4\u0259n \u02c8\u025bks w\u02c8\u025bb s\u02c8\u025c\u0279v\u0259\u0279, \u00e6nd \u00f0\u0259 s\u02c8\u026ast\u0259m \u0261\u025bts \u0250 d\u02c8\u026af\u0259\u0279\u0259nt p\u02c8\u00e6\u03b8.",
+  "s7_07": "\u0279\u0259m\u02c8uv \u00f0\u0259 l\u02c8In, \u00e6nd \u00f0\u0259 p\u02c8\u00e6\u03b8 \u026az \u026a\u0261z\u02c8\u00e6ktli \u00f0\u0259 f\u02c8\u025c\u0279st w\u02c8\u028cn \u0259\u0261\u02c8\u025bn.",
+  "s7_08": "sw\u02c8\u026a\u02a7\u026a\u014b t\u0259 \u0250 n\u02c8u k\u0259nf\u02cc\u026a\u0261j\u0259\u0279\u02c8A\u0283\u0259n m\u02ccAks \u0250 n\u02c8u s\u02c8\u026ast\u0259m \u02a4\u02cc\u025bn\u0259\u0279\u02c8A\u0283\u0259n, \u00e6nd \u02c8\u00e6dz \u026at t\u0259 \u00f0\u0259 b\u02c8ut m\u02c8\u025bnju.",
+  "s7_09": "\u02cc\u026af \u0250n \u02c8\u028cp\u0261\u0279\u02ccAd \u0261\u02c8Oz \u0279\u02c8\u0254\u014b, ju p\u02c8\u026ak \u00f0\u0259 p\u0279\u02c8ivi\u0259s \u02a4\u02cc\u025bn\u0259\u0279\u02c8A\u0283\u0259n w\u02cc\u025bn \u00f0\u0259 m\u0259\u0283\u02c8in st\u02c8\u0251\u0279ts, \u0254\u0279 \u0279\u02c8Ol b\u02c8\u00e6k f\u0279\u028cm \u00f0\u0259 k\u0259m\u02c8\u00e6nd l\u02c8In.",
+  "s7_10": "\u00f0\u0259 l\u02c8\u026a\u014bk t\u0259 \u00f0\u0259 n\u02c8u \u02a4\u02cc\u025bn\u0259\u0279\u02c8A\u0283\u0259n sw\u02c8\u026a\u02a7\u1d7bz \u026an w\u02c8\u028cn st\u02c8\u025bp.",
+  "s7_11": "b\u0279\u02c8\u026a\u014b\u026a\u014b \u00f0\u0259 \u0279\u02c8\u028cn\u026a\u014b m\u0259\u0283\u02c8in \u026an l\u02c8In w\u026a\u00f0 \u026at t\u02c8Aks l\u02c8\u0254\u014b\u0261\u0259\u0279: s\u02c8\u025c\u0279v\u0259s\u1d7bz \u0279ist\u02c8\u0251\u0279t w\u02c8\u028cn bI w\u02c8\u028cn, \u00e6nd \u0250 n\u02c8u k\u02c8\u025c\u0279n\u1d4al n\u02c8idz \u0250 \u0279\u02c8ib\u02ccut.",
+  "s8_01": "\u00f0\u0259 h\u02c8\u00e6\u0283 p\u0279\u02c8\u0251m\u0259s\u1d7bz \u00f0\u0259 s\u02c8Am \u02c8\u026anp\u02cc\u028ats.",
+  "s8_02": "\u02cc\u026at d\u02c8\u028cz\u1d4ant \u02c8\u0254lw\u02ccAz p\u0279\u02c8\u0251m\u0259s \u00f0\u0259 s\u02c8Am b\u02c8Its.",
+  "s8_03": "s\u02cc\u028cm b\u02c8\u026aldz st\u02c8\u00e6mp \u026an \u00f0\u0259 d\u02c8At, \u0254\u0279 v\u02c8\u025b\u0279i \u026an sm\u02c8\u0254l w\u02c8Az f\u0279\u028cm \u0279\u02c8\u028cn t\u0259 \u0279\u02c8\u028cn: s\u02c8Am p\u02c8\u00e6\u03b8, d\u02c8\u026af\u0259\u0279\u0259nt b\u02c8Its.",
+  "s8_04": "\u0250 tw\u02c8\u025bnti tw\u02c8\u025bntif\u02ccIv st\u02c8\u028cdi \u0279ib\u02c8\u026alt \u0259b\u02c8Wt s\u02c8\u025bv\u0259n h\u02c8\u028cnd\u0279\u0259d \u03b8\u02c8Wz\u1d4and p\u02c8\u00e6k\u026a\u02a4\u1d7bz f\u0279\u028cm \u02c8Old n\u02c8\u026aks p\u02c8\u00e6k\u026a\u02a4\u1d7bz sn\u02c8\u00e6p\u0283\u02cc\u0251ts.",
+  "s8_05": "b\u0259tw\u02c8in s\u02cc\u026akstin\u02c8In \u00e6nd n\u02c8Indiw\u02cc\u028cn p\u0259\u0279s\u02c8\u025bnt k\u02c8Am \u02c8Wt b\u02c8\u026atf\u0254\u0279b\u02c8\u026at Id\u02c8\u025bnt\u0259k\u1d4al, \u0279\u02c8Iz\u026a\u014b \u02c8Ov\u0259\u0279 \u00f0\u0259 j\u02c8\u026a\u0279z.",
+  "s8_06": "\u02cc\u00e6nd \u00f0i \u02c8\u026anp\u02cc\u028ats \u0251\u0279 \u02c8Onli f\u02c8\u026akst \u026af ju f\u02c8\u026aks \u00f0\u02cc\u025bm.",
+  "s8_07": "n\u02c8\u026aks p\u02c8\u00e6k\u026a\u02a4\u1d7bz, \u00f0\u0259 k\u0259l\u02c8\u025bk\u0283\u0259n \u00f0\u0259 \u0279\u02c8\u025bs\u0259p\u02cciz k\u02c8\u028cm f\u0279\u028cm, k\u02c8ips m\u02c8uv\u026a\u014b.",
+  "s8_08": "t\u0259 \u0261\u025bt \u00f0\u0259 s\u02c8Am \u02c8\u026anp\u02cc\u028ats n\u02c8\u025bkst j\u02c8\u026a\u0279, p\u02c8\u026an \u00f0i \u026a\u0261z\u02c8\u00e6kt \u0279\u0259v\u02c8\u026a\u0292\u1d4an.",
+  "s8_09": "\u0279\u02c8Olb\u02cc\u00e6k sw\u02c8\u026a\u02a7\u1d7bz \u00f0\u0259 s\u02c8\u0254ftw\u02cc\u025b\u0279 \u00e6nd \u026ats k\u0259nf\u02cc\u026a\u0261j\u0259\u0279\u02c8A\u0283\u0259n.",
+  "s8_10": "\u02cc\u026at d\u02c8\u028cz\u1d4ant t\u02c8\u028c\u02a7 j\u028a\u0279 d\u02c8AT\u0259.",
+  "s8_11": "s\u02c8A \u0250 n\u02c8u v\u02c8\u025c\u0279\u0292\u0259n \u028cv \u0250 d\u02c8\u00e6T\u0259b\u02ccAs k\u0259nv\u02c8\u025c\u0279T\u1d7bd \u026ats f\u02c8Ilz t\u0259 \u0250 n\u02c8u f\u02c8\u0254\u0279m\u02cc\u00e6t.",
+  "s8_12": "\u0279\u02c8Ol b\u02c8\u00e6k, \u00e6nd ju \u0261\u025bt \u00f0i \u02c8Old p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m, b\u02cc\u028ct \u00f0\u0259 f\u02c8Ilz st\u02c8A k\u0259nv\u02c8\u025c\u0279T\u1d7bd, \u00e6nd \u00f0i \u02c8Old p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m m\u02c8A n\u02cc\u0251t bi \u02c8Ab\u1d4al t\u0259 \u0279\u02c8id \u00f0\u02cc\u025bm.",
+  "s9_01": "s\u02ccO w\u02ccI \u0250 h\u02c8\u00e6\u0283 \u026an \u02c8\u025bv\u0259\u0279i p\u02c8\u00e6\u03b8?",
+  "s9_02": "b\u0259k\u02c8\u028cz \u00f0\u0259 p\u02c8\u00e6\u03b8 n\u02c8Amz \u0250 b\u02c8\u026ald bI \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b \u00f0\u00e6t w\u02c8\u025bnt \u02c8\u026antu \u026at.",
+  "s9_03": "\u00f0\u02c8\u00e6ts w\u02cc\u028ct k\u02c8ips \u02c8\u025bni\u03b8\u02cc\u026a\u014b f\u0279\u028cm b\u02c8i\u026a\u014b \u02ccOv\u0259\u0279\u0279\u02c8\u026atn.",
+  "s9_04": "v\u02c8\u025c\u0279\u0292\u0259nz k\u02ccO\u0259\u0261z\u02c8\u026ast b\u0259k\u02c8\u028cz \u00f0A n\u02c8\u025bv\u0259\u0279 \u0283\u02c8\u025b\u0279 \u0250 p\u02c8\u00e6\u03b8.",
+  "s9_05": "d\u0259p\u02c8\u025bnd\u1d4ansiz \u0251\u0279 \u026a\u0261z\u02c8\u00e6kt, b\u0259k\u02c8\u028cz \u00f0\u025b\u0279 \u0279\u0259f\u02c8\u025c\u0279d t\u0259 bI \u00f0\u025b\u0279 p\u02c8\u00e6\u00f0z.",
+  "s9_06": "\u02cc\u00e6nd \u0250n \u02c8\u028cp\u0261\u0279\u02ccAd, \u0254\u0279 \u0250 \u0279\u02c8Olb\u02cc\u00e6k, \u026az sw\u02c8\u026a\u02a7\u026a\u014b w\u02c8\u028cn l\u02c8\u026a\u014bk, f\u0254\u0279 \u0250 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m \u0254\u0279 f\u0254\u0279 \u0250 h\u02c8Ol s\u02c8\u026ast\u0259m.",
+  "s9_07": "w\u02cc\u028ct \u00f0\u0259 h\u02c8\u00e6\u0283 f\u02c8\u026aks\u1d7bz \u026az \u00f0i \u02c8\u026anp\u02cc\u028ats.",
+  "s9_08": "p\u02c8\u026an \u00f0\u02cc\u025bm, \u00e6nd ju \u0261\u025bt \u00f0\u0259 s\u02c8Am \u0279\u02c8\u025bs\u0259p\u02cci \u0259\u0261\u02c8\u025bn; \u00f0\u0259 b\u02c8Its j\u02c8u\u0292\u0259w\u0259li, b\u02cc\u028ct n\u02cc\u0251t \u02c8\u0254lw\u02ccAz, f\u02c8\u0251lO.",
+  "s9_09": "\u02cc\u00e6nd b\u02c8\u00e6k \u02cc\u028cp j\u028a\u0279 d\u02c8AT\u0259, b\u0259k\u02c8\u028cz \u0279\u02c8Olb\u02cc\u00e6k w\u02c8Ont."
+ },
+ "peak": 0.6960707306861877
+}

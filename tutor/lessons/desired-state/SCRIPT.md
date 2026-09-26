@@ -1,6 +1,6 @@
 # Make It So
 
-Status: in review round 6
+Status: locked after review round 6
 
 ## Argument
 
@@ -196,3 +196,8 @@ No length target: the length follows the argument (about 150 words per minute).
 - Editor: chapter 6 now shows the case before the term (replicas 3 → 5, "configured" at once, ready 3/5 … 5/5) and names only status, the field that pays off; the fighting-controllers line names a job that re-applies the file on a schedule, so it no longer sounds like Terraform's command-line tool; the chapter 4 labels are shown turning into their names.
 - Expert: the grace period is a default ("five minutes by default"); the machine is marked unreachable by a separate loop that watches machines, and the pod-counting controller starts the replacement; the apply is an update (three copies to five), so kubectl's "configured" is right; kubectl is introduced as Kubernetes' command-line tool.
 - Student: lost adding one minute and five minutes (now "about six minutes after the crash"), at edge/level (each name is now attached to its controller), and at "state" (fixed above). The chain's step 2 now says "3 servers" twice, matching the demo.
+
+**Round 6:** expert PASS, editor PASS, student retold the question and answer correctly (lost "a few times"). The gate holds again after the final round's blocking fix, so the script is locked. Revision candidates, not applied (final-round SHOULD FIX items):
+- Expert: the five minutes is a toleration period on the unreachable taint (`tolerationSeconds`), which Kubernetes doesn't call a grace period; "idempotence" is never named; Terraform's record is never called its state (the editor had asked for the opposite in round 5, so the next revision has to settle it, perhaps as "its state file"); spec is never named beside status.
+- Editor: the autoscaler arrives cold in chapter 6; "Terraform's command-line tool" is qualified without saying why; chapter 6's moving-target and fighting-tools beats are stated abstractly and faster than the rest.
+- Student: lost at replica count and pod arriving together, at which loop marks a machine unreachable, and at edge/level landing together.

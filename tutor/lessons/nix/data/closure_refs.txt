@@ -1,0 +1,10 @@
+=== direct references of each path in hello's closure (nix-store -q --references), nix (Nix) 2.35.2
+2745pvn6cv32yn9gp2rlqiqhqgs01pb5-libunistring-1.2:
+c47b963idja6h1d8n91pf28v2jcq96kp-libidn2-2.3.7:
+  -> 2745pvn6cv32yn9gp2rlqiqhqgs01pb5-libunistring-1.2
+y4d9iir0yqmrcswaqfi368d8m1rkv14s-xgcc-13.3.0-libgcc:
+5m9amsvvh2z8sl7jrnc87hzy21glw6k1-glibc-2.40-66:
+  -> c47b963idja6h1d8n91pf28v2jcq96kp-libidn2-2.3.7
+  -> y4d9iir0yqmrcswaqfi368d8m1rkv14s-xgcc-13.3.0-libgcc
+hwz2l7ihv2skq7gr5l3paavs3rr9il7z-hello-2.12.1:
+  -> 5m9amsvvh2z8sl7jrnc87hzy21glw6k1-glibc-2.40-66

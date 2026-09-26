@@ -1,0 +1,346 @@
+WEBVTT
+
+00:00:00.800 --> 00:00:04.355
+You tell Kubernetes to keep three copies of a web app running.
+
+00:00:04.605 --> 00:00:08.596
+At three in the morning, a machine dies, and takes one copy with it.
+
+00:00:08.646 --> 00:00:11.522
+Nobody is awake, and nobody runs a command.
+
+00:00:11.572 --> 00:00:14.511
+A few minutes later, there are three copies again.
+
+00:00:15.961 --> 00:00:17.351
+Now take Terraform.
+
+00:00:17.401 --> 00:00:20.469
+You tell it you want five servers, and it creates them.
+
+00:00:20.519 --> 00:00:22.626
+Then someone deletes one by hand.
+
+00:00:22.876 --> 00:00:24.596
+This time nothing happens.
+
+00:00:24.646 --> 00:00:27.848
+Terraform only notices the next time someone runs it.
+
+00:00:28.898 --> 00:00:32.473
+Both tools take a description of what you want, and make it real.
+
+00:00:32.523 --> 00:00:34.908
+How do they do that, and keep it that way?
+
+00:00:34.958 --> 00:00:38.972
+And why does one repair things by itself, while the other waits for you?
+
+00:00:42.722 --> 00:00:45.184
+There are two ways to tell a machine what to do.
+
+00:00:45.234 --> 00:00:48.158
+You can list the steps: start two more servers.
+
+00:00:48.208 --> 00:00:51.971
+Or you can describe the end state: there should be three servers.
+
+00:00:52.221 --> 00:00:54.502
+The difference shows up when you run it twice.
+
+00:00:54.752 --> 00:00:57.710
+Here's a script that says "start two more servers".
+
+00:00:57.760 --> 00:00:59.651
+Run it once: two servers.
+
+00:00:59.701 --> 00:01:01.264
+Run it again: four.
+
+00:01:01.314 --> 00:01:03.210
+Every run repeats its work.
+
+00:01:04.060 --> 00:01:07.111
+Here's Terraform, told there should be three servers.
+
+00:01:07.161 --> 00:01:08.890
+The first run creates three.
+
+00:01:08.940 --> 00:01:15.836
+Run it again, with nothing changed, and it says: no changes; your infrastructure matches the configuration.
+
+00:01:16.086 --> 00:01:19.412
+Change the three to five, and it doesn't start five more.
+
+00:01:19.462 --> 00:01:23.597
+It compares what you want with what exists, and plans exactly two.
+
+00:01:24.647 --> 00:01:26.907
+Listing the steps is called imperative.
+
+00:01:26.957 --> 00:01:29.846
+Describing the end state is called declarative.
+
+00:01:29.896 --> 00:01:35.787
+The end state you describe is the desired state; what exists right now is the current state.
+
+00:01:35.837 --> 00:01:39.733
+The tool's job is to make the current state match the desired one.
+
+00:01:39.983 --> 00:01:45.552
+So it's tempting to picture apply like running a script: once it has run, the job is done.
+
+00:01:45.602 --> 00:01:47.905
+But running it again did nothing at all.
+
+00:01:47.955 --> 00:01:49.692
+That wasn't "already ran".
+
+00:01:49.742 --> 00:01:51.338
+It was "already matches".
+
+00:01:53.088 --> 00:01:56.982
+A thermostat is the classic picture of how that job gets done.
+
+00:01:57.032 --> 00:01:58.830
+You set the temperature you want.
+
+00:01:58.880 --> 00:02:03.447
+The thermostat measures the room, compares, and turns the heating on or off.
+
+00:02:03.497 --> 00:02:05.741
+Then it measures again, and keeps going.
+
+00:02:06.591 --> 00:02:08.469
+Kubernetes works the same way.
+
+00:02:08.519 --> 00:02:17.931
+For each kind of thing it manages, a program called a controller runs a loop: look at the desired state, look at the current state, and act on the difference.
+
+00:02:17.981 --> 00:02:19.203
+Then do it again.
+
+00:02:19.453 --> 00:02:22.569
+For the web app, the desired state is three copies.
+
+00:02:22.619 --> 00:02:27.284
+Kubernetes calls that number the replica count, and each running copy a pod.
+
+00:02:27.334 --> 00:02:29.218
+The controller counts the pods.
+
+00:02:29.268 --> 00:02:31.397
+If it finds two, it starts one.
+
+00:02:31.447 --> 00:02:33.676
+If it finds four, it deletes one.
+
+00:02:33.726 --> 00:02:35.830
+If it finds three, it does nothing.
+
+00:02:36.680 --> 00:02:38.794
+That's what happened at three in the morning.
+
+00:02:38.844 --> 00:02:46.646
+The dead machine stopped reporting, and within a minute a separate loop, the one that watches machines, marked it as unreachable.
+
+00:02:46.696 --> 00:02:52.357
+Its copy then got a grace period, five minutes by default, in case the machine came back.
+
+00:02:52.407 --> 00:02:57.283
+When that ran out, about six minutes after the crash, the copy no longer counted.
+
+00:02:57.333 --> 00:03:01.601
+The controller counting pods came up one short, and started a replacement.
+
+00:03:01.651 --> 00:03:03.373
+Nobody had to do anything.
+
+00:03:04.423 --> 00:03:07.447
+A loop like this is called a reconciliation loop.
+
+00:03:08.397 --> 00:03:10.316
+Why count the pods every time?
+
+00:03:10.366 --> 00:03:17.827
+It would seem cheaper to react to events: when a pod dies, the system sends a "pod died" event, so start one pod.
+
+00:03:18.077 --> 00:03:19.566
+But events get lost.
+
+00:03:19.616 --> 00:03:23.688
+Here are two controllers keeping three pods running, on the same timeline.
+
+00:03:23.938 --> 00:03:26.264
+At second ten, a pod crashes.
+
+00:03:26.314 --> 00:03:29.515
+Both controllers see it, and both start a replacement.
+
+00:03:30.365 --> 00:03:36.643
+At second twenty, each controller is restarted, say for an upgrade, and is down for a few seconds.
+
+00:03:36.693 --> 00:03:39.117
+While it's down, another pod crashes.
+
+00:03:40.167 --> 00:03:42.835
+The first controller only reacts to events.
+
+00:03:42.885 --> 00:03:46.937
+The "pod died" event arrived while it was down, so it never saw it.
+
+00:03:46.987 --> 00:03:50.703
+It never starts a replacement, and stays at two pods for good.
+
+00:03:51.953 --> 00:03:54.589
+The second controller doesn't care about events.
+
+00:03:54.639 --> 00:03:58.600
+When it comes back, it counts two pods, wants three, and starts one.
+
+00:03:59.850 --> 00:04:03.820
+The first controller acts on each change; that's called edge-triggered.
+
+00:04:03.870 --> 00:04:07.668
+The second acts on the current state; that's called level-triggered.
+
+00:04:07.718 --> 00:04:18.033
+Kubernetes' design principles require the second: a controller has to get it right from the desired and current state alone, no matter how many updates it missed.
+
+00:04:18.083 --> 00:04:20.433
+Events are only a hint to look again soon.
+
+00:04:21.383 --> 00:04:24.685
+That explains how a loop stays right when it misses something.
+
+00:04:24.735 --> 00:04:29.306
+It doesn't say how often the loop runs, and that's where the two tools part ways.
+
+00:04:29.556 --> 00:04:31.129
+Both tools reconcile.
+
+00:04:31.179 --> 00:04:32.521
+The difference is when.
+
+00:04:32.771 --> 00:04:38.771
+Terraform's command-line tool compares the desired and current state when you run it, and then stops.
+
+00:04:39.021 --> 00:04:41.825
+Here it is managing the five servers from before.
+
+00:04:41.875 --> 00:04:43.959
+Someone deletes one of them by hand.
+
+00:04:44.009 --> 00:04:47.954
+Terraform isn't running, so nothing happens, and it stays deleted.
+
+00:04:49.204 --> 00:04:52.267
+Terraform keeps its own record of what it created.
+
+00:04:52.317 --> 00:05:01.012
+The next time someone runs terraform plan, it refreshes that record against what actually exists, finds four, and plans one to add.
+
+00:05:02.062 --> 00:05:04.177
+That's what the script picture gets wrong.
+
+00:05:04.227 --> 00:05:06.254
+Applying didn't hold the system there.
+
+00:05:06.304 --> 00:05:08.569
+Terraform only checks it when you ask.
+
+00:05:08.819 --> 00:05:11.577
+A Kubernetes controller's loop has no end.
+
+00:05:11.627 --> 00:05:25.222
+It runs all the time, comparing again and again, so a change nobody asked for is repaired on its own: within seconds for a deleted copy, and a few minutes for a dead machine, because of that grace period.
+
+00:05:25.472 --> 00:05:29.747
+The current state moving away from the desired state is called drift.
+
+00:05:29.797 --> 00:05:32.570
+With Terraform, drift waits for the next run.
+
+00:05:32.620 --> 00:05:36.894
+With a continuous loop, drift is repaired as soon as the loop notices.
+
+00:05:38.644 --> 00:05:45.310
+Change the web app from three copies to five, and apply it with kubectl, Kubernetes' command-line tool.
+
+00:05:45.360 --> 00:05:47.575
+It answers at once: configured.
+
+00:05:47.625 --> 00:05:50.082
+But only three of the five copies are ready.
+
+00:05:50.132 --> 00:05:51.583
+A moment later, four.
+
+00:05:51.633 --> 00:05:52.676
+Then five.
+
+00:05:53.726 --> 00:05:59.892
+That count comes from a field called status, where Kubernetes reports the current state it has observed.
+
+00:06:00.142 --> 00:06:02.062
+Applying records what you want.
+
+00:06:02.112 --> 00:06:04.251
+Getting there is separate, and slower.
+
+00:06:04.301 --> 00:06:07.759
+Sometimes it never happens, if a copy can't start at all.
+
+00:06:07.809 --> 00:06:12.061
+To know a change took effect, you look at the status, not at the apply.
+
+00:06:12.311 --> 00:06:14.521
+The loop doesn't promise to settle, either.
+
+00:06:14.571 --> 00:06:18.594
+If the desired state keeps changing, it chases a moving target.
+
+00:06:18.844 --> 00:06:22.237
+And two tools can want different values for the same field.
+
+00:06:22.287 --> 00:06:26.145
+An autoscaler changes the number of copies to match the load.
+
+00:06:26.195 --> 00:06:32.268
+Meanwhile, a job that re-applies your file every few minutes sets it back to the number written there.
+
+00:06:32.318 --> 00:06:34.792
+They can undo each other's work over and over.
+
+00:06:35.842 --> 00:06:38.510
+And nothing repairs what no tool manages.
+
+00:06:38.560 --> 00:06:44.662
+A setting changed by hand on something outside the configuration is simply invisible to it.
+
+00:06:45.612 --> 00:06:49.906
+So how do these tools turn a description into reality and keep it there?
+
+00:06:49.956 --> 00:06:51.551
+You declare the state you want.
+
+00:06:51.601 --> 00:06:56.860
+A loop keeps comparing it with what exists, and fixes the difference, like a thermostat.
+
+00:06:57.110 --> 00:07:02.468
+It compares whole states instead of reacting to events: level-triggered, not edge-triggered.
+
+00:07:02.518 --> 00:07:04.948
+So a missed event is caught on the next pass.
+
+00:07:04.998 --> 00:07:09.252
+And it aims at an absolute target, so running it again does no harm.
+
+00:07:09.502 --> 00:07:13.857
+Kubernetes repairs things by itself because its loops never stop.
+
+00:07:13.907 --> 00:07:18.886
+Terraform's command-line tool waits for you because it compares only when you run it.
+
+00:07:19.136 --> 00:07:27.667
+Either way, what you get is eventual agreement, not an instant guarantee: check the status, and watch for things no tool is managing.

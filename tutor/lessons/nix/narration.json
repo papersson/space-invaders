@@ -1,0 +1,7 @@
+{"tail": 8.0,
+ "holds": {"s1_03": 1.0, "s1_09": 2.8, "s2_08": 0.8, "s3_08": 0.8, "s3_10": 1.0, "s4_07": 0.8, "s4_10": 0.8,
+           "s5_07": 1.0, "s5_09": 0.6, "s6_07": 0.6, "s6_09": 0.8, "s7_07": 1.0, "s7_11": 0.6, "s8_05": 0.8,
+           "s8_12": 0.8, "s9_09": 0.6},
+ "spoken": [["GNU", "guh-new"], ["NixOS", "Nix O S"], ["Nixpkgs", "Nix packages"], ["nginx", "engine X"],
+            ["configuration.nix", "configuration dot nix"], ["cowsay", "cow say"], ["Cowsay", "Cow say"],
+            ["usr", "user"], ["A 2025 study", "A twenty twenty-five study"]]}

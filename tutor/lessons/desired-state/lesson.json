@@ -1,0 +1,2 @@
+{"title": "Make It So", "version": "v1", "poster": ["s4_15", -0.2],
+ "description": "How Kubernetes and Terraform turn a description into reality and keep it there: desired state, reconciliation loops, level- versus edge-triggered, and drift."}

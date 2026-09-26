@@ -1,0 +1,166 @@
+<title>Make It So</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0E1216;--surface:#151B22;--raise:#1B232C;--line:#27303A;--ink:#E6EBF0;--muted:#8C97A4;--faint:#5E6874;
+  --amber:#F2A93B;--ice:#8FD3FF;--coral:#E4715F;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-inline:20px;padding-block:28px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
+h1{font-weight:600;font-size:clamp(22px,3vw,30px);line-height:1.15;margin:0;text-wrap:balance}
+.len{font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+.player{background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/9;max-width:100%}
+video{display:block;width:100%;height:100%}
+.chapters{display:flex;gap:6px}
+.ch{all:unset;cursor:pointer;min-width:0;flex-basis:0;display:flex;flex-direction:column;gap:7px}
+.ch-bar{height:6px;border-radius:3px;background:var(--raise);position:relative;overflow:hidden}
+.ch-bar::after{content:"";position:absolute;inset:0;width:var(--p,0%);background:var(--ice)}
+.ch-name{font-size:13px;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch.on .ch-name{color:var(--ink)}
+.ch:hover .ch-name{color:var(--ink)}
+.ch:focus-visible .ch-bar{outline:2px solid var(--ice);outline-offset:3px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);
+  border:1.5px solid var(--line);border-radius:6px;padding:6px 11px;white-space:nowrap}
+.btn:hover{color:var(--ink);border-color:var(--faint)}
+.btn:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.btn[aria-pressed="true"]{color:var(--bg);background:var(--ice);border-color:var(--ice)}
+.btn.lost{color:var(--amber);border-color:rgba(242,169,59,.45)}
+.btn.lost:hover{border-color:var(--amber)}
+.btn.primary{color:var(--bg);background:var(--amber);border-color:var(--amber)}
+.right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.status{font-size:13px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel .where{font:500 12px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.panel blockquote{margin:0;padding-left:12px;border-left:2px solid var(--amber);color:var(--ink);max-width:70ch}
+.panel blockquote .prev{display:block;color:var(--muted);font-size:14px;margin-bottom:4px}
+.panel label{font-size:14px;color:var(--muted)}
+textarea{font:15px/1.45 "IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);
+  border-radius:6px;padding:10px;min-height:72px;resize:vertical;width:100%;box-sizing:border-box}
+textarea:focus-visible{outline:2px solid var(--ice);outline-offset:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+details{color:var(--muted);font-size:14px}
+summary{cursor:pointer;width:max-content}
+summary:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.notes{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.notes li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:baseline}
+.notes .t{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--ice);font-variant-numeric:tabular-nums}
+.notes .t:focus-visible{outline:2px solid var(--ice)}
+.notes .txt{color:var(--ink)}
+.notes .txt i{color:var(--muted)}
+.notes .x{all:unset;cursor:pointer;color:var(--faint);font-size:13px}
+.notes .x:hover{color:var(--coral)}
+@media (max-width:640px){.ch-name{display:none}.chapters{gap:4px}}
+</style>
+<div class="wrap">
+  <header><h1>Make It So</h1><span class="len">7:36</span></header>
+  <div class="player"><video id="v" controls preload="metadata" poster="poster.jpg" playsinline>
+    <source src="video.mp4" type="video/mp4"></video></div>
+  <nav class="chapters" aria-label="Chapters"><button class="ch" type="button" style="flex-grow:42.37" data-t="0.00" data-end="42.37" aria-label="Chapter 1: The question"><span class="ch-bar"></span><span class="ch-name">The question</span></button>
+<button class="ch" type="button" style="flex-grow:70.37" data-t="42.37" data-end="112.74" aria-label="Chapter 2: Say what, not how"><span class="ch-bar"></span><span class="ch-name">Say what, not how</span></button>
+<button class="ch" type="button" style="flex-grow:75.31" data-t="112.74" data-end="188.05" aria-label="Chapter 3: The loop"><span class="ch-bar"></span><span class="ch-name">The loop</span></button>
+<button class="ch" type="button" style="flex-grow:72.99" data-t="188.05" data-end="261.03" aria-label="Chapter 4: Compare states, not events"><span class="ch-bar"></span><span class="ch-name">Compare states, not events</span></button>
+<button class="ch" type="button" style="flex-grow:77.26" data-t="261.03" data-end="338.29" aria-label="Chapter 5: Once, or forever"><span class="ch-bar"></span><span class="ch-name">Once, or forever</span></button>
+<button class="ch" type="button" style="flex-grow:66.97" data-t="338.29" data-end="405.26" aria-label="Chapter 6: What it doesn&#x27;t promise"><span class="ch-bar"></span><span class="ch-name">What it doesn&#x27;t promise</span></button>
+<button class="ch" type="button" style="flex-grow:50.75" data-t="405.26" data-end="456.02" aria-label="Chapter 7: The answer"><span class="ch-bar"></span><span class="ch-name">The answer</span></button></nav>
+  <div class="bar">
+    <button id="cc" class="btn" type="button" aria-pressed="false">Captions off</button>
+    <div class="right"><span id="status" class="status" role="status"></span>
+      <button id="lost" class="btn lost" type="button" hidden>Lost me here</button></div>
+  </div>
+  <section id="panel" class="panel" hidden aria-label="What lost you">
+    <div id="where" class="where"></div>
+    <blockquote id="quote"></blockquote>
+    <label for="note">What didn't make sense? A few words is plenty, and you can leave it empty.</label>
+    <textarea id="note" maxlength="2000"></textarea>
+    <div class="actions"><button id="save" class="btn primary" type="button">Save</button>
+      <button id="cancel" class="btn" type="button">Cancel</button></div>
+  </section>
+  <details id="mine" hidden><summary id="count"></summary><ul id="notes" class="notes"></ul></details>
+</div>
+<script>const CUES=[[0.8, 4.36, "You tell Kubernetes to keep three copies of a web app running.", "s1_01"], [4.61, 8.6, "At three in the morning, a machine dies, and takes one copy with it.", "s1_02"], [8.65, 11.52, "Nobody is awake, and nobody runs a command.", "s1_03"], [11.57, 14.51, "A few minutes later, there are three copies again.", "s1_04"], [15.96, 17.35, "Now take Terraform.", "s1_05"], [17.4, 20.47, "You tell it you want five servers, and it creates them.", "s1_06"], [20.52, 22.63, "Then someone deletes one by hand.", "s1_07"], [22.88, 24.6, "This time nothing happens.", "s1_08"], [24.65, 27.85, "Terraform only notices the next time someone runs it.", "s1_09"], [28.9, 32.47, "Both tools take a description of what you want, and make it real.", "s1_10"], [32.52, 34.91, "How do they do that, and keep it that way?", "s1_11"], [34.96, 38.97, "And why does one repair things by itself, while the other waits for you?", "s1_12"], [42.72, 45.18, "There are two ways to tell a machine what to do.", "s2_01"], [45.23, 48.16, "You can list the steps: start two more servers.", "s2_02"], [48.21, 51.97, "Or you can describe the end state: there should be three servers.", "s2_03"], [52.22, 54.5, "The difference shows up when you run it twice.", "s2_04"], [54.75, 57.71, "Here's a script that says \"start two more servers\".", "s2_05"], [57.76, 59.65, "Run it once: two servers.", "s2_06"], [59.7, 61.26, "Run it again: four.", "s2_07"], [61.31, 63.21, "Every run repeats its work.", "s2_08"], [64.06, 67.11, "Here's Terraform, told there should be three servers.", "s2_09"], [67.16, 68.89, "The first run creates three.", "s2_10"], [68.94, 75.84, "Run it again, with nothing changed, and it says: no changes; your infrastructure matches the configuration.", "s2_11"], [76.09, 79.41, "Change the three to five, and it doesn't start five more.", "s2_12"], [79.46, 83.6, "It compares what you want with what exists, and plans exactly two.", "s2_13"], [84.65, 86.91, "Listing the steps is called imperative.", "s2_14"], [86.96, 89.85, "Describing the end state is called declarative.", "s2_15"], [89.9, 95.79, "The end state you describe is the desired state; what exists right now is the current state.", "s2_16"], [95.84, 99.73, "The tool's job is to make the current state match the desired one.", "s2_17"], [99.98, 105.55, "So it's tempting to picture apply like running a script: once it has run, the job is done.", "s2_18"], [105.6, 107.91, "But running it again did nothing at all.", "s2_19"], [107.95, 109.69, "That wasn't \"already ran\".", "s2_20"], [109.74, 111.34, "It was \"already matches\".", "s2_21"], [113.09, 116.98, "A thermostat is the classic picture of how that job gets done.", "s3_01"], [117.03, 118.83, "You set the temperature you want.", "s3_02"], [118.88, 123.45, "The thermostat measures the room, compares, and turns the heating on or off.", "s3_03"], [123.5, 125.74, "Then it measures again, and keeps going.", "s3_04"], [126.59, 128.47, "Kubernetes works the same way.", "s3_05"], [128.52, 137.93, "For each kind of thing it manages, a program called a controller runs a loop: look at the desired state, look at the current state, and act on the difference.", "s3_06"], [137.98, 139.2, "Then do it again.", "s3_07"], [139.45, 142.57, "For the web app, the desired state is three copies.", "s3_08"], [142.62, 147.28, "Kubernetes calls that number the replica count, and each running copy a pod.", "s3_09"], [147.33, 149.22, "The controller counts the pods.", "s3_10"], [149.27, 151.4, "If it finds two, it starts one.", "s3_11"], [151.45, 153.68, "If it finds four, it deletes one.", "s3_12"], [153.73, 155.83, "If it finds three, it does nothing.", "s3_13"], [156.68, 158.79, "That's what happened at three in the morning.", "s3_14"], [158.84, 166.65, "The dead machine stopped reporting, and within a minute a separate loop, the one that watches machines, marked it as unreachable.", "s3_15"], [166.7, 172.36, "Its copy then got a grace period, five minutes by default, in case the machine came back.", "s3_16"], [172.41, 177.28, "When that ran out, about six minutes after the crash, the copy no longer counted.", "s3_17"], [177.33, 181.6, "The controller counting pods came up one short, and started a replacement.", "s3_18"], [181.65, 183.37, "Nobody had to do anything.", "s3_19"], [184.42, 187.45, "A loop like this is called a reconciliation loop.", "s3_20"], [188.4, 190.32, "Why count the pods every time?", "s4_01"], [190.37, 197.83, "It would seem cheaper to react to events: when a pod dies, the system sends a \"pod died\" event, so start one pod.", "s4_02"], [198.08, 199.57, "But events get lost.", "s4_03"], [199.62, 203.69, "Here are two controllers keeping three pods running, on the same timeline.", "s4_04"], [203.94, 206.26, "At second ten, a pod crashes.", "s4_05"], [206.31, 209.51, "Both controllers see it, and both start a replacement.", "s4_06"], [210.37, 216.64, "At second twenty, each controller is restarted, say for an upgrade, and is down for a few seconds.", "s4_07"], [216.69, 219.12, "While it's down, another pod crashes.", "s4_08"], [220.17, 222.84, "The first controller only reacts to events.", "s4_09"], [222.88, 226.94, "The \"pod died\" event arrived while it was down, so it never saw it.", "s4_10"], [226.99, 230.7, "It never starts a replacement, and stays at two pods for good.", "s4_11"], [231.95, 234.59, "The second controller doesn't care about events.", "s4_12"], [234.64, 238.6, "When it comes back, it counts two pods, wants three, and starts one.", "s4_13"], [239.85, 243.82, "The first controller acts on each change; that's called edge-triggered.", "s4_14"], [243.87, 247.67, "The second acts on the current state; that's called level-triggered.", "s4_15"], [247.72, 258.03, "Kubernetes' design principles require the second: a controller has to get it right from the desired and current state alone, no matter how many updates it missed.", "s4_16"], [258.08, 260.43, "Events are only a hint to look again soon.", "s4_17"], [261.38, 264.69, "That explains how a loop stays right when it misses something.", "s5_01"], [264.74, 269.31, "It doesn't say how often the loop runs, and that's where the two tools part ways.", "s5_02"], [269.56, 271.13, "Both tools reconcile.", "s5_03"], [271.18, 272.52, "The difference is when.", "s5_04"], [272.77, 278.77, "Terraform's command-line tool compares the desired and current state when you run it, and then stops.", "s5_05"], [279.02, 281.82, "Here it is managing the five servers from before.", "s5_06"], [281.88, 283.96, "Someone deletes one of them by hand.", "s5_07"], [284.01, 287.95, "Terraform isn't running, so nothing happens, and it stays deleted.", "s5_08"], [289.2, 292.27, "Terraform keeps its own record of what it created.", "s5_09"], [292.32, 301.01, "The next time someone runs terraform plan, it refreshes that record against what actually exists, finds four, and plans one to add.", "s5_10"], [302.06, 304.18, "That's what the script picture gets wrong.", "s5_11"], [304.23, 306.25, "Applying didn't hold the system there.", "s5_12"], [306.3, 308.57, "Terraform only checks it when you ask.", "s5_13"], [308.82, 311.58, "A Kubernetes controller's loop has no end.", "s5_14"], [311.63, 325.22, "It runs all the time, comparing again and again, so a change nobody asked for is repaired on its own: within seconds for a deleted copy, and a few minutes for a dead machine, because of that grace period.", "s5_15"], [325.47, 329.75, "The current state moving away from the desired state is called drift.", "s5_16"], [329.8, 332.57, "With Terraform, drift waits for the next run.", "s5_17"], [332.62, 336.89, "With a continuous loop, drift is repaired as soon as the loop notices.", "s5_18"], [338.64, 345.31, "Change the web app from three copies to five, and apply it with kubectl, Kubernetes' command-line tool.", "s6_01"], [345.36, 347.57, "It answers at once: configured.", "s6_02"], [347.62, 350.08, "But only three of the five copies are ready.", "s6_03"], [350.13, 351.58, "A moment later, four.", "s6_04"], [351.63, 352.68, "Then five.", "s6_05"], [353.73, 359.89, "That count comes from a field called status, where Kubernetes reports the current state it has observed.", "s6_06"], [360.14, 362.06, "Applying records what you want.", "s6_07"], [362.11, 364.25, "Getting there is separate, and slower.", "s6_08"], [364.3, 367.76, "Sometimes it never happens, if a copy can't start at all.", "s6_09"], [367.81, 372.06, "To know a change took effect, you look at the status, not at the apply.", "s6_10"], [372.31, 374.52, "The loop doesn't promise to settle, either.", "s6_11"], [374.57, 378.59, "If the desired state keeps changing, it chases a moving target.", "s6_12"], [378.84, 382.24, "And two tools can want different values for the same field.", "s6_13"], [382.29, 386.14, "An autoscaler changes the number of copies to match the load.", "s6_14"], [386.19, 392.27, "Meanwhile, a job that re-applies your file every few minutes sets it back to the number written there.", "s6_15"], [392.32, 394.79, "They can undo each other's work over and over.", "s6_16"], [395.84, 398.51, "And nothing repairs what no tool manages.", "s6_17"], [398.56, 404.66, "A setting changed by hand on something outside the configuration is simply invisible to it.", "s6_18"], [405.61, 409.91, "So how do these tools turn a description into reality and keep it there?", "s7_01"], [409.96, 411.55, "You declare the state you want.", "s7_02"], [411.6, 416.86, "A loop keeps comparing it with what exists, and fixes the difference, like a thermostat.", "s7_03"], [417.11, 422.47, "It compares whole states instead of reacting to events: level-triggered, not edge-triggered.", "s7_04"], [422.52, 424.95, "So a missed event is caught on the next pass.", "s7_05"], [425.0, 429.25, "And it aims at an absolute target, so running it again does no harm.", "s7_06"], [429.5, 433.86, "Kubernetes repairs things by itself because its loops never stop.", "s7_07"], [433.91, 438.89, "Terraform's command-line tool waits for you because it compares only when you run it.", "s7_08"], [439.14, 447.67, "Either way, what you get is eventual agreement, not an instant guarantee: check the status, and watch for things no tool is managing.", "s7_09"]];const CHAPTERS=["The question", "Say what, not how", "The loop", "Compare states, not events", "Once, or forever", "What it doesn't promise", "The answer"];const VERSION="v1";
+const v=document.getElementById('v');
+const chs=[...document.querySelectorAll('.ch')];
+const titles=CHAPTERS;
+chs.forEach(b=>b.addEventListener('click',()=>{v.currentTime=+b.dataset.t;v.play().catch(()=>{});}));
+function tick(){
+  const t=v.currentTime;
+  chs.forEach(c=>{const a=+c.dataset.t,b=+c.dataset.end;c.classList.toggle('on',t>=a&&t<b);
+    c.style.setProperty('--p',(t>=b?100:t<=a?0:(t-a)/(b-a)*100)+'%');});
+}
+v.addEventListener('timeupdate',tick);v.addEventListener('seeked',tick);tick();
+
+const track=v.addTextTrack('captions','English','en');
+CUES.forEach(c=>track.addCue(new VTTCue(c[0],c[1],c[2])));
+track.mode='hidden';
+const cc=document.getElementById('cc');
+cc.addEventListener('click',()=>{const on=track.mode!=='showing';track.mode=on?'showing':'hidden';
+  cc.setAttribute('aria-pressed',on);cc.textContent='Captions '+(on?'on':'off');});
+
+function mmss(t){t=Math.max(0,t);return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');}
+function cueAt(t){let k=-1;CUES.forEach((c,i)=>{if(c[0]<=t)k=i;});return k;}
+function chapterAt(t){let k=0;chs.forEach((c,i)=>{if(+c.dataset.t<=t)k=i;});return k;}
+
+const lost=document.getElementById('lost'), panel=document.getElementById('panel'), status=document.getElementById('status');
+const note=document.getElementById('note'), where=document.getElementById('where'), quote=document.getElementById('quote');
+const save=document.getElementById('save'), cancel=document.getElementById('cancel');
+const box=document.getElementById('mine'), list=document.getElementById('notes'), count=document.getElementById('count');
+let db=null, moment=null;
+
+function openPanel(){
+  v.pause();
+  const t=v.currentTime, k=cueAt(t), ch=chapterAt(t);
+  moment={t:Math.round(t*10)/10, chapter:'s'+(ch+1), chapter_title:titles[ch],
+          sentence:k>=0?CUES[k][3]:null, sentence_text:k>=0?CUES[k][2]:'',
+          previous:k>0?CUES[k-1][3]:null, previous_text:k>0?CUES[k-1][2]:''};
+  where.textContent=mmss(t)+' · '+titles[ch];
+  quote.replaceChildren();
+  if(moment.previous_text){const p=document.createElement('span');p.className='prev';p.textContent=moment.previous_text;quote.append(p);}
+  quote.append(document.createTextNode(moment.sentence_text||'(before the narration starts)'));
+  panel.hidden=false;note.focus();status.textContent='';
+}
+function closePanel(){panel.hidden=true;note.value='';moment=null;lost.focus();}
+lost.addEventListener('click',openPanel);
+cancel.addEventListener('click',closePanel);
+save.addEventListener('click',async()=>{
+  if(!db||!moment)return;
+  save.disabled=true;
+  const body=Object.assign({},moment,{note:note.value.trim().slice(0,2000),version:VERSION,at:new Date().toISOString()});
+  try{
+    await db.collection('feedback').add(body);
+    status.textContent='Saved at '+mmss(body.t)+'. The tutor reads these and revises that part.';
+    closePanel();
+  }catch(e){
+    status.textContent=e&&e.code==='quota_exceeded'?'The notes store is full; delete some notes below.'
+      :'Could not save this note. Try again in a moment.';
+  }finally{save.disabled=false;}
+});
+
+function render(snap){
+  const docs=snap.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.t-b.t);
+  box.hidden=docs.length===0;
+  count.textContent=docs.length+(docs.length===1?' note':' notes')+' saved';
+  list.replaceChildren(...docs.map(d=>{
+    const li=document.createElement('li');
+    const t=document.createElement('button');t.className='t';t.type='button';t.textContent=mmss(d.t);
+    t.addEventListener('click',()=>{v.currentTime=Math.max(0,d.t-3);v.play().catch(()=>{});});
+    const txt=document.createElement('span');txt.className='txt';
+    if(d.note){txt.textContent=d.note;}else{const i=document.createElement('i');i.textContent='(no note) '+(d.chapter_title||'');txt.append(i);}
+    const x=document.createElement('button');x.className='x';x.type='button';x.textContent='Delete';
+    x.setAttribute('aria-label','Delete the note at '+mmss(d.t));
+    x.addEventListener('click',()=>db.doc('feedback/'+d.id).delete().catch(()=>{status.textContent='Could not delete that note.';}));
+    li.append(t,txt,x);return li;}));
+}
+
+(async()=>{
+  try{db=await (window.claude&&window.claude.use?window.claude.use('db'):null);}catch(e){db=null;}
+  if(!db)return;
+  lost.hidden=false;
+  db.collection('feedback').onSnapshot(render,()=>{box.hidden=true;});
+})();
+</script>
