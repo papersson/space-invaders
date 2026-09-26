@@ -1,0 +1,167 @@
+<title>What the Spreadsheet Knows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0E1216;--surface:#151B22;--raise:#1B232C;--line:#27303A;--ink:#E6EBF0;--muted:#8C97A4;--faint:#5E6874;
+  --amber:#F2A93B;--ice:#8FD3FF;--coral:#E4715F;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-inline:20px;padding-block:28px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
+h1{font-weight:600;font-size:clamp(22px,3vw,30px);line-height:1.15;margin:0;text-wrap:balance}
+.len{font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+.player{background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/9;max-width:100%}
+video{display:block;width:100%;height:100%}
+.chapters{display:flex;gap:6px}
+.ch{all:unset;cursor:pointer;min-width:0;flex-basis:0;display:flex;flex-direction:column;gap:7px}
+.ch-bar{height:6px;border-radius:3px;background:var(--raise);position:relative;overflow:hidden}
+.ch-bar::after{content:"";position:absolute;inset:0;width:var(--p,0%);background:var(--ice)}
+.ch-name{font-size:13px;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch.on .ch-name{color:var(--ink)}
+.ch:hover .ch-name{color:var(--ink)}
+.ch:focus-visible .ch-bar{outline:2px solid var(--ice);outline-offset:3px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);
+  border:1.5px solid var(--line);border-radius:6px;padding:6px 11px;white-space:nowrap}
+.btn:hover{color:var(--ink);border-color:var(--faint)}
+.btn:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.btn[aria-pressed="true"]{color:var(--bg);background:var(--ice);border-color:var(--ice)}
+.btn.lost{color:var(--amber);border-color:rgba(242,169,59,.45)}
+.btn.lost:hover{border-color:var(--amber)}
+.btn.primary{color:var(--bg);background:var(--amber);border-color:var(--amber)}
+.right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.status{font-size:13px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel .where{font:500 12px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.panel blockquote{margin:0;padding-left:12px;border-left:2px solid var(--amber);color:var(--ink);max-width:70ch}
+.panel blockquote .prev{display:block;color:var(--muted);font-size:14px;margin-bottom:4px}
+.panel label{font-size:14px;color:var(--muted)}
+textarea{font:15px/1.45 "IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);
+  border-radius:6px;padding:10px;min-height:72px;resize:vertical;width:100%;box-sizing:border-box}
+textarea:focus-visible{outline:2px solid var(--ice);outline-offset:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+details{color:var(--muted);font-size:14px}
+summary{cursor:pointer;width:max-content}
+summary:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.notes{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.notes li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:baseline}
+.notes .t{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--ice);font-variant-numeric:tabular-nums}
+.notes .t:focus-visible{outline:2px solid var(--ice)}
+.notes .txt{color:var(--ink)}
+.notes .txt i{color:var(--muted)}
+.notes .x{all:unset;cursor:pointer;color:var(--faint);font-size:13px}
+.notes .x:hover{color:var(--coral)}
+@media (max-width:640px){.ch-name{display:none}.chapters{gap:4px}}
+</style>
+<div class="wrap">
+  <header><h1>What the Spreadsheet Knows</h1><span class="len">7:34</span></header>
+  <div class="player"><video id="v" controls preload="metadata" poster="poster.jpg" playsinline>
+    <source src="video.mp4" type="video/mp4"></video></div>
+  <nav class="chapters" aria-label="Chapters"><button class="ch" type="button" style="flex-grow:51.81" data-t="0.00" data-end="51.81" aria-label="Chapter 1: The question"><span class="ch-bar"></span><span class="ch-name">The question</span></button>
+<button class="ch" type="button" style="flex-grow:42.80" data-t="51.81" data-end="94.61" aria-label="Chapter 2: The dependency graph"><span class="ch-bar"></span><span class="ch-name">The dependency graph</span></button>
+<button class="ch" type="button" style="flex-grow:80.43" data-t="94.61" data-end="175.05" aria-label="Chapter 3: Just tell the readers"><span class="ch-bar"></span><span class="ch-name">Just tell the readers</span></button>
+<button class="ch" type="button" style="flex-grow:33.47" data-t="175.05" data-end="208.51" aria-label="Chapter 4: Diamonds multiply"><span class="ch-bar"></span><span class="ch-name">Diamonds multiply</span></button>
+<button class="ch" type="button" style="flex-grow:74.53" data-t="208.51" data-end="283.04" aria-label="Chapter 5: Mark, then compute in order"><span class="ch-bar"></span><span class="ch-name">Mark, then compute in order</span></button>
+<button class="ch" type="button" style="flex-grow:39.95" data-t="283.04" data-end="322.99" aria-label="Chapter 6: Doing less"><span class="ch-bar"></span><span class="ch-name">Doing less</span></button>
+<button class="ch" type="button" style="flex-grow:79.96" data-t="322.99" data-end="402.95" aria-label="Chapter 7: Where do the arrows come from?"><span class="ch-bar"></span><span class="ch-name">Where do the arrows come from?</span></button>
+<button class="ch" type="button" style="flex-grow:51.97" data-t="402.95" data-end="454.93" aria-label="Chapter 8: The answer"><span class="ch-bar"></span><span class="ch-name">The answer</span></button></nav>
+  <div class="bar">
+    <button id="cc" class="btn" type="button" aria-pressed="false">Captions off</button>
+    <div class="right"><span id="status" class="status" role="status"></span>
+      <button id="lost" class="btn lost" type="button" hidden>Lost me here</button></div>
+  </div>
+  <section id="panel" class="panel" hidden aria-label="What lost you">
+    <div id="where" class="where"></div>
+    <blockquote id="quote"></blockquote>
+    <label for="note">What didn't make sense? A few words is plenty, and you can leave it empty.</label>
+    <textarea id="note" maxlength="2000"></textarea>
+    <div class="actions"><button id="save" class="btn primary" type="button">Save</button>
+      <button id="cancel" class="btn" type="button">Cancel</button></div>
+  </section>
+  <details id="mine" hidden><summary id="count"></summary><ul id="notes" class="notes"></ul></details>
+</div>
+<script>const CUES=[[0.8, 4.25, "An online cart holds two items at twenty dollars each.", "s1_01"], [4.3, 9.92, "The subtotal is forty dollars, tax at ten percent is four, and the total is forty-four.", "s1_02"], [10.17, 13.19, "In ordinary code, the total is computed once.", "s1_03"], [13.24, 21.21, "If the customer changes the quantity to three, the total still says forty-four, until some piece of code remembers to compute it again.", "s1_04"], [21.46, 24.02, "In a spreadsheet, you never have to remember.", "s1_05"], [24.07, 30.1, "Change the quantity, and the subtotal, the tax and the total all update, correctly, every time.", "s1_06"], [30.35, 37.49, "Build tools do the same with files: change one source file, and exactly the parts that depend on it are rebuilt.", "s1_07"], [37.54, 41.68, "So do many UI frameworks: change a value, and the screen updates.", "s1_08"], [41.93, 46.25, "How does a system like that decide what to recompute, and in what order?", "s1_09"], [46.3, 48.41, "And what goes wrong when it gets that wrong?", "s1_10"], [52.16, 55.29, "Say the shop gives free shipping from sixty-five dollars.", "s2_01"], [55.54, 57.98, "Each formula reads some other values.", "s2_02"], [58.03, 60.76, "The subtotal reads the price and the quantity.", "s2_03"], [60.81, 62.78, "The tax reads the subtotal.", "s2_04"], [62.83, 65.49, "The total reads the subtotal and the tax.", "s2_05"], [65.54, 70.4, "Free shipping reads the total, and the banner at the top of the cart reads free shipping.", "s2_06"], [70.65, 76.55, "Draw an arrow from each value to every formula that reads it, and you have a dependency graph.", "s2_07"], [76.8, 79.38, "When the quantity changes, follow the arrows.", "s2_08"], [79.42, 85.82, "Everything you can reach is now out of date: the subtotal, the tax, the total, free shipping, the banner.", "s2_09"], [86.07, 88.39, "Everything you can't reach is still correct.", "s2_10"], [88.44, 93.41, "The price didn't change, and nothing it feeds needs recomputing because of this edit.", "s2_11"], [94.96, 99.36, "The obvious way to update them is to let each value tell its readers.", "s3_01"], [99.41, 103.2, "When the quantity changes, it tells the subtotal to recompute.", "s3_02"], [103.25, 107.89, "The subtotal then tells each of its own readers, and so on down the arrows.", "s3_03"], [108.14, 113.28, "This is the observer pattern, and it's how a lot of hand-written code keeps things in sync.", "s3_04"], [113.53, 114.4, "Follow it.", "s3_05"], [114.45, 118.14, "The quantity becomes three, and the subtotal becomes sixty.", "s3_06"], [118.19, 121.56, "The subtotal has two readers, the tax and the total.", "s3_07"], [121.61, 123.14, "Which does it tell first?", "s3_08"], [123.19, 126.85, "Whichever subscribed first; nothing in the pattern decides.", "s3_09"], [126.9, 128.18, "Say it's the total.", "s3_10"], [128.43, 133.53, "The total adds the new subtotal, sixty, to the tax, which is still the old four.", "s3_11"], [133.58, 135.42, "The total becomes sixty-four.", "s3_12"], [136.67, 139.04, "Sixty-four was never a correct total.", "s3_13"], [139.09, 143.54, "The right answer was forty-four before the change and sixty-six after it.", "s3_14"], [143.59, 149.17, "And the free-shipping check runs on sixty-four, and says no, though the right answer is yes.", "s3_15"], [149.22, 154.03, "A value like that, built from a mix of new and old inputs, is called a glitch.", "s3_16"], [155.08, 158.32, "Then the subtotal tells the tax, which becomes six.", "s3_17"], [158.37, 162.29, "The tax tells the total, which is computed again: sixty-six.", "s3_18"], [162.34, 164.69, "Free shipping runs a second time too.", "s3_19"], [164.94, 166.78, "The trouble comes from one shape.", "s3_20"], [166.83, 171.39, "The subtotal reaches the total by two paths, directly and through the tax.", "s3_21"], [171.44, 173.65, "A shape like that is called a diamond.", "s3_22"], [175.4, 182.87, "A spreadsheet or a user interface can contain many diamonds, and when they chain one after another, the cost compounds.", "s4_01"], [183.12, 187.63, "In the observer pattern, each diamond makes everything after it run twice.", "s4_02"], [187.68, 191.5, "Two diamonds in a row make the last value run four times.", "s4_03"], [191.55, 192.79, "Three make it eight.", "s4_04"], [193.04, 199.82, "With ten diamonds in a row, a single change recomputes the last value one thousand and twenty-four times.", "s4_05"], [199.87, 201.72, "With twenty, over a million.", "s4_06"], [202.77, 207.91, "Recomputing everything in the right order would compute each value exactly once.", "s4_07"], [208.86, 210.93, "So the fix works in two phases.", "s5_01"], [211.18, 212.28, "First, mark.", "s5_02"], [212.34, 216.92, "Follow the arrows from the change, and mark everything reachable as out of date.", "s5_03"], [216.97, 218.76, "Nothing is computed yet.", "s5_04"], [219.01, 220.72, "Then compute, in order.", "s5_05"], [220.77, 223.24, "To get the order, give each value a height.", "s5_06"], [223.29, 226.46, "The price and the quantity are inputs: height zero.", "s5_07"], [226.51, 229.55, "The subtotal reads only inputs: height one.", "s5_08"], [229.6, 232.29, "The tax reads the subtotal: height two.", "s5_09"], [232.34, 235.7, "The total reads the tax, so it sits above it: height three.", "s5_10"], [235.75, 238.41, "Free shipping is four, and the banner five.", "s5_11"], [238.66, 242.72, "The rule: a value's height is one more than the highest height it reads.", "s5_12"], [242.97, 246.55, "Recompute only the marked values, from the lowest height up.", "s5_13"], [246.6, 251.5, "By the time a value is computed, every one of its inputs is already up to date.", "s5_14"], [251.75, 256.44, "The total waits until the tax is six, and becomes sixty-six the first time.", "s5_15"], [256.49, 262.82, "There's no sixty-four, and each value is computed once: five recomputations instead of eight.", "s5_16"], [264.07, 270.15, "On the chain of ten diamonds, the last value runs once instead of a thousand and twenty-four times.", "s5_17"], [270.4, 278.18, "Spreadsheets, build tools and reactive libraries all use some version of this: dependencies first, each value once.", "s5_18"], [278.43, 282.44, "And the free-shipping check runs once, on sixty-six, and says yes.", "s5_19"], [283.39, 291.85, "The ordered wave still recomputes everything downstream, even a value that comes out the same, and even a value nobody is looking at.", "s6_01"], [291.9, 293.71, "Two refinements cut that out.", "s6_02"], [293.96, 295.82, "The first is early cutoff.", "s6_03"], [295.87, 298.53, "Change the quantity again, from three to four.", "s6_04"], [298.58, 303.12, "The subtotal, the tax and the total all change: eighty, eight, eighty-eight.", "s6_05"], [303.17, 306.08, "Free shipping is recomputed, and it's still yes.", "s6_06"], [306.13, 309.46, "It didn't change, so nothing that reads it needs to run.", "s6_07"], [309.51, 310.93, "The wave stops there.", "s6_08"], [311.98, 313.62, "The second is laziness.", "s6_09"], [313.67, 317.62, "A value nobody is looking at doesn't need to be computed yet.", "s6_10"], [317.67, 322.39, "The system marks it as out of date, and computes it only when something reads it.", "s6_11"], [323.34, 325.84, "All of this depends on the graph being right.", "s7_01"], [325.89, 327.65, "So where do the arrows come from?", "s7_02"], [327.9, 331.68, "Some formulas read different values depending on the data.", "s7_03"], [331.73, 337.51, "Imagine a different cart, whose total reads a coupon cell only when the customer has a coupon.", "s7_04"], [337.56, 340.2, "There, the arrows change as the values change.", "s7_05"], [340.45, 347.96, "Spreadsheets and modern UI frameworks handle this by recording what each formula actually read, every time it runs.", "s7_06"], [348.01, 352.05, "The graph, and the heights with it, are always the ones from the last run.", "s7_07"], [352.3, 355.3, "Make, the classic build tool, takes the other route.", "s7_08"], [355.35, 363.05, "You list, in a file called a Makefile, what each output is built from, unless you set up the compiler to write that list for you.", "s7_09"], [363.1, 366.77, "If one is missing, the graph is wrong, and the result goes stale.", "s7_10"], [367.02, 372.89, "Here's a program built from a source file that includes a header, whose Makefile lists only the source file.", "s7_11"], [372.94, 378.56, "Change the free-shipping threshold in the header from sixty-five to seventy-five, and run make.", "s7_12"], [378.61, 382.51, "Make says the program is up to date, and it still says sixty-five.", "s7_13"], [383.76, 386.07, "Declare the header, and make rebuilds it.", "s7_14"], [386.32, 388.86, "And one kind of graph can't be ordered at all.", "s7_15"], [388.91, 393.63, "If a formula depends, through others, on itself, no value can come first.", "s7_16"], [393.68, 396.17, "Excel calls this a circular reference.", "s7_17"], [396.22, 401.56, "By default it warns instead of computing, though it can be told to iterate toward an answer.", "s7_18"], [403.31, 406.11, "So what does the spreadsheet know that your code doesn't?", "s8_01"], [406.16, 408.23, "It knows the dependency graph.", "s8_02"], [409.27, 416.06, "From that graph it answers two questions: what is out of date after a change, and in what order to recompute it.", "s8_03"], [416.31, 420.92, "The answer to the first is everything downstream of the change, and nothing else.", "s8_04"], [420.97, 427.2, "The answer to the second is height order, lowest first, each value once, stopping where nothing changed.", "s8_05"], [427.45, 433.13, "Get the order wrong, and you'll see values that never should exist, like a total of sixty-four.", "s8_06"], [433.18, 435.5, "And you'll do the same work many times over.", "s8_07"], [435.75, 447.18, "That same machine is inside Excel, inside build systems like Make and Bazel, and inside the reactive parts of UI frameworks such as Vue, Solid and Angular's signals.", "s8_08"]];const CHAPTERS=["The question", "The dependency graph", "Just tell the readers", "Diamonds multiply", "Mark, then compute in order", "Doing less", "Where do the arrows come from?", "The answer"];const VERSION="v1";
+const v=document.getElementById('v');
+const chs=[...document.querySelectorAll('.ch')];
+const titles=CHAPTERS;
+chs.forEach(b=>b.addEventListener('click',()=>{v.currentTime=+b.dataset.t;v.play().catch(()=>{});}));
+function tick(){
+  const t=v.currentTime;
+  chs.forEach(c=>{const a=+c.dataset.t,b=+c.dataset.end;c.classList.toggle('on',t>=a&&t<b);
+    c.style.setProperty('--p',(t>=b?100:t<=a?0:(t-a)/(b-a)*100)+'%');});
+}
+v.addEventListener('timeupdate',tick);v.addEventListener('seeked',tick);tick();
+
+const track=v.addTextTrack('captions','English','en');
+CUES.forEach(c=>track.addCue(new VTTCue(c[0],c[1],c[2])));
+track.mode='hidden';
+const cc=document.getElementById('cc');
+cc.addEventListener('click',()=>{const on=track.mode!=='showing';track.mode=on?'showing':'hidden';
+  cc.setAttribute('aria-pressed',on);cc.textContent='Captions '+(on?'on':'off');});
+
+function mmss(t){t=Math.max(0,t);return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');}
+function cueAt(t){let k=-1;CUES.forEach((c,i)=>{if(c[0]<=t)k=i;});return k;}
+function chapterAt(t){let k=0;chs.forEach((c,i)=>{if(+c.dataset.t<=t)k=i;});return k;}
+
+const lost=document.getElementById('lost'), panel=document.getElementById('panel'), status=document.getElementById('status');
+const note=document.getElementById('note'), where=document.getElementById('where'), quote=document.getElementById('quote');
+const save=document.getElementById('save'), cancel=document.getElementById('cancel');
+const box=document.getElementById('mine'), list=document.getElementById('notes'), count=document.getElementById('count');
+let db=null, moment=null;
+
+function openPanel(){
+  v.pause();
+  const t=v.currentTime, k=cueAt(t), ch=chapterAt(t);
+  moment={t:Math.round(t*10)/10, chapter:'s'+(ch+1), chapter_title:titles[ch],
+          sentence:k>=0?CUES[k][3]:null, sentence_text:k>=0?CUES[k][2]:'',
+          previous:k>0?CUES[k-1][3]:null, previous_text:k>0?CUES[k-1][2]:''};
+  where.textContent=mmss(t)+' · '+titles[ch];
+  quote.replaceChildren();
+  if(moment.previous_text){const p=document.createElement('span');p.className='prev';p.textContent=moment.previous_text;quote.append(p);}
+  quote.append(document.createTextNode(moment.sentence_text||'(before the narration starts)'));
+  panel.hidden=false;note.focus();status.textContent='';
+}
+function closePanel(){panel.hidden=true;note.value='';moment=null;lost.focus();}
+lost.addEventListener('click',openPanel);
+cancel.addEventListener('click',closePanel);
+save.addEventListener('click',async()=>{
+  if(!db||!moment)return;
+  save.disabled=true;
+  const body=Object.assign({},moment,{note:note.value.trim().slice(0,2000),version:VERSION,at:new Date().toISOString()});
+  try{
+    await db.collection('feedback').add(body);
+    status.textContent='Saved at '+mmss(body.t)+'. The tutor reads these and revises that part.';
+    closePanel();
+  }catch(e){
+    status.textContent=e&&e.code==='quota_exceeded'?'The notes store is full; delete some notes below.'
+      :'Could not save this note. Try again in a moment.';
+  }finally{save.disabled=false;}
+});
+
+function render(snap){
+  const docs=snap.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.t-b.t);
+  box.hidden=docs.length===0;
+  count.textContent=docs.length+(docs.length===1?' note':' notes')+' saved';
+  list.replaceChildren(...docs.map(d=>{
+    const li=document.createElement('li');
+    const t=document.createElement('button');t.className='t';t.type='button';t.textContent=mmss(d.t);
+    t.addEventListener('click',()=>{v.currentTime=Math.max(0,d.t-3);v.play().catch(()=>{});});
+    const txt=document.createElement('span');txt.className='txt';
+    if(d.note){txt.textContent=d.note;}else{const i=document.createElement('i');i.textContent='(no note) '+(d.chapter_title||'');txt.append(i);}
+    const x=document.createElement('button');x.className='x';x.type='button';x.textContent='Delete';
+    x.setAttribute('aria-label','Delete the note at '+mmss(d.t));
+    x.addEventListener('click',()=>db.doc('feedback/'+d.id).delete().catch(()=>{status.textContent='Could not delete that note.';}));
+    li.append(t,txt,x);return li;}));
+}
+
+(async()=>{
+  try{db=await (window.claude&&window.claude.use?window.claude.use('db'):null);}catch(e){db=null;}
+  if(!db)return;
+  lost.hidden=false;
+  db.collection('feedback').onSnapshot(render,()=>{box.hidden=true;});
+})();
+</script>

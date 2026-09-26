@@ -12,6 +12,30 @@ import numpy as np
 from manim import *
 
 import os
+from xml.etree import ElementTree as _ET
+
+import svgelements as _se
+from manim.mobject.svg.svg_mobject import SVGMobject as _SVGMobject
+
+
+def _generate_mobject(self):
+    """Manim's own version writes the modified SVG to a temp file named after the text's hash and
+    deletes it after parsing. Scenes render in parallel processes, so two processes rendering the
+    same text raced on that file (FileNotFoundError). Same steps, with the process id in the name."""
+    file_path = self.get_file_path()
+    new_tree = self.modify_xml_tree(_ET.parse(file_path))
+    tmp = file_path.with_name(f"{file_path.stem}_{os.getpid()}{file_path.suffix}")
+    new_tree.write(tmp)
+    svg = _se.SVG.parse(tmp)
+    tmp.unlink(missing_ok=True)
+    mobjects, mobject_dict = self.get_mobjects_from(svg)
+    self.add(*mobjects)
+    self.id_to_vgroup_dict = mobject_dict
+    self.flip(RIGHT)
+    return self
+
+
+_SVGMobject.generate_mobject = _generate_mobject
 
 # A lesson's scenes live in <lesson>/scenes/; the build passes the lesson folder in LESSON_DIR.
 ROOT = Path(os.environ.get("LESSON_DIR", Path.cwd().parent)).resolve()
