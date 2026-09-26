@@ -17,7 +17,8 @@ class S7(CueScene):
         back = message(server.get_left() + 0.25 * DOWN, client.get_right() + 0.25 * DOWN, "receipt", color=INK,
                        lost_at=0.5, size=14)
         self.play(Create(back[0]), FadeIn(back[1]), FadeIn(back[2]), run_time=0.6)
-        to = mono("timeout → retry, same key", 18, AMBER).next_to(client, DOWN, 0.3)
+        to = VGroup(mono("timeout →", 16, AMBER), mono("retry, same key", 16, AMBER)).arrange(DOWN, buff=0.08, aligned_edge=LEFT)
+        to.next_to(client, DOWN, 0.3).align_to(client, LEFT)
         self.play(FadeIn(to), run_time=0.4)
         r2 = message(client.get_right() + 0.9 * DOWN, server.get_left() + 0.9 * DOWN, f"retry · key {KEY}", size=14)
         self.play(GrowArrow(r2[0]), FadeIn(r2[1]), run_time=0.6)

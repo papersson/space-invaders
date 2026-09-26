@@ -11,12 +11,14 @@ class S5(CueScene):
         c = chip("Idempotency keys")
         self.at("01")
         ln = lanes(XC, XS, TOP, -2.9)
-        table = VGroup(RoundedRectangle(corner_radius=0.1, width=4.2, height=2.1, stroke_color=DIM, stroke_width=1.5,
+        table = VGroup(RoundedRectangle(corner_radius=0.1, width=4.6, height=2.1, stroke_color=DIM, stroke_width=1.5,
                                         fill_color=PANEL, fill_opacity=1),)
-        table.move_to([4.85, 1.2, 0])
+        table.move_to([4.65, 1.2, 0])
         tt = label("server's saved results", 16, MUTED).next_to(table, UP, 0.1)
-        hdr = mono("key          result", 16, FAINT).move_to(table.get_top() + 0.3 * DOWN)
-        card = Card([4.85, -1.9, 0])
+        KX, RX = table.get_left()[0] + 0.25, table.get_left()[0] + 1.75       # key and result columns
+        hdr = VGroup(mono("key", 15, FAINT).move_to([KX, table.get_top()[1] - 0.3, 0], aligned_edge=LEFT),
+                     mono("result", 15, FAINT).move_to([RX, table.get_top()[1] - 0.3, 0], aligned_edge=LEFT))
+        card = Card([4.65, -1.9, 0])
         self.play(FadeIn(c), FadeIn(ln), FadeIn(table), FadeIn(tt), FadeIn(hdr), FadeIn(card), run_time=0.7)
 
         # 02-03: the client makes a key once, and sends it with every attempt
@@ -32,7 +34,8 @@ class S5(CueScene):
         self.at("04")
         miss = mono("key not seen → charge", 14, INK).next_to([XS, 0.9, 0], RIGHT, 0.15)
         self.play(FadeIn(miss), card.set_total(50), run_time=0.6)
-        row = mono(f"{KEY}  charged, receipt #1042", 16, INK).move_to(table.get_center() + 0.2 * DOWN)
+        row = VGroup(mono(KEY, 15, INK).move_to([KX, table.get_center()[1] - 0.2, 0], aligned_edge=LEFT),
+                     mono("charged, receipt #1042", 15, INK).move_to([RX, table.get_center()[1] - 0.2, 0], aligned_edge=LEFT))
         self.play(FadeIn(row, shift=0.1 * RIGHT), run_time=0.6)
         rep1 = message([XS, 0.5, 0], [XC, 0.1, 0], "receipt #1042", color=INK, lost_at=0.5, size=14)
         self.play(Create(rep1[0]), FadeIn(rep1[1]), FadeIn(rep1[2]), run_time=0.7)

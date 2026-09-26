@@ -13,6 +13,7 @@ class S6(CueScene):
         row[37] = 1
         color_grid(grid, row)
         page[0].set_stroke(CORAL)
+        VGroup(page, grid, lines).shift(0.35 * DOWN)         # room for the two lines of advice above
         # 01: one slow call holds up the page
         self.at("01")
         self.play(FadeIn(c), FadeIn(page), FadeIn(grid), FadeIn(lines), run_time=0.6)
@@ -28,7 +29,7 @@ class S6(CueScene):
         # 02-03: watch the 99th percentile; tolerate the tail
         self.at("02")
         w = VGroup(mono("watch: the servers' 99th percentile (their tail latency), not their average", 20, INK),
-                   mono("design the fan-out to tolerate hiccups", 20, INK)).arrange(DOWN, buff=0.2, aligned_edge=LEFT)
+                   mono("design the fan-out to tolerate hiccups", 20, INK)).arrange(DOWN, buff=0.14, aligned_edge=LEFT)
         w.to_edge(UP, buff=0.9).set_x(0)
         self.play(FadeIn(w[0]), run_time=0.5)
         self.at("03")

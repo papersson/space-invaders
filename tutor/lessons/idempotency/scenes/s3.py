@@ -12,9 +12,9 @@ class S3(CueScene):
         def lane(y, name, rule, outcome, color):
             box = RoundedRectangle(corner_radius=0.12, width=12.4, height=1.7, stroke_color=DIM, stroke_width=1.5,
                                    fill_color=PANEL, fill_opacity=1).move_to([0, y, 0])
-            n = mono(name, 26, INK).move_to([-4.2, y + 0.3, 0])
-            r = mono(rule, 18, MUTED).move_to([-4.2, y - 0.3, 0])
-            o = mono(outcome, 24, color).move_to([3.4, y, 0])
+            n = mono(name, 26, INK).move_to([-5.8, y + 0.3, 0], aligned_edge=LEFT)
+            r = mono(rule, 18, MUTED).move_to([-5.8, y - 0.3, 0], aligned_edge=LEFT)
+            o = mono(outcome, 24, color).move_to([5.8, y + 0.15, 0], aligned_edge=RIGHT)
             return VGroup(box, n, r, o)
 
         top = lane(1.3, "at most once", "send once, never retry", "charged 0 or 1 times", MUTED)
@@ -24,7 +24,7 @@ class S3(CueScene):
         self.at("02")
         self.play(FadeIn(top[0]), FadeIn(top[2]), run_time=0.5)
         self.at("03")
-        risk1 = mono("never twice · a lost request stays lost", 16, CORAL).next_to(top[3], DOWN, 0.15)
+        risk1 = mono("never twice · a lost request stays lost", 16, CORAL).next_to(top[3], DOWN, 0.15, aligned_edge=RIGHT)
         self.play(FadeIn(top[3]), FadeIn(risk1), run_time=0.6)
         self.at("04")
         self.play(FadeIn(top[1]), run_time=0.4)
@@ -33,7 +33,7 @@ class S3(CueScene):
         self.at("05")
         self.play(FadeIn(bot[0]), FadeIn(bot[2]), run_time=0.5)
         self.at("06")
-        risk2 = mono("never lost · repeats whenever a reply was lost", 16, CORAL).next_to(bot[3], DOWN, 0.15)
+        risk2 = mono("never lost · repeats whenever a reply was lost", 16, CORAL).next_to(bot[3], DOWN, 0.15, aligned_edge=RIGHT)
         self.play(FadeIn(bot[3]), FadeIn(risk2), run_time=0.6)
         self.at("07")
         self.play(FadeIn(bot[1]), run_time=0.4)

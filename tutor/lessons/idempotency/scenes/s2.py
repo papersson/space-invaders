@@ -53,7 +53,7 @@ class S2(CueScene):
 
         # 06: the client sees the same thing in every case
         self.at("06")
-        views = VGroup(*[VGroup(Rectangle(width=2.6, height=0.55, stroke_color=DIM, stroke_width=1.5),
+        views = VGroup(*[VGroup(Rectangle(width=3.9, height=0.55, stroke_color=DIM, stroke_width=1.5),
                                 mono("client sees: nothing, then timeout", 13, CORAL))
                          for _ in COLS])
         for v, cx in zip(views, COLS):
@@ -74,11 +74,11 @@ class S2(CueScene):
         self.at("09")
         m3 = message([-2.2, 0.5, 0], [2.2, 0.1, 0], "got your answer?")
         m4 = message([2.2, -0.2, 0], [-2.2, -0.6, 0], "got it", color=INK)
-        m5 = message([-2.2, -0.9, 0], [2.2, -1.3, 0], "…", lost_at=0.6)
+        m5 = message([-2.2, -1.2, 0], [2.2, -1.6, 0], "…", lost_at=0.6)
         self.play(GrowArrow(m3[0]), FadeIn(m3[1]), run_time=0.5)
         self.play(GrowArrow(m4[0]), FadeIn(m4[1]), run_time=0.5)
         self.play(Create(m5[0]), FadeIn(m5[1]), FadeIn(m5[2]), run_time=0.5)
-        last = mono("the last message is never confirmed", 18, CORAL).move_to([0, -1.9, 0])
+        last = mono("the last message is never confirmed", 18, CORAL).move_to([0, -2.25, 0])
         self.play(FadeIn(last), run_time=0.4)
         self.at("11")
         no = T("No protocol can promise exactly-once delivery.", 28, ICE).to_edge(DOWN, buff=0.4)

@@ -39,7 +39,7 @@ class S5(CueScene):
         # 03: at the 95th percentile, send a copy to B
         self.at("03", 1.0)
         timer = Line([LANE_X["page"] - 0.35, ty(0), 0], [LANE_X["page"] - 0.35, ty(p95), 0], color=AMBER, stroke_width=5)
-        tl = mono(f"wait until the 95th percentile\n({p95:.0f} ms here)", 16, AMBER).next_to(timer, LEFT, 0.12)
+        tl = mono(f"wait until\nthe 95th percentile\n({p95:.0f} ms here)", 16, AMBER).next_to(timer, LEFT, 0.12)
         self.play(Create(timer), FadeIn(tl), run_time=1.0)
         a2 = Arrow([LANE_X["page"], ty(p95), 0], [LANE_X["B"], ty(p95 + 2), 0], buff=0, color=ICE, stroke_width=3,
                    max_tip_length_to_length_ratio=0.05)
@@ -61,7 +61,8 @@ class S5(CueScene):
 
         # 05-06: works if the two don't stall together
         self.at("06")
-        diff = mono("different machine: the same hiccup is unlikely to hit both", 18, MUTED).move_to([3.3, ty(32), 0])
+        diff = mono("different machine:\nthe same hiccup is unlikely to hit both", 18, MUTED)
+        diff.move_to([0.35, ty(33), 0], aligned_edge=LEFT)
         self.play(FadeIn(diff), run_time=0.5)
 
         # 07-08: at most 5% more requests
@@ -101,7 +102,7 @@ class S5(CueScene):
             VGroup(label("result, across many requests", 16, MUTED), M('99.9th percentile\n1,800 ms → <span foreground="#8FD3FF">74 ms</span>',
                                                   24, INK, font=MONO)).arrange(DOWN, buff=0.15),
             VGroup(label("cost", 16, MUTED), mono("+2% requests", 24, AMBER)).arrange(DOWN, buff=0.15),
-        ).arrange(RIGHT, buff=1.2).move_to([0, 0.0, 0])
+        ).arrange(RIGHT, buff=0.8).move_to([0, 0.0, 0])
         self.play(LaggedStart(*[FadeIn(p, shift=0.1 * UP) for p in parts], lag_ratio=0.5), run_time=1.8)
 
         # 14-16: hedge too early: twice the load
