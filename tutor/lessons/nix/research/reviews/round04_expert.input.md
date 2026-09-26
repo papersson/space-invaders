@@ -1,71 +1,7 @@
-# A Hash in Every Path
+You are a professor who has taught this material for years. Below is the script of a short narrated explainer video, with a note of what is on screen at each moment, followed by the list of numbers it uses and where each comes from. Review it for correctness and canonicity. You are the only domain expert who will see it before it is produced, so be exacting. Report every problem with: severity (BLOCKING = wrong, misleading, or non-canonical in a way a professor would object to; SHOULD FIX = imprecise, a missing caveat, non-standard terminology; NIT), the exact quote, what is wrong, and the corrected wording. Check every factual and numerical claim including arithmetic and units; that terminology and notation match the standard sources and simplifications teach nothing false; whether anything essential is missing or anything peripheral gets too much weight; and overstated claims about optimality, generality and real systems. End with "VERDICT: PASS" if there are no BLOCKING items, otherwise "VERDICT: REVISE".
 
-Status: in review round 4
 
-## Argument
-
-**Question.** Install GNU Hello with Nix and it lands at `/nix/store/hwz2l7ihv2skq7gr5l3paavs3rr9il7z-hello-2.12.1`, not at `/usr/bin/hello`. Nix and NixOS promise builds you can repeat, two versions of a package side by side, and rolling back an upgrade, for one program or a whole machine. Why is there a hash in every path, and how does that one idea deliver those promises?
-
-**Answer.** Traditional package managers install into shared paths like `/usr/bin` and `/usr/lib`, so an upgrade overwrites the old version, two programs can't have different versions of one library, and a half-finished upgrade leaves a broken system. Nix treats a build as a function of its inputs (sources, build script, compiler, libraries, options) and names the output after a hash of all of them, computed before anything is built. Change any input and the output gets a new path, and so does everything built from it; nothing already built is ever changed. So versions sit side by side, a package's run-time dependencies (its closure) are exact paths, and what you "have installed" is a profile: a link to a generation that points into the store. Upgrading makes a new generation and switches the link in one step; rolling back switches it back. NixOS applies the same idea to a whole system: the configuration evaluates to one store path. The limits: the hash promises the same inputs, not always the same bytes; the inputs are only fixed if the package collection is pinned; and rollback switches software and configuration, not data.
-
-**Takeaway.** The hash names a build by everything that went into it. Nothing is overwritten, so versions coexist, dependencies are exact, and an upgrade or a rollback is a switch of one link. It fixes the inputs, not the bytes, and not your data.
-
-**Wrong model.** The hash is a checksum of the package's contents; Nix builds are always bit-for-bit identical, and rolling back restores the machine as it was.
-
-**Objectives.**
-1. Say what goes wrong with shared paths like `/usr/lib`: overwriting, one version per path, half-finished upgrades.
-2. Explain what the hash in a store path is computed from, and that it's known before building.
-3. Explain why a changed input changes the path of everything built from it, and why that lets versions coexist.
-4. Describe a closure, and profiles and generations as the mechanism for upgrade and rollback.
-5. Describe how NixOS turns a whole system configuration into one store path and a generation.
-6. State the limits: same inputs, not always the same bytes; pinning; data isn't rolled back.
-
-## Chain
-
-1. The question: why a hash in every path, and how does it deliver repeatable builds, side-by-side versions, rollbacks?
-2. Because shared paths break: an upgrade overwrites, one version per path, a half-finished upgrade breaks things.
-3. Therefore name each build by a hash of all its inputs, computed before building (a real path, known before the build).
-4. Therefore a changed input gives a new path, for it and everything built from it; nothing is overwritten, so versions sit side by side (a real change and two real builds).
-5. Therefore dependencies are exact paths: a package's closure is everything it refers to (a real closure of five paths).
-6. Therefore installing is switching a link: a profile points to a generation; upgrade makes a new one and switches; rollback switches back (a real run).
-7. Therefore NixOS: a whole system is one store path; change one line, get a new one; boot into an old one.
-8. But: same inputs, not always the same bytes (69-91% bit-for-bit in a large study); only with a pinned package collection; rollback doesn't touch data.
-9. Therefore the answer.
-
-Deviations from the canonical progression: the Nix language, store derivations (the two-stage build), binary caches and the build sandbox are left out or mentioned in passing; the research lists them as extras. Garbage collection is named in one line.
-
-## Format
-
-| Chapter | Format | Why |
-|---|---|---|
-| 1-2 | Narrated animation | A before-and-after of a shared `/usr` being overwritten; the research names this contrast as a diagram to animate. |
-| 3-4 | Narrated animation with real output | The hash computed from inputs, and the ripple when one input changes, over a small dependency graph; the paths on screen are from a real run. |
-| 5-6 | Narrated animation with real output | A closure as a set of arrows; a profile's link switching between generations (real `nix-env` output). |
-| 7 | Narrated animation with real output | configuration.nix → one system path; a boot menu of generations. |
-| 8-9 | Narrated animation | Limits, then the payoff. |
-| (not built) | Hands-on exercise | Build Hello, inspect `nix-store -qR`, change one attribute and watch the path change, roll back a profile; `nixos-rebuild build-vm` to try a system switch safely. The research names doing as the way the store becomes concrete; offered, not added. |
-| (not built) | Reading | Guarantees versus assumptions (purity, reference scanning, the sandbox), the reproducibility study, and the glossary (derivation, closure, realise). |
-
-## Ledgers
-
-**Setups and payoffs.**
-- The Hello path (ch. 1) is explained in ch. 3 and changed in ch. 4.
-- The three problems of shared paths (ch. 2) are answered one by one: overwriting and one version (ch. 4), half-finished upgrades (ch. 6).
-- "Repeatable builds" (ch. 1) returns with its limit (ch. 8).
-- "A whole machine" (ch. 1) is NixOS (ch. 7).
-
-**Vocabulary.**
-| Term | First use | Meaning |
-|---|---|---|
-| store / store path | ch. 1 | the directory `/nix/store`, where every build lives in its own directory named `<hash>-<name>` |
-| input | ch. 3 | anything a build uses: sources, build script, compiler, libraries, options |
-| closure | ch. 5 | a store path plus everything it refers to, directly or indirectly |
-| profile | ch. 6 | a link that says which set of packages you are using now |
-| generation | ch. 6 | one version of a profile; a new one is made on every install or upgrade |
-| NixOS | ch. 7 | a Linux distribution whose whole configuration is built by Nix |
-| pinning | ch. 8 | fixing the exact revision of the package collection (Nixpkgs) |
-
-**Numbers to remember.** Five paths in Hello's closure; two generations and a rollback; 69 to 91 percent of packages bit-for-bit reproducible in the study.
+---
 
 ## Script
 
@@ -159,6 +95,7 @@ No length target: the length follows the argument (about 150 words per minute).
 
 *Screen:* the hello path once more, the hash expanding into its inputs. Three lines: "no overwriting → versions side by side", "exact paths → exact dependencies", "switch one link → upgrade, rollback". End card with the takeaway and references: Dolstra, The Purely Functional Software Deployment Model, PhD thesis, Utrecht (2006); Dolstra, de Jonge & Visser, "Nix: A Safe and Policy-Free System for Software Deployment", LISA (2004); Dolstra & Löh, "NixOS: A Purely Functional Linux Distribution", ICFP (2008); Bruno, Nix Pills; Malka, Zacchiroli & Zimmermann, "Does Functional Package Management Enable Reproducible Builds at Scale? Yes.", MSR (2025).
 
+
 ## Evidence
 
 | Claim | Source |
@@ -183,22 +120,3 @@ No length target: the length follows the argument (about 150 words per minute).
 | Builds run isolated (sandbox) by default on Linux since Nix 2.2; not by default on macOS | Nix manual, `sandbox` setting; Nix 2.2 release notes (this lesson's demo ran with the sandbox off, since the container has no namespaces; store paths don't depend on it) |
 | Closure chain: glibc → libidn2 → libunistring | data/nix_demo.txt; nixpkgs glibc and libidn2 inputs |
 
-## Review log
-
-(none yet)
-
-**Round 1:** expert PASS, editor PASS, student retold the question and answer correctly (lost "a few times"). The gate is passed; the should-fix items are applied once, and round 2 decides the lock.
-- Expert: the closure's chain is now right (the C library pulls in libidn2, which needs libunistring); a closure runs on "another machine of the same kind"; the shared-path claim allows for libraries versioned in their file names; the cold open's promise is hedged ("as far as possible"); one line says how Nix makes "everything the build uses" true (isolated builds on Linux by default).
-- Editor: the not-atomic activation moved from chapter 8 into chapter 7 and now separates the one-step link switch from bringing the running machine in line, so it no longer reads as contradicting chapter 6; chapter 8 now carries three limits, and the data limit has a concrete case (a database's converted files); the dangling garbage-collection line is cut.
-- Student: lost at the profile/generation double introduction, the closure scanning step, and the atomic-vs-restart moment (the last one fixed above).
-
-**Round 2:** editor PASS, expert REVISE, student retold the question and answer correctly (lost "a few times").
-- Expert, blocking: the closing "pin them to repeat a build" walked back chapter 8's caveat; now "you get the same recipe again; the bytes usually, but not always, follow".
-- Expert: "treats a build as a pure function of its inputs" (the term the canonical sources use).
-- Student: lost at the profile/generation sentence and the reference-scanning step (logged; no change this round).
-
-**Round 3:** expert REVISE, editor PASS, student retold the question and answer correctly. The gate failed, so the blocking item is fixed and round 4 runs.
-- Expert, blocking: "no network" as a blanket rule is false for downloads, which are fixed-output builds allowed the network because the recipe fixes the downloaded file's hash in advance. Chapter 3 now says a build can use only what it declared, and that even a downloaded source file has to match a hash written in the recipe; the sentence moved before "on this machine", so it no longer reads as a claim about the demo run (which ran with the sandbox off).
-- Expert: Nix "creates", not "builds", a generation.
-- Editor: chapter 5 opens with a question (where does Hello find the C library, if not in /usr/lib?); "old generations stay" is paid off with one line on the garbage collector; the chapter 7 sentence with the elided verb now says "takes longer"; the boot menu is marked on screen as an illustration; the isolation and versioned-names lines get screen support.
-- Editor, not taken: leading chapters 3, 6 and 7 with the concrete case (each already shows its real run within two sentences), and splitting chapter 8.

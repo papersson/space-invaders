@@ -1,0 +1,213 @@
+SET
+CREATE FUNCTION
+=== 0. the size of the orders table, in pages
+ relpages 
+----------
+    12739
+(1 row)
+
+=== 1. the same query, a rare customer (customer 4242) and a common one (customer 1, about 30% of orders)
+                                                           QUERY PLAN                                                           
+--------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=132.22..132.23 rows=1 width=40) (actual time=0.067..0.067 rows=1 loops=1)
+   ->  Bitmap Heap Scan on orders  (cost=4.68..132.06 rows=33 width=6) (actual time=0.041..0.058 rows=10 loops=1)
+         Recheck Cond: (customer_id = 4242)
+         Heap Blocks: exact=10
+         ->  Bitmap Index Scan on orders_customer  (cost=0.00..4.67 rows=33 width=0) (actual time=0.034..0.034 rows=10 loops=1)
+               Index Cond: (customer_id = 4242)
+ Planning Time: 0.074 ms
+ Execution Time: 0.105 ms
+(8 rows)
+
+ median_ms_of_7_runs 
+---------------------
+               0.015
+(1 row)
+
+                                                                 QUERY PLAN                                                                  
+---------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=30007.64..30007.65 rows=1 width=40) (actual time=138.396..138.399 rows=1 loops=1)
+   ->  Bitmap Heap Scan on orders  (cost=6916.81..27049.97 rows=591533 width=6) (actual time=14.243..88.676 rows=600698 loops=1)
+         Recheck Cond: (customer_id = 1)
+         Heap Blocks: exact=12739
+         ->  Bitmap Index Scan on orders_customer  (cost=0.00..6768.92 rows=591533 width=0) (actual time=12.588..12.589 rows=600698 loops=1)
+               Index Cond: (customer_id = 1)
+ Planning Time: 0.049 ms
+ Execution Time: 138.571 ms
+(8 rows)
+
+ median_ms_of_7_runs 
+---------------------
+             135.408
+(1 row)
+
+=== 2. the rare customer with a full scan forced (index and bitmap scans off)
+SET
+SET
+                                                 QUERY PLAN                                                  
+-------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=37739.17..37739.18 rows=1 width=40) (actual time=75.000..75.002 rows=1 loops=1)
+   ->  Seq Scan on orders  (cost=0.00..37739.00 rows=33 width=6) (actual time=0.022..74.965 rows=10 loops=1)
+         Filter: (customer_id = 4242)
+         Rows Removed by Filter: 1999990
+ Planning Time: 0.056 ms
+ Execution Time: 75.021 ms
+(6 rows)
+
+ median_ms_of_7_runs 
+---------------------
+              71.984
+(1 row)
+
+RESET
+RESET
+=== 3. the common customer with a full scan forced (index and bitmap scans off)
+SET
+SET
+                                                     QUERY PLAN                                                      
+---------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=40696.67..40696.68 rows=1 width=40) (actual time=138.766..138.767 rows=1 loops=1)
+   ->  Seq Scan on orders  (cost=0.00..37739.00 rows=591533 width=6) (actual time=0.010..97.567 rows=600698 loops=1)
+         Filter: (customer_id = 1)
+         Rows Removed by Filter: 1399302
+ Planning Time: 0.082 ms
+ Execution Time: 138.791 ms
+(6 rows)
+
+ median_ms_of_7_runs 
+---------------------
+             135.619
+(1 row)
+
+RESET
+RESET
+=== 4. a join: 100 customers in Tromsø, 99,900 in Oslo
+                                                               QUERY PLAN                                                               
+----------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=18820.08..18820.09 rows=1 width=40) (actual time=6.970..6.972 rows=1 loops=1)
+   ->  Nested Loop  (cost=4.72..18809.38 rows=2140 width=6) (actual time=0.062..6.870 rows=1346 loops=1)
+         ->  Seq Scan on customers c  (cost=0.00..1791.00 rows=107 width=4) (actual time=0.045..4.616 rows=100 loops=1)
+               Filter: (city = 'Tromsø'::text)
+               Rows Removed by Filter: 99900
+         ->  Bitmap Heap Scan on orders o  (cost=4.72..158.58 rows=47 width=10) (actual time=0.007..0.021 rows=13 loops=100)
+               Recheck Cond: (customer_id = c.id)
+               Heap Blocks: exact=1346
+               ->  Bitmap Index Scan on orders_customer  (cost=0.00..4.71 rows=47 width=0) (actual time=0.005..0.005 rows=13 loops=100)
+                     Index Cond: (customer_id = c.id)
+ Planning Time: 0.372 ms
+ Execution Time: 6.998 ms
+(12 rows)
+
+ median_ms_of_7_runs 
+---------------------
+               5.093
+(1 row)
+
+                                                            QUERY PLAN                                                            
+----------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=51018.19..51018.20 rows=1 width=40) (actual time=701.800..701.804 rows=1 loops=1)
+   ->  Hash Join  (cost=3039.66..41028.88 rows=1997860 width=6) (actual time=19.205..562.219 rows=1998654 loops=1)
+         Hash Cond: (o.customer_id = c.id)
+         ->  Seq Scan on orders o  (cost=0.00..32739.00 rows=2000000 width=10) (actual time=0.004..134.818 rows=2000000 loops=1)
+         ->  Hash  (cost=1791.00..1791.00 rows=99893 width=4) (actual time=18.683..18.685 rows=99900 loops=1)
+               Buckets: 131072  Batches: 1  Memory Usage: 4537kB
+               ->  Seq Scan on customers c  (cost=0.00..1791.00 rows=99893 width=4) (actual time=0.007..7.459 rows=99900 loops=1)
+                     Filter: (city = 'Oslo'::text)
+                     Rows Removed by Filter: 100
+ Planning Time: 0.094 ms
+ Execution Time: 702.191 ms
+(11 rows)
+
+ median_ms_of_7_runs 
+---------------------
+             721.101
+(1 row)
+
+=== 4b. Oslo with a nested loop forced (hash and merge joins off)
+SET
+SET
+                                                                    QUERY PLAN                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=106165.06..106165.07 rows=1 width=40) (actual time=2296.399..2296.400 rows=1 loops=1)
+   ->  Nested Loop  (cost=0.30..96175.76 rows=1997860 width=6) (actual time=0.086..2070.184 rows=1998654 loops=1)
+         ->  Seq Scan on orders o  (cost=0.00..32739.00 rows=2000000 width=10) (actual time=0.010..160.281 rows=2000000 loops=1)
+         ->  Memoize  (cost=0.30..0.32 rows=1 width=4) (actual time=0.001..0.001 rows=1 loops=2000000)
+               Cache Key: o.customer_id
+               Cache Mode: logical
+               Hits: 1680552  Misses: 319448  Evictions: 238758  Overflows: 0  Memory Usage: 8193kB
+               ->  Index Scan using customers_pkey on customers c  (cost=0.29..0.31 rows=1 width=4) (actual time=0.002..0.002 rows=1 loops=319448)
+                     Index Cond: (id = o.customer_id)
+                     Filter: (city = 'Oslo'::text)
+                     Rows Removed by Filter: 0
+ Planning Time: 0.100 ms
+ Execution Time: 2297.477 ms
+(13 rows)
+
+ median_ms_of_7_runs 
+---------------------
+            2024.164
+(1 row)
+
+RESET
+RESET
+=== 5. stale statistics: gathered while customer 1 had 30% of orders; then their older orders were archived
+DROP TABLE
+CREATE TABLE
+INSERT 0 2000000
+ANALYZE
+DELETE 600404
+VACUUM
+                                                                 QUERY PLAN                                                                  
+---------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=0.43..1.84 rows=10 width=14) (actual time=160.764..160.769 rows=10 loops=1)
+   ->  Index Scan using orders_s_pkey on orders_s  (cost=0.43..59179.36 rows=419506 width=14) (actual time=160.761..160.764 rows=10 loops=1)
+         Filter: (customer_id = 1)
+         Rows Removed by Filter: 1398620
+ Planning Time: 0.230 ms
+ Execution Time: 160.790 ms
+(6 rows)
+
+ median_ms_of_7_runs 
+---------------------
+             136.769
+(1 row)
+
+=== 6. after ANALYZE
+ANALYZE
+                                                                   QUERY PLAN                                                                    
+-------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=1155.82..1155.84 rows=10 width=14) (actual time=0.104..0.106 rows=10 loops=1)
+   ->  Sort  (cost=1155.82..1156.64 rows=327 width=14) (actual time=0.103..0.104 rows=10 loops=1)
+         Sort Key: id
+         Sort Method: top-N heapsort  Memory: 25kB
+         ->  Bitmap Heap Scan on orders_s  (cost=6.96..1148.75 rows=327 width=14) (actual time=0.042..0.075 rows=294 loops=1)
+               Recheck Cond: (customer_id = 1)
+               Heap Blocks: exact=7
+               ->  Bitmap Index Scan on orders_s_customer_id_idx  (cost=0.00..6.88 rows=327 width=0) (actual time=0.035..0.035 rows=294 loops=1)
+                     Index Cond: (customer_id = 1)
+ Planning Time: 0.179 ms
+ Execution Time: 0.122 ms
+(11 rows)
+
+ median_ms_of_7_runs 
+---------------------
+               0.061
+(1 row)
+
+=== 7. counts
+ orders  | customer_1 | customer_4242 
+---------+------------+---------------
+ 2000000 |     600698 |            10
+(1 row)
+
+  city  | count 
+--------+-------
+ Oslo   | 99900
+ Tromsø |   100
+(2 rows)
+
+                                   version                                    
+------------------------------------------------------------------------------
+ PostgreSQL 16.9 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 13.3.0, 64-bit
+(1 row)
+
