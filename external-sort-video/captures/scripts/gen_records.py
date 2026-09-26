@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generate 100-byte text records: 10 random uppercase key chars, a space,
-88 random alphanumeric payload chars, newline.  Fixed seed, stdlib only.
+"""Generate text records: 10 random uppercase key chars, a space, PAYLOAD random
+alphanumeric chars, newline (PAYLOAD = 88 gives 100-byte records).  Fixed seed, stdlib only.
 
-usage: gen_records.py OUT N_RECORDS [SEED]
+usage: gen_records.py OUT N_RECORDS [SEED] [PAYLOAD]
 """
 import random
 import sys
@@ -33,23 +33,25 @@ def main():
     out_path = sys.argv[1]
     n_total = int(sys.argv[2])
     seed = int(sys.argv[3]) if len(sys.argv) > 3 else 20260925
+    pw = int(sys.argv[4]) if len(sys.argv) > 4 else 88
+    rec = pw + 12
     rng = random.Random(seed)
     kt, kd = table(UPPER)
     pt, pd = table(ALNUM)
-    chunk = 200_000
+    chunk = max(1, 20_000_000 // rec)
     with open(out_path, "wb", buffering=0) as f:
         done = 0
         while done < n_total:
             n = min(chunk, n_total - done)
             keys = draw(rng, 10 * n, kt, kd)
-            pay = draw(rng, 88 * n, pt, pd)
-            buf = bytearray(100 * n)
+            pay = draw(rng, pw * n, pt, pd)
+            buf = bytearray(rec * n)
             for i in range(10):
-                buf[i::100] = keys[i::10]
-            buf[10::100] = b" " * n
-            for i in range(88):
-                buf[11 + i::100] = pay[i::88]
-            buf[99::100] = b"\n" * n
+                buf[i::rec] = keys[i::10]
+            buf[10::rec] = b" " * n
+            for i in range(pw):
+                buf[11 + i::rec] = pay[i::pw]
+            buf[rec - 1::rec] = b"\n" * n
             f.write(buf)
             done += n
 

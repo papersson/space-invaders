@@ -1,50 +1,49 @@
 # Real captures for the external-merge-sort video
 
-All captured 2026-09-25 in a Linux container: Ubuntu 24.04, 4 cores, 16 GB RAM, no swap.
-Versions: GNU coreutils `sort` 9.4, Python 3.11.15, PostgreSQL 16.13. The scripts that made
-each file are in `scripts/`. The big inputs (1 GB records file, sort output, temp dirs,
-Postgres cluster) were deleted afterwards.
+Captured in a Linux container: Ubuntu 24.04, 4 cores, 16 GB RAM, no swap. Versions: GNU
+coreutils `sort` 9.4, Python 3.11.15, PostgreSQL 16.13. The scripts that made each file are
+in `scripts/`. The big inputs (1 GB records file, sort output, temp dirs, Postgres cluster)
+were deleted afterwards.
 
 Caveat for timings: with 16 GB of RAM the 1 GB input sat in the page cache, and temp files
 and output went through the page cache too. The *shape* is real (run count, run sizes,
 merge phase, memory ceiling). The speeds are faster than a cold disk would give.
 
-## Input: `records.txt` (not kept)
+## Version 2 captures (2026-09-26): `gnu_sort_tmp.json`, `python_memoryerror.json`
 
-`python3 scripts/gen_records.py records.txt 10000000 20260925` writes 10,000,000 records
-× 100 bytes = 1,000,000,000 bytes. Each record is 10 random uppercase letters `A-Z`, a
-space, 88 random `[A-Za-z0-9]` characters, and `\n`. The generator is `random.Random(20260925)`
-with rejection sampling so every character is uniform. It took 17.7 s.
+Re-captured so the demo's numbers line up exactly, in decimal units throughout. GNU sort keeps
+a pointer structure for every line inside its `-S` buffer, so with short records the runs come
+out much smaller than the buffer (100-byte records: a 160 MiB buffer made 86 MB runs). With
+10,000-byte records that bookkeeping is about 1%, and the file-to-memory ratio predicts the run
+count directly.
 
-## `gnu_sort_tmp.json`
+- **Input:** `python3 scripts/gen_records.py records.txt 100000 20260926 9988` writes
+  100,000 records × 10,000 bytes = 1,000,000,000 bytes (10 random `A-Z` key characters, a
+  space, 9,988 random `[A-Za-z0-9]` characters, `\n`).
+- **Sort:** `python3 scripts/capture_gnu_sort.py <workdir> 86000000b gnu_sort_tmp.json` runs
+  `LC_ALL=C sort -S 86000000b -T sort-tmp records.txt -o sorted.txt` (86,000,000 bytes of
+  buffer, default `--parallel`, 4 threads). The file is 11.6 buffers long. Result: 12 temp
+  files, 11 × 85,180,000 B and 1 × 63,020,000 B; one 12-way merge while `sorted.txt` grows
+  from 4.2 s; all temp files deleted at the end; exit at 8.74 s; peak RSS 87,380 kB.
+- **Python:** `python3 scripts/capture_python_oom.py <workdir> 83984 python_memoryerror.json`
+  runs `bash -c "ulimit -v 83984; exec python3 -c \"lines = sorted(open('records.txt'))\""`:
+  83,984 KiB = 86,000,000 bytes, the same as sort's buffer. Result: a real `MemoryError`
+  after 0.078 s (return code 1). Two samples fit before it died (RSS 53,788 kB, VmSize
+  59,960 kB); the failing allocation was the one that would have crossed the cap.
+- An intermediate version 2 attempt used 1000-byte records and `-S 88M` (88 MiB). It also made
+  12 runs, but 1 GB is only 10.8 times 88 MiB, and mixing decimal and binary units made the
+  on-screen arithmetic inconsistent, so it was replaced.
 
-`python3 scripts/capture_gnu_sort.py <workdir> 160M gnu_sort_tmp.json` runs
-`LC_ALL=C sort -S 160M -T sort-tmp records.txt -o sorted.txt`. It uses the default
-`--parallel`, which here is 4 threads. The run exited 0, and `sort -c` confirmed the output.
+## Version 1 captures (2026-09-25, replaced)
 
-- **Sampler:** every 0.1 s it records the temp dir listing (name, bytes), the output size,
-  and `VmRSS` from `/proc/<pid>/status`. It also records the process state from
-  `/proc/<pid>/stat`, an extra `state` field.
-- **Kept samples:** a sample is kept when anything changed, and at least every 0.5 s.
-  The last sample is taken after exit (`state: "exited"`, `sort_rss_kb: 0`).
-- **Extra top-level fields:** `sort_peak_rss_kb_vmhwm`, `sort_peak_rss_kb_ru_maxrss`
-  (from `wait4`), `temp_file_names_in_order_seen`, `returncode`, `stderr`, `nproc`.
-- **Buffer size:** I tuned `-S`. At `-S 80M` the run made 24 runs, which is more than 16
-  and forces an intermediate merge (see below). `-S 160M` gives 12.
+The first versions used 100-byte records, `sort -S 160M` (12 runs of 85.6 MB, one 12-way
+merge, 6.9 s, peak RSS 167,416 kB) and Python under a 600,000 kB cap (`MemoryError` at
+586,176 kB RSS after 0.57 s). They are in git history. The two sections below still describe
+files from that session.
 
-Result:
+## `gnu_sort_tmp_S80M_batch16_evidence.json` (extra, version 1 input)
 
-| | |
-|---|---|
-| Temp files | 12: 11 × 85,598,000 B (855,980 records each) + 1 × 58,422,000 B |
-| Run phase | 0.2 s to 3.9 s. Files appear one at a time, each empty at first, then growing to full size. |
-| Final merge | One 12-way merge, 3.9 s to 6.5 s. Output grows 0 to 1 GB and all temp files vanish at the end. |
-| Exit | 6.90 s. The process sat in state `D` for about 0.4 s after the output was complete. |
-| Peak RSS | 167,416 kB (VmHWM); `ru_maxrss` 167,092 kB. The `-S` value is 160 MiB = 163,840 kB. |
-
-## `gnu_sort_tmp_S80M_batch16_evidence.json` (extra)
-
-This is the same capture with `-S 80M`. It is the empirical check of the default `--batch-size`:
+This is the version 1 capture (100-byte records) with `-S 80M`. It is the empirical check of the default `--batch-size`:
 
 - **Runs:** sort wrote 24 runs, 23 × 42,799,000 B and 1 × 15,623,000 B.
 - **Intermediate merge:** a 25th file (`sortlo9qU6`) appeared and grew to 684,784,000 B,
@@ -64,26 +63,6 @@ currently 16, but this is implementation-dependent". The run above confirms it.
 
 A first trial at `-S 80M` took 16.4 s instead of 6.0 s, with the same file pattern. That was
 probably disk writeback, and that run was not kept.
-
-## `python_memoryerror.json`
-
-`python3 scripts/capture_python_oom.py <workdir> 600000 python_memoryerror.json` runs
-`bash -c "ulimit -v 600000; exec python3 -c \"lines = sorted(open('records.txt'))\""`. The
-`exec` makes the sampled PID the Python process itself; the first sample, at t = 0.001 s,
-is still bash. The sampler reads `VmRSS` every 0.05 s, plus `VmSize` in an extra
-`vmsize_kb` field.
-
-- **Result:** a real `MemoryError`, not a kill. The return code is 1 and stderr is:
-  `Traceback (most recent call last):\n  File "<string>", line 1, in <module>\nMemoryError\n`
-- **Memory:** RSS climbed about 1.3 GB/s to a peak of 586,176 kB (VmHWM = ru_maxrss).
-  VmPeak was 599,972 kB, just under the 600,000 kB cap. The last two samples (380 MB,
-  then 114 MB) show Python freeing the partial list after the exception.
-- **Timing:** the process exited at 0.569 s, which leaves only 12 samples.
-- **How far it got:** I also ran a variant with the same cap (a loop that appends lines and
-  catches the error), not saved. It died after 3,505,991 lines, about 35% of the file.
-- **Earlier run:** one run was made while another CPU-heavy process (the video's TTS job)
-  was running. It took 2.76 s and was replaced. The saved run was on an idle machine and
-  matches an earlier run (0.59 s).
 
 ## `postgres_explain.txt`
 
