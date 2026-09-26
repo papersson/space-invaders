@@ -1,0 +1,1388 @@
+{
+ "voice": "af_heart",
+ "speed": 0.92,
+ "total": 620.326,
+ "segments": [
+  {
+   "id": "s1",
+   "title": "The question",
+   "start": 0.0,
+   "lines": [
+    {
+     "id": "s1_01",
+     "text": "Two cash machines deposit into the same bank account at the same moment: fifty dollars each, into a balance of one hundred.",
+     "caption": "Two cash machines deposit into the same bank account at the same moment: fifty dollars each, into a balance of one hundred.",
+     "paragraph": 0,
+     "start": 0.8,
+     "end": 8.403
+    },
+    {
+     "id": "s1_02",
+     "text": "The balance should end at two hundred.",
+     "caption": "The balance should end at two hundred.",
+     "paragraph": 1,
+     "start": 8.903,
+     "end": 10.499
+    },
+    {
+     "id": "s1_03",
+     "text": "Sometimes it ends at one hundred and fifty.",
+     "caption": "Sometimes it ends at one hundred and fifty.",
+     "paragraph": 1,
+     "start": 10.799,
+     "end": 13.182
+    },
+    {
+     "id": "s1_04",
+     "text": "One deposit has vanished.",
+     "caption": "One deposit has vanished.",
+     "paragraph": 1,
+     "start": 13.482,
+     "end": 15.035
+    },
+    {
+     "id": "s1_05",
+     "text": "A program that does several things at once has to coordinate them.",
+     "caption": "A program that does several things at once has to coordinate them.",
+     "paragraph": 2,
+     "start": 15.535,
+     "end": 19.247
+    },
+    {
+     "id": "s1_06",
+     "text": "There are two broad families of ways to do it; there are others, but these are the two you'll meet most.",
+     "caption": "There are two broad families of ways to do it; there are others, but these are the two you'll meet most.",
+     "paragraph": 2,
+     "start": 19.547,
+     "end": 25.079
+    },
+    {
+     "id": "s1_07",
+     "text": "In one, threads share memory, and take turns with locks.",
+     "caption": "In one, threads share memory, and take turns with locks.",
+     "paragraph": 3,
+     "start": 25.579,
+     "end": 28.847
+    },
+    {
+     "id": "s1_08",
+     "text": "In the other, nothing is shared, at least in the code you write: parts of the program pass messages instead.",
+     "caption": "In the other, nothing is shared, at least in the code you write: parts of the program pass messages instead.",
+     "paragraph": 3,
+     "start": 29.147,
+     "end": 35.367
+    },
+    {
+     "id": "s1_09",
+     "text": "Go's documentation puts it as a slogan: \"Do not communicate by sharing memory; instead, share memory by communicating.\"",
+     "caption": "Go's documentation puts it as a slogan: \"Do not communicate by sharing memory; instead, share memory by communicating.\"",
+     "paragraph": 4,
+     "start": 35.867,
+     "end": 43.69
+    },
+    {
+     "id": "s1_10",
+     "text": "The hope is that if nothing is shared, bugs like the vanishing deposit can't happen.",
+     "caption": "The hope is that if nothing is shared, bugs like the vanishing deposit can't happen.",
+     "paragraph": 5,
+     "start": 44.19,
+     "end": 49.085
+    },
+    {
+     "id": "s1_11",
+     "text": "So does passing messages make them go away?",
+     "caption": "So does passing messages make them go away?",
+     "paragraph": 5,
+     "start": 49.385,
+     "end": 51.601
+    }
+   ],
+   "end": 55.251
+  },
+  {
+   "id": "s2",
+   "title": "The lost update",
+   "start": 55.251,
+   "lines": [
+    {
+     "id": "s2_01",
+     "text": "Here is how a deposit vanishes.",
+     "caption": "Here is how a deposit vanishes.",
+     "paragraph": 0,
+     "start": 55.601,
+     "end": 57.515
+    },
+    {
+     "id": "s2_02",
+     "text": "A deposit takes three steps: read the balance, add fifty, write the result back.",
+     "caption": "A deposit takes three steps: read the balance, add fifty, write the result back.",
+     "paragraph": 1,
+     "start": 58.015,
+     "end": 62.821
+    },
+    {
+     "id": "s2_03",
+     "text": "Machine A reads one hundred.",
+     "caption": "Machine A reads one hundred.",
+     "paragraph": 2,
+     "start": 63.321,
+     "end": 64.966
+    },
+    {
+     "id": "s2_04",
+     "text": "Before A writes, machine B also reads one hundred.",
+     "caption": "Before A writes, machine B also reads one hundred.",
+     "paragraph": 2,
+     "start": 65.266,
+     "end": 68.075
+    },
+    {
+     "id": "s2_05",
+     "text": "A writes one hundred and fifty.",
+     "caption": "A writes one hundred and fifty.",
+     "paragraph": 3,
+     "start": 68.575,
+     "end": 70.214
+    },
+    {
+     "id": "s2_06",
+     "text": "Then B writes one hundred and fifty, over A's result.",
+     "caption": "Then B writes one hundred and fifty, over A's result.",
+     "paragraph": 3,
+     "start": 70.514,
+     "end": 73.825
+    },
+    {
+     "id": "s2_07",
+     "text": "A's deposit is gone.",
+     "caption": "A's deposit is gone.",
+     "paragraph": 4,
+     "start": 74.325,
+     "end": 75.7
+    },
+    {
+     "id": "s2_08",
+     "text": "This is called a lost update.",
+     "caption": "This is called a lost update.",
+     "paragraph": 4,
+     "start": 76.0,
+     "end": 77.646
+    },
+    {
+     "id": "s2_09",
+     "text": "Only two orders of the six steps are safe: one machine's whole deposit finishes before the other's starts.",
+     "caption": "Only two orders of the six steps are safe: one machine's whole deposit finishes before the other's starts.",
+     "paragraph": 5,
+     "start": 78.946,
+     "end": 85.406
+    },
+    {
+     "id": "s2_10",
+     "text": "In any other order, a deposit is lost.",
+     "caption": "In any other order, a deposit is lost.",
+     "paragraph": 5,
+     "start": 85.706,
+     "end": 88.208
+    },
+    {
+     "id": "s2_11",
+     "text": "Usually the two deposits don't overlap at all, so the bug shows up only now and then.",
+     "caption": "Usually the two deposits don't overlap at all, so the bug shows up only now and then.",
+     "paragraph": 5,
+     "start": 88.508,
+     "end": 93.569
+    },
+    {
+     "id": "s2_12",
+     "text": "A bug whose result depends on the timing of concurrent steps is called a race condition.",
+     "caption": "A bug whose result depends on the timing of concurrent steps is called a race condition.",
+     "paragraph": 6,
+     "start": 94.069,
+     "end": 99.261
+    },
+    {
+     "id": "s2_13",
+     "text": "This bug is also what's called a data race.",
+     "caption": "This bug is also what's called a data race.",
+     "paragraph": 7,
+     "start": 99.761,
+     "end": 102.167
+    },
+    {
+     "id": "s2_14",
+     "text": "Two threads use the same memory.",
+     "caption": "Two threads use the same memory.",
+     "paragraph": 7,
+     "start": 102.467,
+     "end": 104.156
+    },
+    {
+     "id": "s2_15",
+     "text": "At least one of them writes.",
+     "caption": "At least one of them writes.",
+     "paragraph": 7,
+     "start": 104.456,
+     "end": 105.827
+    },
+    {
+     "id": "s2_16",
+     "text": "And nothing forces an order between them.",
+     "caption": "And nothing forces an order between them.",
+     "paragraph": 7,
+     "start": 106.127,
+     "end": 108.281
+    },
+    {
+     "id": "s2_17",
+     "text": "The two names describe different things.",
+     "caption": "The two names describe different things.",
+     "paragraph": 8,
+     "start": 108.781,
+     "end": 110.836
+    },
+    {
+     "id": "s2_18",
+     "text": "\"Race condition\" is about the result.",
+     "caption": "\"Race condition\" is about the result.",
+     "paragraph": 8,
+     "start": 111.136,
+     "end": 113.29
+    },
+    {
+     "id": "s2_19",
+     "text": "\"Data race\" is about how the memory is used.",
+     "caption": "\"Data race\" is about how the memory is used.",
+     "paragraph": 8,
+     "start": 113.59,
+     "end": 116.25
+    },
+    {
+     "id": "s2_20",
+     "text": "Here, both apply.",
+     "caption": "Here, both apply.",
+     "paragraph": 8,
+     "start": 116.55,
+     "end": 117.615
+    },
+    {
+     "id": "s2_21",
+     "text": "A lost update is the mild outcome.",
+     "caption": "A lost update is the mild outcome.",
+     "paragraph": 9,
+     "start": 118.715,
+     "end": 120.756
+    },
+    {
+     "id": "s2_22",
+     "text": "For a program with a data race, C and C plus plus promise nothing at all, not even that a read returns a value some thread actually wrote.",
+     "caption": "For a program with a data race, C and C++ promise nothing at all, not even that a read returns a value some thread actually wrote.",
+     "paragraph": 9,
+     "start": 121.056,
+     "end": 129.76
+    },
+    {
+     "id": "s2_23",
+     "text": "And when the steps do overlap often, it isn't rare.",
+     "caption": "And when the steps do overlap often, it isn't rare.",
+     "paragraph": 10,
+     "start": 130.26,
+     "end": 133.087
+    },
+    {
+     "id": "s2_24",
+     "text": "In a small C program, two threads each add one to a shared counter ten million times, so it should end at twenty million.",
+     "caption": "In a small C program, two threads each add one to a shared counter ten million times, so it should end at twenty million.",
+     "paragraph": 10,
+     "start": 133.387,
+     "end": 140.716
+    },
+    {
+     "id": "s2_25",
+     "text": "In five runs on this machine, it ended between about ten point one and eleven point seven million, a different number each time.",
+     "caption": "In five runs on this machine, it ended between about ten point one and eleven point seven million, a different number each time.",
+     "paragraph": 10,
+     "start": 141.016,
+     "end": 148.688
+    }
+   ],
+   "end": 150.338
+  },
+  {
+   "id": "s3",
+   "title": "Locks",
+   "start": 150.338,
+   "lines": [
+    {
+     "id": "s3_01",
+     "text": "The shared-memory fix is a lock.",
+     "caption": "The shared-memory fix is a lock.",
+     "paragraph": 0,
+     "start": 150.688,
+     "end": 152.375
+    },
+    {
+     "id": "s3_02",
+     "text": "A thread takes the lock before it reads the balance, and releases it after it writes.",
+     "caption": "A thread takes the lock before it reads the balance, and releases it after it writes.",
+     "paragraph": 1,
+     "start": 152.875,
+     "end": 157.503
+    },
+    {
+     "id": "s3_03",
+     "text": "While one thread holds the lock, any other thread that wants it waits.",
+     "caption": "While one thread holds the lock, any other thread that wants it waits.",
+     "paragraph": 1,
+     "start": 157.803,
+     "end": 161.475
+    },
+    {
+     "id": "s3_04",
+     "text": "So the three steps happen as one, with nothing in between.",
+     "caption": "So the three steps happen as one, with nothing in between.",
+     "paragraph": 2,
+     "start": 161.975,
+     "end": 165.092
+    },
+    {
+     "id": "s3_05",
+     "text": "With a lock around it, the counter reaches twenty million on every run.",
+     "caption": "With a lock around it, the counter reaches twenty million on every run.",
+     "paragraph": 2,
+     "start": 165.392,
+     "end": 169.192
+    },
+    {
+     "id": "s3_06",
+     "text": "But a lock only protects code that takes it.",
+     "caption": "But a lock only protects code that takes it.",
+     "paragraph": 3,
+     "start": 169.692,
+     "end": 171.951
+    },
+    {
+     "id": "s3_07",
+     "text": "Nothing stops one forgotten code path from touching the balance without it, and then the race is back.",
+     "caption": "Nothing stops one forgotten code path from touching the balance without it, and then the race is back.",
+     "paragraph": 3,
+     "start": 172.251,
+     "end": 177.767
+    },
+    {
+     "id": "s3_08",
+     "text": "Locks also bring a new failure.",
+     "caption": "Locks also bring a new failure.",
+     "paragraph": 4,
+     "start": 178.267,
+     "end": 179.914
+    },
+    {
+     "id": "s3_09",
+     "text": "A transfer from account A to account B has to lock both accounts.",
+     "caption": "A transfer from account A to account B has to lock both accounts.",
+     "paragraph": 4,
+     "start": 180.214,
+     "end": 184.152
+    },
+    {
+     "id": "s3_10",
+     "text": "Say each transfer locks the paying account first, then the receiving account.",
+     "caption": "Say each transfer locks the paying account first, then the receiving account.",
+     "paragraph": 5,
+     "start": 184.652,
+     "end": 188.768
+    },
+    {
+     "id": "s3_11",
+     "text": "One thread transfers from A to B.",
+     "caption": "One thread transfers from A to B.",
+     "paragraph": 6,
+     "start": 189.268,
+     "end": 191.078
+    },
+    {
+     "id": "s3_12",
+     "text": "It locks A, then waits for B.",
+     "caption": "It locks A, then waits for B.",
+     "paragraph": 6,
+     "start": 191.378,
+     "end": 193.207
+    },
+    {
+     "id": "s3_13",
+     "text": "At the same moment, another thread transfers from B to A.",
+     "caption": "At the same moment, another thread transfers from B to A.",
+     "paragraph": 6,
+     "start": 193.507,
+     "end": 196.609
+    },
+    {
+     "id": "s3_14",
+     "text": "It locks B, then waits for A.",
+     "caption": "It locks B, then waits for A.",
+     "paragraph": 6,
+     "start": 196.909,
+     "end": 198.701
+    },
+    {
+     "id": "s3_15",
+     "text": "Each is waiting for a lock the other holds, and neither will let go.",
+     "caption": "Each is waiting for a lock the other holds, and neither will let go.",
+     "paragraph": 7,
+     "start": 199.201,
+     "end": 202.709
+    },
+    {
+     "id": "s3_16",
+     "text": "That's a deadlock.",
+     "caption": "That's a deadlock.",
+     "paragraph": 7,
+     "start": 203.009,
+     "end": 204.019
+    },
+    {
+     "id": "s3_17",
+     "text": "The standard fix is to take locks in one fixed order everywhere, say, the lower account number first.",
+     "caption": "The standard fix is to take locks in one fixed order everywhere, say, the lower account number first.",
+     "paragraph": 8,
+     "start": 205.319,
+     "end": 211.46
+    },
+    {
+     "id": "s3_18",
+     "text": "Then a cycle of waiting can't form.",
+     "caption": "Then a cycle of waiting can't form.",
+     "paragraph": 8,
+     "start": 211.76,
+     "end": 213.495
+    },
+    {
+     "id": "s3_19",
+     "text": "Running both transfers at once, a thousand times: the first version got stuck almost every time, the fixed order never.",
+     "caption": "Running both transfers at once, a thousand times: the first version got stuck almost every time, the fixed order never.",
+     "paragraph": 9,
+     "start": 213.995,
+     "end": 221.494
+    },
+    {
+     "id": "s3_20",
+     "text": "But every piece of code that takes these locks has to follow that order, including code someone else wrote.",
+     "caption": "But every piece of code that takes these locks has to follow that order, including code someone else wrote.",
+     "paragraph": 10,
+     "start": 222.794,
+     "end": 228.576
+    }
+   ],
+   "end": 229.426
+  },
+  {
+   "id": "s4",
+   "title": "One owner",
+   "start": 229.426,
+   "lines": [
+    {
+     "id": "s4_01",
+     "text": "A lock can be forgotten because every thread can still reach the balance.",
+     "caption": "A lock can be forgotten because every thread can still reach the balance.",
+     "paragraph": 0,
+     "start": 229.776,
+     "end": 233.558
+    },
+    {
+     "id": "s4_02",
+     "text": "What if nothing else could reach it at all?",
+     "caption": "What if nothing else could reach it at all?",
+     "paragraph": 0,
+     "start": 233.858,
+     "end": 235.695
+    },
+    {
+     "id": "s4_03",
+     "text": "Then there would be no lock to forget.",
+     "caption": "Then there would be no lock to forget.",
+     "paragraph": 0,
+     "start": 235.995,
+     "end": 237.679
+    },
+    {
+     "id": "s4_04",
+     "text": "That's where message passing starts.",
+     "caption": "That's where message passing starts.",
+     "paragraph": 1,
+     "start": 238.179,
+     "end": 239.945
+    },
+    {
+     "id": "s4_05",
+     "text": "Give the balance a single owner, and let nothing else touch it.",
+     "caption": "Give the balance a single owner, and let nothing else touch it.",
+     "paragraph": 1,
+     "start": 240.245,
+     "end": 243.44
+    },
+    {
+     "id": "s4_06",
+     "text": "In the actor model, that owner is an actor: a part of the program with its own private state, and a mailbox.",
+     "caption": "In the actor model, that owner is an actor: a part of the program with its own private state, and a mailbox.",
+     "paragraph": 2,
+     "start": 243.94,
+     "end": 250.717
+    },
+    {
+     "id": "s4_07",
+     "text": "The cash machines never read the balance.",
+     "caption": "The cash machines never read the balance.",
+     "paragraph": 3,
+     "start": 251.217,
+     "end": 253.412
+    },
+    {
+     "id": "s4_08",
+     "text": "They send the actor a message, \"deposit fifty\", and it goes into the mailbox.",
+     "caption": "They send the actor a message, \"deposit fifty\", and it goes into the mailbox.",
+     "paragraph": 3,
+     "start": 253.712,
+     "end": 258.291
+    },
+    {
+     "id": "s4_09",
+     "text": "The actor takes one message at a time, and finishes it before starting the next.",
+     "caption": "The actor takes one message at a time, and finishes it before starting the next.",
+     "paragraph": 4,
+     "start": 258.791,
+     "end": 263.274
+    },
+    {
+     "id": "s4_10",
+     "text": "So the two deposits can't interleave.",
+     "caption": "So the two deposits can't interleave.",
+     "paragraph": 5,
+     "start": 263.774,
+     "end": 265.762
+    },
+    {
+     "id": "s4_11",
+     "text": "The actor adds the first fifty, then the second, and the balance ends at two hundred.",
+     "caption": "The actor adds the first fifty, then the second, and the balance ends at two hundred.",
+     "paragraph": 5,
+     "start": 266.062,
+     "end": 271.053
+    },
+    {
+     "id": "s4_12",
+     "text": "There's no lock, and no data race on the balance, because only the actor ever touches it.",
+     "caption": "There's no lock, and no data race on the balance, because only the actor ever touches it.",
+     "paragraph": 6,
+     "start": 271.553,
+     "end": 276.58
+    },
+    {
+     "id": "s4_13",
+     "text": "Sending doesn't wait: a machine drops its message in the mailbox and carries on.",
+     "caption": "Sending doesn't wait: a machine drops its message in the mailbox and carries on.",
+     "paragraph": 7,
+     "start": 277.68,
+     "end": 282.36
+    },
+    {
+     "id": "s4_14",
+     "text": "How firmly \"nothing else\" holds depends on the system.",
+     "caption": "How firmly \"nothing else\" holds depends on the system.",
+     "paragraph": 8,
+     "start": 282.86,
+     "end": 286.204
+    },
+    {
+     "id": "s4_15",
+     "text": "In Erlang, processes don't share memory by default.",
+     "caption": "In Erlang, processes don't share memory by default.",
+     "paragraph": 8,
+     "start": 286.504,
+     "end": 289.6
+    },
+    {
+     "id": "s4_16",
+     "text": "A message is copied to the receiver.",
+     "caption": "A message is copied to the receiver.",
+     "paragraph": 8,
+     "start": 289.9,
+     "end": 291.925
+    },
+    {
+     "id": "s4_17",
+     "text": "Shared tables exist, but a process has to opt in.",
+     "caption": "Shared tables exist, but a process has to opt in.",
+     "paragraph": 8,
+     "start": 292.225,
+     "end": 295.397
+    },
+    {
+     "id": "s4_18",
+     "text": "In Akka, a toolkit for Java and Scala, keeping an actor's state private is up to the programmer.",
+     "caption": "In Akka, a toolkit for Java and Scala, keeping an actor's state private is up to the programmer.",
+     "paragraph": 8,
+     "start": 295.697,
+     "end": 301.544
+    }
+   ],
+   "end": 302.394
+  },
+  {
+   "id": "s5",
+   "title": "Channels",
+   "start": 302.394,
+   "lines": [
+    {
+     "id": "s5_01",
+     "text": "But because an actor's send doesn't wait, a cash machine never learns when its request was taken.",
+     "caption": "But because an actor's send doesn't wait, a cash machine never learns when its request was taken.",
+     "paragraph": 0,
+     "start": 302.744,
+     "end": 308.376
+    },
+    {
+     "id": "s5_02",
+     "text": "The mailbox has the deposit.",
+     "caption": "The mailbox has the deposit.",
+     "paragraph": 0,
+     "start": 308.676,
+     "end": 310.386
+    },
+    {
+     "id": "s5_03",
+     "text": "Has the actor applied it yet, or is it still in the queue?",
+     "caption": "Has the actor applied it yet, or is it still in the queue?",
+     "paragraph": 0,
+     "start": 310.686,
+     "end": 313.689
+    },
+    {
+     "id": "s5_04",
+     "text": "The machine can't tell.",
+     "caption": "The machine can't tell.",
+     "paragraph": 0,
+     "start": 313.989,
+     "end": 315.119
+    },
+    {
+     "id": "s5_05",
+     "text": "The other message-passing family is built the opposite way: a send waits for a receiver.",
+     "caption": "The other message-passing family is built the opposite way: a send waits for a receiver.",
+     "paragraph": 1,
+     "start": 316.219,
+     "end": 321.563
+    },
+    {
+     "id": "s5_06",
+     "text": "It comes from Tony Hoare's communicating sequential processes, or C S P, and Go's channels come out of this tradition.",
+     "caption": "It comes from Tony Hoare's communicating sequential processes, or CSP, and Go's channels come out of this tradition.",
+     "paragraph": 2,
+     "start": 322.063,
+     "end": 329.646
+    },
+    {
+     "id": "s5_07",
+     "text": "Processes share nothing, and talk over channels.",
+     "caption": "Processes share nothing, and talk over channels.",
+     "paragraph": 3,
+     "start": 330.146,
+     "end": 332.801
+    },
+    {
+     "id": "s5_08",
+     "text": "A channel is a connection that processes send values into and receive them from.",
+     "caption": "A channel is a connection that processes send values into and receive them from.",
+     "paragraph": 3,
+     "start": 333.101,
+     "end": 337.951
+    },
+    {
+     "id": "s5_09",
+     "text": "A Go channel made without a buffer, which is the default, makes a send wait until a receiver takes the value.",
+     "caption": "A Go channel made without a buffer, which is the default, makes a send wait until a receiver takes the value.",
+     "paragraph": 4,
+     "start": 338.451,
+     "end": 345.099
+    },
+    {
+     "id": "s5_10",
+     "text": "So when a send finishes, the sender knows its value was taken.",
+     "caption": "So when a send finishes, the sender knows its value was taken.",
+     "paragraph": 4,
+     "start": 345.399,
+     "end": 349.142
+    },
+    {
+     "id": "s5_11",
+     "text": "The account becomes a process that owns the balance, and receives deposits from a channel, one at a time.",
+     "caption": "The account becomes a process that owns the balance, and receives deposits from a channel, one at a time.",
+     "paragraph": 5,
+     "start": 349.642,
+     "end": 355.853
+    },
+    {
+     "id": "s5_12",
+     "text": "Again, no data race on the balance.",
+     "caption": "Again, no data race on the balance.",
+     "paragraph": 5,
+     "start": 356.153,
+     "end": 358.35
+    },
+    {
+     "id": "s5_13",
+     "text": "Go also lets its go routines, its lightweight threads, share memory.",
+     "caption": "Go also lets its goroutines, its lightweight threads, share memory.",
+     "paragraph": 6,
+     "start": 358.85,
+     "end": 362.752
+    },
+    {
+     "id": "s5_14",
+     "text": "So in Go, one owner is a habit the programmer keeps, as in Akka.",
+     "caption": "So in Go, one owner is a habit the programmer keeps, as in Akka.",
+     "paragraph": 6,
+     "start": 363.052,
+     "end": 367.278
+    },
+    {
+     "id": "s5_15",
+     "text": "Actors and channels differ in the plumbing.",
+     "caption": "Actors and channels differ in the plumbing.",
+     "paragraph": 7,
+     "start": 367.778,
+     "end": 369.929
+    },
+    {
+     "id": "s5_16",
+     "text": "An actor has an address and a mailbox, and sending doesn't wait.",
+     "caption": "An actor has an address and a mailbox, and sending doesn't wait.",
+     "paragraph": 7,
+     "start": 370.229,
+     "end": 373.921
+    },
+    {
+     "id": "s5_17",
+     "text": "A channel is its own object, passed around between processes, and by default a send waits for the receiver.",
+     "caption": "A channel is its own object, passed around between processes, and by default a send waits for the receiver.",
+     "paragraph": 7,
+     "start": 374.221,
+     "end": 381.024
+    }
+   ],
+   "end": 382.474
+  },
+  {
+   "id": "s6",
+   "title": "A race without shared memory",
+   "start": 382.474,
+   "lines": [
+    {
+     "id": "s6_01",
+     "text": "So it looks like the slogan wins: give each piece of state one owner, and the vanishing deposit can't happen.",
+     "caption": "So it looks like the slogan wins: give each piece of state one owner, and the vanishing deposit can't happen.",
+     "paragraph": 0,
+     "start": 382.824,
+     "end": 389.256
+    },
+    {
+     "id": "s6_02",
+     "text": "For deposits, that's true.",
+     "caption": "For deposits, that's true.",
+     "paragraph": 0,
+     "start": 389.556,
+     "end": 390.971
+    },
+    {
+     "id": "s6_03",
+     "text": "Now try withdrawals.",
+     "caption": "Now try withdrawals.",
+     "paragraph": 0,
+     "start": 391.271,
+     "end": 392.51
+    },
+    {
+     "id": "s6_04",
+     "text": "A machine should only pay out if there's enough money.",
+     "caption": "A machine should only pay out if there's enough money.",
+     "paragraph": 1,
+     "start": 393.01,
+     "end": 395.556
+    },
+    {
+     "id": "s6_05",
+     "text": "With messages, that takes two: first \"what's the balance?\", then \"withdraw one hundred\".",
+     "caption": "With messages, that takes two: first \"what's the balance?\", then \"withdraw one hundred\".",
+     "paragraph": 1,
+     "start": 395.856,
+     "end": 400.728
+    },
+    {
+     "id": "s6_06",
+     "text": "The balance is one hundred.",
+     "caption": "The balance is one hundred.",
+     "paragraph": 2,
+     "start": 401.228,
+     "end": 402.692
+    },
+    {
+     "id": "s6_07",
+     "text": "Machine A asks, and hears one hundred.",
+     "caption": "Machine A asks, and hears one hundred.",
+     "paragraph": 2,
+     "start": 402.992,
+     "end": 405.264
+    },
+    {
+     "id": "s6_08",
+     "text": "Machine B asks, and also hears one hundred.",
+     "caption": "Machine B asks, and also hears one hundred.",
+     "paragraph": 2,
+     "start": 405.564,
+     "end": 408.281
+    },
+    {
+     "id": "s6_09",
+     "text": "Both send \"withdraw one hundred\".",
+     "caption": "Both send \"withdraw one hundred\".",
+     "paragraph": 3,
+     "start": 408.781,
+     "end": 410.553
+    },
+    {
+     "id": "s6_10",
+     "text": "The account handles them one at a time, just as promised, and the balance ends at minus one hundred.",
+     "caption": "The account handles them one at a time, just as promised, and the balance ends at minus one hundred.",
+     "paragraph": 3,
+     "start": 410.853,
+     "end": 416.716
+    },
+    {
+     "id": "s6_11",
+     "text": "There's no data race here: only the account ever touched the balance.",
+     "caption": "There's no data race here: only the account ever touched the balance.",
+     "paragraph": 4,
+     "start": 418.216,
+     "end": 422.01
+    },
+    {
+     "id": "s6_12",
+     "text": "But the result still depended on timing.",
+     "caption": "But the result still depended on timing.",
+     "paragraph": 4,
+     "start": 422.31,
+     "end": 424.269
+    },
+    {
+     "id": "s6_13",
+     "text": "It's a race condition, between messages instead of between memory steps.",
+     "caption": "It's a race condition, between messages instead of between memory steps.",
+     "paragraph": 4,
+     "start": 424.569,
+     "end": 428.821
+    },
+    {
+     "id": "s6_14",
+     "text": "In a test of a hundred thousand runs, the account was overdrawn in about seventeen hundred.",
+     "caption": "In a test of a hundred thousand runs, the account was overdrawn in about seventeen hundred.",
+     "paragraph": 5,
+     "start": 429.321,
+     "end": 434.862
+    },
+    {
+     "id": "s6_15",
+     "text": "The fix is to make the check and the withdrawal one message: \"withdraw one hundred if the balance allows it\".",
+     "caption": "The fix is to make the check and the withdrawal one message: \"withdraw one hundred if the balance allows it\".",
+     "paragraph": 6,
+     "start": 435.362,
+     "end": 441.47
+    },
+    {
+     "id": "s6_16",
+     "text": "The owner does both in one step.",
+     "caption": "The owner does both in one step.",
+     "paragraph": 6,
+     "start": 441.77,
+     "end": 443.499
+    },
+    {
+     "id": "s6_17",
+     "text": "In the same test, the account was never overdrawn.",
+     "caption": "In the same test, the account was never overdrawn.",
+     "paragraph": 6,
+     "start": 443.799,
+     "end": 446.69
+    },
+    {
+     "id": "s6_18",
+     "text": "Locks raised the same question: which steps have to happen as one?",
+     "caption": "Locks raised the same question: which steps have to happen as one?",
+     "paragraph": 7,
+     "start": 447.99,
+     "end": 451.662
+    },
+    {
+     "id": "s6_19",
+     "text": "Messages don't answer it for you.",
+     "caption": "Messages don't answer it for you.",
+     "paragraph": 7,
+     "start": 451.962,
+     "end": 453.67
+    }
+   ],
+   "end": 454.52
+  },
+  {
+   "id": "s7",
+   "title": "Waiting in a circle",
+   "start": 454.52,
+   "lines": [
+    {
+     "id": "s7_01",
+     "text": "Messages can deadlock too.",
+     "caption": "Messages can deadlock too.",
+     "paragraph": 0,
+     "start": 454.87,
+     "end": 456.384
+    },
+    {
+     "id": "s7_02",
+     "text": "Make each account its own process, with a channel.",
+     "caption": "Make each account its own process, with a channel.",
+     "paragraph": 1,
+     "start": 456.884,
+     "end": 459.441
+    },
+    {
+     "id": "s7_03",
+     "text": "To transfer, an account sends \"credit thirty\" to the other account, and waits until the other account takes it.",
+     "caption": "To transfer, an account sends \"credit thirty\" to the other account, and waits until the other account takes it.",
+     "paragraph": 1,
+     "start": 459.741,
+     "end": 466.021
+    },
+    {
+     "id": "s7_04",
+     "text": "Start a transfer from A to B, and one from B to A, at the same moment.",
+     "caption": "Start a transfer from A to B, and one from B to A, at the same moment.",
+     "paragraph": 2,
+     "start": 466.521,
+     "end": 470.691
+    },
+    {
+     "id": "s7_05",
+     "text": "A is waiting for B to take its message.",
+     "caption": "A is waiting for B to take its message.",
+     "paragraph": 2,
+     "start": 470.991,
+     "end": 473.26
+    },
+    {
+     "id": "s7_06",
+     "text": "B is waiting for A to take its message.",
+     "caption": "B is waiting for A to take its message.",
+     "paragraph": 2,
+     "start": 473.56,
+     "end": 475.697
+    },
+    {
+     "id": "s7_07",
+     "text": "Neither is listening, because each is stuck in its own send.",
+     "caption": "Neither is listening, because each is stuck in its own send.",
+     "paragraph": 2,
+     "start": 475.997,
+     "end": 479.108
+    },
+    {
+     "id": "s7_08",
+     "text": "It's the lock deadlock again: a cycle of waiting, without a single lock.",
+     "caption": "It's the lock deadlock again: a cycle of waiting, without a single lock.",
+     "paragraph": 3,
+     "start": 479.608,
+     "end": 483.808
+    },
+    {
+     "id": "s7_09",
+     "text": "In a thousand runs, both accounts got stuck in about half.",
+     "caption": "In a thousand runs, both accounts got stuck in about half.",
+     "paragraph": 3,
+     "start": 484.108,
+     "end": 487.421
+    },
+    {
+     "id": "s7_10",
+     "text": "The fix follows the same rule as for locks: break the cycle.",
+     "caption": "The fix follows the same rule as for locks: break the cycle.",
+     "paragraph": 4,
+     "start": 488.721,
+     "end": 492.168
+    },
+    {
+     "id": "s7_11",
+     "text": "Here, the account hands the send to a helper, a separate goroutine that waits in its place.",
+     "caption": "Here, the account hands the send to a helper, a separate goroutine that waits in its place.",
+     "paragraph": 4,
+     "start": 492.468,
+     "end": 497.644
+    },
+    {
+     "id": "s7_12",
+     "text": "The account itself keeps listening, instead of waiting in the middle of a transfer.",
+     "caption": "The account itself keeps listening, instead of waiting in the middle of a transfer.",
+     "paragraph": 4,
+     "start": 497.944,
+     "end": 502.208
+    },
+    {
+     "id": "s7_13",
+     "text": "Now nothing inside the account is ever stuck in a send.",
+     "caption": "Now nothing inside the account is ever stuck in a send.",
+     "paragraph": 4,
+     "start": 502.508,
+     "end": 505.501
+    },
+    {
+     "id": "s7_14",
+     "text": "In the same test, nothing got stuck.",
+     "caption": "In the same test, nothing got stuck.",
+     "paragraph": 4,
+     "start": 505.801,
+     "end": 507.679
+    },
+    {
+     "id": "s7_15",
+     "text": "Sending to an actor never waits.",
+     "caption": "Sending to an actor never waits.",
+     "paragraph": 5,
+     "start": 508.779,
+     "end": 510.635
+    },
+    {
+     "id": "s7_16",
+     "text": "But often an actor needs an answer, not just delivery.",
+     "caption": "But often an actor needs an answer, not just delivery.",
+     "paragraph": 5,
+     "start": 510.935,
+     "end": 514.141
+    },
+    {
+     "id": "s7_17",
+     "text": "It sends a request, and then won't handle anything else until the reply lands in its mailbox.",
+     "caption": "It sends a request, and then won't handle anything else until the reply lands in its mailbox.",
+     "paragraph": 5,
+     "start": 514.441,
+     "end": 519.873
+    },
+    {
+     "id": "s7_18",
+     "text": "If two actors do that to each other at the same moment, each waits on the other forever.",
+     "caption": "If two actors do that to each other at the same moment, each waits on the other forever.",
+     "paragraph": 5,
+     "start": 520.173,
+     "end": 524.896
+    },
+    {
+     "id": "s7_19",
+     "text": "Real code shows the same pattern.",
+     "caption": "Real code shows the same pattern.",
+     "paragraph": 6,
+     "start": 525.396,
+     "end": 527.194
+    },
+    {
+     "id": "s7_20",
+     "text": "A study of real concurrency bugs in six widely used Go projects sorted them two ways.",
+     "caption": "A study of real concurrency bugs in six widely used Go projects sorted them two ways.",
+     "paragraph": 6,
+     "start": 527.494,
+     "end": 533.319
+    },
+    {
+     "id": "s7_21",
+     "text": "Among the bugs that gave wrong results, message passing caused only about one in five.",
+     "caption": "Among the bugs that gave wrong results, message passing caused only about one in five.",
+     "paragraph": 7,
+     "start": 533.819,
+     "end": 539.036
+    },
+    {
+     "id": "s7_22",
+     "text": "But among the bugs where code hung, it caused more than half.",
+     "caption": "But among the bugs where code hung, it caused more than half.",
+     "paragraph": 7,
+     "start": 539.336,
+     "end": 542.365
+    }
+   ],
+   "end": 544.215
+  },
+  {
+   "id": "s8",
+   "title": "The answer",
+   "start": 544.215,
+   "lines": [
+    {
+     "id": "s8_01",
+     "text": "So does passing messages make the vanishing deposit go away?",
+     "caption": "So does passing messages make the vanishing deposit go away?",
+     "paragraph": 0,
+     "start": 544.565,
+     "end": 548.208
+    },
+    {
+     "id": "s8_02",
+     "text": "Yes.",
+     "caption": "Yes.",
+     "paragraph": 0,
+     "start": 548.508,
+     "end": 549.059
+    },
+    {
+     "id": "s8_03",
+     "text": "Give the balance one owner, and that bug can't happen.",
+     "caption": "Give the balance one owner, and that bug can't happen.",
+     "paragraph": 0,
+     "start": 549.359,
+     "end": 552.061
+    },
+    {
+     "id": "s8_04",
+     "text": "But its cousins remain: a check and an action split across two messages, and processes waiting on each other in a circle.",
+     "caption": "But its cousins remain: a check and an action split across two messages, and processes waiting on each other in a circle.",
+     "paragraph": 1,
+     "start": 552.561,
+     "end": 559.764
+    },
+    {
+     "id": "s8_05",
+     "text": "So one owner per piece of state rules out data races on it: by the structure of the program, not by everyone remembering a lock.",
+     "caption": "So one owner per piece of state rules out data races on it: by the structure of the program, not by everyone remembering a lock.",
+     "paragraph": 2,
+     "start": 560.264,
+     "end": 568.306
+    },
+    {
+     "id": "s8_06",
+     "text": "That holds wherever the language enforces the ownership.",
+     "caption": "That holds wherever the language enforces the ownership.",
+     "paragraph": 2,
+     "start": 568.606,
+     "end": 571.659
+    },
+    {
+     "id": "s8_07",
+     "text": "It's a real gain, and it's why the slogan exists.",
+     "caption": "It's a real gain, and it's why the slogan exists.",
+     "paragraph": 2,
+     "start": 571.959,
+     "end": 574.807
+    },
+    {
+     "id": "s8_08",
+     "text": "Two decisions are left in each of these models.",
+     "caption": "Two decisions are left in each of these models.",
+     "paragraph": 3,
+     "start": 575.307,
+     "end": 577.915
+    },
+    {
+     "id": "s8_09",
+     "text": "You still choose which steps must happen as one: what a lock covers, or what one message does.",
+     "caption": "You still choose which steps must happen as one: what a lock covers, or what one message does.",
+     "paragraph": 3,
+     "start": 578.215,
+     "end": 583.634
+    },
+    {
+     "id": "s8_10",
+     "text": "And you still have to keep waits from forming a cycle.",
+     "caption": "And you still have to keep waits from forming a cycle.",
+     "paragraph": 3,
+     "start": 583.934,
+     "end": 586.505
+    },
+    {
+     "id": "s8_11",
+     "text": "So neither model is simply the safe one.",
+     "caption": "So neither model is simply the safe one.",
+     "paragraph": 4,
+     "start": 587.805,
+     "end": 590.061
+    },
+    {
+     "id": "s8_12",
+     "text": "They differ in what each makes easy, and what each makes easy to forget.",
+     "caption": "They differ in what each makes easy, and what each makes easy to forget.",
+     "paragraph": 4,
+     "start": 590.361,
+     "end": 594.193
+    },
+    {
+     "id": "s8_13",
+     "text": "Even the Go documentation that gives the slogan adds that it can be taken too far.",
+     "caption": "Even the Go documentation that gives the slogan adds that it can be taken too far.",
+     "paragraph": 5,
+     "start": 594.693,
+     "end": 599.853
+    },
+    {
+     "id": "s8_14",
+     "text": "Go's advice is to use whichever is most expressive, or simplest, for the job: channels to hand work or data from one part of a program to another, and a lock to guard a piece of shared state.",
+     "caption": "Go's advice is to use whichever is most expressive, or simplest, for the job: channels to hand work or data from one part of a program to another, and a lock to guard a piece of shared state.",
+     "paragraph": 5,
+     "start": 600.153,
+     "end": 612.326
+    }
+   ],
+   "end": 620.326
+  }
+ ],
+ "phonemes": {
+  "s1_01": "t\u02c8u k\u02c8\u00e6\u0283 m\u0259\u0283\u02c8inz d\u0259p\u02c8\u0251z\u0259t \u02c8\u026antu \u00f0\u0259 s\u02c8Am b\u02c8\u00e6\u014bk \u0259k\u02c8Wnt \u00e6t \u00f0\u0259 s\u02c8Am m\u02c8Om\u1d4ant: f\u02c8\u026afti d\u02c8\u0251l\u0259\u0279z \u02c8i\u02a7, \u02c8\u026antu \u0250 b\u02c8\u00e6l\u0259ns \u028cv w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d.",
+  "s1_02": "\u00f0\u0259 b\u02c8\u00e6l\u0259ns \u0283\u02cc\u028ad \u02c8\u025bnd \u00e6t t\u02c8u h\u02c8\u028cnd\u0279\u0259d.",
+  "s1_03": "s\u02c8\u028cmt\u02ccImz \u026at \u02c8\u025bndz \u00e6t w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d \u00e6nd f\u02c8\u026afti.",
+  "s1_04": "w\u02c8\u028cn d\u0259p\u02c8\u0251z\u0259t h\u00e6z v\u02c8\u00e6n\u026a\u0283t.",
+  "s1_05": "\u0250 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m \u00f0\u00e6t d\u02c8\u028cz s\u02c8\u025bv\u0259\u0279\u0259l \u03b8\u02c8\u026a\u014bz \u00e6t w\u02c8\u028cns h\u00e6z t\u0259 kO\u02c8\u0254\u0279d\u0259n\u02ccAt \u00f0\u02cc\u025bm.",
+  "s1_06": "\u00f0\u02cc\u025b\u0279 \u0251\u0279 t\u02c8u b\u0279\u02c8\u0254d f\u02c8\u00e6m\u1d4aliz \u028cv w\u02c8Az t\u0259 d\u02c8u \u026at; \u00f0\u025b\u0279 \u0251\u0279 \u02c8\u028c\u00f0\u0259\u0279z, b\u02cc\u028ct \u00f0iz \u0251\u0279 \u00f0\u0259 t\u02c8u jul m\u02c8it m\u02c8Ost.",
+  "s1_07": "\u026an w\u02c8\u028cn, \u03b8\u0279\u02c8\u025bdz \u0283\u02c8\u025b\u0279 m\u02c8\u025bm\u0259\u0279i, \u00e6nd t\u02c8Ak t\u02c8\u025c\u0279nz w\u026a\u00f0 l\u02c8\u0251ks.",
+  "s1_08": "\u026an \u00f0i \u02c8\u028c\u00f0\u0259\u0279, n\u02c8\u028c\u03b8\u026a\u014b \u026az \u0283\u02c8\u025b\u0279d, \u00e6t l\u02c8ist \u026an \u00f0\u0259 k\u02c8Od ju \u0279\u02c8It: p\u02c8\u0251\u0279ts \u028cv \u00f0\u0259 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m p\u02c8\u00e6s m\u02c8\u025bs\u026a\u02a4\u1d7bz \u026anst\u02c8\u025bd.",
+  "s1_09": "\u0261\u02ccOz d\u02cc\u0251kj\u0259m\u0259nt\u02c8A\u0283\u0259n p\u02cc\u028ats \u026at \u00e6z \u0250 sl\u02c8O\u0261\u0259n: \u201cd\u02c8u n\u02cc\u0251t k\u0259mj\u02c8un\u0259k\u02ccAt bI \u0283\u02c8\u025b\u0279\u026a\u014b m\u02c8\u025bm\u0259\u0279i; \u026anst\u02c8\u025bd, \u0283\u02c8\u025b\u0279 m\u02c8\u025bm\u0259\u0279i bI k\u0259mj\u02c8un\u1d7bk\u02ccAT\u026a\u014b.\u201d",
+  "s1_10": "\u00f0\u0259 h\u02c8Op \u026az \u00f0\u00e6t \u026af n\u02c8\u028c\u03b8\u026a\u014b \u026az \u0283\u02c8\u025b\u0279d, b\u02c8\u028c\u0261z l\u02c8Ik \u00f0\u0259 v\u02c8\u00e6n\u026a\u0283\u026a\u014b d\u0259p\u02c8\u0251z\u0259t k\u02c8\u00e6nt h\u02c8\u00e6p\u0259n.",
+  "s1_11": "s\u02ccO d\u02c8\u028cz p\u02c8\u00e6s\u026a\u014b m\u02c8\u025bs\u026a\u02a4\u1d7bz m\u02ccAk \u00f0\u02cc\u025bm \u0261\u02ccO \u0259w\u02c8A?",
+  "s2_01": "h\u02c8\u026a\u0279 \u026az h\u02ccW \u0250 d\u0259p\u02c8\u0251z\u0259t v\u02c8\u00e6n\u026a\u0283\u1d7bz.",
+  "s2_02": "\u0250 d\u0259p\u02c8\u0251z\u0259t t\u02c8Aks \u03b8\u0279\u02c8i st\u02c8\u025bps: \u0279\u02c8id \u00f0\u0259 b\u02c8\u00e6l\u0259ns, \u02c8\u00e6d f\u02c8\u026afti, \u0279\u02c8It \u00f0\u0259 \u0279\u0259z\u02c8\u028clt b\u02c8\u00e6k.",
+  "s2_03": "m\u0259\u0283\u02c8in \u02c8A \u0279\u02c8idz w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d.",
+  "s2_04": "b\u0259f\u02c8\u0254\u0279 \u0250 \u0279\u02c8Its, m\u0259\u0283\u02c8in b\u02c8i \u02c8\u0254lsO \u0279\u02c8idz w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d.",
+  "s2_05": "\u0250 \u0279\u02c8Its w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d \u00e6nd f\u02c8\u026afti.",
+  "s2_06": "\u00f0\u02c8\u025bn b\u02c8i \u0279\u02c8Its w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d \u00e6nd f\u02c8\u026afti, \u02c8Ov\u0259\u0279 \u02c8Az \u0279\u0259z\u02c8\u028clt.",
+  "s2_07": "\u02c8Az d\u0259p\u02c8\u0251z\u0259t \u026az \u0261\u02c8\u0254n.",
+  "s2_08": "\u00f0\u02cc\u026as \u026az k\u02c8\u0254ld \u0250 l\u02c8\u0254st \u02c8\u028cpd\u02ccAt.",
+  "s2_09": "\u02c8Onli t\u02c8u \u02c8\u0254\u0279d\u0259\u0279z \u028cv \u00f0\u0259 s\u02c8\u026aks st\u02c8\u025bps \u0251\u0279 s\u02c8Af: w\u02c8\u028cn m\u0259\u0283\u02c8inz h\u02c8Ol d\u0259p\u02c8\u0251z\u0259t f\u02c8\u026an\u0259\u0283\u1d7bz b\u0259f\u02c8\u0254\u0279 \u00f0i \u02c8\u028c\u00f0\u0259\u0279z st\u02c8\u0251\u0279ts.",
+  "s2_10": "\u026an \u02c8\u025bni \u02c8\u028c\u00f0\u0259\u0279 \u02c8\u0254\u0279d\u0259\u0279, \u0250 d\u0259p\u02c8\u0251z\u0259t \u026az l\u02c8\u0254st.",
+  "s2_11": "j\u02c8u\u0292\u0259w\u0259li \u00f0\u0259 t\u02c8u d\u0259p\u02c8\u0251z\u0259ts d\u02c8Ont \u02ccOv\u0259\u0279l\u02c8\u00e6p \u00e6t \u02c8\u0254l, s\u02ccO \u00f0\u0259 b\u02c8\u028c\u0261 \u0283\u02c8Oz \u02cc\u028cp \u02c8Onli n\u02c8W \u00e6nd \u00f0\u02c8\u025bn.",
+  "s2_12": "\u0250 b\u02c8\u028c\u0261 h\u02ccuz \u0279\u0259z\u02c8\u028clt d\u0259p\u02c8\u025bndz \u02cc\u0254n \u00f0\u0259 t\u02c8Im\u026a\u014b \u028cv k\u0259nk\u02c8\u025c\u0279\u0259nt st\u02c8\u025bps \u026az k\u02c8\u0254ld \u0250 \u0279\u02c8As k\u0259nd\u02c8\u026a\u0283\u0259n.",
+  "s2_13": "\u00f0\u02cc\u026as b\u02c8\u028c\u0261 \u026az \u02c8\u0254lsO w\u02cc\u028cts k\u02c8\u0254ld \u0250 d\u02c8AT\u0259 \u0279\u02c8As.",
+  "s2_14": "t\u02c8u \u03b8\u0279\u02c8\u025bdz j\u02c8uz \u00f0\u0259 s\u02c8Am m\u02c8\u025bm\u0259\u0279i.",
+  "s2_15": "\u02cc\u00e6t l\u02c8ist w\u02c8\u028cn \u028cv \u00f0\u02cc\u025bm \u0279\u02c8Its.",
+  "s2_16": "\u02cc\u00e6nd n\u02c8\u028c\u03b8\u026a\u014b f\u02c8\u0254\u0279s\u1d7bz \u0250n \u02c8\u0254\u0279d\u0259\u0279 b\u0259tw\u02c8in \u00f0\u02cc\u025bm.",
+  "s2_17": "\u00f0\u0259 t\u02c8u n\u02c8Amz d\u0259sk\u0279\u02c8Ib d\u02c8\u026af\u0259\u0279\u0259nt \u03b8\u02c8\u026a\u014bz.",
+  "s2_18": "\u201c\u0279\u02c8As k\u0259nd\u02c8\u026a\u0283\u0259n\u201d \u026az \u0259b\u02c8Wt \u00f0\u0259 \u0279\u0259z\u02c8\u028clt.",
+  "s2_19": "\u201cd\u02c8AT\u0259 \u0279\u02c8As\u201d \u026az \u0259b\u02c8Wt h\u02ccW \u00f0\u0259 m\u02c8\u025bm\u0259\u0279i \u026az j\u02c8uzd.",
+  "s2_20": "h\u02c8\u026a\u0279, b\u02c8O\u03b8 \u0259pl\u02c8I.",
+  "s2_21": "\u0250 l\u02c8\u0254st \u02c8\u028cpd\u02ccAt \u026az \u00f0\u0259 m\u02c8Ild \u02c8Wtk\u02cc\u028cm.",
+  "s2_22": "f\u02cc\u0254\u0279 \u0250 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m w\u026a\u00f0 \u0250 d\u02c8AT\u0259 \u0279\u02c8As, s\u02c8i \u00e6nd s\u02c8i pl\u02c8\u028cs pl\u02c8\u028cs p\u0279\u02c8\u0251m\u0259s n\u02c8\u028c\u03b8\u026a\u014b \u00e6t \u02c8\u0254l, n\u02cc\u0251t \u02c8iv\u0259n \u00f0\u00e6t \u0250 \u0279\u02c8id \u0279\u0259t\u02c8\u025c\u0279nz \u0250 v\u02c8\u00e6lju s\u02cc\u028cm \u03b8\u0279\u02c8\u025bd \u02c8\u00e6k\u02a7\u0259w\u0259li \u0279\u02c8Ot.",
+  "s2_23": "\u02cc\u00e6nd w\u02cc\u025bn \u00f0\u0259 st\u02c8\u025bps d\u02c8u \u02ccOv\u0259\u0279l\u02c8\u00e6p \u02c8\u0254f\u1d4an, \u026at \u02c8\u026az\u1d4ant \u0279\u02c8\u025b\u0279.",
+  "s2_24": "\u026an \u0250 sm\u02c8\u0254l s\u02c8i p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m, t\u02c8u \u03b8\u0279\u02c8\u025bdz \u02c8i\u02a7 \u02c8\u00e6d w\u02c8\u028cn t\u0259 \u0250 \u0283\u02c8\u025b\u0279d k\u02c8Wnt\u0259\u0279 t\u02c8\u025bn m\u02c8\u026alj\u1d4an t\u02c8Imz, s\u02ccO \u026at \u0283\u02cc\u028ad \u02c8\u025bnd \u00e6t tw\u02c8\u025bnti m\u02c8\u026alj\u1d4an.",
+  "s2_25": "\u026an f\u02c8Iv \u0279\u02c8\u028cnz \u02cc\u0254n \u00f0\u026as m\u0259\u0283\u02c8in, \u026at \u02c8\u025bnd\u1d7bd b\u0259tw\u02c8in \u0259b\u02c8Wt t\u02c8\u025bn p\u02c8Ynt w\u02c8\u028cn \u00e6nd \u0259l\u02c8\u025bv\u1d4an p\u02c8Ynt s\u02c8\u025bv\u0259n m\u02c8\u026alj\u1d4an, \u0250 d\u02c8\u026af\u0259\u0279\u0259nt n\u02c8\u028cmb\u0259\u0279 \u02c8i\u02a7 t\u02c8Im.",
+  "s3_01": "\u00f0\u0259 \u0283\u02cc\u025b\u0279dm\u02c8\u025bm\u0259\u0279i f\u02c8\u026aks \u026az \u0250 l\u02c8\u0251k.",
+  "s3_02": "\u0250 \u03b8\u0279\u02c8\u025bd t\u02c8Aks \u00f0\u0259 l\u02c8\u0251k b\u0259f\u02c8\u0254\u0279 \u026at \u0279\u02c8idz \u00f0\u0259 b\u02c8\u00e6l\u0259ns, \u00e6nd \u0279\u0259l\u02c8is\u1d7bz \u026at \u02c8\u00e6ft\u0259\u0279 \u026at \u0279\u02c8Its.",
+  "s3_03": "w\u02ccIl w\u02c8\u028cn \u03b8\u0279\u02c8\u025bd h\u02c8Oldz \u00f0\u0259 l\u02c8\u0251k, \u02c8\u025bni \u02c8\u028c\u00f0\u0259\u0279 \u03b8\u0279\u02c8\u025bd \u00f0\u00e6t w\u02c8\u0251nts \u026at w\u02c8Ats.",
+  "s3_04": "s\u02ccO \u00f0\u0259 \u03b8\u0279\u02c8i st\u02c8\u025bps h\u02c8\u00e6p\u0259n \u00e6z w\u02c8\u028cn, w\u026a\u00f0 n\u02c8\u028c\u03b8\u026a\u014b \u026an b\u0259tw\u02c8in.",
+  "s3_05": "w\u02cc\u026a\u00f0 \u0250 l\u02c8\u0251k \u0259\u0279\u02c8Wnd \u026at, \u00f0\u0259 k\u02c8Wnt\u0259\u0279 \u0279\u02c8i\u02a7\u1d7bz tw\u02c8\u025bnti m\u02c8\u026alj\u1d4an \u02cc\u0254n \u02c8\u025bv\u0259\u0279i \u0279\u02c8\u028cn.",
+  "s3_06": "b\u02cc\u028ct \u0250 l\u02c8\u0251k \u02c8Onli p\u0279\u0259t\u02c8\u025bkts k\u02c8Od \u00f0\u00e6t t\u02c8Aks \u026at.",
+  "s3_07": "n\u02c8\u028c\u03b8\u026a\u014b st\u02c8\u0251ps w\u02c8\u028cn f\u0259\u0279\u0261\u02c8\u0251tn k\u02c8Od p\u02c8\u00e6\u03b8 f\u0279\u028cm t\u02c8\u028c\u02a7\u026a\u014b \u00f0\u0259 b\u02c8\u00e6l\u0259ns w\u026a\u00f0\u02c8Wt \u026at, \u00e6nd \u00f0\u02c8\u025bn \u00f0\u0259 \u0279\u02c8As \u026az b\u02c8\u00e6k.",
+  "s3_08": "l\u02c8\u0251ks \u02c8\u0254lsO b\u0279\u02c8\u026a\u014b \u0250 n\u02c8u f\u02c8Alj\u0259\u0279.",
+  "s3_09": "\u0250 t\u0279\u02c8\u00e6nsf\u0259\u0279 f\u0279\u028cm \u0259k\u02c8Wnt \u02c8A t\u028a \u0259k\u02c8Wnt b\u02c8i h\u00e6z t\u0259 l\u02c8\u0251k b\u02c8O\u03b8 \u0259k\u02c8Wnts.",
+  "s3_10": "s\u02c8A \u02c8i\u02a7 t\u0279\u02c8\u00e6nsf\u0259\u0279 l\u02c8\u0251ks \u00f0\u0259 p\u02c8A\u026a\u014b \u0259k\u02c8Wnt f\u02c8\u025c\u0279st, \u00f0\u02c8\u025bn \u00f0\u0259 \u0279\u1d7bs\u02c8iv\u026a\u014b \u0259k\u02c8Wnt.",
+  "s3_11": "w\u02c8\u028cn \u03b8\u0279\u02c8\u025bd t\u0279\u02c8\u00e6nsf\u0259\u0279z f\u0279\u028cm \u0250 t\u0259 b\u02c8i",
+  "s3_12": "\u02cc\u026at l\u02c8\u0251ks \u02c8A, \u00f0\u02c8\u025bn w\u02c8Ats f\u0254\u0279 b\u02c8i",
+  "s3_13": "\u02cc\u00e6t \u00f0\u0259 s\u02c8Am m\u02c8Om\u1d4ant, \u0259n\u02c8\u028c\u00f0\u0259\u0279 \u03b8\u0279\u02c8\u025bd t\u0279\u02c8\u00e6nsf\u0259\u0279z f\u0279\u028cm b\u02c8i t\u028a \u02c8A",
+  "s3_14": "\u02cc\u026at l\u02c8\u0251ks b\u02c8i, \u00f0\u02c8\u025bn w\u02c8Ats f\u0254\u0279 \u02c8A",
+  "s3_15": "\u02c8i\u02a7 \u026az w\u02c8AT\u026a\u014b f\u0254\u0279 \u0250 l\u02c8\u0251k \u00f0i \u02c8\u028c\u00f0\u0259\u0279 h\u02c8Oldz, \u00e6nd n\u02c8i\u00f0\u0259\u0279 w\u026al l\u02c8\u025bt \u0261\u02ccO.",
+  "s3_16": "\u00f0\u02c8\u00e6ts \u0250 d\u02c8\u025bdl\u02cc\u0251k.",
+  "s3_17": "\u00f0\u0259 st\u02c8\u00e6nd\u0259\u0279d f\u02c8\u026aks \u026az t\u0259 t\u02c8Ak l\u02c8\u0251ks \u026an w\u02c8\u028cn f\u02c8\u026akst \u02c8\u0254\u0279d\u0259\u0279 \u02c8\u025bv\u0279iw\u02cc\u025b\u0279, s\u02c8A, \u00f0\u0259 l\u02c8O\u0259\u0279 \u0259k\u02c8Wnt n\u02c8\u028cmb\u0259\u0279 f\u02c8\u025c\u0279st.",
+  "s3_18": "\u00f0\u02c8\u025bn \u0250 s\u02c8Ik\u0259l \u028cv w\u02c8AT\u026a\u014b k\u02c8\u00e6nt f\u02c8\u0254\u0279m.",
+  "s3_19": "\u0279\u02c8\u028cn\u026a\u014b b\u02c8O\u03b8 t\u0279\u02c8\u00e6nsf\u0259\u0279z \u00e6t w\u02c8\u028cns, \u0250 \u03b8\u02c8Wz\u1d4and t\u02c8Imz: \u00f0\u0259 f\u02c8\u025c\u0279st v\u02c8\u025c\u0279\u0292\u0259n \u0261\u0251t st\u02c8\u028ck \u02c8\u0254lmOst \u02c8\u025bv\u0259\u0279i t\u02c8Im, \u00f0\u0259 f\u02c8\u026akst \u02c8\u0254\u0279d\u0259\u0279 n\u02c8\u025bv\u0259\u0279.",
+  "s3_20": "b\u02cc\u028ct \u02c8\u025bv\u0259\u0279i p\u02c8is \u028cv k\u02c8Od \u00f0\u00e6t t\u02c8Aks \u00f0iz l\u02c8\u0251ks h\u00e6z t\u0259 f\u02c8\u0251lO \u00f0\u02c8\u00e6t \u02c8\u0254\u0279d\u0259\u0279, \u026ankl\u02c8ud\u026a\u014b k\u02c8Od s\u02c8\u028cmw\u02cc\u028cn \u02c8\u025bls \u0279\u02c8Ot.",
+  "s4_01": "\u0250 l\u02c8\u0251k k\u00e6n bi f\u0259\u0279\u0261\u02c8\u0251tn b\u0259k\u02c8\u028cz \u02c8\u025bv\u0259\u0279i \u03b8\u0279\u02c8\u025bd k\u00e6n st\u02c8\u026al \u0279\u02c8i\u02a7 \u00f0\u0259 b\u02c8\u00e6l\u0259ns.",
+  "s4_02": "w\u02cc\u028ct \u026af n\u02c8\u028c\u03b8\u026a\u014b \u02c8\u025bls k\u028ad \u0279\u02c8i\u02a7 \u026at \u00e6t \u02c8\u0254l?",
+  "s4_03": "\u00f0\u02c8\u025bn \u00f0\u025b\u0279 w\u028ad bi n\u02c8O l\u02c8\u0251k t\u0259 f\u0259\u0279\u0261\u02c8\u025bt.",
+  "s4_04": "\u00f0\u02c8\u00e6ts w\u02cc\u025b\u0279 m\u02c8\u025bs\u026a\u02a4 p\u02c8\u00e6s\u026a\u014b st\u02c8\u0251\u0279ts.",
+  "s4_05": "\u0261\u02c8\u026av \u00f0\u0259 b\u02c8\u00e6l\u0259ns \u0250 s\u02c8\u026a\u014b\u0261\u1d4al \u02c8On\u0259\u0279, \u00e6nd l\u02c8\u025bt n\u02c8\u028c\u03b8\u026a\u014b \u02c8\u025bls t\u02c8\u028c\u02a7 \u026at.",
+  "s4_06": "\u026an \u00f0i \u02c8\u00e6kt\u0259\u0279 m\u02c8\u0251d\u1d4al, \u00f0\u02c8\u00e6t \u02c8On\u0259\u0279 \u026az \u0250n \u02c8\u00e6kt\u0259\u0279: \u0250 p\u02c8\u0251\u0279t \u028cv \u00f0\u0259 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m w\u026a\u00f0 \u026ats \u02c8On p\u0279\u02c8Iv\u0259t st\u02c8At, \u00e6nd \u0250 m\u02c8Alb\u02cc\u0251ks.",
+  "s4_07": "\u00f0\u0259 k\u02c8\u00e6\u0283 m\u0259\u0283\u02c8inz n\u02c8\u025bv\u0259\u0279 \u0279\u02c8\u025bd \u00f0\u0259 b\u02c8\u00e6l\u0259ns.",
+  "s4_08": "\u00f0\u02ccA s\u02c8\u025bnd \u00f0i \u02c8\u00e6kt\u0259\u0279 \u0250 m\u02c8\u025bs\u026a\u02a4, \u201cd\u0259p\u02c8\u0251z\u0259t f\u02c8\u026afti\u201d, \u00e6nd \u026at \u0261\u02c8Oz \u02c8\u026antu \u00f0\u0259 m\u02c8Alb\u02cc\u0251ks.",
+  "s4_09": "\u00f0i \u02c8\u00e6kt\u0259\u0279 t\u02c8Aks w\u02c8\u028cn m\u02c8\u025bs\u026a\u02a4 \u00e6t \u0250 t\u02c8Im, \u00e6nd f\u02c8\u026an\u0259\u0283\u1d7bz \u026at b\u0259f\u02c8\u0254\u0279 st\u02c8\u0251\u0279T\u026a\u014b \u00f0\u0259 n\u02c8\u025bkst.",
+  "s4_10": "s\u02ccO \u00f0\u0259 t\u02c8u d\u0259p\u02c8\u0251z\u0259ts k\u02c8\u00e6nt \u02cc\u026ant\u0259\u0279l\u02c8iv.",
+  "s4_11": "\u00f0i \u02c8\u00e6kt\u0259\u0279 \u02c8\u00e6dz \u00f0\u0259 f\u02c8\u025c\u0279st f\u02c8\u026afti, \u00f0\u02c8\u025bn \u00f0\u0259 s\u02c8\u025bk\u0259nd, \u00e6nd \u00f0\u0259 b\u02c8\u00e6l\u0259ns \u02c8\u025bndz \u00e6t t\u02c8u h\u02c8\u028cnd\u0279\u0259d.",
+  "s4_12": "\u00f0\u02cc\u025b\u0279z n\u02c8O l\u02c8\u0251k, \u00e6nd n\u02c8O d\u02c8AT\u0259 \u0279\u02c8As \u02cc\u0254n \u00f0\u0259 b\u02c8\u00e6l\u0259ns, b\u0259k\u02c8\u028cz \u02c8Onli \u00f0i \u02c8\u00e6kt\u0259\u0279 \u02c8\u025bv\u0259\u0279 t\u02c8\u028c\u02a7\u1d7bz \u026at.",
+  "s4_13": "s\u02c8\u025bnd\u026a\u014b d\u02c8\u028cz\u1d4ant w\u02c8At: \u0250 m\u0259\u0283\u02c8in d\u0279\u02c8\u0251ps \u026ats m\u02c8\u025bs\u026a\u02a4 \u026an \u00f0\u0259 m\u02c8Alb\u02cc\u0251ks \u00e6nd k\u02c8\u025b\u0279iz \u02cc\u0254n.",
+  "s4_14": "h\u02ccW f\u02c8\u025c\u0279mli \u201cn\u02c8\u028c\u03b8\u026a\u014b \u02c8\u025bls\u201d h\u02c8Oldz d\u0259p\u02c8\u025bndz \u02cc\u0254n \u00f0\u0259 s\u02c8\u026ast\u0259m.",
+  "s4_15": "\u026an \u02c8\u025c\u0279l\u00e6\u014b, p\u0279\u02c8\u0251s\u02cc\u025bs\u1d7bz d\u02c8Ont \u0283\u02c8\u025b\u0279 m\u02c8\u025bm\u0259\u0279i bI d\u0259f\u02c8\u0254lt.",
+  "s4_16": "\u0250 m\u02c8\u025bs\u026a\u02a4 \u026az k\u02c8\u0251p\u026ad t\u0259 \u00f0\u0259 \u0279\u0259s\u02c8iv\u0259\u0279.",
+  "s4_17": "\u0283\u02c8\u025b\u0279d t\u02c8Ab\u1d4alz \u026a\u0261z\u02c8\u026ast, b\u02cc\u028ct \u0250 p\u0279\u02c8\u0251s\u02cc\u025bs h\u00e6z t\u028a \u02c8\u0251pt \u02c8\u026an.",
+  "s4_18": "\u026an \u02c8\u00e6k\u0259, \u0250 t\u02c8ulk\u02cc\u026at f\u0254\u0279 \u02a4\u02c8\u0251v\u0259 \u00e6nd sk\u02c8Al\u0259, k\u02c8ip\u026a\u014b \u0250n \u02c8\u00e6kt\u0259\u0279z st\u02c8At p\u0279\u02c8Iv\u0259t \u026az \u02cc\u028cp t\u0259 \u00f0\u0259 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m\u0259\u0279.",
+  "s5_01": "b\u02cc\u028ct b\u0259k\u02c8\u028cz \u0250n \u02c8\u00e6kt\u0259\u0279z s\u02c8\u025bnd d\u02c8\u028cz\u1d4ant w\u02c8At, \u0250 k\u02c8\u00e6\u0283 m\u0259\u0283\u02c8in n\u02c8\u025bv\u0259\u0279 l\u02c8\u025c\u0279nz w\u02cc\u025bn \u026ats \u0279\u0259kw\u02c8\u025bst w\u028cz t\u02c8Ak\u0259n.",
+  "s5_02": "\u00f0\u0259 m\u02c8Alb\u02cc\u0251ks h\u00e6z \u00f0\u0259 d\u0259p\u02c8\u0251z\u0259t.",
+  "s5_03": "h\u02cc\u00e6z \u00f0i \u02c8\u00e6kt\u0259\u0279 \u0259pl\u02c8Id \u026at j\u02c8\u025bt, \u0254\u0279 \u026az \u026at st\u02c8\u026al \u026an \u00f0\u0259 kj\u02c8u?",
+  "s5_04": "\u00f0\u0259 m\u0259\u0283\u02c8in k\u02c8\u00e6nt t\u02c8\u025bl.",
+  "s5_05": "\u00f0i \u02c8\u028c\u00f0\u0259\u0279 m\u02c8\u025bs\u026a\u02a4p\u02cc\u00e6s\u026a\u014b f\u02c8\u00e6m\u1d4ali \u026az b\u02c8\u026alt \u00f0i \u02c8\u0251p\u0259z\u0259t w\u02c8A: \u0250 s\u02c8\u025bnd w\u02c8Ats f\u0254\u0279 \u0250 \u0279\u0259s\u02c8iv\u0259\u0279.",
+  "s5_06": "\u02cc\u026at k\u02c8\u028cmz f\u0279\u028cm t\u02c8Oni h\u02c8\u0254\u0279z k\u0259mj\u02c8un\u1d7bk\u02ccAT\u026a\u014b s\u0259kw\u02c8\u025bn\u02a7\u1d4al p\u0279\u02c8\u0251s\u02cc\u025bs\u1d7bz, \u0254\u0279 s\u02c8i \u02c8\u025bs p\u02c8i, \u00e6nd \u0261\u02ccOz \u02a7\u02c8\u00e6n\u1d4alz k\u02c8\u028cm \u02c8Wt \u028cv \u00f0\u026as t\u0279\u0259d\u02c8\u026a\u0283\u0259n.",
+  "s5_07": "p\u0279\u02c8\u0251s\u02cc\u025bs\u1d7bz \u0283\u02c8\u025b\u0279 n\u02c8\u028c\u03b8\u026a\u014b, \u00e6nd t\u02c8\u0254k \u02c8Ov\u0259\u0279 \u02a7\u02c8\u00e6n\u1d4alz.",
+  "s5_08": "\u0250 \u02a7\u02c8\u00e6n\u1d4al \u026az \u0250 k\u0259n\u02c8\u025bk\u0283\u0259n \u00f0\u00e6t p\u0279\u02c8\u0251s\u02cc\u025bs\u1d7bz s\u02c8\u025bnd v\u02c8\u00e6ljuz \u02c8\u026antu \u00e6nd \u0279\u0259s\u02c8iv \u00f0\u02cc\u025bm f\u0279\u028cm.",
+  "s5_09": "\u0250 \u0261\u02ccO \u02a7\u02c8\u00e6n\u1d4al m\u02ccAd w\u026a\u00f0\u02c8Wt \u0250 b\u02c8\u028cf\u0259\u0279, w\u02cc\u026a\u02a7 \u026az \u00f0\u0259 d\u0259f\u02c8\u0254lt, m\u02ccAks \u0250 s\u02c8\u025bnd w\u02c8At \u02cc\u028cnt\u02c8\u026al \u0250 \u0279\u0259s\u02c8iv\u0259\u0279 t\u02c8Aks \u00f0\u0259 v\u02c8\u00e6lju.",
+  "s5_10": "s\u02ccO w\u02cc\u025bn \u0250 s\u02c8\u025bnd f\u02c8\u026an\u0259\u0283\u1d7bz, \u00f0\u0259 s\u02c8\u025bnd\u0259\u0279 n\u02c8Oz \u026ats v\u02c8\u00e6lju w\u028cz t\u02c8Ak\u0259n.",
+  "s5_11": "\u00f0i \u0259k\u02c8Wnt b\u0259k\u02c8\u028cmz \u0250 p\u0279\u02c8\u0251s\u02cc\u025bs \u00f0\u00e6t \u02c8Onz \u00f0\u0259 b\u02c8\u00e6l\u0259ns, \u00e6nd \u0279\u0259s\u02c8ivz d\u0259p\u02c8\u0251z\u0259ts f\u0279\u028cm \u0250 \u02a7\u02c8\u00e6n\u1d4al, w\u02c8\u028cn \u00e6t \u0250 t\u02c8Im.",
+  "s5_12": "\u0259\u0261\u02c8\u025bn, n\u02c8O d\u02c8AT\u0259 \u0279\u02c8As \u02cc\u0254n \u00f0\u0259 b\u02c8\u00e6l\u0259ns.",
+  "s5_13": "\u0261\u02ccO \u02c8\u0254lsO l\u02c8\u025bts \u026ats \u0261\u02ccO \u0279ut\u02c8inz, \u026ats l\u02c8Itw\u02ccAt \u03b8\u0279\u02c8\u025bdz, \u0283\u02c8\u025b\u0279 m\u02c8\u025bm\u0259\u0279i.",
+  "s5_14": "s\u02ccO \u026an \u0261\u02ccO, w\u02c8\u028cn \u02c8On\u0259\u0279 \u026az \u0250 h\u02c8\u00e6b\u0259t \u00f0\u0259 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m\u0259\u0279 k\u02c8ips, \u00e6z \u026an \u02c8\u00e6k\u0259.",
+  "s5_15": "\u02c8\u00e6kt\u0259\u0279z \u00e6nd \u02a7\u02c8\u00e6n\u1d4alz d\u02c8\u026af\u0259\u0279 \u026an \u00f0\u0259 pl\u02c8\u028cm\u026a\u014b.",
+  "s5_16": "\u0250n \u02c8\u00e6kt\u0259\u0279 h\u00e6z \u0250n \u0259d\u0279\u02c8\u025bs \u00e6nd \u0250 m\u02c8Alb\u02cc\u0251ks, \u00e6nd s\u02c8\u025bnd\u026a\u014b d\u02c8\u028cz\u1d4ant w\u02c8At.",
+  "s5_17": "\u0250 \u02a7\u02c8\u00e6n\u1d4al \u026az \u026ats \u02c8On \u02c8\u0251b\u02a4\u0259kt, p\u02c8\u00e6st \u0259\u0279\u02c8Wnd b\u0259tw\u02c8in p\u0279\u02c8\u0251s\u02cc\u025bs\u1d7bz, \u00e6nd bI d\u0259f\u02c8\u0254lt \u0250 s\u02c8\u025bnd w\u02c8Ats f\u0254\u0279 \u00f0\u0259 \u0279\u0259s\u02c8iv\u0259\u0279.",
+  "s6_01": "s\u02ccO \u026at l\u02c8\u028aks l\u02c8Ik \u00f0\u0259 sl\u02c8O\u0261\u0259n w\u02c8\u026anz: \u0261\u02c8\u026av \u02c8i\u02a7 p\u02c8is \u028cv st\u02c8At w\u02c8\u028cn \u02c8On\u0259\u0279, \u00e6nd \u00f0\u0259 v\u02c8\u00e6n\u026a\u0283\u026a\u014b d\u0259p\u02c8\u0251z\u0259t k\u02c8\u00e6nt h\u02c8\u00e6p\u0259n.",
+  "s6_02": "f\u02cc\u0254\u0279 d\u0259p\u02c8\u0251z\u0259ts, \u00f0\u02c8\u00e6ts t\u0279\u02c8u.",
+  "s6_03": "n\u02c8W t\u0279\u02c8I w\u026a\u00f0d\u0279\u02c8\u0254\u1d4alz.",
+  "s6_04": "\u0250 m\u0259\u0283\u02c8in \u0283\u02cc\u028ad \u02c8Onli p\u02c8A \u02c8Wt \u026af \u00f0\u025b\u0279z \u026an\u02c8\u028cf m\u02c8\u028cni.",
+  "s6_05": "w\u02cc\u026a\u00f0 m\u02c8\u025bs\u026a\u02a4\u1d7bz, \u00f0\u00e6t t\u02c8Aks t\u02c8u: f\u02c8\u025c\u0279st \u201cw\u02cc\u028cts \u00f0\u0259 b\u02c8\u00e6l\u0259ns?\u201d, \u00f0\u02c8\u025bn \u201cw\u026a\u00f0d\u0279\u02c8\u0254 w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d\u201d.",
+  "s6_06": "\u00f0\u0259 b\u02c8\u00e6l\u0259ns \u026az w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d.",
+  "s6_07": "m\u0259\u0283\u02c8in \u02c8A \u02c8\u00e6sks, \u00e6nd h\u02c8\u026a\u0279z w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d.",
+  "s6_08": "m\u0259\u0283\u02c8in b\u02c8i \u02c8\u00e6sks, \u00e6nd \u02c8\u0254lsO h\u02c8\u026a\u0279z w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d.",
+  "s6_09": "b\u02c8O\u03b8 s\u02c8\u025bnd \u201cw\u026a\u00f0d\u0279\u02c8\u0254 w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d\u201d.",
+  "s6_10": "\u00f0i \u0259k\u02c8Wnt h\u02c8\u00e6nd\u0259lz \u00f0\u02cc\u025bm w\u02c8\u028cn \u00e6t \u0250 t\u02c8Im, \u02a4\u02c8\u028cst \u00e6z p\u0279\u02c8\u0251m\u0259st, \u00e6nd \u00f0\u0259 b\u02c8\u00e6l\u0259ns \u02c8\u025bndz \u00e6t m\u02c8In\u0259s w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d.",
+  "s6_11": "\u00f0\u02cc\u025b\u0279z n\u02c8O d\u02c8AT\u0259 \u0279\u02c8As h\u02c8\u026a\u0279: \u02c8Onli \u00f0i \u0259k\u02c8Wnt \u02c8\u025bv\u0259\u0279 t\u02c8\u028c\u02a7t \u00f0\u0259 b\u02c8\u00e6l\u0259ns.",
+  "s6_12": "b\u02cc\u028ct \u00f0\u0259 \u0279\u0259z\u02c8\u028clt st\u02c8\u026al d\u0259p\u02c8\u025bnd\u1d7bd \u02cc\u0254n t\u02c8Im\u026a\u014b.",
+  "s6_13": "\u02cc\u026ats \u0250 \u0279\u02c8As k\u0259nd\u02c8\u026a\u0283\u0259n, b\u0259tw\u02c8in m\u02c8\u025bs\u026a\u02a4\u1d7bz \u026anst\u02c8\u025bd \u028cv b\u0259tw\u02c8in m\u02c8\u025bm\u0259\u0279i st\u02c8\u025bps.",
+  "s6_14": "\u026an \u0250 t\u02c8\u025bst \u028cv \u0250 h\u02c8\u028cnd\u0279\u0259d \u03b8\u02c8Wz\u1d4and \u0279\u02c8\u028cnz, \u00f0i \u0259k\u02c8Wnt w\u028cz \u02c8Ov\u0259\u0279d\u0279\u02cc\u0254n \u026an \u0259b\u02c8Wt s\u02cc\u025bv\u0259nt\u02c8in h\u02c8\u028cnd\u0279\u0259d.",
+  "s6_15": "\u00f0\u0259 f\u02c8\u026aks \u026az t\u0259 m\u02ccAk \u00f0\u0259 \u02a7\u02c8\u025bk \u00e6nd \u00f0\u0259 w\u026a\u00f0d\u0279\u02c8\u0254\u1d4al w\u02c8\u028cn m\u02c8\u025bs\u026a\u02a4: \u201cw\u026a\u00f0d\u0279\u02c8\u0254 w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d \u026af \u00f0\u0259 b\u02c8\u00e6l\u0259ns \u0259l\u02c8Wz \u026at\u201d.",
+  "s6_16": "\u00f0i \u02c8On\u0259\u0279 d\u02c8\u028cz b\u02c8O\u03b8 \u026an w\u02c8\u028cn st\u02c8\u025bp.",
+  "s6_17": "\u026an \u00f0\u0259 s\u02c8Am t\u02c8\u025bst, \u00f0i \u0259k\u02c8Wnt w\u028cz n\u02c8\u025bv\u0259\u0279 \u02c8Ov\u0259\u0279d\u0279\u02cc\u0254n.",
+  "s6_18": "l\u02c8\u0251ks \u0279\u02c8Azd \u00f0\u0259 s\u02c8Am kw\u02c8\u025bs\u02a7\u1d4an: w\u02cc\u026a\u02a7 st\u02c8\u025bps h\u00e6v t\u0259 h\u02c8\u00e6p\u0259n \u00e6z w\u02c8\u028cn?",
+  "s6_19": "m\u02c8\u025bs\u026a\u02a4\u1d7bz d\u02c8Ont \u02c8\u00e6ns\u0259\u0279 \u026at f\u0254\u0279 ju.",
+  "s7_01": "m\u02c8\u025bs\u026a\u02a4\u1d7bz k\u00e6n d\u02c8\u025bdl\u02cc\u0251k t\u02c8u.",
+  "s7_02": "m\u02ccAk \u02c8i\u02a7 \u0259k\u02c8Wnt \u026ats \u02c8On p\u0279\u02c8\u0251s\u02cc\u025bs, w\u026a\u00f0 \u0250 \u02a7\u02c8\u00e6n\u1d4al.",
+  "s7_03": "t\u0259 t\u0279\u02c8\u00e6nsf\u0259\u0279, \u0250n \u0259k\u02c8Wnt s\u02c8\u025bndz \u201ck\u0279\u02c8\u025bd\u0259t \u03b8\u02c8\u025c\u0279Ti\u201d t\u0259 \u00f0i \u02c8\u028c\u00f0\u0259\u0279 \u0259k\u02c8Wnt, \u00e6nd w\u02c8Ats \u02cc\u028cnt\u02c8\u026al \u00f0i \u02c8\u028c\u00f0\u0259\u0279 \u0259k\u02c8Wnt t\u02c8Aks \u026at.",
+  "s7_04": "st\u02c8\u0251\u0279t \u0250 t\u0279\u02c8\u00e6nsf\u0259\u0279 f\u0279\u028cm \u0250 t\u0259 b\u02c8i, \u00e6nd w\u02c8\u028cn f\u0279\u028cm b\u02c8i t\u028a \u02c8A, \u00e6t \u00f0\u0259 s\u02c8Am m\u02c8Om\u1d4ant.",
+  "s7_05": "\u0250 \u026az w\u02c8AT\u026a\u014b f\u0254\u0279 b\u02c8i t\u0259 t\u02c8Ak \u026ats m\u02c8\u025bs\u026a\u02a4.",
+  "s7_06": "b\u02c8i \u026az w\u02c8AT\u026a\u014b f\u0254\u0279 \u0250 t\u0259 t\u02c8Ak \u026ats m\u02c8\u025bs\u026a\u02a4.",
+  "s7_07": "n\u02c8i\u00f0\u0259\u0279 \u026az l\u02c8\u026as\u0259n\u026a\u014b, b\u0259k\u02c8\u028cz \u02c8i\u02a7 \u026az st\u02c8\u028ck \u026an \u026ats \u02c8On s\u02c8\u025bnd.",
+  "s7_08": "\u02cc\u026ats \u00f0\u0259 l\u02c8\u0251k d\u02c8\u025bdl\u02cc\u0251k \u0259\u0261\u02c8\u025bn: \u0250 s\u02c8Ik\u0259l \u028cv w\u02c8AT\u026a\u014b, w\u026a\u00f0\u02c8Wt \u0250 s\u02c8\u026a\u014b\u0261\u1d4al l\u02c8\u0251k.",
+  "s7_09": "\u026an \u0250 \u03b8\u02c8Wz\u1d4and \u0279\u02c8\u028cnz, b\u02c8O\u03b8 \u0259k\u02c8Wnts \u0261\u0251t st\u02c8\u028ck \u026an \u0259b\u02c8Wt h\u02c8\u00e6f.",
+  "s7_10": "\u00f0\u0259 f\u02c8\u026aks f\u02c8\u0251lOz \u00f0\u0259 s\u02c8Am \u0279\u02c8ul \u00e6z f\u0254\u0279 l\u02c8\u0251ks: b\u0279\u02c8Ak \u00f0\u0259 s\u02c8Ik\u0259l.",
+  "s7_11": "h\u02c8\u026a\u0279, \u00f0i \u0259k\u02c8Wnt h\u02c8\u00e6ndz \u00f0\u0259 s\u02c8\u025bnd t\u0259 \u0250 h\u02c8\u025blp\u0259\u0279, \u0250 s\u02c8\u025bp\u0259\u0279\u0259t \u0261\u02c8\u0254\u0279ut\u02ccin \u00f0\u00e6t w\u02c8Ats \u026an \u026ats pl\u02c8As.",
+  "s7_12": "\u00f0i \u0259k\u02c8Wnt \u026ats\u02c8\u025blf k\u02c8ips l\u02c8\u026as\u0259n\u026a\u014b, \u026anst\u02c8\u025bd \u028cv w\u02c8AT\u026a\u014b \u026an \u00f0\u0259 m\u02c8\u026ad\u1d4al \u028cv \u0250 t\u0279\u02c8\u00e6nsf\u0259\u0279.",
+  "s7_13": "n\u02c8W n\u02c8\u028c\u03b8\u026a\u014b \u026ans\u02c8Id \u00f0i \u0259k\u02c8Wnt \u026az \u02c8\u025bv\u0259\u0279 st\u02c8\u028ck \u026an \u0250 s\u02c8\u025bnd.",
+  "s7_14": "\u026an \u00f0\u0259 s\u02c8Am t\u02c8\u025bst, n\u02c8\u028c\u03b8\u026a\u014b \u0261\u0251t st\u02c8\u028ck.",
+  "s7_15": "s\u02c8\u025bnd\u026a\u014b t\u0259 \u0250n \u02c8\u00e6kt\u0259\u0279 n\u02c8\u025bv\u0259\u0279 w\u02c8Ats.",
+  "s7_16": "b\u02cc\u028ct \u02c8\u0254f\u1d4an \u0250n \u02c8\u00e6kt\u0259\u0279 n\u02c8idz \u0250n \u02c8\u00e6ns\u0259\u0279, n\u02cc\u0251t \u02a4\u02c8\u028cst d\u0259l\u02c8\u026av\u0259\u0279i.",
+  "s7_17": "\u02cc\u026at s\u02c8\u025bndz \u0250 \u0279\u0259kw\u02c8\u025bst, \u00e6nd \u00f0\u02c8\u025bn wOnt h\u02c8\u00e6nd\u0259l \u02c8\u025bni\u03b8\u02cc\u026a\u014b \u02c8\u025bls \u02cc\u028cnt\u02c8\u026al \u00f0\u0259 \u0279\u0259pl\u02c8I l\u02c8\u00e6ndz \u026an \u026ats m\u02c8Alb\u02cc\u0251ks.",
+  "s7_18": "\u02cc\u026af t\u02c8u \u02c8\u00e6kt\u0259\u0279z d\u02c8u \u00f0\u02c8\u00e6t t\u028a \u02c8i\u02a7 \u02c8\u028c\u00f0\u0259\u0279 \u00e6t \u00f0\u0259 s\u02c8Am m\u02c8Om\u1d4ant, \u02c8i\u02a7 w\u02c8Ats \u02cc\u0254n \u00f0i \u02c8\u028c\u00f0\u0259\u0279 f\u0259\u0279\u02c8\u025bv\u0259\u0279.",
+  "s7_19": "\u0279\u02c8i\u1d4al k\u02c8Od \u0283\u02c8Oz \u00f0\u0259 s\u02c8Am p\u02c8\u00e6T\u0259\u0279n.",
+  "s7_20": "\u0250 st\u02c8\u028cdi \u028cv \u0279\u02c8i\u1d4al k\u0259nk\u02c8\u025c\u0279\u0259nsi b\u02c8\u028c\u0261z \u026an s\u02c8\u026aks w\u02c8Idli j\u02c8uzd \u0261\u02ccO p\u0279\u02c8\u0251\u02a4\u02cc\u025bkts s\u02c8\u0254\u0279T\u1d7bd \u00f0\u02cc\u025bm t\u02c8u w\u02c8Az.",
+  "s7_21": "\u0259m\u02c8\u028c\u014b \u00f0\u0259 b\u02c8\u028c\u0261z \u00f0\u00e6t \u0261\u02c8Av \u0279\u02c8\u0254\u014b \u0279\u0259z\u02c8\u028clts, m\u02c8\u025bs\u026a\u02a4 p\u02c8\u00e6s\u026a\u014b k\u02c8\u0254zd \u02c8Onli \u0259b\u02c8Wt w\u02c8\u028cn \u026an f\u02c8Iv.",
+  "s7_22": "b\u02cc\u028ct \u0259m\u02c8\u028c\u014b \u00f0\u0259 b\u02c8\u028c\u0261z w\u02cc\u025b\u0279 k\u02c8Od h\u02c8\u028c\u014b, \u026at k\u02c8\u0254zd m\u02c8\u0254\u0279 \u00f0\u0259n h\u02c8\u00e6f.",
+  "s8_01": "s\u02ccO d\u02c8\u028cz p\u02c8\u00e6s\u026a\u014b m\u02c8\u025bs\u026a\u02a4\u1d7bz m\u02ccAk \u00f0\u0259 v\u02c8\u00e6n\u026a\u0283\u026a\u014b d\u0259p\u02c8\u0251z\u0259t \u0261\u02ccO \u0259w\u02c8A?",
+  "s8_02": "j\u02c8\u025bs.",
+  "s8_03": "\u0261\u02c8\u026av \u00f0\u0259 b\u02c8\u00e6l\u0259ns w\u02c8\u028cn \u02c8On\u0259\u0279, \u00e6nd \u00f0\u02c8\u00e6t b\u02c8\u028c\u0261 k\u02c8\u00e6nt h\u02c8\u00e6p\u0259n.",
+  "s8_04": "b\u02cc\u028ct \u026ats k\u02c8\u028cz\u1d4anz \u0279\u0259m\u02c8An: \u0250 \u02a7\u02c8\u025bk \u00e6nd \u0250n \u02c8\u00e6k\u0283\u0259n spl\u02c8\u026at \u0259k\u0279\u02c8\u0254s t\u02c8u m\u02c8\u025bs\u026a\u02a4\u1d7bz, \u00e6nd p\u0279\u02c8\u0251s\u02cc\u025bs\u1d7bz w\u02c8AT\u026a\u014b \u02cc\u0254n \u02c8i\u02a7 \u02c8\u028c\u00f0\u0259\u0279 \u026an \u0250 s\u02c8\u025c\u0279k\u1d4al.",
+  "s8_05": "s\u02ccO w\u02c8\u028cn \u02c8On\u0259\u0279 p\u025c\u0279 p\u02c8is \u028cv st\u02c8At \u0279\u02c8ulz \u02c8Wt d\u02c8AT\u0259 \u0279\u02c8As\u1d7bz \u02cc\u0254n \u026at: bI \u00f0\u0259 st\u0279\u02c8\u028ck\u02a7\u0259\u0279 \u028cv \u00f0\u0259 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m, n\u02cc\u0251t bI \u02c8\u025bv\u0279iw\u0259n \u0279\u1d7bm\u02c8\u025bmb\u0259\u0279\u026a\u014b \u0250 l\u02c8\u0251k.",
+  "s8_06": "\u00f0\u02c8\u00e6t h\u02c8Oldz w\u0259\u0279\u02c8\u025bv\u0259\u0279 \u00f0\u0259 l\u02c8\u00e6\u014b\u0261w\u026a\u02a4 \u026anf\u02c8\u0254\u0279s\u1d7bz \u00f0i \u02c8On\u0259\u0279\u0283\u02cc\u026ap.",
+  "s8_07": "\u02cc\u026ats \u0250 \u0279\u02c8i\u1d4al \u0261\u02c8An, \u00e6nd \u026ats w\u02ccI \u00f0\u0259 sl\u02c8O\u0261\u0259n \u026a\u0261z\u02c8\u026asts.",
+  "s8_08": "t\u02c8u d\u0259s\u02c8\u026a\u0292\u1d4anz \u0251\u0279 l\u02c8\u025bft \u026an \u02c8i\u02a7 \u028cv \u00f0iz m\u02c8\u0251d\u1d4alz.",
+  "s8_09": "j\u02ccu st\u02c8\u026al \u02a7\u02c8uz w\u02cc\u026a\u02a7 st\u02c8\u025bps m\u02c8\u028cst h\u02c8\u00e6p\u0259n \u00e6z w\u02c8\u028cn: w\u02cc\u028ct \u0250 l\u02c8\u0251k k\u02c8\u028cv\u0259\u0279z, \u0254\u0279 w\u02cc\u028ct w\u02c8\u028cn m\u02c8\u025bs\u026a\u02a4 d\u02c8\u028cz.",
+  "s8_10": "\u02cc\u00e6nd ju st\u02c8\u026al h\u00e6v t\u0259 k\u02c8ip w\u02c8Ats f\u0279\u028cm f\u02c8\u0254\u0279m\u026a\u014b \u0250 s\u02c8Ik\u0259l.",
+  "s8_11": "s\u02ccO n\u02c8i\u00f0\u0259\u0279 m\u02c8\u0251d\u1d4al \u026az s\u02c8\u026ampli \u00f0\u0259 s\u02c8Af w\u02c8\u028cn.",
+  "s8_12": "\u00f0\u02ccA d\u02c8\u026af\u0259\u0279 \u026an w\u02cc\u028ct \u02c8i\u02a7 m\u02ccAks \u02c8izi, \u00e6nd w\u02cc\u028ct \u02c8i\u02a7 m\u02ccAks \u02c8izi t\u0259 f\u0259\u0279\u0261\u02c8\u025bt.",
+  "s8_13": "\u02c8iv\u0259n \u00f0\u0259 \u0261\u02ccO d\u02cc\u0251kj\u0259m\u0259nt\u02c8A\u0283\u0259n \u00f0\u00e6t \u0261\u02c8\u026avz \u00f0\u0259 sl\u02c8O\u0261\u0259n \u02c8\u00e6dz \u00f0\u00e6t \u026at k\u00e6n bi t\u02c8Ak\u0259n t\u02c8u f\u02c8\u0251\u0279.",
+  "s8_14": "\u0261\u02ccOz \u0259dv\u02c8Is \u026az t\u0259 j\u02c8uz w\u02cc\u026a\u02a7\u02c8\u025bv\u0259\u0279 \u026az m\u02c8Ost \u026aksp\u0279\u02c8\u025bs\u026av, \u0254\u0279 s\u02c8\u026amp\u1d4al\u1d7bst, f\u0254\u0279 \u00f0\u0259 \u02a4\u02c8\u0251b: \u02a7\u02c8\u00e6n\u1d4alz t\u0259 h\u02c8\u00e6nd w\u02c8\u025c\u0279k \u0254\u0279 d\u02c8AT\u0259 f\u0279\u028cm w\u02c8\u028cn p\u02c8\u0251\u0279t \u028cv \u0250 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m t\u028a \u0259n\u02c8\u028c\u00f0\u0259\u0279, \u00e6nd \u0250 l\u02c8\u0251k t\u0259 \u0261\u02c8\u0251\u0279d \u0250 p\u02c8is \u028cv \u0283\u02c8\u025b\u0279d st\u02c8At."
+ },
+ "peak": 0.7825791835784912
+}

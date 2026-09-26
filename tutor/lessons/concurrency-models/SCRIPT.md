@@ -1,6 +1,6 @@
 # Share Memory, or Pass Messages?
 
-Status: in review round 6
+Status: locked after review round 6
 
 ## Argument
 
@@ -138,7 +138,7 @@ No length target: the length follows the argument (about 150 words per minute).
 > Go also lets its goroutines, its lightweight threads, share memory. So in Go, one owner is a habit the programmer keeps, as in Akka.
 > Actors and channels differ in the plumbing. An actor has an address and a mailbox, and sending doesn't wait. A channel is its own object, passed around between processes, and by default a send waits for the receiver.
 
-*Screen:* the account as a process box "balance" with a channel (a pipe) entering it. Side by side with the chapter 4 actor: on the left, machine A drops an envelope in the mailbox and walks on; on the right, machine A's send stops (a "waiting" bar) until the account takes the value, then both move on together. Label: "Go: goroutines + channels". Then a side-by-side of two short labels: "actor: mailbox" and "channel: rendezvous".
+*Screen:* the account as a process box "balance" with a channel (a pipe) entering it. Side by side with the chapter 4 actor: on the left, machine A drops an envelope in the mailbox and walks on; on the right, machine A's send stops (a "waiting" bar) until the account takes the value, then both move on together. Label: "Go: goroutines + channels". Then a side-by-side of two short labels: "actor: send, move on" and "channel: send waits".
 
 ### 6. A race without shared memory
 
@@ -238,3 +238,10 @@ No length target: the length follows the argument (about 150 words per minute).
 - Expert: Akka is "a toolkit", not a library.
 - Editor: the misconception is now said aloud before the question ("the hope is that if nothing is shared…"); the channel motivation now has a concrete gap (the mailbox has the deposit; has the actor applied it yet?); a bridge into the bug study ("real code shows the same pattern"); the helper sentence is split; captions that restated the narration are trimmed to terms; the "(ICE)" colour shorthand is spelled out.
 - Editor, not taken: cutting the C/C++ "promise nothing" line (the expert asked for the data race's worst case in round 1, and the next line's counter program is in C); cutting "there are others" (the expert asked for that scope in round 3); changing the withdrawal to a different amount so "one hundred" isn't repeated (the simulation and its numbers are built on $100 against $100, and the screen shows which is which).
+
+**Round 6 (final):** expert PASS, editor PASS, student retold the question and answer correctly (lost "a few times"). Locked.
+- Applied after lock, screen only: the chapter 5 tag "channel: rendezvous" named a term the narration no longer uses; now "channel: send waits" (and "actor: send, move on").
+- Logged as revision candidates for the learner's notes, not applied, per the stopping rule:
+  - Expert: CSP attribution could be tighter (Hoare's 1978 processes named each other; channels came with the 1985 book and occam).
+  - Editor: Go's "channels for handing data, a lock for guarding state" split arrives only in the last line; the actor request/reply deadlock is the one claim without a measured run; chapter 2's move from "machine" to "thread" has no bridge.
+  - Student: lost at the race-condition/data-race distinction, the "six steps" count, and "buffer"/"promise nothing".

@@ -1,0 +1,439 @@
+WEBVTT
+
+00:00:00.800 --> 00:00:08.653
+Two cash machines deposit into the same bank account at the same moment: fifty dollars each, into a balance of one hundred.
+
+00:00:08.903 --> 00:00:10.749
+The balance should end at two hundred.
+
+00:00:10.799 --> 00:00:13.432
+Sometimes it ends at one hundred and fifty.
+
+00:00:13.482 --> 00:00:15.285
+One deposit has vanished.
+
+00:00:15.535 --> 00:00:19.497
+A program that does several things at once has to coordinate them.
+
+00:00:19.547 --> 00:00:25.329
+There are two broad families of ways to do it; there are others, but these are the two you'll meet most.
+
+00:00:25.579 --> 00:00:29.097
+In one, threads share memory, and take turns with locks.
+
+00:00:29.147 --> 00:00:35.617
+In the other, nothing is shared, at least in the code you write: parts of the program pass messages instead.
+
+00:00:35.867 --> 00:00:43.940
+Go's documentation puts it as a slogan: "Do not communicate by sharing memory; instead, share memory by communicating."
+
+00:00:44.190 --> 00:00:49.335
+The hope is that if nothing is shared, bugs like the vanishing deposit can't happen.
+
+00:00:49.385 --> 00:00:51.851
+So does passing messages make them go away?
+
+00:00:55.601 --> 00:00:57.765
+Here is how a deposit vanishes.
+
+00:00:58.015 --> 00:01:03.071
+A deposit takes three steps: read the balance, add fifty, write the result back.
+
+00:01:03.321 --> 00:01:05.216
+Machine A reads one hundred.
+
+00:01:05.266 --> 00:01:08.325
+Before A writes, machine B also reads one hundred.
+
+00:01:08.575 --> 00:01:10.464
+A writes one hundred and fifty.
+
+00:01:10.514 --> 00:01:14.075
+Then B writes one hundred and fifty, over A's result.
+
+00:01:14.325 --> 00:01:15.950
+A's deposit is gone.
+
+00:01:16.000 --> 00:01:17.896
+This is called a lost update.
+
+00:01:18.946 --> 00:01:25.656
+Only two orders of the six steps are safe: one machine's whole deposit finishes before the other's starts.
+
+00:01:25.706 --> 00:01:28.458
+In any other order, a deposit is lost.
+
+00:01:28.508 --> 00:01:33.819
+Usually the two deposits don't overlap at all, so the bug shows up only now and then.
+
+00:01:34.069 --> 00:01:39.511
+A bug whose result depends on the timing of concurrent steps is called a race condition.
+
+00:01:39.761 --> 00:01:42.417
+This bug is also what's called a data race.
+
+00:01:42.467 --> 00:01:44.406
+Two threads use the same memory.
+
+00:01:44.456 --> 00:01:46.077
+At least one of them writes.
+
+00:01:46.127 --> 00:01:48.531
+And nothing forces an order between them.
+
+00:01:48.781 --> 00:01:51.086
+The two names describe different things.
+
+00:01:51.136 --> 00:01:53.540
+"Race condition" is about the result.
+
+00:01:53.590 --> 00:01:56.500
+"Data race" is about how the memory is used.
+
+00:01:56.550 --> 00:01:57.865
+Here, both apply.
+
+00:01:58.715 --> 00:02:01.006
+A lost update is the mild outcome.
+
+00:02:01.056 --> 00:02:10.010
+For a program with a data race, C and C++ promise nothing at all, not even that a read returns a value some thread actually wrote.
+
+00:02:10.260 --> 00:02:13.337
+And when the steps do overlap often, it isn't rare.
+
+00:02:13.387 --> 00:02:20.966
+In a small C program, two threads each add one to a shared counter ten million times, so it should end at twenty million.
+
+00:02:21.016 --> 00:02:28.938
+In five runs on this machine, it ended between about ten point one and eleven point seven million, a different number each time.
+
+00:02:30.688 --> 00:02:32.625
+The shared-memory fix is a lock.
+
+00:02:32.875 --> 00:02:37.753
+A thread takes the lock before it reads the balance, and releases it after it writes.
+
+00:02:37.803 --> 00:02:41.725
+While one thread holds the lock, any other thread that wants it waits.
+
+00:02:41.975 --> 00:02:45.342
+So the three steps happen as one, with nothing in between.
+
+00:02:45.392 --> 00:02:49.442
+With a lock around it, the counter reaches twenty million on every run.
+
+00:02:49.692 --> 00:02:52.201
+But a lock only protects code that takes it.
+
+00:02:52.251 --> 00:02:58.017
+Nothing stops one forgotten code path from touching the balance without it, and then the race is back.
+
+00:02:58.267 --> 00:03:00.164
+Locks also bring a new failure.
+
+00:03:00.214 --> 00:03:04.402
+A transfer from account A to account B has to lock both accounts.
+
+00:03:04.652 --> 00:03:09.018
+Say each transfer locks the paying account first, then the receiving account.
+
+00:03:09.268 --> 00:03:11.328
+One thread transfers from A to B.
+
+00:03:11.378 --> 00:03:13.457
+It locks A, then waits for B.
+
+00:03:13.507 --> 00:03:16.859
+At the same moment, another thread transfers from B to A.
+
+00:03:16.909 --> 00:03:18.951
+It locks B, then waits for A.
+
+00:03:19.201 --> 00:03:22.959
+Each is waiting for a lock the other holds, and neither will let go.
+
+00:03:23.009 --> 00:03:24.269
+That's a deadlock.
+
+00:03:25.319 --> 00:03:31.710
+The standard fix is to take locks in one fixed order everywhere, say, the lower account number first.
+
+00:03:31.760 --> 00:03:33.745
+Then a cycle of waiting can't form.
+
+00:03:33.995 --> 00:03:41.744
+Running both transfers at once, a thousand times: the first version got stuck almost every time, the fixed order never.
+
+00:03:42.794 --> 00:03:48.826
+But every piece of code that takes these locks has to follow that order, including code someone else wrote.
+
+00:03:49.776 --> 00:03:53.808
+A lock can be forgotten because every thread can still reach the balance.
+
+00:03:53.858 --> 00:03:55.945
+What if nothing else could reach it at all?
+
+00:03:55.995 --> 00:03:57.929
+Then there would be no lock to forget.
+
+00:03:58.179 --> 00:04:00.195
+That's where message passing starts.
+
+00:04:00.245 --> 00:04:03.690
+Give the balance a single owner, and let nothing else touch it.
+
+00:04:03.940 --> 00:04:10.967
+In the actor model, that owner is an actor: a part of the program with its own private state, and a mailbox.
+
+00:04:11.217 --> 00:04:13.662
+The cash machines never read the balance.
+
+00:04:13.712 --> 00:04:18.541
+They send the actor a message, "deposit fifty", and it goes into the mailbox.
+
+00:04:18.791 --> 00:04:23.524
+The actor takes one message at a time, and finishes it before starting the next.
+
+00:04:23.774 --> 00:04:26.012
+So the two deposits can't interleave.
+
+00:04:26.062 --> 00:04:31.303
+The actor adds the first fifty, then the second, and the balance ends at two hundred.
+
+00:04:31.553 --> 00:04:36.830
+There's no lock, and no data race on the balance, because only the actor ever touches it.
+
+00:04:37.680 --> 00:04:42.610
+Sending doesn't wait: a machine drops its message in the mailbox and carries on.
+
+00:04:42.860 --> 00:04:46.454
+How firmly "nothing else" holds depends on the system.
+
+00:04:46.504 --> 00:04:49.850
+In Erlang, processes don't share memory by default.
+
+00:04:49.900 --> 00:04:52.175
+A message is copied to the receiver.
+
+00:04:52.225 --> 00:04:55.647
+Shared tables exist, but a process has to opt in.
+
+00:04:55.697 --> 00:05:01.794
+In Akka, a toolkit for Java and Scala, keeping an actor's state private is up to the programmer.
+
+00:05:02.744 --> 00:05:08.626
+But because an actor's send doesn't wait, a cash machine never learns when its request was taken.
+
+00:05:08.676 --> 00:05:10.636
+The mailbox has the deposit.
+
+00:05:10.686 --> 00:05:13.939
+Has the actor applied it yet, or is it still in the queue?
+
+00:05:13.989 --> 00:05:15.369
+The machine can't tell.
+
+00:05:16.219 --> 00:05:21.813
+The other message-passing family is built the opposite way: a send waits for a receiver.
+
+00:05:22.063 --> 00:05:29.896
+It comes from Tony Hoare's communicating sequential processes, or CSP, and Go's channels come out of this tradition.
+
+00:05:30.146 --> 00:05:33.051
+Processes share nothing, and talk over channels.
+
+00:05:33.101 --> 00:05:38.201
+A channel is a connection that processes send values into and receive them from.
+
+00:05:38.451 --> 00:05:45.349
+A Go channel made without a buffer, which is the default, makes a send wait until a receiver takes the value.
+
+00:05:45.399 --> 00:05:49.392
+So when a send finishes, the sender knows its value was taken.
+
+00:05:49.642 --> 00:05:56.103
+The account becomes a process that owns the balance, and receives deposits from a channel, one at a time.
+
+00:05:56.153 --> 00:05:58.600
+Again, no data race on the balance.
+
+00:05:58.850 --> 00:06:03.002
+Go also lets its goroutines, its lightweight threads, share memory.
+
+00:06:03.052 --> 00:06:07.528
+So in Go, one owner is a habit the programmer keeps, as in Akka.
+
+00:06:07.778 --> 00:06:10.179
+Actors and channels differ in the plumbing.
+
+00:06:10.229 --> 00:06:14.171
+An actor has an address and a mailbox, and sending doesn't wait.
+
+00:06:14.221 --> 00:06:21.274
+A channel is its own object, passed around between processes, and by default a send waits for the receiver.
+
+00:06:22.824 --> 00:06:29.506
+So it looks like the slogan wins: give each piece of state one owner, and the vanishing deposit can't happen.
+
+00:06:29.556 --> 00:06:31.221
+For deposits, that's true.
+
+00:06:31.271 --> 00:06:32.760
+Now try withdrawals.
+
+00:06:33.010 --> 00:06:35.806
+A machine should only pay out if there's enough money.
+
+00:06:35.856 --> 00:06:40.978
+With messages, that takes two: first "what's the balance?", then "withdraw one hundred".
+
+00:06:41.228 --> 00:06:42.942
+The balance is one hundred.
+
+00:06:42.992 --> 00:06:45.514
+Machine A asks, and hears one hundred.
+
+00:06:45.564 --> 00:06:48.531
+Machine B asks, and also hears one hundred.
+
+00:06:48.781 --> 00:06:50.803
+Both send "withdraw one hundred".
+
+00:06:50.853 --> 00:06:56.966
+The account handles them one at a time, just as promised, and the balance ends at minus one hundred.
+
+00:06:58.216 --> 00:07:02.260
+There's no data race here: only the account ever touched the balance.
+
+00:07:02.310 --> 00:07:04.519
+But the result still depended on timing.
+
+00:07:04.569 --> 00:07:09.071
+It's a race condition, between messages instead of between memory steps.
+
+00:07:09.321 --> 00:07:15.112
+In a test of a hundred thousand runs, the account was overdrawn in about seventeen hundred.
+
+00:07:15.362 --> 00:07:21.720
+The fix is to make the check and the withdrawal one message: "withdraw one hundred if the balance allows it".
+
+00:07:21.770 --> 00:07:23.749
+The owner does both in one step.
+
+00:07:23.799 --> 00:07:26.940
+In the same test, the account was never overdrawn.
+
+00:07:27.990 --> 00:07:31.912
+Locks raised the same question: which steps have to happen as one?
+
+00:07:31.962 --> 00:07:33.920
+Messages don't answer it for you.
+
+00:07:34.870 --> 00:07:36.634
+Messages can deadlock too.
+
+00:07:36.884 --> 00:07:39.691
+Make each account its own process, with a channel.
+
+00:07:39.741 --> 00:07:46.271
+To transfer, an account sends "credit thirty" to the other account, and waits until the other account takes it.
+
+00:07:46.521 --> 00:07:50.941
+Start a transfer from A to B, and one from B to A, at the same moment.
+
+00:07:50.991 --> 00:07:53.510
+A is waiting for B to take its message.
+
+00:07:53.560 --> 00:07:55.947
+B is waiting for A to take its message.
+
+00:07:55.997 --> 00:07:59.358
+Neither is listening, because each is stuck in its own send.
+
+00:07:59.608 --> 00:08:04.058
+It's the lock deadlock again: a cycle of waiting, without a single lock.
+
+00:08:04.108 --> 00:08:07.671
+In a thousand runs, both accounts got stuck in about half.
+
+00:08:08.721 --> 00:08:12.418
+The fix follows the same rule as for locks: break the cycle.
+
+00:08:12.468 --> 00:08:17.894
+Here, the account hands the send to a helper, a separate goroutine that waits in its place.
+
+00:08:17.944 --> 00:08:22.458
+The account itself keeps listening, instead of waiting in the middle of a transfer.
+
+00:08:22.508 --> 00:08:25.751
+Now nothing inside the account is ever stuck in a send.
+
+00:08:25.801 --> 00:08:27.929
+In the same test, nothing got stuck.
+
+00:08:28.779 --> 00:08:30.885
+Sending to an actor never waits.
+
+00:08:30.935 --> 00:08:34.391
+But often an actor needs an answer, not just delivery.
+
+00:08:34.441 --> 00:08:40.123
+It sends a request, and then won't handle anything else until the reply lands in its mailbox.
+
+00:08:40.173 --> 00:08:45.146
+If two actors do that to each other at the same moment, each waits on the other forever.
+
+00:08:45.396 --> 00:08:47.444
+Real code shows the same pattern.
+
+00:08:47.494 --> 00:08:53.569
+A study of real concurrency bugs in six widely used Go projects sorted them two ways.
+
+00:08:53.819 --> 00:08:59.286
+Among the bugs that gave wrong results, message passing caused only about one in five.
+
+00:08:59.336 --> 00:09:02.615
+But among the bugs where code hung, it caused more than half.
+
+00:09:04.565 --> 00:09:08.458
+So does passing messages make the vanishing deposit go away?
+
+00:09:08.508 --> 00:09:09.309
+Yes.
+
+00:09:09.359 --> 00:09:12.311
+Give the balance one owner, and that bug can't happen.
+
+00:09:12.561 --> 00:09:20.014
+But its cousins remain: a check and an action split across two messages, and processes waiting on each other in a circle.
+
+00:09:20.264 --> 00:09:28.556
+So one owner per piece of state rules out data races on it: by the structure of the program, not by everyone remembering a lock.
+
+00:09:28.606 --> 00:09:31.909
+That holds wherever the language enforces the ownership.
+
+00:09:31.959 --> 00:09:35.057
+It's a real gain, and it's why the slogan exists.
+
+00:09:35.307 --> 00:09:38.165
+Two decisions are left in each of these models.
+
+00:09:38.215 --> 00:09:43.884
+You still choose which steps must happen as one: what a lock covers, or what one message does.
+
+00:09:43.934 --> 00:09:46.755
+And you still have to keep waits from forming a cycle.
+
+00:09:47.805 --> 00:09:50.311
+So neither model is simply the safe one.
+
+00:09:50.361 --> 00:09:54.443
+They differ in what each makes easy, and what each makes easy to forget.
+
+00:09:54.693 --> 00:10:00.103
+Even the Go documentation that gives the slogan adds that it can be taken too far.
+
+00:10:00.153 --> 00:10:12.576
+Go's advice is to use whichever is most expressive, or simplest, for the job: channels to hand work or data from one part of a program to another, and a lock to guard a piece of shared state.

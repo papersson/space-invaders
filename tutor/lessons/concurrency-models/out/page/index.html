@@ -1,0 +1,167 @@
+<title>Share Memory, or Pass Messages?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0E1216;--surface:#151B22;--raise:#1B232C;--line:#27303A;--ink:#E6EBF0;--muted:#8C97A4;--faint:#5E6874;
+  --amber:#F2A93B;--ice:#8FD3FF;--coral:#E4715F;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-inline:20px;padding-block:28px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
+h1{font-weight:600;font-size:clamp(22px,3vw,30px);line-height:1.15;margin:0;text-wrap:balance}
+.len{font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+.player{background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/9;max-width:100%}
+video{display:block;width:100%;height:100%}
+.chapters{display:flex;gap:6px}
+.ch{all:unset;cursor:pointer;min-width:0;flex-basis:0;display:flex;flex-direction:column;gap:7px}
+.ch-bar{height:6px;border-radius:3px;background:var(--raise);position:relative;overflow:hidden}
+.ch-bar::after{content:"";position:absolute;inset:0;width:var(--p,0%);background:var(--ice)}
+.ch-name{font-size:13px;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch.on .ch-name{color:var(--ink)}
+.ch:hover .ch-name{color:var(--ink)}
+.ch:focus-visible .ch-bar{outline:2px solid var(--ice);outline-offset:3px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);
+  border:1.5px solid var(--line);border-radius:6px;padding:6px 11px;white-space:nowrap}
+.btn:hover{color:var(--ink);border-color:var(--faint)}
+.btn:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.btn[aria-pressed="true"]{color:var(--bg);background:var(--ice);border-color:var(--ice)}
+.btn.lost{color:var(--amber);border-color:rgba(242,169,59,.45)}
+.btn.lost:hover{border-color:var(--amber)}
+.btn.primary{color:var(--bg);background:var(--amber);border-color:var(--amber)}
+.right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.status{font-size:13px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel .where{font:500 12px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.panel blockquote{margin:0;padding-left:12px;border-left:2px solid var(--amber);color:var(--ink);max-width:70ch}
+.panel blockquote .prev{display:block;color:var(--muted);font-size:14px;margin-bottom:4px}
+.panel label{font-size:14px;color:var(--muted)}
+textarea{font:15px/1.45 "IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);
+  border-radius:6px;padding:10px;min-height:72px;resize:vertical;width:100%;box-sizing:border-box}
+textarea:focus-visible{outline:2px solid var(--ice);outline-offset:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+details{color:var(--muted);font-size:14px}
+summary{cursor:pointer;width:max-content}
+summary:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.notes{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.notes li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:baseline}
+.notes .t{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--ice);font-variant-numeric:tabular-nums}
+.notes .t:focus-visible{outline:2px solid var(--ice)}
+.notes .txt{color:var(--ink)}
+.notes .txt i{color:var(--muted)}
+.notes .x{all:unset;cursor:pointer;color:var(--faint);font-size:13px}
+.notes .x:hover{color:var(--coral)}
+@media (max-width:640px){.ch-name{display:none}.chapters{gap:4px}}
+</style>
+<div class="wrap">
+  <header><h1>Share Memory, or Pass Messages?</h1><span class="len">10:20</span></header>
+  <div class="player"><video id="v" controls preload="metadata" poster="poster.jpg" playsinline>
+    <source src="video.mp4" type="video/mp4"></video></div>
+  <nav class="chapters" aria-label="Chapters"><button class="ch" type="button" style="flex-grow:55.25" data-t="0.00" data-end="55.25" aria-label="Chapter 1: The question"><span class="ch-bar"></span><span class="ch-name">The question</span></button>
+<button class="ch" type="button" style="flex-grow:95.09" data-t="55.25" data-end="150.34" aria-label="Chapter 2: The lost update"><span class="ch-bar"></span><span class="ch-name">The lost update</span></button>
+<button class="ch" type="button" style="flex-grow:79.09" data-t="150.34" data-end="229.43" aria-label="Chapter 3: Locks"><span class="ch-bar"></span><span class="ch-name">Locks</span></button>
+<button class="ch" type="button" style="flex-grow:72.97" data-t="229.43" data-end="302.39" aria-label="Chapter 4: One owner"><span class="ch-bar"></span><span class="ch-name">One owner</span></button>
+<button class="ch" type="button" style="flex-grow:80.08" data-t="302.39" data-end="382.47" aria-label="Chapter 5: Channels"><span class="ch-bar"></span><span class="ch-name">Channels</span></button>
+<button class="ch" type="button" style="flex-grow:72.05" data-t="382.47" data-end="454.52" aria-label="Chapter 6: A race without shared memory"><span class="ch-bar"></span><span class="ch-name">A race without shared memory</span></button>
+<button class="ch" type="button" style="flex-grow:89.70" data-t="454.52" data-end="544.22" aria-label="Chapter 7: Waiting in a circle"><span class="ch-bar"></span><span class="ch-name">Waiting in a circle</span></button>
+<button class="ch" type="button" style="flex-grow:76.11" data-t="544.22" data-end="620.33" aria-label="Chapter 8: The answer"><span class="ch-bar"></span><span class="ch-name">The answer</span></button></nav>
+  <div class="bar">
+    <button id="cc" class="btn" type="button" aria-pressed="false">Captions off</button>
+    <div class="right"><span id="status" class="status" role="status"></span>
+      <button id="lost" class="btn lost" type="button" hidden>Lost me here</button></div>
+  </div>
+  <section id="panel" class="panel" hidden aria-label="What lost you">
+    <div id="where" class="where"></div>
+    <blockquote id="quote"></blockquote>
+    <label for="note">What didn't make sense? A few words is plenty, and you can leave it empty.</label>
+    <textarea id="note" maxlength="2000"></textarea>
+    <div class="actions"><button id="save" class="btn primary" type="button">Save</button>
+      <button id="cancel" class="btn" type="button">Cancel</button></div>
+  </section>
+  <details id="mine" hidden><summary id="count"></summary><ul id="notes" class="notes"></ul></details>
+</div>
+<script>const CUES=[[0.8, 8.65, "Two cash machines deposit into the same bank account at the same moment: fifty dollars each, into a balance of one hundred.", "s1_01"], [8.9, 10.75, "The balance should end at two hundred.", "s1_02"], [10.8, 13.43, "Sometimes it ends at one hundred and fifty.", "s1_03"], [13.48, 15.29, "One deposit has vanished.", "s1_04"], [15.54, 19.5, "A program that does several things at once has to coordinate them.", "s1_05"], [19.55, 25.33, "There are two broad families of ways to do it; there are others, but these are the two you'll meet most.", "s1_06"], [25.58, 29.1, "In one, threads share memory, and take turns with locks.", "s1_07"], [29.15, 35.62, "In the other, nothing is shared, at least in the code you write: parts of the program pass messages instead.", "s1_08"], [35.87, 43.94, "Go's documentation puts it as a slogan: \"Do not communicate by sharing memory; instead, share memory by communicating.\"", "s1_09"], [44.19, 49.34, "The hope is that if nothing is shared, bugs like the vanishing deposit can't happen.", "s1_10"], [49.38, 51.85, "So does passing messages make them go away?", "s1_11"], [55.6, 57.77, "Here is how a deposit vanishes.", "s2_01"], [58.02, 63.07, "A deposit takes three steps: read the balance, add fifty, write the result back.", "s2_02"], [63.32, 65.22, "Machine A reads one hundred.", "s2_03"], [65.27, 68.33, "Before A writes, machine B also reads one hundred.", "s2_04"], [68.58, 70.46, "A writes one hundred and fifty.", "s2_05"], [70.51, 74.08, "Then B writes one hundred and fifty, over A's result.", "s2_06"], [74.33, 75.95, "A's deposit is gone.", "s2_07"], [76.0, 77.9, "This is called a lost update.", "s2_08"], [78.95, 85.66, "Only two orders of the six steps are safe: one machine's whole deposit finishes before the other's starts.", "s2_09"], [85.71, 88.46, "In any other order, a deposit is lost.", "s2_10"], [88.51, 93.82, "Usually the two deposits don't overlap at all, so the bug shows up only now and then.", "s2_11"], [94.07, 99.51, "A bug whose result depends on the timing of concurrent steps is called a race condition.", "s2_12"], [99.76, 102.42, "This bug is also what's called a data race.", "s2_13"], [102.47, 104.41, "Two threads use the same memory.", "s2_14"], [104.46, 106.08, "At least one of them writes.", "s2_15"], [106.13, 108.53, "And nothing forces an order between them.", "s2_16"], [108.78, 111.09, "The two names describe different things.", "s2_17"], [111.14, 113.54, "\"Race condition\" is about the result.", "s2_18"], [113.59, 116.5, "\"Data race\" is about how the memory is used.", "s2_19"], [116.55, 117.86, "Here, both apply.", "s2_20"], [118.72, 121.01, "A lost update is the mild outcome.", "s2_21"], [121.06, 130.01, "For a program with a data race, C and C++ promise nothing at all, not even that a read returns a value some thread actually wrote.", "s2_22"], [130.26, 133.34, "And when the steps do overlap often, it isn't rare.", "s2_23"], [133.39, 140.97, "In a small C program, two threads each add one to a shared counter ten million times, so it should end at twenty million.", "s2_24"], [141.02, 148.94, "In five runs on this machine, it ended between about ten point one and eleven point seven million, a different number each time.", "s2_25"], [150.69, 152.62, "The shared-memory fix is a lock.", "s3_01"], [152.88, 157.75, "A thread takes the lock before it reads the balance, and releases it after it writes.", "s3_02"], [157.8, 161.72, "While one thread holds the lock, any other thread that wants it waits.", "s3_03"], [161.97, 165.34, "So the three steps happen as one, with nothing in between.", "s3_04"], [165.39, 169.44, "With a lock around it, the counter reaches twenty million on every run.", "s3_05"], [169.69, 172.2, "But a lock only protects code that takes it.", "s3_06"], [172.25, 178.02, "Nothing stops one forgotten code path from touching the balance without it, and then the race is back.", "s3_07"], [178.27, 180.16, "Locks also bring a new failure.", "s3_08"], [180.21, 184.4, "A transfer from account A to account B has to lock both accounts.", "s3_09"], [184.65, 189.02, "Say each transfer locks the paying account first, then the receiving account.", "s3_10"], [189.27, 191.33, "One thread transfers from A to B.", "s3_11"], [191.38, 193.46, "It locks A, then waits for B.", "s3_12"], [193.51, 196.86, "At the same moment, another thread transfers from B to A.", "s3_13"], [196.91, 198.95, "It locks B, then waits for A.", "s3_14"], [199.2, 202.96, "Each is waiting for a lock the other holds, and neither will let go.", "s3_15"], [203.01, 204.27, "That's a deadlock.", "s3_16"], [205.32, 211.71, "The standard fix is to take locks in one fixed order everywhere, say, the lower account number first.", "s3_17"], [211.76, 213.75, "Then a cycle of waiting can't form.", "s3_18"], [214.0, 221.74, "Running both transfers at once, a thousand times: the first version got stuck almost every time, the fixed order never.", "s3_19"], [222.79, 228.83, "But every piece of code that takes these locks has to follow that order, including code someone else wrote.", "s3_20"], [229.78, 233.81, "A lock can be forgotten because every thread can still reach the balance.", "s4_01"], [233.86, 235.94, "What if nothing else could reach it at all?", "s4_02"], [236.0, 237.93, "Then there would be no lock to forget.", "s4_03"], [238.18, 240.19, "That's where message passing starts.", "s4_04"], [240.25, 243.69, "Give the balance a single owner, and let nothing else touch it.", "s4_05"], [243.94, 250.97, "In the actor model, that owner is an actor: a part of the program with its own private state, and a mailbox.", "s4_06"], [251.22, 253.66, "The cash machines never read the balance.", "s4_07"], [253.71, 258.54, "They send the actor a message, \"deposit fifty\", and it goes into the mailbox.", "s4_08"], [258.79, 263.52, "The actor takes one message at a time, and finishes it before starting the next.", "s4_09"], [263.77, 266.01, "So the two deposits can't interleave.", "s4_10"], [266.06, 271.3, "The actor adds the first fifty, then the second, and the balance ends at two hundred.", "s4_11"], [271.55, 276.83, "There's no lock, and no data race on the balance, because only the actor ever touches it.", "s4_12"], [277.68, 282.61, "Sending doesn't wait: a machine drops its message in the mailbox and carries on.", "s4_13"], [282.86, 286.45, "How firmly \"nothing else\" holds depends on the system.", "s4_14"], [286.5, 289.85, "In Erlang, processes don't share memory by default.", "s4_15"], [289.9, 292.18, "A message is copied to the receiver.", "s4_16"], [292.23, 295.65, "Shared tables exist, but a process has to opt in.", "s4_17"], [295.7, 301.79, "In Akka, a toolkit for Java and Scala, keeping an actor's state private is up to the programmer.", "s4_18"], [302.74, 308.63, "But because an actor's send doesn't wait, a cash machine never learns when its request was taken.", "s5_01"], [308.68, 310.64, "The mailbox has the deposit.", "s5_02"], [310.69, 313.94, "Has the actor applied it yet, or is it still in the queue?", "s5_03"], [313.99, 315.37, "The machine can't tell.", "s5_04"], [316.22, 321.81, "The other message-passing family is built the opposite way: a send waits for a receiver.", "s5_05"], [322.06, 329.9, "It comes from Tony Hoare's communicating sequential processes, or CSP, and Go's channels come out of this tradition.", "s5_06"], [330.15, 333.05, "Processes share nothing, and talk over channels.", "s5_07"], [333.1, 338.2, "A channel is a connection that processes send values into and receive them from.", "s5_08"], [338.45, 345.35, "A Go channel made without a buffer, which is the default, makes a send wait until a receiver takes the value.", "s5_09"], [345.4, 349.39, "So when a send finishes, the sender knows its value was taken.", "s5_10"], [349.64, 356.1, "The account becomes a process that owns the balance, and receives deposits from a channel, one at a time.", "s5_11"], [356.15, 358.6, "Again, no data race on the balance.", "s5_12"], [358.85, 363.0, "Go also lets its goroutines, its lightweight threads, share memory.", "s5_13"], [363.05, 367.53, "So in Go, one owner is a habit the programmer keeps, as in Akka.", "s5_14"], [367.78, 370.18, "Actors and channels differ in the plumbing.", "s5_15"], [370.23, 374.17, "An actor has an address and a mailbox, and sending doesn't wait.", "s5_16"], [374.22, 381.27, "A channel is its own object, passed around between processes, and by default a send waits for the receiver.", "s5_17"], [382.82, 389.51, "So it looks like the slogan wins: give each piece of state one owner, and the vanishing deposit can't happen.", "s6_01"], [389.56, 391.22, "For deposits, that's true.", "s6_02"], [391.27, 392.76, "Now try withdrawals.", "s6_03"], [393.01, 395.81, "A machine should only pay out if there's enough money.", "s6_04"], [395.86, 400.98, "With messages, that takes two: first \"what's the balance?\", then \"withdraw one hundred\".", "s6_05"], [401.23, 402.94, "The balance is one hundred.", "s6_06"], [402.99, 405.51, "Machine A asks, and hears one hundred.", "s6_07"], [405.56, 408.53, "Machine B asks, and also hears one hundred.", "s6_08"], [408.78, 410.8, "Both send \"withdraw one hundred\".", "s6_09"], [410.85, 416.97, "The account handles them one at a time, just as promised, and the balance ends at minus one hundred.", "s6_10"], [418.22, 422.26, "There's no data race here: only the account ever touched the balance.", "s6_11"], [422.31, 424.52, "But the result still depended on timing.", "s6_12"], [424.57, 429.07, "It's a race condition, between messages instead of between memory steps.", "s6_13"], [429.32, 435.11, "In a test of a hundred thousand runs, the account was overdrawn in about seventeen hundred.", "s6_14"], [435.36, 441.72, "The fix is to make the check and the withdrawal one message: \"withdraw one hundred if the balance allows it\".", "s6_15"], [441.77, 443.75, "The owner does both in one step.", "s6_16"], [443.8, 446.94, "In the same test, the account was never overdrawn.", "s6_17"], [447.99, 451.91, "Locks raised the same question: which steps have to happen as one?", "s6_18"], [451.96, 453.92, "Messages don't answer it for you.", "s6_19"], [454.87, 456.63, "Messages can deadlock too.", "s7_01"], [456.88, 459.69, "Make each account its own process, with a channel.", "s7_02"], [459.74, 466.27, "To transfer, an account sends \"credit thirty\" to the other account, and waits until the other account takes it.", "s7_03"], [466.52, 470.94, "Start a transfer from A to B, and one from B to A, at the same moment.", "s7_04"], [470.99, 473.51, "A is waiting for B to take its message.", "s7_05"], [473.56, 475.95, "B is waiting for A to take its message.", "s7_06"], [476.0, 479.36, "Neither is listening, because each is stuck in its own send.", "s7_07"], [479.61, 484.06, "It's the lock deadlock again: a cycle of waiting, without a single lock.", "s7_08"], [484.11, 487.67, "In a thousand runs, both accounts got stuck in about half.", "s7_09"], [488.72, 492.42, "The fix follows the same rule as for locks: break the cycle.", "s7_10"], [492.47, 497.89, "Here, the account hands the send to a helper, a separate goroutine that waits in its place.", "s7_11"], [497.94, 502.46, "The account itself keeps listening, instead of waiting in the middle of a transfer.", "s7_12"], [502.51, 505.75, "Now nothing inside the account is ever stuck in a send.", "s7_13"], [505.8, 507.93, "In the same test, nothing got stuck.", "s7_14"], [508.78, 510.88, "Sending to an actor never waits.", "s7_15"], [510.94, 514.39, "But often an actor needs an answer, not just delivery.", "s7_16"], [514.44, 520.12, "It sends a request, and then won't handle anything else until the reply lands in its mailbox.", "s7_17"], [520.17, 525.15, "If two actors do that to each other at the same moment, each waits on the other forever.", "s7_18"], [525.4, 527.44, "Real code shows the same pattern.", "s7_19"], [527.49, 533.57, "A study of real concurrency bugs in six widely used Go projects sorted them two ways.", "s7_20"], [533.82, 539.29, "Among the bugs that gave wrong results, message passing caused only about one in five.", "s7_21"], [539.34, 542.62, "But among the bugs where code hung, it caused more than half.", "s7_22"], [544.57, 548.46, "So does passing messages make the vanishing deposit go away?", "s8_01"], [548.51, 549.31, "Yes.", "s8_02"], [549.36, 552.31, "Give the balance one owner, and that bug can't happen.", "s8_03"], [552.56, 560.01, "But its cousins remain: a check and an action split across two messages, and processes waiting on each other in a circle.", "s8_04"], [560.26, 568.56, "So one owner per piece of state rules out data races on it: by the structure of the program, not by everyone remembering a lock.", "s8_05"], [568.61, 571.91, "That holds wherever the language enforces the ownership.", "s8_06"], [571.96, 575.06, "It's a real gain, and it's why the slogan exists.", "s8_07"], [575.31, 578.16, "Two decisions are left in each of these models.", "s8_08"], [578.22, 583.88, "You still choose which steps must happen as one: what a lock covers, or what one message does.", "s8_09"], [583.93, 586.75, "And you still have to keep waits from forming a cycle.", "s8_10"], [587.8, 590.31, "So neither model is simply the safe one.", "s8_11"], [590.36, 594.44, "They differ in what each makes easy, and what each makes easy to forget.", "s8_12"], [594.69, 600.1, "Even the Go documentation that gives the slogan adds that it can be taken too far.", "s8_13"], [600.15, 612.58, "Go's advice is to use whichever is most expressive, or simplest, for the job: channels to hand work or data from one part of a program to another, and a lock to guard a piece of shared state.", "s8_14"]];const CHAPTERS=["The question", "The lost update", "Locks", "One owner", "Channels", "A race without shared memory", "Waiting in a circle", "The answer"];const VERSION="v1";
+const v=document.getElementById('v');
+const chs=[...document.querySelectorAll('.ch')];
+const titles=CHAPTERS;
+chs.forEach(b=>b.addEventListener('click',()=>{v.currentTime=+b.dataset.t;v.play().catch(()=>{});}));
+function tick(){
+  const t=v.currentTime;
+  chs.forEach(c=>{const a=+c.dataset.t,b=+c.dataset.end;c.classList.toggle('on',t>=a&&t<b);
+    c.style.setProperty('--p',(t>=b?100:t<=a?0:(t-a)/(b-a)*100)+'%');});
+}
+v.addEventListener('timeupdate',tick);v.addEventListener('seeked',tick);tick();
+
+const track=v.addTextTrack('captions','English','en');
+CUES.forEach(c=>track.addCue(new VTTCue(c[0],c[1],c[2])));
+track.mode='hidden';
+const cc=document.getElementById('cc');
+cc.addEventListener('click',()=>{const on=track.mode!=='showing';track.mode=on?'showing':'hidden';
+  cc.setAttribute('aria-pressed',on);cc.textContent='Captions '+(on?'on':'off');});
+
+function mmss(t){t=Math.max(0,t);return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');}
+function cueAt(t){let k=-1;CUES.forEach((c,i)=>{if(c[0]<=t)k=i;});return k;}
+function chapterAt(t){let k=0;chs.forEach((c,i)=>{if(+c.dataset.t<=t)k=i;});return k;}
+
+const lost=document.getElementById('lost'), panel=document.getElementById('panel'), status=document.getElementById('status');
+const note=document.getElementById('note'), where=document.getElementById('where'), quote=document.getElementById('quote');
+const save=document.getElementById('save'), cancel=document.getElementById('cancel');
+const box=document.getElementById('mine'), list=document.getElementById('notes'), count=document.getElementById('count');
+let db=null, moment=null;
+
+function openPanel(){
+  v.pause();
+  const t=v.currentTime, k=cueAt(t), ch=chapterAt(t);
+  moment={t:Math.round(t*10)/10, chapter:'s'+(ch+1), chapter_title:titles[ch],
+          sentence:k>=0?CUES[k][3]:null, sentence_text:k>=0?CUES[k][2]:'',
+          previous:k>0?CUES[k-1][3]:null, previous_text:k>0?CUES[k-1][2]:''};
+  where.textContent=mmss(t)+' · '+titles[ch];
+  quote.replaceChildren();
+  if(moment.previous_text){const p=document.createElement('span');p.className='prev';p.textContent=moment.previous_text;quote.append(p);}
+  quote.append(document.createTextNode(moment.sentence_text||'(before the narration starts)'));
+  panel.hidden=false;note.focus();status.textContent='';
+}
+function closePanel(){panel.hidden=true;note.value='';moment=null;lost.focus();}
+lost.addEventListener('click',openPanel);
+cancel.addEventListener('click',closePanel);
+save.addEventListener('click',async()=>{
+  if(!db||!moment)return;
+  save.disabled=true;
+  const body=Object.assign({},moment,{note:note.value.trim().slice(0,2000),version:VERSION,at:new Date().toISOString()});
+  try{
+    await db.collection('feedback').add(body);
+    status.textContent='Saved at '+mmss(body.t)+'. The tutor reads these and revises that part.';
+    closePanel();
+  }catch(e){
+    status.textContent=e&&e.code==='quota_exceeded'?'The notes store is full; delete some notes below.'
+      :'Could not save this note. Try again in a moment.';
+  }finally{save.disabled=false;}
+});
+
+function render(snap){
+  const docs=snap.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.t-b.t);
+  box.hidden=docs.length===0;
+  count.textContent=docs.length+(docs.length===1?' note':' notes')+' saved';
+  list.replaceChildren(...docs.map(d=>{
+    const li=document.createElement('li');
+    const t=document.createElement('button');t.className='t';t.type='button';t.textContent=mmss(d.t);
+    t.addEventListener('click',()=>{v.currentTime=Math.max(0,d.t-3);v.play().catch(()=>{});});
+    const txt=document.createElement('span');txt.className='txt';
+    if(d.note){txt.textContent=d.note;}else{const i=document.createElement('i');i.textContent='(no note) '+(d.chapter_title||'');txt.append(i);}
+    const x=document.createElement('button');x.className='x';x.type='button';x.textContent='Delete';
+    x.setAttribute('aria-label','Delete the note at '+mmss(d.t));
+    x.addEventListener('click',()=>db.doc('feedback/'+d.id).delete().catch(()=>{status.textContent='Could not delete that note.';}));
+    li.append(t,txt,x);return li;}));
+}
+
+(async()=>{
+  try{db=await (window.claude&&window.claude.use?window.claude.use('db'):null);}catch(e){db=null;}
+  if(!db)return;
+  lost.hidden=false;
+  db.collection('feedback').onSnapshot(render,()=>{box.hidden=true;});
+})();
+</script>

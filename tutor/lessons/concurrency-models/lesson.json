@@ -1,0 +1,2 @@
+{"title": "Share Memory, or Pass Messages?", "version": "v1", "poster": ["s7_08", -0.2],
+ "description": "Threads with locks, actors and channels: which concurrency bugs passing messages rules out, and which it doesn't."}
