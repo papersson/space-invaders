@@ -1,6 +1,7 @@
-# Share Memory, or Pass Messages?
+You are a script editor for educational videos. Below is the author's stated question, takeaway and objectives, and the script with a note of what is on screen. Judge the narrative, not the facts. For each finding give severity (BLOCKING / SHOULD FIX / NIT), the quote and a concrete rewrite. Tests: (1) does the opening raise one question that the ending answers, calling back to the opening; (2) write each segment as one sentence joined by "but", "therefore" or "and then", show the chain, and report every "and then"; (3) list ideas that are announced rather than derived from a visible problem; (4) list setups without payoffs and payoffs without setups; (5) list terms used before they are explained and concepts with more than one name; (6) list every number, name the two or three worth remembering, and flag numbers that do no work; (7) flag abstractions that arrive before the concrete case; (8) name the wrong intuition the video confronts and say whether it is shown failing; (9) flag examples that are named but not understood; (10) flag on-screen text that repeats the narration and pictures that do not support the line; (11) list lines that could be deleted without breaking anything; (12) flag sentences hard to follow aloud, and judge whether any beat is rushed or padded (there is no length target). End with "VERDICT: PASS" if there are no BLOCKING items, otherwise "VERDICT: REVISE".
 
-Status: in review round 5
+
+---
 
 ## Argument
 
@@ -19,6 +20,7 @@ Status: in review round 5
 4. Show that message passing still allows a race condition (check, then act) and a deadlock, and fix the race by making the check and the action one message.
 5. Say what each model makes automatic and what it leaves to the programmer.
 
+
 ## Chain
 
 1. The question: two deposits, one vanishes. Go says pass messages. Does that make such bugs go away?
@@ -32,39 +34,6 @@ Status: in review round 5
 
 Deviation from the canonical progression: condition synchronization (producer-consumer) is left out; the research lists it as standard in textbooks but not needed to answer this question. The shared counter from OSTEP ch. 26 is used only as the measured evidence for the bank example.
 
-## Format
-
-| Chapter | Format | Why |
-|---|---|---|
-| 1-3 | Narrated animation | Interleaving is order over time: two timelines of read, add, write, with the shared balance changing between them; a wait-for cycle closing. |
-| 4-5 | Narrated animation | A mailbox draining one message at a time, and a rendezvous where the sender waits for the receiver: both are motion. |
-| 6-7 | Narrated animation | The same timelines as chapter 2, one level up (messages instead of memory steps). |
-| 8 | Narrated animation | Payoff: the table of what each model rules out and what it leaves. |
-| (not built) | Hands-on exercise | "Play the scheduler": step two threads by hand to find the interleaving that loses a deposit, then run the Go programs from this lesson with the race detector and watch the deadlock hang. The research names doing as the way nondeterminism is believed; offered, not added, since the learner wants only the video on the page. |
-| (not built) | Reading | The per-language guarantees (what Erlang, Akka, Go, Rust and Swift each enforce, and which are conventions). Reference detail with many qualifiers; better read than heard. |
-
-## Ledgers
-
-**Setups and payoffs.**
-- The vanishing deposit (ch. 1) is explained in ch. 2, fixed with a lock in ch. 3 and with one owner in ch. 4.
-- The three steps "read, add, write" (ch. 2) return as "which steps must happen as one" (ch. 3, 6, 8).
-- The lock deadlock (ch. 3) returns without locks in ch. 7.
-- Go's slogan (ch. 1) is answered in ch. 8, with Go's own advice.
-- "Data race" vs "race condition" (ch. 2) pays off in ch. 6: a race condition with no data race.
-
-**Vocabulary.**
-| Term | First use | Meaning |
-|---|---|---|
-| race condition | ch. 2 | a bug where the result depends on the timing of concurrent steps |
-| data race | ch. 2 | two threads access the same memory, at least one writing, with nothing forcing an order between them |
-| lock | ch. 3 | something only one thread can hold at a time; others that want it wait |
-| deadlock | ch. 3 | each of a group waits for something another holds, so none can go on |
-| actor | ch. 4 | a part of a program with private state and a mailbox; handles one message at a time |
-| mailbox | ch. 4 | the queue of messages waiting for an actor |
-| channel | ch. 5 | a connection that processes send values into and receive them from |
-| CSP | ch. 5 | communicating sequential processes: Hoare's model of processes that share nothing and communicate |
-
-**Numbers to remember.** Three: the vanished deposit ($150 instead of $200); the shared counter ends millions short of twenty million; in real Go projects, most of the bugs that hang came from message passing (49 of 85).
 
 ## Script
 
@@ -132,10 +101,10 @@ No length target: the length follows the argument (about 150 words per minute).
 > But because an actor's send doesn't wait, a cash machine never learns when its request was taken. The other message-passing family is built the opposite way: a send waits for a receiver.
 > It comes from Tony Hoare's communicating sequential processes, or CSP, and Go's channels come out of this tradition.
 > Processes share nothing, and talk over channels. A channel is a connection that processes send values into and receive them from.
-> A Go channel made without a buffer, which is the default, makes a send wait until a receiver takes the value. So when a send finishes, the sender knows its value was taken.
+> A Go channel made without a buffer, which is the default, makes a send wait until a receiver takes the value. So when a send finishes, the sender knows its value was taken. A channel can also be given a buffer; then a send waits only when the buffer is full.
 > The account becomes a process that owns the balance, and receives deposits from a channel, one at a time. Again, no data race on the balance.
-> Go also lets its goroutines, its lightweight threads, share memory. So in Go, one owner is a habit the programmer keeps, as in Akka.
-> Actors and channels differ in the plumbing. An actor has an address and a mailbox, and sending doesn't wait. A channel is its own object, passed around between processes, and by default a send waits for the receiver.
+> Go also lets its goroutines, its lightweight processes, share memory. So in Go, one owner is a habit the programmer keeps, as in Akka.
+> Actors and channels differ in the plumbing. An actor has an address and a mailbox, and sending doesn't wait. A channel is its own object, passed around between processes, and a send waits for the receiver.
 
 *Screen:* the account as a process box "balance" with a channel (a pipe) entering it. Side by side with the chapter 4 actor: on the left, machine A drops an envelope in the mailbox and walks on; on the right, machine A's send stops (a "waiting" bar) until the account takes the value, then both move on together. Label: "Go: goroutines + channels". Then a side-by-side: "actor: address + mailbox, send doesn't wait" vs "channel: a separate object, send waits for the receiver (unbuffered)".
 
@@ -158,8 +127,8 @@ No length target: the length follows the argument (about 150 words per minute).
 > Make each account its own process, with a channel. To transfer, an account sends "credit thirty" to the other account, and waits until the other account takes it.
 > Start a transfer from A to B, and one from B to A, at the same moment. A is waiting for B to take its message. B is waiting for A to take its message. Neither is listening, because each is stuck in its own send.
 > It's the lock deadlock again: a cycle of waiting, without a single lock. In a thousand runs, both accounts got stuck in about half.
-> The fix follows the same rule as for locks: break the cycle. Here, an account can hand the send to a helper, a separate goroutine that waits in its place, and keep listening, instead of waiting in the middle of a transfer. Now nothing inside the account is ever stuck in a send. In the same test, nothing got stuck.
-> Sending to an actor never waits. But often an actor needs an answer, not just delivery. It sends a request, and then won't handle anything else until the reply lands in its mailbox. If two actors do that to each other at the same moment, each waits on the other forever.
+> The fix follows the same rule as for locks: break the cycle. Here, an account can hand the send to a helper and keep listening, instead of waiting in the middle of a transfer. Now nothing inside the account is ever stuck in a send. In the same test, nothing got stuck.
+> Sending to an actor never waits. But often an actor needs an answer. It sends a request, then waits for the reply to arrive in its mailbox. If two actors do that to each other at the same moment, both wait forever.
 > A study of real concurrency bugs in six widely used Go projects sorted them two ways.
 > Among the bugs that gave wrong results, message passing caused only about one in five. But among the bugs where code hung, it caused more than half.
 
@@ -171,64 +140,7 @@ No length target: the length follows the argument (about 150 words per minute).
 > But its cousins remain: a check and an action split across two messages, and processes waiting on each other in a circle.
 > So one owner per piece of state rules out data races on it: by the structure of the program, not by everyone remembering a lock. That holds wherever the language enforces the ownership. It's a real gain, and it's why the slogan exists.
 > Two decisions are left in each of these models. You still choose which steps must happen as one: what a lock covers, or what one message does. And you still have to keep waits from forming a cycle.
-> So neither model is simply the safe one. They differ in what each makes easy, and what each makes easy to forget.
-> Even the Go documentation that gives the slogan adds that it can be taken too far. Go's advice is to use whichever is most expressive, or simplest, for the job: channels to hand work or data from one part of a program to another, and a lock to guard a piece of shared state.
+> So neither model is simply the safe one. They differ in what each makes easy, and what each makes easy to forget. Go's own advice is to use whichever is most expressive, or simplest, for the job: channels to hand work or data from one part of a program to another, and a lock to guard shared state, like a cache.
 
 *Screen:* the chapter 1 scene: two deposits into the actor, balance $200 (ICE). Then a table, rows "data race", "race condition (check, then act)", "deadlock"; columns "threads + locks", "actors", "channels". Data race: "only if every access takes the lock" / "ruled out for the actor's own state, where enforced (Erlang); by convention in Akka" / "ruled out for the owner's state, by convention in Go". Race condition: "possible" in all three. Deadlock: "possible" in all three. Then the two decisions as two lines: "which steps happen as one", "no cycle of waits". End card with the takeaway and references: Butcher, Seven Concurrency Models in Seven Weeks (2014), ch. 2, 5, 6; Hoare, "Communicating Sequential Processes", CACM (1978); Hewitt, Bishop & Steiger, IJCAI (1973); Goetz et al., Java Concurrency in Practice (2006), ch. 2 and 10; Tu et al., "Understanding Real-World Concurrency Bugs in Go", ASPLOS (2019); Lauer & Needham, "On the Duality of Operating System Structures", Operating Systems Review (1979); Go wiki, "Use a sync.Mutex or a channel?".
 
-## Evidence
-
-| Claim | Source |
-|---|---|
-| Go's slogan, "Do not communicate by sharing memory; instead, share memory by communicating." | Effective Go, "Share by communicating" |
-| A deposit or increment is read, add, write; interleavings lose updates (lost update) | OSTEP ch. 26 (counter trace table); MIT 6.031 Reading 19 (bank, cash machines); JCIP §2.2 read-modify-write |
-| Race condition: correctness depends on timing or interleaving | JCIP §2.2.1; MIT 6.031 R19 |
-| Two 3-step deposits have C(6,3) = 20 orderings; only the 2 where one finishes before the other starts keep both deposits | counted: a deposit is lost unless one write precedes the other read (OSTEP ch. 26 trace table shows one losing order) |
-| A program with a data race has undefined behaviour in C and C++ | C11 §5.1.2.4; C++11 [intro.multithread]; Boehm & Adve, PLDI 2008 |
-| Data race: two accesses to the same memory, at least one a write, not ordered by synchronization | Go memory model; Rustonomicon "Races"; Regehr, "Race Condition vs. Data Race" (2011) |
-| Counter: 2 threads × 10,000,000 unlocked increments ended at 10,205,576 / 10,282,771 / 11,714,006 / 10,959,423 / 10,149,830; with a lock, 20,000,000 in 3 of 3 runs | sims/counter.c, data/runs.txt (gcc 13.3 -O2, 4 CPUs) |
-| A lock protects only code that takes it; thread safety is a whole-program property | JCIP ch. 2-4 |
-| Transfer locking from-account then to-account deadlocks when run in opposite directions; fixed lock order prevents it | JCIP §10.1.2 (transferMoney), OSTEP ch. 32; Coffman et al. (1971), circular wait |
-| 1,000 runs of opposite transfers with a little work between the two locks: stuck in 989; with lower-number-first: 0 | sims/locks, data/runs.txt |
-| Lock ordering must be followed by all code that takes the locks; not modular | MIT 6.031 R23; JCIP §10.1.3-10.1.4 (alien methods, open calls) |
-| Actor: private state, mailbox, asynchronous sends, one message at a time | Hewitt, Bishop & Steiger (1973); Agha (1986); Butcher (2014) ch. 5 |
-| Erlang processes share no memory by default and messages are copied; ETS tables are opt-in shared storage; Akka's private state is by convention | Armstrong thesis (2003); Akka docs ("Messages should be immutable"); Butcher ch. 5 |
-| CSP: Hoare, 1978; processes share nothing and communicate; Go's channels come out of this tradition (via Newsqueak, Alef, Limbo); an unbuffered Go send waits for the receiver | Hoare, CACM 21(8), 1978; Go FAQ, "Why build concurrency on the ideas of CSP?"; Pike, "Go Concurrency Patterns" (2012); Go memory model, channel rules |
-| Go also allows shared memory | Go memory model; `sync` package; Go wiki MutexOrChannel |
-| Actor vs channel differences: identity/mailbox vs separate channel; asynchronous vs rendezvous | Wikipedia "Communicating sequential processes", comparison with the actor model; Butcher ch. 5-6 |
-| Check-then-act over messages races; fix with a "withdraw if sufficient funds" operation | MIT 6.031 R19/R22 |
-| Two messages: overdrawn in 1,703 of 100,000 runs; one message: 0 of 100,000 | sims/race, data/runs.txt (Go 1.24.7) |
-| Channel deadlock between two account processes: stuck in 482 of 1,000 runs; with the send handed to a helper goroutine: 0 of 1,000 | sims/deadlock, data/runs.txt |
-| Message-passing deadlocks are fixed by breaking the cycle of waits (e.g. not blocking on a send while others wait on you) | sims/deadlock; JCIP §10.1.4 (open calls: don't block on others while holding what they need); MIT 6.031 "Queues and Message-Passing" (deadlock with full queues) |
-| Actors deadlock when they wait for replies (request/reply cycles) | Erlang gen_server:call docs; Orleans "Request scheduling"; Akka ask |
-| Go study: 171 bugs, six projects; hanging (blocking) bugs 49 message passing vs 36 shared memory; non-blocking 17 vs 69 | Tu, Liu, Song & Zhang, ASPLOS 2019, Tables 6 and 9, Observation 3 (checked, research/verified_tu2019.md) |
-| Neither model is inherently preferable; each can be built from the other | Lauer & Needham, Operating Systems Review 13(2), 1979 (presented 1978); Hoare 1978 §5.2 (semaphore as a process); Go runtime: `hchan` holds a `lock mutex` (runtime/chan.go, Go 1.24.7) |
-| Go advice: "Use whichever is most expressive and/or most simple"; channels for passing ownership and distributing work, mutexes for caches and state; Effective Go: "This approach can be taken too far." | Go wiki, "Use a sync.Mutex or a channel?" |
-
-## Review log
-
-**Round 1:** expert PASS, editor REVISE, student retold the question and answer correctly (lost "a few times").
-- Editor, blocking: the move from locks to message passing was announced, not derived. Chapter 4 now opens from chapter 3's weakness: a lock can be forgotten because every thread can still reach the balance; if nothing else could reach it, there would be no lock to forget.
-- Editor: the ending now answers the opening's concrete question (the vanishing deposit can't happen with one owner) before naming the cousins that remain; the wrong intuition is voiced just before it breaks ("it looks like the slogan wins"); the Erlang/Akka line now does work (enforced vs convention), and Go's shared memory is tied to it; "first published in 1978" and the unused name "rendezvous" are cut; the study's project names left narration (kept on screen); the five eight-digit counter results became rounded bars; the chapter 2 captions no longer restate the narration (checkmarks on the diagram instead); the duality claim gets its own beat and picture; "the paying account first, then the receiving account".
-- Expert: "Go, its best-known descendant" overstated the lineage (occam is the direct descendant; Go comes via Newsqueak, Alef, Limbo); now "Go's channels come out of this tradition". "Neither model can do anything the other can't" is now about expressiveness, followed by "that doesn't make them equally convenient". "Every model" is now "each of these models". A lost update is now called the mild outcome of a data race (C and C++ promise nothing). The counter range is "about ten point seven and thirteen million". Lauer & Needham cited as Operating Systems Review, 1979.
-- Student: race condition and data race are now separated, and the data race's three conditions are three short sentences with a checkmark each; an actor waiting for a reply is now explained (sending never waits, but an actor that needs an answer waits for the reply in its mailbox); the study's denominators are spoken (86 wrong results, 85 hangs, 171 in all).
-- Student question, not taken as a change: whether every data race is a race condition. Chapter 6 shows the two differ (a race condition with no data race); the full relationship (Regehr's 2×2) is reading, not narration.
-
-**Round 2:** editor PASS, expert REVISE, student retold the question and answer correctly (lost "a few times").
-- Expert, blocking: Erlang processes "can't share variables at all" was false: ETS tables let processes share mutable state. Now "don't share memory by default … shared tables exist only for a process that opts in".
-- Expert: "nothing is shared" is now "at least in the code you write" (chapter 8 shows a channel has a lock inside); "Go also lets goroutines share memory" (not threads); the duality is scoped to coordinating access to shared state; Go's advice quotes "most expressive, or simplest".
-- Editor: channels are now introduced by the difference that motivates them (an actor's sender never knows when its message was taken; a channel send tells you); the channel deadlock now gets a tested fix like the lock deadlock (hand the send to a helper and keep listening: 0 of 1,000 stuck), which needed a rerun of every simulation, so all numbers in the script now come from the new data/runs.txt; the duality line now says what to do with it (what differs is what each makes easy, and easy to forget); the qualifier-stacked sentence is split; the study sentence says "forty-nine came from message passing: more than half".
-- Student: the two race terms are now tied together (race condition is about the result, data race about how memory is used; here both apply); the actor-vs-channel "does sending wait" contrast is now shown side by side rather than stated in consecutive chapters only.
-- Not taken: a fourth chapter-5 beat animating CSP further (the side-by-side send now carries it).
-
-**Round 3:** editor PASS, expert REVISE, student retold the question and answer correctly (lost "a few times").
-- Expert, blocking: "most orders of the six steps are fine" was backwards: of the 20 orderings, only the 2 where one deposit finishes before the other starts are safe. Now said so, with the reason the bug is still intermittent (the deposits usually don't overlap). The data-race checkmark now reads "at least one writes", matching the definition.
-- Expert: channel sends wait only on an unbuffered channel (the default); now spoken, with what a buffer changes. The chapter 8 table's "ruled out" is hedged (enforced in Erlang; convention in Akka and Go). "Two broad families … there are others". Not taken: running the locked counter five times (it would change every other number; the screen says 3 runs).
-- Editor: channels are introduced by what actors leave open (a sender never learns when its request was taken); the hand-off fix says why it works; the duality aside is cut from the ending, which now lands on "neither model is simply the safe one"; the study is spoken as ratios (about one in five; more than half), with counts on screen; "goroutines" is glossed; the Erlang sentence is split.
-- Student: "promise nothing" now says what it means (not even that a read returns a value some thread wrote); the counter test is named as a small C program; "unbuffered" is spoken and explained.
-
-**Round 4:** editor PASS, expert REVISE, student retold the question and answer correctly (lost "a few times").
-- Expert, blocking: goroutines were glossed as "lightweight processes", contradicting the script's own use of "process" (shares nothing) and Go's docs ("a lightweight thread managed by the Go runtime"). Now "lightweight threads". The closing actor-vs-channel line now says "by default a send waits".
-- Editor: the buffered-channel aside is cut (never used again; "made without a buffer, which is the default" keeps the precision); an actor waiting for a reply now says it won't handle anything else until the reply lands; the Go advice now follows from the slogan (Effective Go itself says it "can be taken too far"), and "like a cache" is gone.
-- Editor, not taken: motivating channels as "actors guarantee delivery, not confirmation" (actor delivery isn't guaranteed in Erlang or Akka, so the sentence would be wrong); cutting the Go advice entirely (it answers the chapter 1 slogan with its own source's caveat).
-- Student: the channel-deadlock fix now says what the helper is (a separate goroutine that waits in the account's place).

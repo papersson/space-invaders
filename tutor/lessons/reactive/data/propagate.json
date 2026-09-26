@@ -6,7 +6,7 @@
   "tax": 4,
   "total": 44,
   "free_shipping": false,
-  "banner": "Spend $50 for free shipping"
+  "banner": "Spend $65 for free shipping"
  },
  "naive": [
   [
@@ -53,11 +53,11 @@
   ],
   [
    "free_shipping",
-   true
+   false
   ],
   [
    "banner",
-   "Free shipping!"
+   "Spend $65 for free shipping"
   ],
   [
    "tax",

@@ -1,72 +1,7 @@
-# What the Spreadsheet Knows
+You are a professor who has taught this material for years. Below is the script of a short narrated explainer video, with a note of what is on screen at each moment, followed by the list of numbers it uses and where each comes from. Review it for correctness and canonicity. You are the only domain expert who will see it before it is produced, so be exacting. Report every problem with: severity (BLOCKING = wrong, misleading, or non-canonical in a way a professor would object to; SHOULD FIX = imprecise, a missing caveat, non-standard terminology; NIT), the exact quote, what is wrong, and the corrected wording. Check every factual and numerical claim including arithmetic and units; that terminology and notation match the standard sources and simplifications teach nothing false; whether anything essential is missing or anything peripheral gets too much weight; and overstated claims about optimality, generality and real systems. End with "VERDICT: PASS" if there are no BLOCKING items, otherwise "VERDICT: REVISE".
 
-Status: locked after review round 2
 
-## Argument
-
-**Question.** In ordinary code, `total = subtotal + tax` runs once. Change the quantity later and the total is stale until someone remembers to recompute it. In a spreadsheet, change a cell and every formula that depends on it updates, correctly. Build tools and UI frameworks do the same job. How does a system that keeps derived values up to date decide what to recompute, and in what order, and what goes wrong when it gets that wrong?
-
-**Answer.** It keeps a dependency graph: for each formula, the values it reads. A change makes everything downstream out of date. The obvious approach, where each changed value immediately tells its readers to recompute (the observer pattern), breaks on a diamond: a value reached by two paths is computed from one fresh and one stale input, briefly showing a total that was never true (a glitch), and is computed twice; stacked diamonds double the work each time. The fix is order: mark everything downstream as out of date, then recompute in dependency order, each value once, after all its inputs. Two refinements save work: stop where a recomputed value didn't change, and don't compute what nobody is looking at. The graph must be complete: systems that record what each formula actually read get it right; a dependency declared by hand and forgotten gives a stale result; a cycle has no order at all.
-
-**Takeaway.** A reactive system is a dependency graph plus two answers: what is out of date, and in what order to recompute it. Recompute in dependency order, each value once, and stop where nothing changed.
-
-**Wrong model.** When a value changes, just notify everything that uses it (the observer pattern); as long as everything eventually gets recomputed, the order doesn't matter.
-
-**Objectives.**
-1. Describe a dependency graph and which values a change makes out of date.
-2. Explain why notifying dependents immediately produces a glitch and repeated work on a diamond, and why stacked diamonds make it exponential.
-3. Explain the fix: mark, then recompute in dependency (height) order, each value once.
-4. Explain early cutoff and laziness.
-5. Explain why dependencies are recorded as formulas run, what a forgotten dependency does, and why a cycle can't be ordered.
-6. Recognize the same machine in spreadsheets, build systems and UI frameworks.
-
-## Chain
-
-1. The question: code computes a total once; a spreadsheet keeps it right. How does it decide what to recompute, and in what order?
-2. Therefore a dependency graph: each formula's inputs. A change makes everything downstream out of date, and nothing else.
-3. The obvious way: each value tells its readers to recompute right away. But on a diamond, the total is computed from a fresh subtotal and a stale tax: $64, a total that never existed. And it's computed twice.
-4. But stack diamonds and the repeated work doubles each time: ten diamonds, 1,024 recomputations of the last value.
-5. Therefore two phases: mark everything downstream, then recompute in height order, each once, after its inputs. No glitch, no repeats.
-6. But the ordered wave still does needless work. Therefore do less: stop where a value didn't change (early cutoff); don't compute what nobody reads (laziness).
-7. But the order is only as good as the graph: dependencies must be recorded as formulas run; a forgotten one gives a stale result (Make); a cycle has no order (Excel's circular reference).
-8. Therefore the answer: spreadsheets, build systems and UI frameworks are the same machine; recompute in dependency order, each once, stop where nothing changed.
-
-Deviation from the canonical progression: the observer pattern's other problems (leaked listeners, side effects) are left out; the research lists them as standard but the diamond carries the argument. Push-pull is introduced only as "don't compute what nobody reads".
-
-## Format
-
-| Chapter | Format | Why |
-|---|---|---|
-| 1-2 | Narrated animation | A sheet of cells turning into a graph; a change lighting up everything downstream. |
-| 3-5 | Narrated animation | Order over time on a fixed graph: the naive wave with its glitch, the doubling, then the ordered wave. The research names this as where animation fits best. |
-| 6-7 | Narrated animation | A wave stopping at an unchanged value; a Make run shown as a terminal; a cycle that can't be ordered. |
-| 8 | Narrated animation | Payoff: the same graph under three labels. |
-| (not built) | Interactive sandbox | A small spreadsheet where the learner edits a cell, picks an update strategy (notify immediately, height order, with or without cutoff) and sees counters for recomputations and glitches. The research names prediction and manipulation as where misconceptions surface; offered, not added, since the learner wants only the video on the page. |
-| (not built) | Hands-on exercise | Build a 50-line signal library, then break it with a diamond. Offered, not added. |
-
-## Ledgers
-
-**Setups and payoffs.**
-- The stale total in code (ch. 1) is what the dependency graph fixes (ch. 2).
-- The diamond (ch. 3) returns stacked (ch. 4), fixed by height order (ch. 5).
-- The $64 glitch (ch. 3) is the thing the ordered wave never shows (ch. 5).
-- "Free shipping" (ch. 1) is where early cutoff stops the wave (ch. 6).
-- "Spreadsheets, build tools, UI frameworks" (ch. 1) return as the same machine (ch. 8).
-
-**Vocabulary.**
-| Term | First use | Meaning |
-|---|---|---|
-| formula / derived value | ch. 1 | a value computed from other values |
-| dependency graph | ch. 2 | an arrow from each value to every formula that reads it |
-| out of date | ch. 2 | a derived value whose inputs have changed since it was computed |
-| observer pattern | ch. 3 | a changed value calls everything that subscribed to it |
-| diamond | ch. 3 | a value that reaches another by two different paths |
-| glitch | ch. 3 | a value computed from a mix of new and old inputs, one that should never be seen |
-| height | ch. 5 | 0 for an input; for a formula, one more than the highest of its inputs |
-| early cutoff | ch. 6 | if a recomputed value didn't change, its readers are left alone |
-| circular reference | ch. 7 | a formula that, through others, depends on itself |
-
-**Numbers to remember.** The $64 glitch (the right totals are $44 and $66); ten stacked diamonds: 1,024 recomputations instead of 1.
+---
 
 ## Script
 
@@ -106,7 +41,7 @@ No length target: the length follows the argument (about 150 words per minute).
 
 ### 4. Diamonds multiply
 
-> A spreadsheet or a user interface can contain many diamonds, and when they chain one after another, the cost compounds.
+> A spreadsheet or a user interface is full of diamonds, and they chain one after another.
 > In the observer pattern, each diamond makes everything after it run twice. Two diamonds in a row make the last value run four times. Three make it eight.
 > With ten diamonds in a row, a single change recomputes the last value one thousand and twenty-four times. With twenty, over a million.
 > Recomputing everything in the right order would compute each value exactly once.
@@ -157,6 +92,7 @@ No length target: the length follows the argument (about 150 words per minute).
 
 *Screen:* the cart graph once more, with the ordered wave: 60, 6, 66, yes. Two questions as two lines: "what is out of date? → everything downstream" and "in what order? → by height, once each, stop where unchanged". Then the same graph shape relabelled three times: cells (Excel), files (Make, Bazel), UI state (Vue, Solid, Angular signals). End card with the takeaway and references: Bainomugisha et al., "A Survey on Reactive Programming", ACM Computing Surveys (2013); Mokhov, Mitchell & Peyton Jones, "Build Systems à la Carte", ICFP (2018); Cooper & Krishnamurthi, "Embedding Dynamic Dataflow in a Call-by-Value Language" (FrTime), ESOP (2006); Microsoft, "Excel Recalculation"; Minsky, "Seven Implementations of Incremental" (2016).
 
+
 ## Evidence
 
 | Claim | Source |
@@ -177,17 +113,3 @@ No length target: the length follows the argument (about 150 words per minute).
 | Vue, Solid and Angular signals track dependencies at run time | Vue "Reactivity in Depth"; Carniato, "A Hands-on Introduction to Fine-Grained Reactivity" (2021); Angular signals guide |
 | Bazel: build graph with content-based caching and dependency tracking | BSALC §2.4 |
 
-## Review log
-
-**Round 1:** expert PASS, editor PASS, student retold the question and answer correctly (lost "a few times"). The gate is passed; the should-fix items are applied once, and round 2 decides the lock.
-- Expert: the glitch didn't change a decision (64 and 66 were both over $50). The threshold is now $65, so the free-shipping check runs on 64 and says "no" though the answer is "yes" (the simulation and the Make demo were rerun with the new numbers; Make now edits 65 → 75). Excel's circular reference now mentions iterative calculation; Make now mentions compiler-generated dependencies; the coupon formula is framed as a different cart; heights are recomputed with the graph. Push-pull is no longer named in narration (the sentence only added a label), and the laziness evidence cites signals libraries alongside Elliott.
-- Editor: cutoff and laziness are now motivated by the waste the ordered wave still does; the naive approach has one name after its first description (the observer pattern); heights are introduced concrete-first; the redundant chapter 3 caption and the 20-diamond table row are gone; "height order, lowest first" in the answer; the chapter 8 sentence is split.
-- Student: the arbitrary notification order is now said aloud ("whichever subscribed first; nothing in the pattern decides"); Make is introduced (a Makefile lists what each output is built from); "recompute only the marked values"; the ordered wave now pays off the free-shipping decision.
-- Not taken: cutting the coupon aside (objective 5 needs a reason why dependencies are recorded at run time).
-
-**Round 2 (final):** expert PASS, editor PASS, student retold the question and answer correctly (lost "a few times"). Locked.
-- Applied after lock, because it was a factual overstatement: "a spreadsheet or a user interface is full of diamonds, and they chain one after another" is now "can contain many diamonds, and when they chain one after another, the cost compounds" (the expert's wording; the stacked chain is a worst case, not typical). The Chain section's step 6 connector now matches the script ("but … therefore").
-- Logged as revision candidates for the learner's notes, not applied, per the stopping rule:
-  - Expert: the height-order guarantee assumes the graph doesn't change mid-update; chapter 5 doesn't say so, and chapter 7 doesn't tie back.
-  - Editor: chapter 7 carries three ideas (dynamic dependencies, Make's stale build, cycles); cycles are asserted rather than shown in the cart, and Excel's iterative calculation is named but not used; the coupon cart's graph change isn't shown recomputing; the closing names (Vue, Solid, Angular signals, Bazel) aren't anchored.
-  - Student: lost at the diamond-doubling leap (chapter 4), the vocabulary cluster in chapter 3, and the density of chapter 7.

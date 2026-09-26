@@ -1,0 +1,319 @@
+WEBVTT
+
+00:00:00.800 --> 00:00:04.249
+An online cart holds two items at twenty dollars each.
+
+00:00:04.299 --> 00:00:09.917
+The subtotal is forty dollars, tax at ten percent is four, and the total is forty-four.
+
+00:00:10.167 --> 00:00:13.194
+In ordinary code, the total is computed once.
+
+00:00:13.244 --> 00:00:21.206
+If the customer changes the quantity to three, the total still says forty-four, until some piece of code remembers to compute it again.
+
+00:00:21.456 --> 00:00:24.018
+In a spreadsheet, you never have to remember.
+
+00:00:24.068 --> 00:00:30.099
+Change the quantity, and the subtotal, the tax and the total all update, correctly, every time.
+
+00:00:30.349 --> 00:00:37.489
+Build tools do the same with files: change one source file, and exactly the parts that depend on it are rebuilt.
+
+00:00:37.539 --> 00:00:41.679
+So do many UI frameworks: change a value, and the screen updates.
+
+00:00:41.929 --> 00:00:46.250
+How does a system like that decide what to recompute, and in what order?
+
+00:00:46.300 --> 00:00:48.413
+And what goes wrong when it gets that wrong?
+
+00:00:52.163 --> 00:00:55.289
+Say the shop gives free shipping from sixty-five dollars.
+
+00:00:55.539 --> 00:00:57.981
+Each formula reads some other values.
+
+00:00:58.031 --> 00:01:00.760
+The subtotal reads the price and the quantity.
+
+00:01:00.810 --> 00:01:02.777
+The tax reads the subtotal.
+
+00:01:02.827 --> 00:01:05.494
+The total reads the subtotal and the tax.
+
+00:01:05.544 --> 00:01:10.402
+Free shipping reads the total, and the banner at the top of the cart reads free shipping.
+
+00:01:10.652 --> 00:01:16.546
+Draw an arrow from each value to every formula that reads it, and you have a dependency graph.
+
+00:01:16.796 --> 00:01:19.375
+When the quantity changes, follow the arrows.
+
+00:01:19.425 --> 00:01:25.823
+Everything you can reach is now out of date: the subtotal, the tax, the total, free shipping, the banner.
+
+00:01:26.073 --> 00:01:28.390
+Everything you can't reach is still correct.
+
+00:01:28.440 --> 00:01:33.414
+The price didn't change, and nothing it feeds needs recomputing because of this edit.
+
+00:01:34.964 --> 00:01:39.361
+The obvious way to update them is to let each value tell its readers.
+
+00:01:39.411 --> 00:01:43.200
+When the quantity changes, it tells the subtotal to recompute.
+
+00:01:43.250 --> 00:01:47.895
+The subtotal then tells each of its own readers, and so on down the arrows.
+
+00:01:48.145 --> 00:01:53.277
+This is the observer pattern, and it's how a lot of hand-written code keeps things in sync.
+
+00:01:53.527 --> 00:01:54.401
+Follow it.
+
+00:01:54.451 --> 00:01:58.137
+The quantity becomes three, and the subtotal becomes sixty.
+
+00:01:58.187 --> 00:02:01.563
+The subtotal has two readers, the tax and the total.
+
+00:02:01.613 --> 00:02:03.143
+Which does it tell first?
+
+00:02:03.193 --> 00:02:06.851
+Whichever subscribed first; nothing in the pattern decides.
+
+00:02:06.901 --> 00:02:08.177
+Say it's the total.
+
+00:02:08.427 --> 00:02:13.530
+The total adds the new subtotal, sixty, to the tax, which is still the old four.
+
+00:02:13.580 --> 00:02:15.418
+The total becomes sixty-four.
+
+00:02:16.668 --> 00:02:19.037
+Sixty-four was never a correct total.
+
+00:02:19.087 --> 00:02:23.537
+The right answer was forty-four before the change and sixty-six after it.
+
+00:02:23.587 --> 00:02:29.168
+And the free-shipping check runs on sixty-four, and says no, though the right answer is yes.
+
+00:02:29.218 --> 00:02:34.028
+A value like that, built from a mix of new and old inputs, is called a glitch.
+
+00:02:35.078 --> 00:02:38.320
+Then the subtotal tells the tax, which becomes six.
+
+00:02:38.370 --> 00:02:42.295
+The tax tells the total, which is computed again: sixty-six.
+
+00:02:42.345 --> 00:02:44.688
+Free shipping runs a second time too.
+
+00:02:44.938 --> 00:02:46.776
+The trouble comes from one shape.
+
+00:02:46.826 --> 00:02:51.394
+The subtotal reaches the total by two paths, directly and through the tax.
+
+00:02:51.444 --> 00:02:53.646
+A shape like that is called a diamond.
+
+00:02:55.396 --> 00:03:02.866
+A spreadsheet or a user interface can contain many diamonds, and when they chain one after another, the cost compounds.
+
+00:03:03.116 --> 00:03:07.626
+In the observer pattern, each diamond makes everything after it run twice.
+
+00:03:07.676 --> 00:03:11.496
+Two diamonds in a row make the last value run four times.
+
+00:03:11.546 --> 00:03:12.795
+Three make it eight.
+
+00:03:13.045 --> 00:03:19.820
+With ten diamonds in a row, a single change recomputes the last value one thousand and twenty-four times.
+
+00:03:19.870 --> 00:03:21.717
+With twenty, over a million.
+
+00:03:22.767 --> 00:03:27.912
+Recomputing everything in the right order would compute each value exactly once.
+
+00:03:28.862 --> 00:03:30.927
+So the fix works in two phases.
+
+00:03:31.177 --> 00:03:32.285
+First, mark.
+
+00:03:32.335 --> 00:03:36.918
+Follow the arrows from the change, and mark everything reachable as out of date.
+
+00:03:36.968 --> 00:03:38.763
+Nothing is computed yet.
+
+00:03:39.013 --> 00:03:40.723
+Then compute, in order.
+
+00:03:40.773 --> 00:03:43.238
+To get the order, give each value a height.
+
+00:03:43.288 --> 00:03:46.460
+The price and the quantity are inputs: height zero.
+
+00:03:46.510 --> 00:03:49.554
+The subtotal reads only inputs: height one.
+
+00:03:49.604 --> 00:03:52.290
+The tax reads the subtotal: height two.
+
+00:03:52.340 --> 00:03:55.704
+The total reads the tax, so it sits above it: height three.
+
+00:03:55.754 --> 00:03:58.410
+Free shipping is four, and the banner five.
+
+00:03:58.660 --> 00:04:02.725
+The rule: a value's height is one more than the highest height it reads.
+
+00:04:02.975 --> 00:04:06.551
+Recompute only the marked values, from the lowest height up.
+
+00:04:06.601 --> 00:04:11.501
+By the time a value is computed, every one of its inputs is already up to date.
+
+00:04:11.751 --> 00:04:16.439
+The total waits until the tax is six, and becomes sixty-six the first time.
+
+00:04:16.489 --> 00:04:22.825
+There's no sixty-four, and each value is computed once: five recomputations instead of eight.
+
+00:04:24.075 --> 00:04:30.149
+On the chain of ten diamonds, the last value runs once instead of a thousand and twenty-four times.
+
+00:04:30.399 --> 00:04:38.184
+Spreadsheets, build tools and reactive libraries all use some version of this: dependencies first, each value once.
+
+00:04:38.434 --> 00:04:42.438
+And the free-shipping check runs once, on sixty-six, and says yes.
+
+00:04:43.388 --> 00:04:51.849
+The ordered wave still recomputes everything downstream, even a value that comes out the same, and even a value nobody is looking at.
+
+00:04:51.899 --> 00:04:53.708
+Two refinements cut that out.
+
+00:04:53.958 --> 00:04:55.822
+The first is early cutoff.
+
+00:04:55.872 --> 00:04:58.528
+Change the quantity again, from three to four.
+
+00:04:58.578 --> 00:05:03.117
+The subtotal, the tax and the total all change: eighty, eight, eighty-eight.
+
+00:05:03.167 --> 00:05:06.082
+Free shipping is recomputed, and it's still yes.
+
+00:05:06.132 --> 00:05:09.465
+It didn't change, so nothing that reads it needs to run.
+
+00:05:09.515 --> 00:05:10.931
+The wave stops there.
+
+00:05:11.981 --> 00:05:13.622
+The second is laziness.
+
+00:05:13.672 --> 00:05:17.617
+A value nobody is looking at doesn't need to be computed yet.
+
+00:05:17.667 --> 00:05:22.393
+The system marks it as out of date, and computes it only when something reads it.
+
+00:05:23.343 --> 00:05:25.842
+All of this depends on the graph being right.
+
+00:05:25.892 --> 00:05:27.650
+So where do the arrows come from?
+
+00:05:27.900 --> 00:05:31.682
+Some formulas read different values depending on the data.
+
+00:05:31.732 --> 00:05:37.508
+Imagine a different cart, whose total reads a coupon cell only when the customer has a coupon.
+
+00:05:37.558 --> 00:05:40.200
+There, the arrows change as the values change.
+
+00:05:40.450 --> 00:05:47.962
+Spreadsheets and modern UI frameworks handle this by recording what each formula actually read, every time it runs.
+
+00:05:48.012 --> 00:05:52.054
+The graph, and the heights with it, are always the ones from the last run.
+
+00:05:52.304 --> 00:05:55.296
+Make, the classic build tool, takes the other route.
+
+00:05:55.346 --> 00:06:03.052
+You list, in a file called a Makefile, what each output is built from, unless you set up the compiler to write that list for you.
+
+00:06:03.102 --> 00:06:06.766
+If one is missing, the graph is wrong, and the result goes stale.
+
+00:06:07.016 --> 00:06:12.886
+Here's a program built from a source file that includes a header, whose Makefile lists only the source file.
+
+00:06:12.936 --> 00:06:18.561
+Change the free-shipping threshold in the header from sixty-five to seventy-five, and run make.
+
+00:06:18.611 --> 00:06:22.511
+Make says the program is up to date, and it still says sixty-five.
+
+00:06:23.761 --> 00:06:26.074
+Declare the header, and make rebuilds it.
+
+00:06:26.324 --> 00:06:28.864
+And one kind of graph can't be ordered at all.
+
+00:06:28.914 --> 00:06:33.628
+If a formula depends, through others, on itself, no value can come first.
+
+00:06:33.678 --> 00:06:36.172
+Excel calls this a circular reference.
+
+00:06:36.222 --> 00:06:41.555
+By default it warns instead of computing, though it can be told to iterate toward an answer.
+
+00:06:43.305 --> 00:06:46.112
+So what does the spreadsheet know that your code doesn't?
+
+00:06:46.162 --> 00:06:48.225
+It knows the dependency graph.
+
+00:06:49.275 --> 00:06:56.063
+From that graph it answers two questions: what is out of date after a change, and in what order to recompute it.
+
+00:06:56.313 --> 00:07:00.918
+The answer to the first is everything downstream of the change, and nothing else.
+
+00:07:00.968 --> 00:07:07.198
+The answer to the second is height order, lowest first, each value once, stopping where nothing changed.
+
+00:07:07.448 --> 00:07:13.127
+Get the order wrong, and you'll see values that never should exist, like a total of sixty-four.
+
+00:07:13.177 --> 00:07:15.499
+And you'll do the same work many times over.
+
+00:07:15.749 --> 00:07:27.175
+That same machine is inside Excel, inside build systems like Make and Bazel, and inside the reactive parts of UI frameworks such as Vue, Solid and Angular's signals.

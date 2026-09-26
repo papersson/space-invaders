@@ -1,20 +1,21 @@
 == counter.c: two threads, 10,000,000 increments each (expected 20,000,000)
 no lock:
-11856624
-10850072
-10662642
-10780763
-12988652
+10205576
+10282771
+11714006
+10959423
+10149830
 with lock:
 20000000
 20000000
 20000000
 == locks/: transfers A->B and B->A with two mutexes
-each transfer locks its own account first: stuck in 992 of 1000 runs
+each transfer locks its own account first: stuck in 989 of 1000 runs
 every transfer locks the lower account number first: stuck in 0 of 1000 runs
 == deadlock/: transfers A->B and B->A between two account processes over unbuffered channels
-transfers A->B and B->A at once: both accounts stuck waiting in 497 of 1000 runs
+transfers A->B and B->A at once, each account waits in its own send: stuck in 482 of 1000 runs
+transfers A->B and B->A at once, each account hands the send off and keeps listening: stuck in 0 of 1000 runs
 == race/: two cash machines, balance $100, each withdraws $100 if it saw at least $100
-check, then withdraw (two messages): overdrawn to -$100 in 1683 of 100000 runs
+check, then withdraw (two messages): overdrawn to -$100 in 1703 of 100000 runs
 withdraw if sufficient (one message): overdrawn to -$100 in 0 of 100000 runs
 == gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0; go version go1.24.7 linux/amd64; 4 CPUs

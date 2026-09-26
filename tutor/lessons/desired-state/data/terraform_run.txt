@@ -1,0 +1,23 @@
+=== apply with servers = 3
+Plan: 3 to add, 0 to change, 0 to destroy.
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+servers on disk: web-0 web-1 web-2 
+=== apply again, nothing changed
+No changes. Your infrastructure matches the configuration.
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+=== change to servers = 5 and apply
+Plan: 2 to add, 0 to change, 0 to destroy.
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+servers on disk: web-0 web-1 web-2 web-3 web-4 
+=== someone deletes web-1 by hand; Terraform is not running, so nothing happens
+servers on disk: web-0 web-2 web-3 web-4 
+=== next terraform plan
+# local_file.server[1] will be created
+Plan: 1 to add, 0 to change, 0 to destroy.
+Plan: 1 to add, 0 to change, 0 to destroy.
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+servers on disk: web-0 web-1 web-2 web-3 web-4 
+=== an imperative script: 'start 2 more servers', run twice
+after run 1: 2 servers
+after run 2: 4 servers
+=== Terraform v1.9.8

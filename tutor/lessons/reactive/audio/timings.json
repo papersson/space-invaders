@@ -1,0 +1,1028 @@
+{
+ "voice": "af_heart",
+ "speed": 0.92,
+ "total": 454.925,
+ "segments": [
+  {
+   "id": "s1",
+   "title": "The question",
+   "start": 0.0,
+   "lines": [
+    {
+     "id": "s1_01",
+     "text": "An online cart holds two items at twenty dollars each.",
+     "caption": "An online cart holds two items at twenty dollars each.",
+     "paragraph": 0,
+     "start": 0.8,
+     "end": 3.999
+    },
+    {
+     "id": "s1_02",
+     "text": "The subtotal is forty dollars, tax at ten percent is four, and the total is forty-four.",
+     "caption": "The subtotal is forty dollars, tax at ten percent is four, and the total is forty-four.",
+     "paragraph": 0,
+     "start": 4.299,
+     "end": 9.667
+    },
+    {
+     "id": "s1_03",
+     "text": "In ordinary code, the total is computed once.",
+     "caption": "In ordinary code, the total is computed once.",
+     "paragraph": 1,
+     "start": 10.167,
+     "end": 12.944
+    },
+    {
+     "id": "s1_04",
+     "text": "If the customer changes the quantity to three, the total still says forty-four, until some piece of code remembers to compute it again.",
+     "caption": "If the customer changes the quantity to three, the total still says forty-four, until some piece of code remembers to compute it again.",
+     "paragraph": 1,
+     "start": 13.244,
+     "end": 20.956
+    },
+    {
+     "id": "s1_05",
+     "text": "In a spreadsheet, you never have to remember.",
+     "caption": "In a spreadsheet, you never have to remember.",
+     "paragraph": 2,
+     "start": 21.456,
+     "end": 23.768
+    },
+    {
+     "id": "s1_06",
+     "text": "Change the quantity, and the subtotal, the tax and the total all update, correctly, every time.",
+     "caption": "Change the quantity, and the subtotal, the tax and the total all update, correctly, every time.",
+     "paragraph": 2,
+     "start": 24.068,
+     "end": 29.849
+    },
+    {
+     "id": "s1_07",
+     "text": "Build tools do the same with files: change one source file, and exactly the parts that depend on it are rebuilt.",
+     "caption": "Build tools do the same with files: change one source file, and exactly the parts that depend on it are rebuilt.",
+     "paragraph": 3,
+     "start": 30.349,
+     "end": 37.239
+    },
+    {
+     "id": "s1_08",
+     "text": "So do many U I frameworks: change a value, and the screen updates.",
+     "caption": "So do many UI frameworks: change a value, and the screen updates.",
+     "paragraph": 3,
+     "start": 37.539,
+     "end": 41.429
+    },
+    {
+     "id": "s1_09",
+     "text": "How does a system like that decide what to recompute, and in what order?",
+     "caption": "How does a system like that decide what to recompute, and in what order?",
+     "paragraph": 4,
+     "start": 41.929,
+     "end": 46.0
+    },
+    {
+     "id": "s1_10",
+     "text": "And what goes wrong when it gets that wrong?",
+     "caption": "And what goes wrong when it gets that wrong?",
+     "paragraph": 4,
+     "start": 46.3,
+     "end": 48.163
+    }
+   ],
+   "end": 51.813
+  },
+  {
+   "id": "s2",
+   "title": "The dependency graph",
+   "start": 51.813,
+   "lines": [
+    {
+     "id": "s2_01",
+     "text": "Say the shop gives free shipping from sixty-five dollars.",
+     "caption": "Say the shop gives free shipping from sixty-five dollars.",
+     "paragraph": 0,
+     "start": 52.163,
+     "end": 55.039
+    },
+    {
+     "id": "s2_02",
+     "text": "Each formula reads some other values.",
+     "caption": "Each formula reads some other values.",
+     "paragraph": 1,
+     "start": 55.539,
+     "end": 57.731
+    },
+    {
+     "id": "s2_03",
+     "text": "The subtotal reads the price and the quantity.",
+     "caption": "The subtotal reads the price and the quantity.",
+     "paragraph": 1,
+     "start": 58.031,
+     "end": 60.51
+    },
+    {
+     "id": "s2_04",
+     "text": "The tax reads the subtotal.",
+     "caption": "The tax reads the subtotal.",
+     "paragraph": 1,
+     "start": 60.81,
+     "end": 62.527
+    },
+    {
+     "id": "s2_05",
+     "text": "The total reads the subtotal and the tax.",
+     "caption": "The total reads the subtotal and the tax.",
+     "paragraph": 1,
+     "start": 62.827,
+     "end": 65.244
+    },
+    {
+     "id": "s2_06",
+     "text": "Free shipping reads the total, and the banner at the top of the cart reads free shipping.",
+     "caption": "Free shipping reads the total, and the banner at the top of the cart reads free shipping.",
+     "paragraph": 1,
+     "start": 65.544,
+     "end": 70.152
+    },
+    {
+     "id": "s2_07",
+     "text": "Draw an arrow from each value to every formula that reads it, and you have a dependency graph.",
+     "caption": "Draw an arrow from each value to every formula that reads it, and you have a dependency graph.",
+     "paragraph": 2,
+     "start": 70.652,
+     "end": 76.296
+    },
+    {
+     "id": "s2_08",
+     "text": "When the quantity changes, follow the arrows.",
+     "caption": "When the quantity changes, follow the arrows.",
+     "paragraph": 3,
+     "start": 76.796,
+     "end": 79.125
+    },
+    {
+     "id": "s2_09",
+     "text": "Everything you can reach is now out of date: the subtotal, the tax, the total, free shipping, the banner.",
+     "caption": "Everything you can reach is now out of date: the subtotal, the tax, the total, free shipping, the banner.",
+     "paragraph": 3,
+     "start": 79.425,
+     "end": 85.573
+    },
+    {
+     "id": "s2_10",
+     "text": "Everything you can't reach is still correct.",
+     "caption": "Everything you can't reach is still correct.",
+     "paragraph": 4,
+     "start": 86.073,
+     "end": 88.14
+    },
+    {
+     "id": "s2_11",
+     "text": "The price didn't change, and nothing it feeds needs recomputing because of this edit.",
+     "caption": "The price didn't change, and nothing it feeds needs recomputing because of this edit.",
+     "paragraph": 4,
+     "start": 88.44,
+     "end": 93.164
+    }
+   ],
+   "end": 94.614
+  },
+  {
+   "id": "s3",
+   "title": "Just tell the readers",
+   "start": 94.614,
+   "lines": [
+    {
+     "id": "s3_01",
+     "text": "The obvious way to update them is to let each value tell its readers.",
+     "caption": "The obvious way to update them is to let each value tell its readers.",
+     "paragraph": 0,
+     "start": 94.964,
+     "end": 99.111
+    },
+    {
+     "id": "s3_02",
+     "text": "When the quantity changes, it tells the subtotal to recompute.",
+     "caption": "When the quantity changes, it tells the subtotal to recompute.",
+     "paragraph": 0,
+     "start": 99.411,
+     "end": 102.95
+    },
+    {
+     "id": "s3_03",
+     "text": "The subtotal then tells each of its own readers, and so on down the arrows.",
+     "caption": "The subtotal then tells each of its own readers, and so on down the arrows.",
+     "paragraph": 0,
+     "start": 103.25,
+     "end": 107.645
+    },
+    {
+     "id": "s3_04",
+     "text": "This is the observer pattern, and it's how a lot of hand-written code keeps things in sync.",
+     "caption": "This is the observer pattern, and it's how a lot of hand-written code keeps things in sync.",
+     "paragraph": 1,
+     "start": 108.145,
+     "end": 113.027
+    },
+    {
+     "id": "s3_05",
+     "text": "Follow it.",
+     "caption": "Follow it.",
+     "paragraph": 2,
+     "start": 113.527,
+     "end": 114.151
+    },
+    {
+     "id": "s3_06",
+     "text": "The quantity becomes three, and the subtotal becomes sixty.",
+     "caption": "The quantity becomes three, and the subtotal becomes sixty.",
+     "paragraph": 2,
+     "start": 114.451,
+     "end": 117.887
+    },
+    {
+     "id": "s3_07",
+     "text": "The subtotal has two readers, the tax and the total.",
+     "caption": "The subtotal has two readers, the tax and the total.",
+     "paragraph": 2,
+     "start": 118.187,
+     "end": 121.313
+    },
+    {
+     "id": "s3_08",
+     "text": "Which does it tell first?",
+     "caption": "Which does it tell first?",
+     "paragraph": 2,
+     "start": 121.613,
+     "end": 122.893
+    },
+    {
+     "id": "s3_09",
+     "text": "Whichever subscribed first; nothing in the pattern decides.",
+     "caption": "Whichever subscribed first; nothing in the pattern decides.",
+     "paragraph": 2,
+     "start": 123.193,
+     "end": 126.601
+    },
+    {
+     "id": "s3_10",
+     "text": "Say it's the total.",
+     "caption": "Say it's the total.",
+     "paragraph": 2,
+     "start": 126.901,
+     "end": 127.927
+    },
+    {
+     "id": "s3_11",
+     "text": "The total adds the new subtotal, sixty, to the tax, which is still the old four.",
+     "caption": "The total adds the new subtotal, sixty, to the tax, which is still the old four.",
+     "paragraph": 3,
+     "start": 128.427,
+     "end": 133.28
+    },
+    {
+     "id": "s3_12",
+     "text": "The total becomes sixty-four.",
+     "caption": "The total becomes sixty-four.",
+     "paragraph": 3,
+     "start": 133.58,
+     "end": 135.168
+    },
+    {
+     "id": "s3_13",
+     "text": "Sixty-four was never a correct total.",
+     "caption": "Sixty-four was never a correct total.",
+     "paragraph": 4,
+     "start": 136.668,
+     "end": 138.787
+    },
+    {
+     "id": "s3_14",
+     "text": "The right answer was forty-four before the change and sixty-six after it.",
+     "caption": "The right answer was forty-four before the change and sixty-six after it.",
+     "paragraph": 4,
+     "start": 139.087,
+     "end": 143.287
+    },
+    {
+     "id": "s3_15",
+     "text": "And the free-shipping check runs on sixty-four, and says no, though the right answer is yes.",
+     "caption": "And the free-shipping check runs on sixty-four, and says no, though the right answer is yes.",
+     "paragraph": 4,
+     "start": 143.587,
+     "end": 148.918
+    },
+    {
+     "id": "s3_16",
+     "text": "A value like that, built from a mix of new and old inputs, is called a glitch.",
+     "caption": "A value like that, built from a mix of new and old inputs, is called a glitch.",
+     "paragraph": 4,
+     "start": 149.218,
+     "end": 153.778
+    },
+    {
+     "id": "s3_17",
+     "text": "Then the subtotal tells the tax, which becomes six.",
+     "caption": "Then the subtotal tells the tax, which becomes six.",
+     "paragraph": 5,
+     "start": 155.078,
+     "end": 158.07
+    },
+    {
+     "id": "s3_18",
+     "text": "The tax tells the total, which is computed again: sixty-six.",
+     "caption": "The tax tells the total, which is computed again: sixty-six.",
+     "paragraph": 5,
+     "start": 158.37,
+     "end": 162.045
+    },
+    {
+     "id": "s3_19",
+     "text": "Free shipping runs a second time too.",
+     "caption": "Free shipping runs a second time too.",
+     "paragraph": 5,
+     "start": 162.345,
+     "end": 164.438
+    },
+    {
+     "id": "s3_20",
+     "text": "The trouble comes from one shape.",
+     "caption": "The trouble comes from one shape.",
+     "paragraph": 6,
+     "start": 164.938,
+     "end": 166.526
+    },
+    {
+     "id": "s3_21",
+     "text": "The subtotal reaches the total by two paths, directly and through the tax.",
+     "caption": "The subtotal reaches the total by two paths, directly and through the tax.",
+     "paragraph": 6,
+     "start": 166.826,
+     "end": 171.144
+    },
+    {
+     "id": "s3_22",
+     "text": "A shape like that is called a diamond.",
+     "caption": "A shape like that is called a diamond.",
+     "paragraph": 6,
+     "start": 171.444,
+     "end": 173.396
+    }
+   ],
+   "end": 175.046
+  },
+  {
+   "id": "s4",
+   "title": "Diamonds multiply",
+   "start": 175.046,
+   "lines": [
+    {
+     "id": "s4_01",
+     "text": "A spreadsheet or a user interface can contain many diamonds, and when they chain one after another, the cost compounds.",
+     "caption": "A spreadsheet or a user interface can contain many diamonds, and when they chain one after another, the cost compounds.",
+     "paragraph": 0,
+     "start": 175.396,
+     "end": 182.616
+    },
+    {
+     "id": "s4_02",
+     "text": "In the observer pattern, each diamond makes everything after it run twice.",
+     "caption": "In the observer pattern, each diamond makes everything after it run twice.",
+     "paragraph": 1,
+     "start": 183.116,
+     "end": 187.376
+    },
+    {
+     "id": "s4_03",
+     "text": "Two diamonds in a row make the last value run four times.",
+     "caption": "Two diamonds in a row make the last value run four times.",
+     "paragraph": 1,
+     "start": 187.676,
+     "end": 191.246
+    },
+    {
+     "id": "s4_04",
+     "text": "Three make it eight.",
+     "caption": "Three make it eight.",
+     "paragraph": 1,
+     "start": 191.546,
+     "end": 192.545
+    },
+    {
+     "id": "s4_05",
+     "text": "With ten diamonds in a row, a single change recomputes the last value one thousand and twenty-four times.",
+     "caption": "With ten diamonds in a row, a single change recomputes the last value one thousand and twenty-four times.",
+     "paragraph": 2,
+     "start": 193.045,
+     "end": 199.57
+    },
+    {
+     "id": "s4_06",
+     "text": "With twenty, over a million.",
+     "caption": "With twenty, over a million.",
+     "paragraph": 2,
+     "start": 199.87,
+     "end": 201.467
+    },
+    {
+     "id": "s4_07",
+     "text": "Recomputing everything in the right order would compute each value exactly once.",
+     "caption": "Recomputing everything in the right order would compute each value exactly once.",
+     "paragraph": 3,
+     "start": 202.767,
+     "end": 207.662
+    }
+   ],
+   "end": 208.512
+  },
+  {
+   "id": "s5",
+   "title": "Mark, then compute in order",
+   "start": 208.512,
+   "lines": [
+    {
+     "id": "s5_01",
+     "text": "So the fix works in two phases.",
+     "caption": "So the fix works in two phases.",
+     "paragraph": 0,
+     "start": 208.862,
+     "end": 210.677
+    },
+    {
+     "id": "s5_02",
+     "text": "First, mark.",
+     "caption": "First, mark.",
+     "paragraph": 1,
+     "start": 211.177,
+     "end": 212.035
+    },
+    {
+     "id": "s5_03",
+     "text": "Follow the arrows from the change, and mark everything reachable as out of date.",
+     "caption": "Follow the arrows from the change, and mark everything reachable as out of date.",
+     "paragraph": 1,
+     "start": 212.335,
+     "end": 216.668
+    },
+    {
+     "id": "s5_04",
+     "text": "Nothing is computed yet.",
+     "caption": "Nothing is computed yet.",
+     "paragraph": 1,
+     "start": 216.968,
+     "end": 218.513
+    },
+    {
+     "id": "s5_05",
+     "text": "Then compute, in order.",
+     "caption": "Then compute, in order.",
+     "paragraph": 2,
+     "start": 219.013,
+     "end": 220.473
+    },
+    {
+     "id": "s5_06",
+     "text": "To get the order, give each value a height.",
+     "caption": "To get the order, give each value a height.",
+     "paragraph": 2,
+     "start": 220.773,
+     "end": 222.988
+    },
+    {
+     "id": "s5_07",
+     "text": "The price and the quantity are inputs: height zero.",
+     "caption": "The price and the quantity are inputs: height zero.",
+     "paragraph": 2,
+     "start": 223.288,
+     "end": 226.21
+    },
+    {
+     "id": "s5_08",
+     "text": "The subtotal reads only inputs: height one.",
+     "caption": "The subtotal reads only inputs: height one.",
+     "paragraph": 2,
+     "start": 226.51,
+     "end": 229.304
+    },
+    {
+     "id": "s5_09",
+     "text": "The tax reads the subtotal: height two.",
+     "caption": "The tax reads the subtotal: height two.",
+     "paragraph": 2,
+     "start": 229.604,
+     "end": 232.04
+    },
+    {
+     "id": "s5_10",
+     "text": "The total reads the tax, so it sits above it: height three.",
+     "caption": "The total reads the tax, so it sits above it: height three.",
+     "paragraph": 2,
+     "start": 232.34,
+     "end": 235.454
+    },
+    {
+     "id": "s5_11",
+     "text": "Free shipping is four, and the banner five.",
+     "caption": "Free shipping is four, and the banner five.",
+     "paragraph": 2,
+     "start": 235.754,
+     "end": 238.16
+    },
+    {
+     "id": "s5_12",
+     "text": "The rule: a value's height is one more than the highest height it reads.",
+     "caption": "The rule: a value's height is one more than the highest height it reads.",
+     "paragraph": 3,
+     "start": 238.66,
+     "end": 242.475
+    },
+    {
+     "id": "s5_13",
+     "text": "Recompute only the marked values, from the lowest height up.",
+     "caption": "Recompute only the marked values, from the lowest height up.",
+     "paragraph": 4,
+     "start": 242.975,
+     "end": 246.301
+    },
+    {
+     "id": "s5_14",
+     "text": "By the time a value is computed, every one of its inputs is already up to date.",
+     "caption": "By the time a value is computed, every one of its inputs is already up to date.",
+     "paragraph": 4,
+     "start": 246.601,
+     "end": 251.251
+    },
+    {
+     "id": "s5_15",
+     "text": "The total waits until the tax is six, and becomes sixty-six the first time.",
+     "caption": "The total waits until the tax is six, and becomes sixty-six the first time.",
+     "paragraph": 5,
+     "start": 251.751,
+     "end": 256.189
+    },
+    {
+     "id": "s5_16",
+     "text": "There's no sixty-four, and each value is computed once: five recomputations instead of eight.",
+     "caption": "There's no sixty-four, and each value is computed once: five recomputations instead of eight.",
+     "paragraph": 5,
+     "start": 256.489,
+     "end": 262.575
+    },
+    {
+     "id": "s5_17",
+     "text": "On the chain of ten diamonds, the last value runs once instead of a thousand and twenty-four times.",
+     "caption": "On the chain of ten diamonds, the last value runs once instead of a thousand and twenty-four times.",
+     "paragraph": 6,
+     "start": 264.075,
+     "end": 269.899
+    },
+    {
+     "id": "s5_18",
+     "text": "Spreadsheets, build tools and reactive libraries all use some version of this: dependencies first, each value once.",
+     "caption": "Spreadsheets, build tools and reactive libraries all use some version of this: dependencies first, each value once.",
+     "paragraph": 7,
+     "start": 270.399,
+     "end": 277.934
+    },
+    {
+     "id": "s5_19",
+     "text": "And the free-shipping check runs once, on sixty-six, and says yes.",
+     "caption": "And the free-shipping check runs once, on sixty-six, and says yes.",
+     "paragraph": 8,
+     "start": 278.434,
+     "end": 282.188
+    }
+   ],
+   "end": 283.038
+  },
+  {
+   "id": "s6",
+   "title": "Doing less",
+   "start": 283.038,
+   "lines": [
+    {
+     "id": "s6_01",
+     "text": "The ordered wave still recomputes everything downstream, even a value that comes out the same, and even a value nobody is looking at.",
+     "caption": "The ordered wave still recomputes everything downstream, even a value that comes out the same, and even a value nobody is looking at.",
+     "paragraph": 0,
+     "start": 283.388,
+     "end": 291.599
+    },
+    {
+     "id": "s6_02",
+     "text": "Two refinements cut that out.",
+     "caption": "Two refinements cut that out.",
+     "paragraph": 0,
+     "start": 291.899,
+     "end": 293.458
+    },
+    {
+     "id": "s6_03",
+     "text": "The first is early cutoff.",
+     "caption": "The first is early cutoff.",
+     "paragraph": 1,
+     "start": 293.958,
+     "end": 295.572
+    },
+    {
+     "id": "s6_04",
+     "text": "Change the quantity again, from three to four.",
+     "caption": "Change the quantity again, from three to four.",
+     "paragraph": 1,
+     "start": 295.872,
+     "end": 298.278
+    },
+    {
+     "id": "s6_05",
+     "text": "The subtotal, the tax and the total all change: eighty, eight, eighty-eight.",
+     "caption": "The subtotal, the tax and the total all change: eighty, eight, eighty-eight.",
+     "paragraph": 1,
+     "start": 298.578,
+     "end": 302.867
+    },
+    {
+     "id": "s6_06",
+     "text": "Free shipping is recomputed, and it's still yes.",
+     "caption": "Free shipping is recomputed, and it's still yes.",
+     "paragraph": 1,
+     "start": 303.167,
+     "end": 305.832
+    },
+    {
+     "id": "s6_07",
+     "text": "It didn't change, so nothing that reads it needs to run.",
+     "caption": "It didn't change, so nothing that reads it needs to run.",
+     "paragraph": 1,
+     "start": 306.132,
+     "end": 309.215
+    },
+    {
+     "id": "s6_08",
+     "text": "The wave stops there.",
+     "caption": "The wave stops there.",
+     "paragraph": 1,
+     "start": 309.515,
+     "end": 310.681
+    },
+    {
+     "id": "s6_09",
+     "text": "The second is laziness.",
+     "caption": "The second is laziness.",
+     "paragraph": 2,
+     "start": 311.981,
+     "end": 313.372
+    },
+    {
+     "id": "s6_10",
+     "text": "A value nobody is looking at doesn't need to be computed yet.",
+     "caption": "A value nobody is looking at doesn't need to be computed yet.",
+     "paragraph": 2,
+     "start": 313.672,
+     "end": 317.367
+    },
+    {
+     "id": "s6_11",
+     "text": "The system marks it as out of date, and computes it only when something reads it.",
+     "caption": "The system marks it as out of date, and computes it only when something reads it.",
+     "paragraph": 2,
+     "start": 317.667,
+     "end": 322.143
+    }
+   ],
+   "end": 322.993
+  },
+  {
+   "id": "s7",
+   "title": "Where do the arrows come from?",
+   "start": 322.993,
+   "lines": [
+    {
+     "id": "s7_01",
+     "text": "All of this depends on the graph being right.",
+     "caption": "All of this depends on the graph being right.",
+     "paragraph": 0,
+     "start": 323.343,
+     "end": 325.592
+    },
+    {
+     "id": "s7_02",
+     "text": "So where do the arrows come from?",
+     "caption": "So where do the arrows come from?",
+     "paragraph": 0,
+     "start": 325.892,
+     "end": 327.4
+    },
+    {
+     "id": "s7_03",
+     "text": "Some formulas read different values depending on the data.",
+     "caption": "Some formulas read different values depending on the data.",
+     "paragraph": 1,
+     "start": 327.9,
+     "end": 331.432
+    },
+    {
+     "id": "s7_04",
+     "text": "Imagine a different cart, whose total reads a coupon cell only when the customer has a coupon.",
+     "caption": "Imagine a different cart, whose total reads a coupon cell only when the customer has a coupon.",
+     "paragraph": 1,
+     "start": 331.732,
+     "end": 337.258
+    },
+    {
+     "id": "s7_05",
+     "text": "There, the arrows change as the values change.",
+     "caption": "There, the arrows change as the values change.",
+     "paragraph": 1,
+     "start": 337.558,
+     "end": 339.95
+    },
+    {
+     "id": "s7_06",
+     "text": "Spreadsheets and modern U I frameworks handle this by recording what each formula actually read, every time it runs.",
+     "caption": "Spreadsheets and modern UI frameworks handle this by recording what each formula actually read, every time it runs.",
+     "paragraph": 2,
+     "start": 340.45,
+     "end": 347.712
+    },
+    {
+     "id": "s7_07",
+     "text": "The graph, and the heights with it, are always the ones from the last run.",
+     "caption": "The graph, and the heights with it, are always the ones from the last run.",
+     "paragraph": 2,
+     "start": 348.012,
+     "end": 351.804
+    },
+    {
+     "id": "s7_08",
+     "text": "Make, the classic build tool, takes the other route.",
+     "caption": "Make, the classic build tool, takes the other route.",
+     "paragraph": 3,
+     "start": 352.304,
+     "end": 355.046
+    },
+    {
+     "id": "s7_09",
+     "text": "You list, in a file called a make file, what each output is built from, unless you set up the compiler to write that list for you.",
+     "caption": "You list, in a file called a Makefile, what each output is built from, unless you set up the compiler to write that list for you.",
+     "paragraph": 3,
+     "start": 355.346,
+     "end": 362.802
+    },
+    {
+     "id": "s7_10",
+     "text": "If one is missing, the graph is wrong, and the result goes stale.",
+     "caption": "If one is missing, the graph is wrong, and the result goes stale.",
+     "paragraph": 3,
+     "start": 363.102,
+     "end": 366.516
+    },
+    {
+     "id": "s7_11",
+     "text": "Here's a program built from a source file that includes a header, whose make file lists only the source file.",
+     "caption": "Here's a program built from a source file that includes a header, whose Makefile lists only the source file.",
+     "paragraph": 4,
+     "start": 367.016,
+     "end": 372.636
+    },
+    {
+     "id": "s7_12",
+     "text": "Change the free-shipping threshold in the header from sixty-five to seventy-five, and run make.",
+     "caption": "Change the free-shipping threshold in the header from sixty-five to seventy-five, and run make.",
+     "paragraph": 4,
+     "start": 372.936,
+     "end": 378.311
+    },
+    {
+     "id": "s7_13",
+     "text": "Make says the program is up to date, and it still says sixty-five.",
+     "caption": "Make says the program is up to date, and it still says sixty-five.",
+     "paragraph": 4,
+     "start": 378.611,
+     "end": 382.261
+    },
+    {
+     "id": "s7_14",
+     "text": "Declare the header, and make rebuilds it.",
+     "caption": "Declare the header, and make rebuilds it.",
+     "paragraph": 5,
+     "start": 383.761,
+     "end": 385.824
+    },
+    {
+     "id": "s7_15",
+     "text": "And one kind of graph can't be ordered at all.",
+     "caption": "And one kind of graph can't be ordered at all.",
+     "paragraph": 6,
+     "start": 386.324,
+     "end": 388.614
+    },
+    {
+     "id": "s7_16",
+     "text": "If a formula depends, through others, on itself, no value can come first.",
+     "caption": "If a formula depends, through others, on itself, no value can come first.",
+     "paragraph": 6,
+     "start": 388.914,
+     "end": 393.378
+    },
+    {
+     "id": "s7_17",
+     "text": "Excel calls this a circular reference.",
+     "caption": "Excel calls this a circular reference.",
+     "paragraph": 6,
+     "start": 393.678,
+     "end": 395.922
+    },
+    {
+     "id": "s7_18",
+     "text": "By default it warns instead of computing, though it can be told to iterate toward an answer.",
+     "caption": "By default it warns instead of computing, though it can be told to iterate toward an answer.",
+     "paragraph": 6,
+     "start": 396.222,
+     "end": 401.305
+    }
+   ],
+   "end": 402.955
+  },
+  {
+   "id": "s8",
+   "title": "The answer",
+   "start": 402.955,
+   "lines": [
+    {
+     "id": "s8_01",
+     "text": "So what does the spreadsheet know that your code doesn't?",
+     "caption": "So what does the spreadsheet know that your code doesn't?",
+     "paragraph": 0,
+     "start": 403.305,
+     "end": 405.862
+    },
+    {
+     "id": "s8_02",
+     "text": "It knows the dependency graph.",
+     "caption": "It knows the dependency graph.",
+     "paragraph": 0,
+     "start": 406.162,
+     "end": 407.975
+    },
+    {
+     "id": "s8_03",
+     "text": "From that graph it answers two questions: what is out of date after a change, and in what order to recompute it.",
+     "caption": "From that graph it answers two questions: what is out of date after a change, and in what order to recompute it.",
+     "paragraph": 1,
+     "start": 409.275,
+     "end": 415.813
+    },
+    {
+     "id": "s8_04",
+     "text": "The answer to the first is everything downstream of the change, and nothing else.",
+     "caption": "The answer to the first is everything downstream of the change, and nothing else.",
+     "paragraph": 2,
+     "start": 416.313,
+     "end": 420.668
+    },
+    {
+     "id": "s8_05",
+     "text": "The answer to the second is height order, lowest first, each value once, stopping where nothing changed.",
+     "caption": "The answer to the second is height order, lowest first, each value once, stopping where nothing changed.",
+     "paragraph": 2,
+     "start": 420.968,
+     "end": 426.948
+    },
+    {
+     "id": "s8_06",
+     "text": "Get the order wrong, and you'll see values that never should exist, like a total of sixty-four.",
+     "caption": "Get the order wrong, and you'll see values that never should exist, like a total of sixty-four.",
+     "paragraph": 3,
+     "start": 427.448,
+     "end": 432.877
+    },
+    {
+     "id": "s8_07",
+     "text": "And you'll do the same work many times over.",
+     "caption": "And you'll do the same work many times over.",
+     "paragraph": 3,
+     "start": 433.177,
+     "end": 435.249
+    },
+    {
+     "id": "s8_08",
+     "text": "That same machine is inside Excel, inside build systems like Make and Bazel, and inside the reactive parts of U I frameworks such as View, Solid and Angular's signals.",
+     "caption": "That same machine is inside Excel, inside build systems like Make and Bazel, and inside the reactive parts of UI frameworks such as Vue, Solid and Angular's signals.",
+     "paragraph": 4,
+     "start": 435.749,
+     "end": 446.925
+    }
+   ],
+   "end": 454.925
+  }
+ ],
+ "phonemes": {
+  "s1_01": "\u0250n \u02cc\u0251nl\u02c8In k\u02c8\u0251\u0279t h\u02c8Oldz t\u02c8u \u02c8IT\u0259mz \u00e6t tw\u02c8\u025bnti d\u02c8\u0251l\u0259\u0279z \u02c8i\u02a7.",
+  "s1_02": "\u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al \u026az f\u02c8\u0254\u0279Ti d\u02c8\u0251l\u0259\u0279z, t\u02c8\u00e6ks \u00e6t t\u02c8\u025bn p\u0259\u0279s\u02c8\u025bnt \u026az f\u02c8\u0254\u0279, \u00e6nd \u00f0\u0259 t\u02c8OT\u1d4al \u026az f\u02c8\u0254\u0279Tif\u02cc\u0254\u0279.",
+  "s1_03": "\u026an \u02c8\u0254\u0279d\u1d4an\u02cc\u025b\u0279i k\u02c8Od, \u00f0\u0259 t\u02c8OT\u1d4al \u026az k\u0259mpj\u02c8uT\u1d7bd w\u02c8\u028cns.",
+  "s1_04": "\u02cc\u026af \u00f0\u0259 k\u02c8\u028cst\u0259m\u0259\u0279 \u02a7\u02c8An\u02a4\u1d7bz \u00f0\u0259 kw\u02c8\u0251nt\u0259Ti t\u0259 \u03b8\u0279\u02c8i, \u00f0\u0259 t\u02c8OT\u1d4al st\u02c8\u026al s\u02c8\u025bz f\u02c8\u0254\u0279Tif\u02cc\u0254\u0279, \u02cc\u028cnt\u02c8\u026al s\u02cc\u028cm p\u02c8is \u028cv k\u02c8Od \u0279\u0259m\u02c8\u025bmb\u0259\u0279z t\u0259 k\u0259mpj\u02c8ut \u026at \u0259\u0261\u02c8\u025bn.",
+  "s1_05": "\u026an \u0250 sp\u0279\u02c8\u025bd\u0283\u02ccit, ju n\u02c8\u025bv\u0259\u0279 h\u00e6v t\u0259 \u0279\u0259m\u02c8\u025bmb\u0259\u0279.",
+  "s1_06": "\u02a7\u02c8An\u02a4 \u00f0\u0259 kw\u02c8\u0251nt\u0259Ti, \u00e6nd \u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al, \u00f0\u0259 t\u02c8\u00e6ks \u00e6nd \u00f0\u0259 t\u02c8OT\u1d4al \u02c8\u0254l \u02c8\u028cpd\u02ccAt, k\u0259\u0279\u02c8\u025bktli, \u02c8\u025bv\u0259\u0279i t\u02c8Im.",
+  "s1_07": "b\u02c8\u026ald t\u02c8ulz d\u02c8u \u00f0\u0259 s\u02c8Am w\u026a\u00f0 f\u02c8Ilz: \u02a7\u02c8An\u02a4 w\u02c8\u028cn s\u02c8\u0254\u0279s f\u02c8Il, \u00e6nd \u026a\u0261z\u02c8\u00e6ktli \u00f0\u0259 p\u02c8\u0251\u0279ts \u00f0\u00e6t d\u0259p\u02c8\u025bnd \u02cc\u0254n \u026at \u0251\u0279 \u0279ib\u02c8\u026alt.",
+  "s1_08": "s\u02ccO d\u02c8u m\u02c8\u025bni j\u02c8u \u02ccI f\u0279\u02c8Amw\u02cc\u025c\u0279ks: \u02a7\u02c8An\u02a4 \u0250 v\u02c8\u00e6lju, \u00e6nd \u00f0\u0259 sk\u0279\u02c8in \u02c8\u028cpd\u02ccAts.",
+  "s1_09": "h\u02ccW d\u02c8\u028cz \u0250 s\u02c8\u026ast\u0259m l\u02c8Ik \u00f0\u02c8\u00e6t d\u0259s\u02c8Id w\u02cc\u028ct t\u0259 \u0279\u02ccik\u0259mpj\u02c8ut, \u00e6nd \u026an w\u02cc\u028ct \u02c8\u0254\u0279d\u0259\u0279?",
+  "s1_10": "\u02cc\u00e6nd w\u02cc\u028ct \u0261\u02c8Oz \u0279\u02c8\u0254\u014b w\u02cc\u025bn \u026at \u0261\u025bts \u00f0\u02c8\u00e6t \u0279\u02c8\u0254\u014b?",
+  "s2_01": "s\u02c8A \u00f0\u0259 \u0283\u02c8\u0251p \u0261\u02c8\u026avz f\u0279\u02c8i \u0283\u02c8\u026ap\u026a\u014b f\u0279\u028cm s\u02c8\u026akstif\u02ccIv d\u02c8\u0251l\u0259\u0279z.",
+  "s2_02": "\u02c8i\u02a7 f\u02c8\u0254\u0279mj\u0259l\u0259 \u0279\u02c8idz s\u02cc\u028cm \u02c8\u028c\u00f0\u0259\u0279 v\u02c8\u00e6ljuz.",
+  "s2_03": "\u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al \u0279\u02c8idz \u00f0\u0259 p\u0279\u02c8Is \u00e6nd \u00f0\u0259 kw\u02c8\u0251nt\u0259Ti.",
+  "s2_04": "\u00f0\u0259 t\u02c8\u00e6ks \u0279\u02c8idz \u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al.",
+  "s2_05": "\u00f0\u0259 t\u02c8OT\u1d4al \u0279\u02c8idz \u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al \u00e6nd \u00f0\u0259 t\u02c8\u00e6ks.",
+  "s2_06": "f\u0279\u02c8i \u0283\u02c8\u026ap\u026a\u014b \u0279\u02c8idz \u00f0\u0259 t\u02c8OT\u1d4al, \u00e6nd \u00f0\u0259 b\u02c8\u00e6n\u0259\u0279 \u00e6t \u00f0\u0259 t\u02c8\u0251p \u028cv \u00f0\u0259 k\u02c8\u0251\u0279t \u0279\u02c8idz f\u0279\u02c8i \u0283\u02c8\u026ap\u026a\u014b.",
+  "s2_07": "d\u0279\u02c8\u0254 \u0250n \u02c8\u025b\u0279O f\u0279\u028cm \u02c8i\u02a7 v\u02c8\u00e6lju t\u028a \u02c8\u025bv\u0259\u0279i f\u02c8\u0254\u0279mj\u0259l\u0259 \u00f0\u00e6t \u0279\u02c8idz \u026at, \u00e6nd ju h\u00e6v \u0250 d\u0259p\u02c8\u025bnd\u1d4ansi \u0261\u0279\u02c8\u00e6f.",
+  "s2_08": "w\u02cc\u025bn \u00f0\u0259 kw\u02c8\u0251nt\u0259Ti \u02a7\u02c8An\u02a4\u1d7bz, f\u02c8\u0251lO \u00f0i \u02c8\u025b\u0279Oz.",
+  "s2_09": "\u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b ju k\u00e6n \u0279\u02c8i\u02a7 \u026az n\u02c8W \u02c8Wt \u028cv d\u02c8At: \u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al, \u00f0\u0259 t\u02c8\u00e6ks, \u00f0\u0259 t\u02c8OT\u1d4al, f\u0279\u02c8i \u0283\u02c8\u026ap\u026a\u014b, \u00f0\u0259 b\u02c8\u00e6n\u0259\u0279.",
+  "s2_10": "\u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b ju k\u02c8\u00e6nt \u0279\u02c8i\u02a7 \u026az st\u02c8\u026al k\u0259\u0279\u02c8\u025bkt.",
+  "s2_11": "\u00f0\u0259 p\u0279\u02c8Is d\u02c8\u026ad\u1d4ant \u02a7\u02c8An\u02a4, \u00e6nd n\u02c8\u028c\u03b8\u026a\u014b \u026at f\u02c8idz n\u02c8idz \u0279\u02ccik\u0259mpj\u02c8uT\u026a\u014b b\u0259k\u02c8\u028cz \u028cv \u00f0\u026as \u02c8\u025bd\u0259t.",
+  "s3_01": "\u00f0i \u02c8\u0251bvi\u0259s w\u02c8A t\u028a \u02c8\u028cpd\u02ccAt \u00f0\u02cc\u025bm \u026az t\u0259 l\u02c8\u025bt \u02c8i\u02a7 v\u02c8\u00e6lju t\u02c8\u025bl \u026ats \u0279\u02c8id\u0259\u0279z.",
+  "s3_02": "w\u02cc\u025bn \u00f0\u0259 kw\u02c8\u0251nt\u0259Ti \u02a7\u02c8An\u02a4\u1d7bz, \u026at t\u02c8\u025blz \u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al t\u0259 \u0279\u02ccik\u0259mpj\u02c8ut.",
+  "s3_03": "\u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al \u00f0\u02c8\u025bn t\u02c8\u025blz \u02c8i\u02a7 \u028cv \u026ats \u02c8On \u0279\u02c8id\u0259\u0279z, \u00e6nd s\u02ccO \u02cc\u0254n d\u02ccWn \u00f0i \u02c8\u025b\u0279Oz.",
+  "s3_04": "\u00f0\u02cc\u026as \u026az \u00f0i \u0259bz\u02c8\u025c\u0279v\u0259\u0279 p\u02c8\u00e6T\u0259\u0279n, \u00e6nd \u026ats h\u02ccW \u0250 l\u02c8\u0251t \u028cv h\u02cc\u00e6nd\u0279\u02c8\u026atn k\u02c8Od k\u02c8ips \u03b8\u02c8\u026a\u014bz \u026an s\u02c8\u026a\u014bk.",
+  "s3_05": "f\u02c8\u0251lO \u026at.",
+  "s3_06": "\u00f0\u0259 kw\u02c8\u0251nt\u0259Ti b\u0259k\u02c8\u028cmz \u03b8\u0279\u02c8i, \u00e6nd \u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al b\u0259k\u02c8\u028cmz s\u02c8\u026aksti.",
+  "s3_07": "\u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al h\u00e6z t\u02c8u \u0279\u02c8id\u0259\u0279z, \u00f0\u0259 t\u02c8\u00e6ks \u00e6nd \u00f0\u0259 t\u02c8OT\u1d4al.",
+  "s3_08": "w\u02cc\u026a\u02a7 d\u02c8\u028cz \u026at t\u02c8\u025bl f\u02c8\u025c\u0279st?",
+  "s3_09": "w\u02cc\u026a\u02a7\u02c8\u025bv\u0259\u0279 s\u0259bsk\u0279\u02c8Ibd f\u02c8\u025c\u0279st; n\u02c8\u028c\u03b8\u026a\u014b \u026an \u00f0\u0259 p\u02c8\u00e6T\u0259\u0279n d\u0259s\u02c8Idz.",
+  "s3_10": "s\u02c8A \u026ats \u00f0\u0259 t\u02c8OT\u1d4al.",
+  "s3_11": "\u00f0\u0259 t\u02c8OT\u1d4al \u02c8\u00e6dz \u00f0\u0259 n\u02c8u s\u02c8\u028cbt\u02ccOT\u1d4al, s\u02c8\u026aksti, t\u0259 \u00f0\u0259 t\u02c8\u00e6ks, w\u02cc\u026a\u02a7 \u026az st\u02c8\u026al \u00f0i \u02c8Old f\u02c8\u0254\u0279.",
+  "s3_12": "\u00f0\u0259 t\u02c8OT\u1d4al b\u0259k\u02c8\u028cmz s\u02c8\u026akstif\u02cc\u0254\u0279.",
+  "s3_13": "s\u02c8\u026akstif\u02cc\u0254\u0279 w\u028cz n\u02c8\u025bv\u0259\u0279 \u0250 k\u0259\u0279\u02c8\u025bkt t\u02c8OT\u1d4al.",
+  "s3_14": "\u00f0\u0259 \u0279\u02c8It \u02c8\u00e6ns\u0259\u0279 w\u028cz f\u02c8\u0254\u0279Tif\u02cc\u0254\u0279 b\u0259f\u02c8\u0254\u0279 \u00f0\u0259 \u02a7\u02c8An\u02a4 \u00e6nd s\u02c8\u026akstis\u02cc\u026aks \u02c8\u00e6ft\u0259\u0279 \u026at.",
+  "s3_15": "\u02cc\u00e6nd \u00f0\u0259 f\u0279\u02cci\u0283\u02c8\u026ap\u026a\u014b \u02a7\u02c8\u025bk \u0279\u02c8\u028cnz \u02cc\u0254n s\u02c8\u026akstif\u02cc\u0254\u0279, \u00e6nd s\u02c8\u025bz n\u02c8O, \u00f0\u02ccO \u00f0\u0259 \u0279\u02c8It \u02c8\u00e6ns\u0259\u0279 \u026az j\u02c8\u025bs.",
+  "s3_16": "\u0250 v\u02c8\u00e6lju l\u02c8Ik \u00f0\u02c8\u00e6t, b\u02c8\u026alt f\u0279\u028cm \u0250 m\u02c8\u026aks \u028cv n\u02c8u \u00e6nd \u02c8Old \u02c8\u026anp\u02cc\u028ats, \u026az k\u02c8\u0254ld \u0250 \u0261l\u02c8\u026a\u02a7.",
+  "s3_17": "\u00f0\u02c8\u025bn \u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al t\u02c8\u025blz \u00f0\u0259 t\u02c8\u00e6ks, w\u02cc\u026a\u02a7 b\u0259k\u02c8\u028cmz s\u02c8\u026aks.",
+  "s3_18": "\u00f0\u0259 t\u02c8\u00e6ks t\u02c8\u025blz \u00f0\u0259 t\u02c8OT\u1d4al, w\u02cc\u026a\u02a7 \u026az k\u0259mpj\u02c8uT\u1d7bd \u0259\u0261\u02c8\u025bn: s\u02c8\u026akstis\u02cc\u026aks.",
+  "s3_19": "f\u0279\u02c8i \u0283\u02c8\u026ap\u026a\u014b \u0279\u02c8\u028cnz \u0250 s\u02c8\u025bk\u0259nd t\u02c8Im t\u02c8u.",
+  "s3_20": "\u00f0\u0259 t\u0279\u02c8\u028cb\u1d4al k\u02c8\u028cmz f\u0279\u028cm w\u02c8\u028cn \u0283\u02c8Ap.",
+  "s3_21": "\u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al \u0279\u02c8i\u02a7\u1d7bz \u00f0\u0259 t\u02c8OT\u1d4al bI t\u02c8u p\u02c8\u00e6\u00f0z, d\u0259\u0279\u02c8\u025bktli \u00e6nd \u03b8\u0279u \u00f0\u0259 t\u02c8\u00e6ks.",
+  "s3_22": "\u0250 \u0283\u02c8Ap l\u02c8Ik \u00f0\u02c8\u00e6t \u026az k\u02c8\u0254ld \u0250 d\u02c8I\u0259m\u0259nd.",
+  "s4_01": "\u0250 sp\u0279\u02c8\u025bd\u0283\u02ccit \u0254\u0279 \u0250 j\u02c8uz\u0259\u0279 \u02c8\u026ant\u0259\u0279f\u02ccAs k\u00e6n k\u0259nt\u02c8An m\u02c8\u025bni d\u02c8I\u0259m\u0259ndz, \u00e6nd w\u02cc\u025bn \u00f0A \u02a7\u02c8An w\u02c8\u028cn \u02c8\u00e6ft\u0259\u0279 \u0259n\u02c8\u028c\u00f0\u0259\u0279, \u00f0\u0259 k\u02c8\u0254st k\u02c8\u0251mp\u02ccWndz.",
+  "s4_02": "\u026an \u00f0i \u0259bz\u02c8\u025c\u0279v\u0259\u0279 p\u02c8\u00e6T\u0259\u0279n, \u02c8i\u02a7 d\u02c8I\u0259m\u0259nd m\u02ccAks \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b \u02c8\u00e6ft\u0259\u0279 \u026at \u0279\u02c8\u028cn tw\u02c8Is.",
+  "s4_03": "t\u02c8u d\u02c8I\u0259m\u0259ndz \u026an \u0250 \u0279\u02c8O m\u02ccAk \u00f0\u0259 l\u02c8\u00e6st v\u02c8\u00e6lju \u0279\u02c8\u028cn f\u02c8\u0254\u0279 t\u02c8Imz.",
+  "s4_04": "\u03b8\u0279\u02c8i m\u02ccAk \u026at \u02c8At.",
+  "s4_05": "w\u02cc\u026a\u00f0 t\u02c8\u025bn d\u02c8I\u0259m\u0259ndz \u026an \u0250 \u0279\u02c8O, \u0250 s\u02c8\u026a\u014b\u0261\u1d4al \u02a7\u02c8An\u02a4 \u0279\u02ccik\u0259mpj\u02c8uts \u00f0\u0259 l\u02c8\u00e6st v\u02c8\u00e6lju w\u02c8\u028cn \u03b8\u02c8Wz\u1d4and \u00e6nd tw\u02c8\u025bntif\u02cc\u0254\u0279 t\u02c8Imz.",
+  "s4_06": "w\u02cc\u026a\u00f0 tw\u02c8\u025bnti, \u02c8Ov\u0259\u0279 \u0250 m\u02c8\u026alj\u1d4an.",
+  "s4_07": "\u0279\u02ccik\u0259mpj\u02c8uT\u026a\u014b \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b \u026an \u00f0\u0259 \u0279\u02c8It \u02c8\u0254\u0279d\u0259\u0279 w\u028ad k\u0259mpj\u02c8ut \u02c8i\u02a7 v\u02c8\u00e6lju \u026a\u0261z\u02c8\u00e6ktli w\u02c8\u028cns.",
+  "s5_01": "s\u02ccO \u00f0\u0259 f\u02c8\u026aks w\u02c8\u025c\u0279ks \u026an t\u02c8u f\u02c8Az\u1d7bz.",
+  "s5_02": "f\u02c8\u025c\u0279st, m\u02c8\u0251\u0279k.",
+  "s5_03": "f\u02c8\u0251lO \u00f0i \u02c8\u025b\u0279Oz f\u0279\u028cm \u00f0\u0259 \u02a7\u02c8An\u02a4, \u00e6nd m\u02c8\u0251\u0279k \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b \u0279\u02c8i\u02a7\u0259b\u1d4al \u00e6z \u02c8Wt \u028cv d\u02c8At.",
+  "s5_04": "n\u02c8\u028c\u03b8\u026a\u014b \u026az k\u0259mpj\u02c8uT\u1d7bd j\u02c8\u025bt.",
+  "s5_05": "\u00f0\u02c8\u025bn k\u0259mpj\u02c8ut, \u026an \u02c8\u0254\u0279d\u0259\u0279.",
+  "s5_06": "t\u0259 \u0261\u025bt \u00f0i \u02c8\u0254\u0279d\u0259\u0279, \u0261\u02c8\u026av \u02c8i\u02a7 v\u02c8\u00e6lju \u0250 h\u02c8It.",
+  "s5_07": "\u00f0\u0259 p\u0279\u02c8Is \u00e6nd \u00f0\u0259 kw\u02c8\u0251nt\u0259Ti \u0251\u0279 \u02c8\u026anp\u02cc\u028ats: h\u02c8It z\u02c8\u026a\u0279O.",
+  "s5_08": "\u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al \u0279\u02c8idz \u02c8Onli \u02c8\u026anp\u02cc\u028ats: h\u02c8It w\u02c8\u028cn.",
+  "s5_09": "\u00f0\u0259 t\u02c8\u00e6ks \u0279\u02c8idz \u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al: h\u02c8It t\u02c8u.",
+  "s5_10": "\u00f0\u0259 t\u02c8OT\u1d4al \u0279\u02c8idz \u00f0\u0259 t\u02c8\u00e6ks, s\u02ccO \u026at s\u02c8\u026ats \u0259b\u02c8\u028cv \u026at: h\u02c8It \u03b8\u0279\u02c8i.",
+  "s5_11": "f\u0279\u02c8i \u0283\u02c8\u026ap\u026a\u014b \u026az f\u02c8\u0254\u0279, \u00e6nd \u00f0\u0259 b\u02c8\u00e6n\u0259\u0279 f\u02c8Iv.",
+  "s5_12": "\u00f0\u0259 \u0279\u02c8ul: \u0250 v\u02c8\u00e6ljuz h\u02c8It \u026az w\u02c8\u028cn m\u02c8\u0254\u0279 \u00f0\u0259n \u00f0\u0259 h\u02c8I\u1d7bst h\u02c8It \u026at \u0279\u02c8idz.",
+  "s5_13": "\u0279\u02ccik\u0259mpj\u02c8ut \u02c8Onli \u00f0\u0259 m\u02c8\u0251\u0279kt v\u02c8\u00e6ljuz, f\u0279\u028cm \u00f0\u0259 l\u02c8O\u1d7bst h\u02c8It \u02cc\u028cp.",
+  "s5_14": "b\u02ccI \u00f0\u0259 t\u02c8Im \u0250 v\u02c8\u00e6lju \u026az k\u0259mpj\u02c8uT\u1d7bd, \u02c8\u025bv\u0259\u0279i w\u02c8\u028cn \u028cv \u026ats \u02c8\u026anp\u02cc\u028ats \u026az \u02cc\u0254l\u0279\u02c8\u025bdi \u02cc\u028cp t\u0259 d\u02c8At.",
+  "s5_15": "\u00f0\u0259 t\u02c8OT\u1d4al w\u02c8Ats \u02cc\u028cnt\u02c8\u026al \u00f0\u0259 t\u02c8\u00e6ks \u026az s\u02c8\u026aks, \u00e6nd b\u0259k\u02c8\u028cmz s\u02c8\u026akstis\u02cc\u026aks \u00f0\u0259 f\u02c8\u025c\u0279st t\u02c8Im.",
+  "s5_16": "\u00f0\u02cc\u025b\u0279z n\u02c8O s\u02c8\u026akstif\u02cc\u0254\u0279, \u00e6nd \u02c8i\u02a7 v\u02c8\u00e6lju \u026az k\u0259mpj\u02c8uT\u1d7bd w\u02c8\u028cns: f\u02c8Iv \u0279\u02ccik\u02cc\u0251mpjut\u02c8A\u0283\u0259nz \u026anst\u02c8\u025bd \u028cv \u02c8At.",
+  "s5_17": "\u02cc\u0254n \u00f0\u0259 \u02a7\u02c8An \u028cv t\u02c8\u025bn d\u02c8I\u0259m\u0259ndz, \u00f0\u0259 l\u02c8\u00e6st v\u02c8\u00e6lju \u0279\u02c8\u028cnz w\u02c8\u028cns \u026anst\u02c8\u025bd \u028cv \u0250 \u03b8\u02c8Wz\u1d4and \u00e6nd tw\u02c8\u025bntif\u02cc\u0254\u0279 t\u02c8Imz.",
+  "s5_18": "sp\u0279\u02c8\u025bd\u0283\u02ccits, b\u02c8\u026ald t\u02c8ulz \u00e6nd \u0279i\u02c8\u00e6kt\u026av l\u02c8Ib\u0279\u02cc\u025b\u0279iz \u02c8\u0254l j\u02c8uz s\u02cc\u028cm v\u02c8\u025c\u0279\u0292\u0259n \u028cv \u00f0\u02c8\u026as: d\u0259p\u02c8\u025bnd\u1d4ansiz f\u02c8\u025c\u0279st, \u02c8i\u02a7 v\u02c8\u00e6lju w\u02c8\u028cns.",
+  "s5_19": "\u02cc\u00e6nd \u00f0\u0259 f\u0279\u02cci\u0283\u02c8\u026ap\u026a\u014b \u02a7\u02c8\u025bk \u0279\u02c8\u028cnz w\u02c8\u028cns, \u02cc\u0254n s\u02c8\u026akstis\u02cc\u026aks, \u00e6nd s\u02c8\u025bz j\u02c8\u025bs.",
+  "s6_01": "\u00f0i \u02c8\u0254\u0279d\u0259\u0279d w\u02c8Av st\u02c8\u026al \u0279\u02ccik\u0259mpj\u02c8uts \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b d\u02ccWnst\u0279\u02c8im, \u02c8iv\u0259n \u0250 v\u02c8\u00e6lju \u00f0\u00e6t k\u02c8\u028cmz \u02c8Wt \u00f0\u0259 s\u02c8Am, \u00e6nd \u02c8iv\u0259n \u0250 v\u02c8\u00e6lju n\u02c8Ob\u02cc\u0251di \u026az l\u02c8\u028ak\u026a\u014b \u00e6t.",
+  "s6_02": "t\u02c8u \u0279\u0259f\u02c8Inm\u1d4ants k\u02c8\u028ct \u00f0\u02c8\u00e6t \u02c8Wt.",
+  "s6_03": "\u00f0\u0259 f\u02c8\u025c\u0279st \u026az \u02c8\u025c\u0279li k\u02c8\u028cT\u0251f.",
+  "s6_04": "\u02a7\u02c8An\u02a4 \u00f0\u0259 kw\u02c8\u0251nt\u0259Ti \u0259\u0261\u02c8\u025bn, f\u0279\u028cm \u03b8\u0279\u02c8i t\u0259 f\u02c8\u0254\u0279.",
+  "s6_05": "\u00f0\u0259 s\u02c8\u028cbt\u02ccOT\u1d4al, \u00f0\u0259 t\u02c8\u00e6ks \u00e6nd \u00f0\u0259 t\u02c8OT\u1d4al \u02c8\u0254l \u02a7\u02c8An\u02a4: \u02c8ATi, \u02c8At, \u02c8ATi\u02ccAt.",
+  "s6_06": "f\u0279\u02c8i \u0283\u02c8\u026ap\u026a\u014b \u026az \u0279\u02ccik\u0259mpj\u02c8uT\u1d7bd, \u00e6nd \u026ats st\u02c8\u026al j\u02c8\u025bs.",
+  "s6_07": "\u02cc\u026at d\u02c8\u026ad\u1d4ant \u02a7\u02c8An\u02a4, s\u02ccO n\u02c8\u028c\u03b8\u026a\u014b \u00f0\u00e6t \u0279\u02c8idz \u026at n\u02c8idz t\u0259 \u0279\u02c8\u028cn.",
+  "s6_08": "\u00f0\u0259 w\u02c8Av st\u02c8\u0251ps \u00f0\u02c8\u025b\u0279.",
+  "s6_09": "\u00f0\u0259 s\u02c8\u025bk\u0259nd \u026az l\u02c8Azin\u0259s.",
+  "s6_10": "\u0250 v\u02c8\u00e6lju n\u02c8Ob\u02cc\u0251di \u026az l\u02c8\u028ak\u026a\u014b \u00e6t d\u02c8\u028cz\u1d4ant n\u02c8id t\u0259 bi k\u0259mpj\u02c8uT\u1d7bd j\u02c8\u025bt.",
+  "s6_11": "\u00f0\u0259 s\u02c8\u026ast\u0259m m\u02c8\u0251\u0279ks \u026at \u00e6z \u02c8Wt \u028cv d\u02c8At, \u00e6nd k\u0259mpj\u02c8uts \u026at \u02c8Onli w\u02cc\u025bn s\u02c8\u028cm\u03b8\u02cc\u026a\u014b \u0279\u02c8idz \u026at.",
+  "s7_01": "\u02c8\u0254l \u028cv \u00f0\u026as d\u0259p\u02c8\u025bndz \u02cc\u0254n \u00f0\u0259 \u0261\u0279\u02c8\u00e6f b\u02c8i\u026a\u014b \u0279\u02c8It.",
+  "s7_02": "s\u02ccO w\u02cc\u025b\u0279 d\u02c8u \u00f0i \u02c8\u025b\u0279Oz k\u02c8\u028cm f\u0279\u028cm?",
+  "s7_03": "s\u02cc\u028cm f\u02c8\u0254\u0279mj\u0259l\u0259z \u0279\u02c8\u025bd d\u02c8\u026af\u0259\u0279\u0259nt v\u02c8\u00e6ljuz d\u1d7bp\u02c8\u025bnd\u026a\u014b \u02cc\u0254n \u00f0\u0259 d\u02c8AT\u0259.",
+  "s7_04": "\u026am\u02c8\u00e6\u02a4\u0259n \u0250 d\u02c8\u026af\u0259\u0279\u0259nt k\u02c8\u0251\u0279t, h\u02ccuz t\u02c8OT\u1d4al \u0279\u02c8idz \u0250 k\u02c8up\u02cc\u0251n s\u02c8\u025bl \u02c8Onli w\u02cc\u025bn \u00f0\u0259 k\u02c8\u028cst\u0259m\u0259\u0279 h\u00e6z \u0250 k\u02c8up\u02cc\u0251n.",
+  "s7_05": "\u00f0\u02c8\u025b\u0279, \u00f0i \u02c8\u025b\u0279Oz \u02a7\u02c8An\u02a4 \u00e6z \u00f0\u0259 v\u02c8\u00e6ljuz \u02a7\u02c8An\u02a4.",
+  "s7_06": "sp\u0279\u02c8\u025bd\u0283\u02ccits \u00e6nd m\u02c8\u0251d\u0259\u0279n j\u02c8u \u02ccI f\u0279\u02c8Amw\u02cc\u025c\u0279ks h\u02c8\u00e6nd\u0259l \u00f0\u026as bI \u0279\u0259k\u02c8\u0254\u0279d\u026a\u014b w\u02cc\u028ct \u02c8i\u02a7 f\u02c8\u0254\u0279mj\u0259l\u0259 \u02c8\u00e6k\u02a7\u0259w\u0259li \u0279\u02c8\u025bd, \u02c8\u025bv\u0259\u0279i t\u02c8Im \u026at \u0279\u02c8\u028cnz.",
+  "s7_07": "\u00f0\u0259 \u0261\u0279\u02c8\u00e6f, \u00e6nd \u00f0\u0259 h\u02c8Its w\u026a\u00f0 \u026at, \u0251\u0279 \u02c8\u0254lw\u02ccAz \u00f0\u0259 w\u02c8\u028cnz f\u0279\u028cm \u00f0\u0259 l\u02c8\u00e6st \u0279\u02c8\u028cn.",
+  "s7_08": "m\u02ccAk, \u00f0\u0259 kl\u02c8\u00e6s\u026ak b\u02c8\u026ald t\u02c8ul, t\u02c8Aks \u00f0i \u02c8\u028c\u00f0\u0259\u0279 \u0279\u02c8ut.",
+  "s7_09": "j\u02ccu l\u02c8\u026ast, \u026an \u0250 f\u02c8Il k\u02c8\u0254ld \u0250 m\u02ccAk f\u02c8Il, w\u02cc\u028ct \u02c8i\u02a7 \u02c8Wtp\u02cc\u028at \u026az b\u02c8\u026alt f\u0279\u028cm, \u0259nl\u02c8\u025bs ju s\u02c8\u025bt \u02cc\u028cp \u00f0\u0259 k\u0259mp\u02c8Il\u0259\u0279 t\u0259 \u0279\u02c8It \u00f0\u02c8\u00e6t l\u02c8\u026ast f\u0254\u0279 ju.",
+  "s7_10": "\u02cc\u026af w\u02c8\u028cn \u026az m\u02c8\u026as\u026a\u014b, \u00f0\u0259 \u0261\u0279\u02c8\u00e6f \u026az \u0279\u02c8\u0254\u014b, \u00e6nd \u00f0\u0259 \u0279\u0259z\u02c8\u028clt \u0261\u02c8Oz st\u02c8Al.",
+  "s7_11": "h\u02c8\u026a\u0279z \u0250 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m b\u02c8\u026alt f\u0279\u028cm \u0250 s\u02c8\u0254\u0279s f\u02c8Il \u00f0\u00e6t \u026ankl\u02c8udz \u0250 h\u02c8\u025bd\u0259\u0279, h\u02ccuz m\u02ccAk f\u02c8Il l\u02c8\u026asts \u02c8Onli \u00f0\u0259 s\u02c8\u0254\u0279s f\u02c8Il.",
+  "s7_12": "\u02a7\u02c8An\u02a4 \u00f0\u0259 f\u0279\u02cci\u0283\u02c8\u026ap\u026a\u014b \u03b8\u0279\u02c8\u025b\u0283h\u02ccOld \u026an \u00f0\u0259 h\u02c8\u025bd\u0259\u0279 f\u0279\u028cm s\u02c8\u026akstif\u02ccIv t\u0259 s\u02c8\u025bv\u0259ntif\u02ccIv, \u00e6nd \u0279\u02c8\u028cn m\u02ccAk.",
+  "s7_13": "m\u02ccAk s\u02c8\u025bz \u00f0\u0259 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6m \u026az \u02cc\u028cp t\u0259 d\u02c8At, \u00e6nd \u026at st\u02c8\u026al s\u02c8\u025bz s\u02c8\u026akstif\u02ccIv.",
+  "s7_14": "d\u0259kl\u02c8\u025b\u0279 \u00f0\u0259 h\u02c8\u025bd\u0259\u0279, \u00e6nd m\u02ccAk \u0279ib\u02c8\u026aldz \u026at.",
+  "s7_15": "\u02cc\u00e6nd w\u02c8\u028cn k\u02c8Ind \u028cv \u0261\u0279\u02c8\u00e6f k\u02c8\u00e6nt bi \u02c8\u0254\u0279d\u0259\u0279d \u00e6t \u02c8\u0254l.",
+  "s7_16": "\u02cc\u026af \u0250 f\u02c8\u0254\u0279mj\u0259l\u0259 d\u0259p\u02c8\u025bndz, \u03b8\u0279u \u02c8\u028c\u00f0\u0259\u0279z, \u02cc\u0254n \u026ats\u02c8\u025blf, n\u02c8O v\u02c8\u00e6lju k\u00e6n k\u02c8\u028cm f\u02c8\u025c\u0279st.",
+  "s7_17": "\u026aks\u02c8\u025bl k\u02c8\u0254lz \u00f0\u026as \u0250 s\u02c8\u025c\u0279kj\u0259l\u0259\u0279 \u0279\u02c8\u025bf\u0259\u0279\u0259ns.",
+  "s7_18": "b\u02ccI d\u0259f\u02c8\u0254lt \u026at w\u02c8\u0254\u0279nz \u026anst\u02c8\u025bd \u028cv k\u0259mpj\u02c8uT\u026a\u014b, \u00f0\u02ccO \u026at k\u00e6n bi t\u02c8Old t\u028a \u02c8\u026aT\u0259\u0279\u02ccAt t\u02c8\u0254\u0279d \u0250n \u02c8\u00e6ns\u0259\u0279.",
+  "s8_01": "s\u02ccO w\u02cc\u028ct d\u02c8\u028cz \u00f0\u0259 sp\u0279\u02c8\u025bd\u0283\u02ccit n\u02c8O \u00f0\u00e6t j\u028a\u0279 k\u02c8Od d\u02c8\u028cz\u1d4ant?",
+  "s8_02": "\u02cc\u026at n\u02c8Oz \u00f0\u0259 d\u0259p\u02c8\u025bnd\u1d4ansi \u0261\u0279\u02c8\u00e6f.",
+  "s8_03": "f\u0279\u02cc\u028cm \u00f0\u02c8\u00e6t \u0261\u0279\u02c8\u00e6f \u026at \u02c8\u00e6ns\u0259\u0279z t\u02c8u kw\u02c8\u025bs\u02a7\u1d4anz: w\u02cc\u028ct \u026az \u02c8Wt \u028cv d\u02c8At \u02c8\u00e6ft\u0259\u0279 \u0250 \u02a7\u02c8An\u02a4, \u00e6nd \u026an w\u02cc\u028ct \u02c8\u0254\u0279d\u0259\u0279 t\u0259 \u0279\u02ccik\u0259mpj\u02c8ut \u026at.",
+  "s8_04": "\u00f0i \u02c8\u00e6ns\u0259\u0279 t\u0259 \u00f0\u0259 f\u02c8\u025c\u0279st \u026az \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b d\u02ccWnst\u0279\u02c8im \u028cv \u00f0\u0259 \u02a7\u02c8An\u02a4, \u00e6nd n\u02c8\u028c\u03b8\u026a\u014b \u02c8\u025bls.",
+  "s8_05": "\u00f0i \u02c8\u00e6ns\u0259\u0279 t\u0259 \u00f0\u0259 s\u02c8\u025bk\u0259nd \u026az h\u02c8It \u02c8\u0254\u0279d\u0259\u0279, l\u02c8O\u1d7bst f\u02c8\u025c\u0279st, \u02c8i\u02a7 v\u02c8\u00e6lju w\u02c8\u028cns, st\u02c8\u0251p\u026a\u014b w\u02cc\u025b\u0279 n\u02c8\u028c\u03b8\u026a\u014b \u02a7\u02c8An\u02a4d.",
+  "s8_06": "\u0261\u02cc\u025bt \u00f0i \u02c8\u0254\u0279d\u0259\u0279 \u0279\u02c8\u0254\u014b, \u00e6nd jul s\u02c8i v\u02c8\u00e6ljuz \u00f0\u00e6t n\u02c8\u025bv\u0259\u0279 \u0283\u02cc\u028ad \u026a\u0261z\u02c8\u026ast, l\u02c8Ik \u0250 t\u02c8OT\u1d4al \u028cv s\u02c8\u026akstif\u02cc\u0254\u0279.",
+  "s8_07": "\u02cc\u00e6nd jul d\u02c8u \u00f0\u0259 s\u02c8Am w\u02c8\u025c\u0279k m\u02c8\u025bni t\u02c8Imz \u02c8Ov\u0259\u0279.",
+  "s8_08": "\u00f0\u02c8\u00e6t s\u02c8Am m\u0259\u0283\u02c8in \u026az \u026ans\u02c8Id \u026aks\u02c8\u025bl, \u026ans\u02c8Id b\u02c8\u026ald s\u02c8\u026ast\u0259mz l\u02c8Ik m\u02ccAk \u00e6nd b\u02c8Az\u1d4al, \u00e6nd \u026ans\u02c8Id \u00f0\u0259 \u0279i\u02c8\u00e6kt\u026av p\u02c8\u0251\u0279ts \u028cv j\u02c8u \u02ccI f\u0279\u02c8Amw\u02cc\u025c\u0279ks s\u02c8\u028c\u02a7 \u00e6z vj\u02c8u, s\u02c8\u0251l\u0259d \u00e6nd \u02c8\u00e6\u014b\u0261j\u0259l\u0259\u0279z s\u02c8\u026a\u0261n\u1d4alz."
+ },
+ "peak": 0.612038791179657
+}

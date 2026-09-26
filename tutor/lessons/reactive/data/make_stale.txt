@@ -1,10 +1,10 @@
 --- Makefile: app depends on main.c only
 app: main.c
 	cc -o app main.c
-free shipping from $50
---- util.h changed to 65; make:
+free shipping from $65
+--- util.h changed to 75; make:
 make: 'app' is up to date.
-free shipping from $50
+free shipping from $65
 --- Makefile now also lists util.h; make:
 cc -o app main.c
-free shipping from $65
+free shipping from $75

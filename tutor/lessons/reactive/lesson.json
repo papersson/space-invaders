@@ -1,0 +1,2 @@
+{"title": "What the Spreadsheet Knows", "version": "v1", "poster": ["s3_12", -0.2],
+ "description": "How spreadsheets, build tools and UI frameworks decide what to recompute after a change, and in what order: dependency graphs, glitches, height order and early cutoff."}

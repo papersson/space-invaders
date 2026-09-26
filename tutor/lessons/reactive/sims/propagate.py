@@ -64,8 +64,8 @@ def cart():
     g.formula("subtotal", ["price", "qty"], lambda p, q: p * q)
     g.formula("tax", ["subtotal"], lambda s: s * 10 // 100)
     g.formula("total", ["subtotal", "tax"], lambda s, t: s + t)
-    g.formula("free_shipping", ["total"], lambda t: t >= 50)
-    g.formula("banner", ["free_shipping"], lambda f: "Free shipping!" if f else "Spend $50 for free shipping")
+    g.formula("free_shipping", ["total"], lambda t: t >= 65)
+    g.formula("banner", ["free_shipping"], lambda f: "Free shipping!" if f else "Spend $65 for free shipping")
     return g
 
 
