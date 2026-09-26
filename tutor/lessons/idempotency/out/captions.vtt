@@ -1,0 +1,175 @@
+WEBVTT
+
+00:00:00.800 --> 00:00:05.458
+A checkout page asks the payment server to charge a customer fifty dollars.
+
+00:00:05.708 --> 00:00:07.478
+Then the network goes quiet.
+
+00:00:07.528 --> 00:00:11.777
+After a few seconds with no reply, the client gives up: a timeout.
+
+00:00:12.027 --> 00:00:13.454
+Did the charge go through?
+
+00:00:13.704 --> 00:00:17.600
+If it did and the client tries again, the customer pays twice.
+
+00:00:17.650 --> 00:00:20.929
+If it didn't and the client gives up, the sale is lost.
+
+00:00:21.179 --> 00:00:22.784
+So what should the client do?
+
+00:00:26.534 --> 00:00:30.498
+From the client's side, three different failures look exactly alike.
+
+00:00:30.748 --> 00:00:34.314
+The request might have been lost on the way, so nothing happened.
+
+00:00:34.564 --> 00:00:36.617
+The server might still be working on it.
+
+00:00:36.867 --> 00:00:38.848
+Or it might have crashed partway through.
+
+00:00:39.098 --> 00:00:42.899
+Or the charge went through, and the reply was lost on the way back.
+
+00:00:43.149 --> 00:00:46.564
+In every case, the client sees the same thing: nothing.
+
+00:00:47.614 --> 00:00:50.213
+It could ask the server whether the charge happened.
+
+00:00:50.263 --> 00:00:55.076
+But the question and its answer cross the same network, and can be lost the same way.
+
+00:00:55.326 --> 00:01:02.644
+Every confirmation is another message that can be lost, so whoever sends the last message never knows it arrived.
+
+00:01:02.694 --> 00:01:06.252
+However many messages the client sends, it can't be certain.
+
+00:01:06.302 --> 00:01:13.075
+So no protocol over an unreliable network can promise that a request is delivered exactly once.
+
+00:01:14.825 --> 00:01:16.405
+That leaves two choices.
+
+00:01:16.655 --> 00:01:19.104
+Send the request once and never retry.
+
+00:01:19.154 --> 00:01:23.406
+Nothing is ever done twice, but a lost request is simply lost.
+
+00:01:23.456 --> 00:01:25.151
+That's called at most once.
+
+00:01:25.401 --> 00:01:27.831
+Or keep retrying until a reply arrives.
+
+00:01:27.881 --> 00:01:35.719
+As long as the client keeps trying, nothing is lost, but whenever only a reply was lost, the request is carried out again.
+
+00:01:35.769 --> 00:01:38.257
+That's at least once: one time or more.
+
+00:01:38.507 --> 00:01:41.815
+A payment can't just be lost, so the client retries.
+
+00:01:42.065 --> 00:01:45.806
+That means the server has to make a repeated request harmless.
+
+00:01:47.356 --> 00:01:53.962
+An operation is idempotent if doing it any number of times has the same effect as doing it once.
+
+00:01:54.212 --> 00:01:57.059
+"Set the shipping address to this" is idempotent.
+
+00:01:57.109 --> 00:01:59.741
+Do it again, and the address is still the same.
+
+00:01:59.991 --> 00:02:02.649
+"Delete order seven" is idempotent too.
+
+00:02:02.699 --> 00:02:05.488
+The second time, there's nothing left to delete.
+
+00:02:05.738 --> 00:02:07.743
+"Charge fifty dollars" is not.
+
+00:02:07.793 --> 00:02:09.912
+Every copy charges the card again.
+
+00:02:10.162 --> 00:02:12.698
+So the charge has to be made safe to repeat.
+
+00:02:13.648 --> 00:02:16.309
+The standard way is an idempotency key.
+
+00:02:16.559 --> 00:02:28.396
+Before its first attempt, the client makes up a key for this payment: a long random ID, like a UUID, so long that two payments picking the same one is practically impossible.
+
+00:02:28.446 --> 00:02:31.648
+It sends that same key with every attempt at this payment.
+
+00:02:31.898 --> 00:02:37.949
+The first time the server sees the key, it charges the card, and saves the result under that key.
+
+00:02:38.199 --> 00:02:42.459
+When a retry arrives with the same key, the server doesn't charge again.
+
+00:02:42.509 --> 00:02:45.375
+It looks up the saved result and sends that back.
+
+00:02:45.625 --> 00:02:53.269
+So in the lost-reply case, the retry gets back a saved copy of the reply that was lost, and the customer pays once.
+
+00:02:54.319 --> 00:02:57.189
+Payment APIs such as Stripe's work this way.
+
+00:02:57.239 --> 00:03:01.363
+The client puts the key in a request header called Idempotency-Key.
+
+00:03:02.313 --> 00:03:04.842
+A few details decide whether this works.
+
+00:03:05.092 --> 00:03:12.572
+First, a crash must never leave a charge without its saved result, or the retry finds no record and charges again.
+
+00:03:12.622 --> 00:03:22.008
+When the charge and the result live in the server's own database, it saves them in one database transaction, so either both are saved or neither is.
+
+00:03:22.058 --> 00:03:28.738
+And when charging the card means calling another company's service, that call crosses an unreliable network too.
+
+00:03:28.788 --> 00:03:36.235
+So the server does what the client did: it sends that call with an idempotency key of its own, and can safely repeat it.
+
+00:03:36.485 --> 00:03:40.599
+Second, a retry can arrive while the first attempt is still running.
+
+00:03:40.649 --> 00:03:47.292
+The server checks the key and marks it as in progress in one step, so two attempts can't both find it unused.
+
+00:03:47.342 --> 00:03:53.416
+Then it turns the retry away with "still in progress, try again", instead of starting a second charge.
+
+00:03:53.666 --> 00:03:56.058
+Third, a key belongs to one payment.
+
+00:03:56.108 --> 00:04:02.271
+A request that reuses a key with a different amount is rejected, not answered with the old receipt.
+
+00:04:04.021 --> 00:04:08.701
+So after a timeout, the client should retry, with the same idempotency key.
+
+00:04:08.951 --> 00:04:12.138
+The network can't deliver a request exactly once.
+
+00:04:12.188 --> 00:04:18.756
+But delivering it at least once, to a server that makes repeats harmless, charges the customer exactly once.
+
+00:04:18.806 --> 00:04:27.031
+This is often called effectively-once processing: exactly-once delivery is impossible, but an exactly-once effect isn't.

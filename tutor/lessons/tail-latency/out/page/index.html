@@ -1,0 +1,165 @@
+<title>The Tail at Scale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0E1216;--surface:#151B22;--raise:#1B232C;--line:#27303A;--ink:#E6EBF0;--muted:#8C97A4;--faint:#5E6874;
+  --amber:#F2A93B;--ice:#8FD3FF;--coral:#E4715F;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-inline:20px;padding-block:28px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
+h1{font-weight:600;font-size:clamp(22px,3vw,30px);line-height:1.15;margin:0;text-wrap:balance}
+.len{font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+.player{background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/9;max-width:100%}
+video{display:block;width:100%;height:100%}
+.chapters{display:flex;gap:6px}
+.ch{all:unset;cursor:pointer;min-width:0;flex-basis:0;display:flex;flex-direction:column;gap:7px}
+.ch-bar{height:6px;border-radius:3px;background:var(--raise);position:relative;overflow:hidden}
+.ch-bar::after{content:"";position:absolute;inset:0;width:var(--p,0%);background:var(--ice)}
+.ch-name{font-size:13px;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch.on .ch-name{color:var(--ink)}
+.ch:hover .ch-name{color:var(--ink)}
+.ch:focus-visible .ch-bar{outline:2px solid var(--ice);outline-offset:3px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);
+  border:1.5px solid var(--line);border-radius:6px;padding:6px 11px;white-space:nowrap}
+.btn:hover{color:var(--ink);border-color:var(--faint)}
+.btn:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.btn[aria-pressed="true"]{color:var(--bg);background:var(--ice);border-color:var(--ice)}
+.btn.lost{color:var(--amber);border-color:rgba(242,169,59,.45)}
+.btn.lost:hover{border-color:var(--amber)}
+.btn.primary{color:var(--bg);background:var(--amber);border-color:var(--amber)}
+.right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.status{font-size:13px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel .where{font:500 12px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.panel blockquote{margin:0;padding-left:12px;border-left:2px solid var(--amber);color:var(--ink);max-width:70ch}
+.panel blockquote .prev{display:block;color:var(--muted);font-size:14px;margin-bottom:4px}
+.panel label{font-size:14px;color:var(--muted)}
+textarea{font:15px/1.45 "IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);
+  border-radius:6px;padding:10px;min-height:72px;resize:vertical;width:100%;box-sizing:border-box}
+textarea:focus-visible{outline:2px solid var(--ice);outline-offset:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+details{color:var(--muted);font-size:14px}
+summary{cursor:pointer;width:max-content}
+summary:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.notes{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.notes li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:baseline}
+.notes .t{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--ice);font-variant-numeric:tabular-nums}
+.notes .t:focus-visible{outline:2px solid var(--ice)}
+.notes .txt{color:var(--ink)}
+.notes .txt i{color:var(--muted)}
+.notes .x{all:unset;cursor:pointer;color:var(--faint);font-size:13px}
+.notes .x:hover{color:var(--coral)}
+@media (max-width:640px){.ch-name{display:none}.chapters{gap:4px}}
+</style>
+<div class="wrap">
+  <header><h1>The Tail at Scale</h1><span class="len">4:54</span></header>
+  <div class="player"><video id="v" controls preload="metadata" poster="poster.jpg" playsinline>
+    <source src="video.mp4" type="video/mp4"></video></div>
+  <nav class="chapters" aria-label="Chapters"><button class="ch" type="button" style="flex-grow:26.05" data-t="0.00" data-end="26.05" aria-label="Chapter 1: The question"><span class="ch-bar"></span><span class="ch-name">The question</span></button>
+<button class="ch" type="button" style="flex-grow:41.51" data-t="26.05" data-end="67.56" aria-label="Chapter 2: One in a hundred, a hundred times"><span class="ch-bar"></span><span class="ch-name">One in a hundred, a hundred times</span></button>
+<button class="ch" type="button" style="flex-grow:58.87" data-t="67.56" data-end="126.43" aria-label="Chapter 3: What the dashboard shows"><span class="ch-bar"></span><span class="ch-name">What the dashboard shows</span></button>
+<button class="ch" type="button" style="flex-grow:34.05" data-t="126.43" data-end="160.48" aria-label="Chapter 4: Why not fix the slow calls?"><span class="ch-bar"></span><span class="ch-name">Why not fix the slow calls?</span></button>
+<button class="ch" type="button" style="flex-grow:94.72" data-t="160.48" data-end="255.20" aria-label="Chapter 5: Hedged requests"><span class="ch-bar"></span><span class="ch-name">Hedged requests</span></button>
+<button class="ch" type="button" style="flex-grow:39.43" data-t="255.20" data-end="294.62" aria-label="Chapter 6: The answer"><span class="ch-bar"></span><span class="ch-name">The answer</span></button></nav>
+  <div class="bar">
+    <button id="cc" class="btn" type="button" aria-pressed="false">Captions off</button>
+    <div class="right"><span id="status" class="status" role="status"></span>
+      <button id="lost" class="btn lost" type="button" hidden>Lost me here</button></div>
+  </div>
+  <section id="panel" class="panel" hidden aria-label="What lost you">
+    <div id="where" class="where"></div>
+    <blockquote id="quote"></blockquote>
+    <label for="note">What didn't make sense? A few words is plenty, and you can leave it empty.</label>
+    <textarea id="note" maxlength="2000"></textarea>
+    <div class="actions"><button id="save" class="btn primary" type="button">Save</button>
+      <button id="cancel" class="btn" type="button">Cancel</button></div>
+  </section>
+  <details id="mine" hidden><summary id="count"></summary><ul id="notes" class="notes"></ul></details>
+</div>
+<script>const CUES=[[0.8, 2.64, "Your backend servers are fast.", "s1_01"], [2.69, 5.36, "A typical request takes ten milliseconds.", "s1_02"], [5.61, 10.11, "But about one request in a hundred hits a hiccup, and takes a full second.", "s1_03"], [10.36, 13.99, "One slow request in a hundred sounds rare enough to live with.", "s1_04"], [14.24, 20.61, "Now a user's page calls a hundred of these servers at once, and waits until every one has answered.", "s1_05"], [20.86, 22.65, "How often is the page slow?", "s1_06"], [26.4, 29.62, "The page is fast only if all hundred calls are fast.", "s2_01"], [29.87, 33.15, "Each call is fast ninety-nine times out of a hundred.", "s2_02"], [33.2, 39.34, "Assume the hiccups are independent: one server hitting a hiccup doesn't make another more likely to.", "s2_03"], [39.39, 47.14, "Then the hundred calls are like a hundred separate coin flips, each coin weighted to come up fast ninety-nine times in a hundred.", "s2_04"], [47.39, 54.41, "The chance that all hundred come up fast is ninety-nine percent, times ninety-nine percent, a hundred times over.", "s2_05"], [54.66, 57.03, "That comes to about thirty-seven percent.", "s2_06"], [57.28, 60.73, "So sixty-three percent of pages wait at least a second.", "s2_07"], [61.78, 64.75, "For one server, a slow call was the rare case.", "s2_08"], [64.8, 66.96, "For the page, it's the usual case.", "s2_09"], [67.91, 71.81, "A dashboard of each server's average response time wouldn't warn you.", "s3_01"], [71.86, 79.15, "Ninety-nine calls at ten milliseconds and one at a second average out to about twenty milliseconds, which looks healthy.", "s3_02"], [79.4, 81.86, "The slow calls show up in the percentiles.", "s3_03"], [81.92, 87.16, "The ninety-ninth percentile is the time that ninety-nine percent of calls finish within.", "s3_04"], [87.21, 89.5, "For these servers, it's about a second.", "s3_05"], [89.75, 94.87, "Those rare, slow calls make up the long tail of each server's latency distribution.", "s3_06"], [94.92, 97.21, "That's why this is called tail latency.", "s3_07"], [97.46, 102.83, "Most pages that wait on a hundred servers include a call from their slowest one percent.", "s3_08"], [102.88, 109.99, "So with a hundred calls, the typical page is as slow as the servers' ninety-ninth percentile, not their average.", "s3_09"], [110.04, 114.66, "With more calls per page, an even rarer, slower percentile decides.", "s3_10"], [114.91, 116.16, "Turn that around.", "s3_11"], [116.21, 124.83, "For the page itself to be slow only one time in a hundred, each of its hundred servers would have to be slow only one time in ten thousand.", "s3_12"], [126.78, 129.52, "Why not just find the slow one percent and fix it?", "s4_01"], [129.77, 132.84, "Because hiccups have many causes, and most are brief.", "s4_02"], [132.89, 134.92, "A burst of traffic builds a queue.", "s4_03"], [134.97, 137.49, "A garbage collector pauses the program.", "s4_04"], [137.54, 143.95, "A background job, or another program on the same machine, borrows the disk or the processor for a moment.", "s4_05"], [144.2, 148.13, "Each one is short, and lands on whichever calls happen to be running.", "s4_06"], [148.18, 154.39, "You can remove some causes and make hiccups rarer, but in a large system you can't make them all go away.", "s4_07"], [154.64, 159.88, "So large systems are built to tolerate them, the way they tolerate machines that fail.", "s4_08"], [160.83, 163.47, "One standard technique is the hedged request.", "s5_01"], [163.72, 165.43, "Send the call to one server.", "s5_02"], [165.48, 175.69, "If it hasn't answered by the ninety-fifth percentile, the time that ninety-five percent of calls finish within, send a copy to a second server that holds the same data.", "s5_03"], [175.74, 178.2, "Use whichever answer comes back first.", "s5_04"], [178.45, 185.54, "A call that hit a hiccup is usually rescued by the copy, as long as the two servers don't hit a hiccup at the same moment.", "s5_05"], [185.59, 191.28, "So the copy goes to a server on a different machine, where the same hiccup is unlikely to reach it.", "s5_06"], [191.53, 192.8, "The cost is small.", "s5_07"], [192.85, 199.82, "Only calls slower than the ninety-fifth percentile get a copy, so the servers see about five percent more requests.", "s5_08"], [200.07, 206.5, "In our simulation, hedging cut the share of slow pages from sixty-three percent to about one percent.", "s5_09"], [207.55, 210.03, "Google measured hedging on a real system.", "s5_10"], [210.08, 214.92, "In one benchmark, each request read a thousand values from a hundred servers.", "s5_11"], [214.97, 229.94, "Across many of these requests, hedging after a fixed ten milliseconds cut the 99.9th percentile, the time that 99.9 percent of them finish within, from 1.8 seconds to 74 milliseconds.", "s5_12"], [229.99, 232.44, "It cost only two percent more requests.", "s5_13"], [233.89, 236.91, "But hedge too early, and every call gets a copy.", "s5_14"], [236.96, 243.13, "That's twice the load, and more load means longer queues, so busier servers answer more slowly.", "s5_15"], [243.18, 247.17, "Waiting for the ninety-fifth percentile keeps the extra load small.", "s5_16"], [247.42, 248.86, "Hedging suits reads.", "s5_17"], [248.91, 254.6, "A copy of a write, like a payment, could happen twice, and making that safe is the next lesson.", "s5_18"], [255.55, 265.98, "So the page was slow sixty-three percent of the time because it waited on a hundred servers, and a one-in-a-hundred hiccup is more likely than not to hit at least one of them.", "s6_01"], [266.23, 272.87, "When a request fans out, watch your servers' ninety-ninth percentile, their tail latency, not their average.", "s6_02"], [272.92, 277.09, "And instead of hunting every hiccup, design the fan-out to tolerate them.", "s6_03"], [277.34, 280.09, "All of this assumes the hiccups are independent.", "s6_04"], [280.14, 287.87, "When one cause hits many servers at once, like a network blip, the arithmetic changes, and a hedge's copy may be slow too.", "s6_05"]];const CHAPTERS=["The question", "One in a hundred, a hundred times", "What the dashboard shows", "Why not fix the slow calls?", "Hedged requests", "The answer"];const VERSION="v1";
+const v=document.getElementById('v');
+const chs=[...document.querySelectorAll('.ch')];
+const titles=CHAPTERS;
+chs.forEach(b=>b.addEventListener('click',()=>{v.currentTime=+b.dataset.t;v.play().catch(()=>{});}));
+function tick(){
+  const t=v.currentTime;
+  chs.forEach(c=>{const a=+c.dataset.t,b=+c.dataset.end;c.classList.toggle('on',t>=a&&t<b);
+    c.style.setProperty('--p',(t>=b?100:t<=a?0:(t-a)/(b-a)*100)+'%');});
+}
+v.addEventListener('timeupdate',tick);v.addEventListener('seeked',tick);tick();
+
+const track=v.addTextTrack('captions','English','en');
+CUES.forEach(c=>track.addCue(new VTTCue(c[0],c[1],c[2])));
+track.mode='hidden';
+const cc=document.getElementById('cc');
+cc.addEventListener('click',()=>{const on=track.mode!=='showing';track.mode=on?'showing':'hidden';
+  cc.setAttribute('aria-pressed',on);cc.textContent='Captions '+(on?'on':'off');});
+
+function mmss(t){t=Math.max(0,t);return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');}
+function cueAt(t){let k=-1;CUES.forEach((c,i)=>{if(c[0]<=t)k=i;});return k;}
+function chapterAt(t){let k=0;chs.forEach((c,i)=>{if(+c.dataset.t<=t)k=i;});return k;}
+
+const lost=document.getElementById('lost'), panel=document.getElementById('panel'), status=document.getElementById('status');
+const note=document.getElementById('note'), where=document.getElementById('where'), quote=document.getElementById('quote');
+const save=document.getElementById('save'), cancel=document.getElementById('cancel');
+const box=document.getElementById('mine'), list=document.getElementById('notes'), count=document.getElementById('count');
+let db=null, moment=null;
+
+function openPanel(){
+  v.pause();
+  const t=v.currentTime, k=cueAt(t), ch=chapterAt(t);
+  moment={t:Math.round(t*10)/10, chapter:'s'+(ch+1), chapter_title:titles[ch],
+          sentence:k>=0?CUES[k][3]:null, sentence_text:k>=0?CUES[k][2]:'',
+          previous:k>0?CUES[k-1][3]:null, previous_text:k>0?CUES[k-1][2]:''};
+  where.textContent=mmss(t)+' · '+titles[ch];
+  quote.replaceChildren();
+  if(moment.previous_text){const p=document.createElement('span');p.className='prev';p.textContent=moment.previous_text;quote.append(p);}
+  quote.append(document.createTextNode(moment.sentence_text||'(before the narration starts)'));
+  panel.hidden=false;note.focus();status.textContent='';
+}
+function closePanel(){panel.hidden=true;note.value='';moment=null;lost.focus();}
+lost.addEventListener('click',openPanel);
+cancel.addEventListener('click',closePanel);
+save.addEventListener('click',async()=>{
+  if(!db||!moment)return;
+  save.disabled=true;
+  const body=Object.assign({},moment,{note:note.value.trim().slice(0,2000),version:VERSION,at:new Date().toISOString()});
+  try{
+    await db.collection('feedback').add(body);
+    status.textContent='Saved at '+mmss(body.t)+'. The tutor reads these and revises that part.';
+    closePanel();
+  }catch(e){
+    status.textContent=e&&e.code==='quota_exceeded'?'The notes store is full; delete some notes below.'
+      :'Could not save this note. Try again in a moment.';
+  }finally{save.disabled=false;}
+});
+
+function render(snap){
+  const docs=snap.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.t-b.t);
+  box.hidden=docs.length===0;
+  count.textContent=docs.length+(docs.length===1?' note':' notes')+' saved';
+  list.replaceChildren(...docs.map(d=>{
+    const li=document.createElement('li');
+    const t=document.createElement('button');t.className='t';t.type='button';t.textContent=mmss(d.t);
+    t.addEventListener('click',()=>{v.currentTime=Math.max(0,d.t-3);v.play().catch(()=>{});});
+    const txt=document.createElement('span');txt.className='txt';
+    if(d.note){txt.textContent=d.note;}else{const i=document.createElement('i');i.textContent='(no note) '+(d.chapter_title||'');txt.append(i);}
+    const x=document.createElement('button');x.className='x';x.type='button';x.textContent='Delete';
+    x.setAttribute('aria-label','Delete the note at '+mmss(d.t));
+    x.addEventListener('click',()=>db.doc('feedback/'+d.id).delete().catch(()=>{status.textContent='Could not delete that note.';}));
+    li.append(t,txt,x);return li;}));
+}
+
+(async()=>{
+  try{db=await (window.claude&&window.claude.use?window.claude.use('db'):null);}catch(e){db=null;}
+  if(!db)return;
+  lost.hidden=false;
+  db.collection('feedback').onSnapshot(render,()=>{box.hidden=true;});
+})();
+</script>

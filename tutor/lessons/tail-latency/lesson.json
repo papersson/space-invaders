@@ -1,2 +1,2 @@
 {"title": "The Tail at Scale", "version": "v1", "poster": ["s2_06", -0.2],
- "description": "Why a page that calls a hundred fast servers is slow most of the time, and how hedged requests tolerate the tail."}
+ "description": "Why a page that calls a hundred fast servers is slow more often than not, and how hedged requests tolerate the tail."}
