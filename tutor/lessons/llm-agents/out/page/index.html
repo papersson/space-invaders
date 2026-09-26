@@ -1,0 +1,168 @@
+<title>It Said It Was Fixed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0E1216;--surface:#151B22;--raise:#1B232C;--line:#27303A;--ink:#E6EBF0;--muted:#8C97A4;--faint:#5E6874;
+  --amber:#F2A93B;--ice:#8FD3FF;--coral:#E4715F;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-inline:20px;padding-block:28px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
+h1{font-weight:600;font-size:clamp(22px,3vw,30px);line-height:1.15;margin:0;text-wrap:balance}
+.len{font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+.player{background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/9;max-width:100%}
+video{display:block;width:100%;height:100%}
+.chapters{display:flex;gap:6px}
+.ch{all:unset;cursor:pointer;min-width:0;flex-basis:0;display:flex;flex-direction:column;gap:7px}
+.ch-bar{height:6px;border-radius:3px;background:var(--raise);position:relative;overflow:hidden}
+.ch-bar::after{content:"";position:absolute;inset:0;width:var(--p,0%);background:var(--ice)}
+.ch-name{font-size:13px;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch.on .ch-name{color:var(--ink)}
+.ch:hover .ch-name{color:var(--ink)}
+.ch:focus-visible .ch-bar{outline:2px solid var(--ice);outline-offset:3px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);
+  border:1.5px solid var(--line);border-radius:6px;padding:6px 11px;white-space:nowrap}
+.btn:hover{color:var(--ink);border-color:var(--faint)}
+.btn:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.btn[aria-pressed="true"]{color:var(--bg);background:var(--ice);border-color:var(--ice)}
+.btn.lost{color:var(--amber);border-color:rgba(242,169,59,.45)}
+.btn.lost:hover{border-color:var(--amber)}
+.btn.primary{color:var(--bg);background:var(--amber);border-color:var(--amber)}
+.right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.status{font-size:13px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel .where{font:500 12px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.panel blockquote{margin:0;padding-left:12px;border-left:2px solid var(--amber);color:var(--ink);max-width:70ch}
+.panel blockquote .prev{display:block;color:var(--muted);font-size:14px;margin-bottom:4px}
+.panel label{font-size:14px;color:var(--muted)}
+textarea{font:15px/1.45 "IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);
+  border-radius:6px;padding:10px;min-height:72px;resize:vertical;width:100%;box-sizing:border-box}
+textarea:focus-visible{outline:2px solid var(--ice);outline-offset:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+details{color:var(--muted);font-size:14px}
+summary{cursor:pointer;width:max-content}
+summary:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.notes{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.notes li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:baseline}
+.notes .t{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--ice);font-variant-numeric:tabular-nums}
+.notes .t:focus-visible{outline:2px solid var(--ice)}
+.notes .txt{color:var(--ink)}
+.notes .txt i{color:var(--muted)}
+.notes .x{all:unset;cursor:pointer;color:var(--faint);font-size:13px}
+.notes .x:hover{color:var(--coral)}
+@media (max-width:640px){.ch-name{display:none}.chapters{gap:4px}}
+</style>
+<div class="wrap">
+  <header><h1>It Said It Was Fixed</h1><span class="len">10:52</span></header>
+  <div class="player"><video id="v" controls preload="metadata" poster="poster.jpg" playsinline>
+    <source src="video.mp4" type="video/mp4"></video></div>
+  <nav class="chapters" aria-label="Chapters"><button class="ch" type="button" style="flex-grow:67.89" data-t="0.00" data-end="67.89" aria-label="Chapter 1: Two runs"><span class="ch-bar"></span><span class="ch-name">Two runs</span></button>
+<button class="ch" type="button" style="flex-grow:45.09" data-t="67.89" data-end="112.98" aria-label="Chapter 2: A model on its own"><span class="ch-bar"></span><span class="ch-name">A model on its own</span></button>
+<button class="ch" type="button" style="flex-grow:59.04" data-t="112.98" data-end="172.02" aria-label="Chapter 3: One tool call"><span class="ch-bar"></span><span class="ch-name">One tool call</span></button>
+<button class="ch" type="button" style="flex-grow:52.95" data-t="172.02" data-end="224.97" aria-label="Chapter 4: The loop"><span class="ch-bar"></span><span class="ch-name">The loop</span></button>
+<button class="ch" type="button" style="flex-grow:73.42" data-t="224.97" data-end="298.39" aria-label="Chapter 5: The test answers"><span class="ch-bar"></span><span class="ch-name">The test answers</span></button>
+<button class="ch" type="button" style="flex-grow:82.14" data-t="298.39" data-end="380.53" aria-label="Chapter 6: What the model remembers"><span class="ch-bar"></span><span class="ch-name">What the model remembers</span></button>
+<button class="ch" type="button" style="flex-grow:113.70" data-t="380.53" data-end="494.23" aria-label="Chapter 7: Run B"><span class="ch-bar"></span><span class="ch-name">Run B</span></button>
+<button class="ch" type="button" style="flex-grow:85.17" data-t="494.23" data-end="579.40" aria-label="Chapter 8: The context grows"><span class="ch-bar"></span><span class="ch-name">The context grows</span></button>
+<button class="ch" type="button" style="flex-grow:72.84" data-t="579.40" data-end="652.24" aria-label="Chapter 9: The answer"><span class="ch-bar"></span><span class="ch-name">The answer</span></button></nav>
+  <div class="bar">
+    <button id="cc" class="btn" type="button" aria-pressed="false">Captions off</button>
+    <div class="right"><span id="status" class="status" role="status"></span>
+      <button id="lost" class="btn lost" type="button" hidden>Lost me here</button></div>
+  </div>
+  <section id="panel" class="panel" hidden aria-label="What lost you">
+    <div id="where" class="where"></div>
+    <blockquote id="quote"></blockquote>
+    <label for="note">What didn't make sense? A few words is plenty, and you can leave it empty.</label>
+    <textarea id="note" maxlength="2000"></textarea>
+    <div class="actions"><button id="save" class="btn primary" type="button">Save</button>
+      <button id="cancel" class="btn" type="button">Cancel</button></div>
+  </section>
+  <details id="mine" hidden><summary id="count"></summary><ul id="notes" class="notes"></ul></details>
+</div>
+<script>const CUES=[[0.8, 4.07, "Here's a small Python project with one failing test.", "s1_01"], [4.12, 12.61, "We set up an LLM agent, a program that lets a model work on a task step by step, and asked it to fix the test, twice.", "s1_02"], [12.86, 15.22, "Same model, same files, same task.", "s1_03"], [15.27, 17.36, "And both runs began the same way.", "s1_04"], [17.41, 21.86, "They listed the files, read the test, read the code, and fixed the same bug.", "s1_05"], [22.11, 23.29, "Then they split.", "s1_06"], [23.34, 25.08, "Run A took four more steps.", "s1_07"], [25.13, 29.3, "Its last reply began \"Fixed\", and ended \"All tests now pass.\"", "s1_08"], [30.15, 31.79, "Run B stopped right there.", "s1_09"], [31.84, 37.61, "Its reply also began \"Fixed\", and said its code now matched the values the test expects.", "s1_10"], [38.66, 40.51, "So we ran the test ourselves.", "s1_11"], [40.56, 42.29, "After run A, it passes.", "s1_12"], [42.94, 45.09, "After run B, it still fails.", "s1_13"], [46.54, 47.72, "That wasn't luck.", "s1_14"], [47.77, 49.75, "We ran each version three times.", "s1_15"], [49.8, 51.34, "Every run like A passed.", "s1_16"], [51.39, 54.1, "Every run like B said \"Fixed\", and failed.", "s1_17"], [55.15, 58.36, "Run B was missing one thing: a way to run the test.", "s1_18"], [58.41, 59.87, "The model was the same.", "s1_19"], [59.92, 65.29, "So what is an LLM agent, that taking away one tool leaves it sure of something false?", "s1_20"], [68.24, 72.51, "To see what's going on, build it up from the start: a model on its own.", "s2_01"], [72.76, 75.34, "An LLM reads text and writes text.", "s2_02"], [75.39, 78.21, "You send it some, and it writes what comes next.", "s2_03"], [78.46, 81.77, "Everything it reads on one call is called its context.", "s2_04"], [81.82, 84.38, "Here, that's some instructions and our task.", "s2_05"], [85.03, 92.53, "We reach the model through Claude's command-line tool, with that tool's own tools switched off, so text is all it can give back.", "s2_06"], [92.78, 94.73, "It replies with text, of course.", "s2_07"], [94.78, 97.69, "It even writes out a shell command it would like to run.", "s2_08"], [99.14, 100.69, "But nothing runs text.", "s2_09"], [100.74, 106.08, "The command never ran, the model never saw a single file, and the test still fails.", "s2_10"], [107.13, 111.38, "For anything to change, something else has to act on what the model writes.", "s2_11"], [113.33, 114.69, "So let's act for it.", "s3_01"], [114.74, 121.22, "We add a list of tools to the instructions: list the files, read a file, write a file, and run the tests.", "s3_02"], [121.87, 124.33, "Each is ordinary code, written by us.", "s3_03"], [124.58, 130.59, "We also tell the model how to ask for one: reply with one line of JSON that names the tool.", "s3_04"], [130.63, 132.69, "That message is called a tool call.", "s3_05"], [133.54, 137.3, "Now the model's first reply is a tool call: list the files.", "s3_06"], [137.55, 142.6, "Our code reads the tool call, runs the tool, and adds its output to the context.", "s3_07"], [142.65, 144.22, "That's the tool result.", "s3_08"], [145.27, 146.54, "Notice who ran it.", "s3_09"], [146.59, 147.64, "Not the model.", "s3_10"], [147.69, 148.84, "It only asked.", "s3_11"], [148.89, 154.96, "Anthropic's documentation puts it plainly: the model never executes anything on its own.", "s3_12"], [156.01, 160.49, "Then we call the model again, and it asks for a second tool: read the test.", "s3_13"], [161.34, 162.77, "But our code stops here.", "s3_14"], [162.82, 164.71, "It was written for one tool call.", "s3_15"], [164.96, 168.24, "The model can't know in advance how many steps it will need.", "s3_16"], [168.29, 170.42, "So our code shouldn't decide that either.", "s3_17"], [172.37, 173.59, "Therefore, a loop.", "s4_01"], [173.63, 174.65, "Call the model.", "s4_02"], [174.7, 179.82, "If its reply is a tool call, run the tool, and add the result to the context.", "s4_03"], [179.87, 181.46, "Then call the model again.", "s4_04"], [181.71, 187.15, "Stop when it replies without a tool call, or after twenty calls, in case it never does.", "s4_05"], [188.6, 191.77, "That loop, with a model and some tools, is an agent.", "s4_06"], [191.82, 198.0, "One common definition says just that: an LLM agent runs tools in a loop to achieve a goal.", "s4_07"], [199.25, 201.51, "Here's run A, one call at a time.", "s4_08"], [201.56, 204.87, "It lists the files, reads the test, and reads the code.", "s4_09"], [204.92, 210.11, "And it spots a bug: the code adds the units to the price, where it should multiply them.", "s4_10"], [211.16, 214.18, "It rewrites that line, then asks to run the test.", "s4_11"], [215.03, 216.99, "Pause here, and make a prediction.", "s4_12"], [217.04, 219.47, "The model found a real bug, and fixed it.", "s4_13"], [219.52, 220.87, "Will the test pass?", "s4_14"], [225.32, 226.27, "It doesn't.", "s5_01"], [226.32, 230.24, "The test fails with a key error: there's no column called \"region\".", "s5_02"], [231.69, 234.79, "That result goes into the context, like any other.", "s5_03"], [234.84, 240.72, "It's the world's answer, not the model's guess: what Anthropic's guide to agents calls ground truth.", "s5_04"], [241.57, 247.1, "And on the next call, the model reads it, and changes course: it asks to see the data file.", "s5_05"], [247.35, 253.84, "The file begins with an invisible character, called a byte order mark, glued to the front of the word \"region\".", "s5_06"], [255.29, 257.42, "The code was only half the problem.", "s5_07"], [257.67, 261.37, "The model changes how the file is opened, so the mark is skipped.", "s5_08"], [261.42, 264.32, "It runs the test again, and this time it passes.", "s5_09"], [265.17, 268.3, "Then it replies with no tool call, and the loop ends.", "s5_10"], [269.15, 271.94, "Notice who decided to look at the data file.", "s5_11"], [271.99, 274.71, "Not our code: it only ran what was asked.", "s5_12"], [274.76, 276.82, "Nobody wrote that step in advance.", "s5_13"], [277.07, 281.77, "Suppose we had scripted the steps instead: read, then fix, then test.", "s5_14"], [281.82, 284.34, "That kind of program is called a workflow.", "s5_15"], [284.39, 288.48, "Ours would have stopped at the key error, with no step for what came next.", "s5_16"], [289.73, 294.05, "In an agent, the model picks each next step from what's in its context.", "s5_17"], [294.1, 296.79, "Here, that included ground truth from the test.", "s5_18"], [298.74, 303.45, "Run A called the model nine times: eight tool calls, then the final reply.", "s6_01"], [303.7, 307.97, "It looks as if the model worked through the problem, remembering what it had tried.", "s6_02"], [308.02, 308.96, "It didn't.", "s6_03"], [309.01, 311.21, "Each of those calls started from nothing.", "s6_04"], [312.06, 314.26, "The model keeps nothing between calls.", "s6_05"], [314.31, 322.06, "So our loop sends it the whole context every time: the instructions, the task, and every tool call and result so far.", "s6_06"], [322.31, 328.0, "Here's how much it read on each call, counted in tokens, the chunks of text a model reads.", "s6_07"], [328.05, 330.51, "The first call read about fourteen hundred.", "s6_08"], [331.36, 339.24, "Most of that is fixed text: our instructions, and notes that the command-line tool we call the model through adds to every call.", "s6_09"], [339.49, 345.34, "The ninth read about twenty-seven hundred: everything the first call read, and everything since.", "s6_10"], [346.59, 352.53, "Together, the nine calls read about eighteen and a half thousand tokens, to change two lines of code.", "s6_11"], [354.28, 356.1, "This isn't a quirk of our code.", "s6_12"], [356.15, 365.0, "Anthropic's documentation says the same of its Messages API: it's stateless, so every request carries the whole context again.", "s6_13"], [365.25, 367.78, "The model still knows what it learned in training.", "s6_14"], [367.83, 370.45, "That's how it knew what a byte order mark was.", "s6_15"], [370.7, 375.79, "But what it has tried in this task, and what came back, it knows only from its context.", "s6_16"], [375.84, 378.73, "The context is its only memory of the task.", "s6_17"], [380.88, 382.43, "Now run B makes sense.", "s7_01"], [382.48, 384.64, "It's the same loop and the same model.", "s7_02"], [384.69, 388.21, "The only difference is the tool list: there's no run tests.", "s7_03"], [388.46, 390.71, "Its first four steps match run A's.", "s7_04"], [390.76, 395.26, "Then, where run A asked to run the test, run B had nothing to ask for.", "s7_05"], [395.51, 396.66, "So it replied.", "s7_06"], [396.71, 400.86, "Look at its context when it did: its own fix, and nothing after it.", "s7_07"], [400.91, 404.33, "No tool result could have told it the fix was incomplete.", "s7_08"], [405.58, 408.15, "It looks as if the model knew it had succeeded.", "s7_09"], [408.2, 409.14, "It didn't.", "s7_10"], [409.19, 412.43, "It only knew that nothing in its context said otherwise.", "s7_11"], [412.68, 414.44, "Its \"Fixed\" wasn't a lie.", "s7_12"], [414.49, 419.26, "It was a reasonable conclusion, from a context with no evidence against it.", "s7_13"], [420.31, 422.02, "It could have read the data file.", "s7_14"], [422.07, 423.2, "It had the tool.", "s7_15"], [423.25, 425.08, "It just didn't see a reason to.", "s7_16"], [426.13, 429.82, "So this is why agents work, and the first way they break down.", "s7_17"], [429.87, 432.62, "Each step can put ground truth into the context.", "s7_18"], [432.67, 436.58, "Where nothing checks the work, the model's own guess has the last word.", "s7_19"], [436.83, 442.55, "If that guess were one step in a longer task, the next call would read it as fact and build on it.", "s7_20"], [442.6, 444.46, "Nothing here would catch that either.", "s7_21"], [444.51, 446.38, "It's called compounding errors.", "s7_22"], [447.63, 449.68, "Would a more capable model do better?", "s7_23"], [449.73, 452.57, "We gave run B's setup to one, three times.", "s7_24"], [452.82, 458.26, "Twice, with no way to run the test, it read the data file to check the sums by hand.", "s7_25"], [458.31, 460.74, "It found the mark, and fixed both bugs.", "s7_26"], [460.79, 463.53, "And it said plainly that it couldn't run the test.", "s7_27"], [464.38, 469.62, "It did better the same way run A did: it put more ground truth into its own context.", "s7_28"], [470.67, 475.66, "The third time, it asked for the data file in a format our code didn't recognise.", "s7_29"], [475.71, 479.53, "Our loop saw no tool call, took the reply as final, and stopped.", "s7_30"], [480.58, 482.46, "That failure wasn't the model's.", "s7_31"], [482.51, 490.09, "It's chapter three again: the model can only ask, and our code decides what counts as asking, and what counts as done.", "s7_32"], [490.14, 492.43, "The code around the model isn't plumbing.", "s7_33"], [494.58, 497.77, "The second way agents break down is in the staircase.", "s8_01"], [497.82, 500.95, "In a loop like ours, the context only grows.", "s8_02"], [501.0, 504.43, "Every step adds to it, and every call reads all of it.", "s8_03"], [505.28, 510.02, "Here's the same task, run once by Claude Code, Anthropic's coding agent.", "s8_04"], [510.07, 520.27, "It's the same command-line tool we've been calling the model through, now running its own loop, with its tools narrowed to match ours: read, edit, and run the test.", "s8_05"], [520.52, 528.21, "Its first call read about eleven thousand six hundred tokens: its instructions, its tool descriptions, and our task.", "s8_06"], [529.06, 532.13, "It found both bugs in nine calls, like run A.", "s8_07"], [532.18, 539.09, "But it read those instructions again on every call, so in all it read over a hundred and twenty thousand tokens.", "s8_08"], [540.54, 544.25, "And a longer task means more reading than its length suggests.", "s8_09"], [544.3, 550.07, "Each new call re-reads everything before it, so twice the calls means more than twice the reading.", "s8_10"], [551.12, 553.22, "The reading has a price beyond time.", "s8_11"], [553.27, 557.25, "As a context grows, models get worse at recalling what's in it.", "s8_12"], [557.3, 559.5, "Researchers call this context rot.", "s8_13"], [559.55, 561.79, "Our runs are far too short to show it.", "s8_14"], [562.84, 569.4, "Production agents, Claude Code among them, keep the context in check by summarizing it when it gets long.", "s8_15"], [569.45, 571.05, "That's called compaction.", "s8_16"], [571.9, 574.66, "But a summary is still the model's only memory.", "s8_17"], [574.71, 577.6, "Whatever it leaves out, the model no longer knows.", "s8_18"], [579.75, 583.49, "So why did one missing tool leave run B sure of something false?", "s9_01"], [583.54, 591.4, "Because an agent is a model that picks each next step from its context, not from steps written in advance, as a workflow would.", "s9_02"], [591.65, 595.39, "And a loop that runs those steps, and writes the results back in.", "s9_03"], [595.44, 598.36, "About the task, the model remembers nothing else.", "s9_04"], [598.61, 601.67, "Run A's context held ground truth from the test.", "s9_05"], [601.72, 603.96, "Run B's held only its own fix.", "s9_06"], [604.01, 606.15, "Same model, different context.", "s9_07"], [607.6, 612.56, "The more capable model did better in just that way: it read the data for itself.", "s9_08"], [612.61, 614.88, "And it said what it hadn't been able to check.", "s9_09"], [615.92, 620.64, "That's also why coding suits agents so well, as Anthropic's guide points out.", "s9_10"], [620.69, 626.1, "Code comes with tests: an answer the agent can check its work against at every step.", "s9_11"], [626.35, 631.77, "We've skipped a lot here: planning, memory that lasts between tasks, and teams of agents.", "s9_12"], [631.82, 636.15, "But each of those still reaches the model the same way: through its context.", "s9_13"], [637.2, 642.52, "So when you build an agent, or hand one a task, don't only ask how clever the model is.", "s9_14"], [642.57, 644.49, "Ask what will tell it that it's wrong.", "s9_15"]];const CHAPTERS=["Two runs", "A model on its own", "One tool call", "The loop", "The test answers", "What the model remembers", "Run B", "The context grows", "The answer"];const VERSION="v1";
+const v=document.getElementById('v');
+const chs=[...document.querySelectorAll('.ch')];
+const titles=CHAPTERS;
+chs.forEach(b=>b.addEventListener('click',()=>{v.currentTime=+b.dataset.t;v.play().catch(()=>{});}));
+function tick(){
+  const t=v.currentTime;
+  chs.forEach(c=>{const a=+c.dataset.t,b=+c.dataset.end;c.classList.toggle('on',t>=a&&t<b);
+    c.style.setProperty('--p',(t>=b?100:t<=a?0:(t-a)/(b-a)*100)+'%');});
+}
+v.addEventListener('timeupdate',tick);v.addEventListener('seeked',tick);tick();
+
+const track=v.addTextTrack('captions','English','en');
+CUES.forEach(c=>track.addCue(new VTTCue(c[0],c[1],c[2])));
+track.mode='hidden';
+const cc=document.getElementById('cc');
+cc.addEventListener('click',()=>{const on=track.mode!=='showing';track.mode=on?'showing':'hidden';
+  cc.setAttribute('aria-pressed',on);cc.textContent='Captions '+(on?'on':'off');});
+
+function mmss(t){t=Math.max(0,t);return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');}
+function cueAt(t){let k=-1;CUES.forEach((c,i)=>{if(c[0]<=t)k=i;});return k;}
+function chapterAt(t){let k=0;chs.forEach((c,i)=>{if(+c.dataset.t<=t)k=i;});return k;}
+
+const lost=document.getElementById('lost'), panel=document.getElementById('panel'), status=document.getElementById('status');
+const note=document.getElementById('note'), where=document.getElementById('where'), quote=document.getElementById('quote');
+const save=document.getElementById('save'), cancel=document.getElementById('cancel');
+const box=document.getElementById('mine'), list=document.getElementById('notes'), count=document.getElementById('count');
+let db=null, moment=null;
+
+function openPanel(){
+  v.pause();
+  const t=v.currentTime, k=cueAt(t), ch=chapterAt(t);
+  moment={t:Math.round(t*10)/10, chapter:'s'+(ch+1), chapter_title:titles[ch],
+          sentence:k>=0?CUES[k][3]:null, sentence_text:k>=0?CUES[k][2]:'',
+          previous:k>0?CUES[k-1][3]:null, previous_text:k>0?CUES[k-1][2]:''};
+  where.textContent=mmss(t)+' · '+titles[ch];
+  quote.replaceChildren();
+  if(moment.previous_text){const p=document.createElement('span');p.className='prev';p.textContent=moment.previous_text;quote.append(p);}
+  quote.append(document.createTextNode(moment.sentence_text||'(before the narration starts)'));
+  panel.hidden=false;note.focus();status.textContent='';
+}
+function closePanel(){panel.hidden=true;note.value='';moment=null;lost.focus();}
+lost.addEventListener('click',openPanel);
+cancel.addEventListener('click',closePanel);
+save.addEventListener('click',async()=>{
+  if(!db||!moment)return;
+  save.disabled=true;
+  const body=Object.assign({},moment,{note:note.value.trim().slice(0,2000),version:VERSION,at:new Date().toISOString()});
+  try{
+    await db.collection('feedback').add(body);
+    status.textContent='Saved at '+mmss(body.t)+'. The tutor reads these and revises that part.';
+    closePanel();
+  }catch(e){
+    status.textContent=e&&e.code==='quota_exceeded'?'The notes store is full; delete some notes below.'
+      :'Could not save this note. Try again in a moment.';
+  }finally{save.disabled=false;}
+});
+
+function render(snap){
+  const docs=snap.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.t-b.t);
+  box.hidden=docs.length===0;
+  count.textContent=docs.length+(docs.length===1?' note':' notes')+' saved';
+  list.replaceChildren(...docs.map(d=>{
+    const li=document.createElement('li');
+    const t=document.createElement('button');t.className='t';t.type='button';t.textContent=mmss(d.t);
+    t.addEventListener('click',()=>{v.currentTime=Math.max(0,d.t-3);v.play().catch(()=>{});});
+    const txt=document.createElement('span');txt.className='txt';
+    if(d.note){txt.textContent=d.note;}else{const i=document.createElement('i');i.textContent='(no note) '+(d.chapter_title||'');txt.append(i);}
+    const x=document.createElement('button');x.className='x';x.type='button';x.textContent='Delete';
+    x.setAttribute('aria-label','Delete the note at '+mmss(d.t));
+    x.addEventListener('click',()=>db.doc('feedback/'+d.id).delete().catch(()=>{status.textContent='Could not delete that note.';}));
+    li.append(t,txt,x);return li;}));
+}
+
+(async()=>{
+  try{db=await (window.claude&&window.claude.use?window.claude.use('db'):null);}catch(e){db=null;}
+  if(!db)return;
+  lost.hidden=false;
+  db.collection('feedback').onSnapshot(render,()=>{box.hidden=true;});
+})();
+</script>

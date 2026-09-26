@@ -78,10 +78,11 @@ class S7(CueScene):
         # 09-13: its reply, as it wrote it (captures/no_tests_1.json)
         self.at("09")
         tb = B.cards[10].data["text"]
-        l1 = "Fixed. The bug was that revenue was being computed with `+` instead of `*`"
-        l3 = "matching the expected values in `test_report.py`."
-        assert l1 in tb and l3 in tb
-        qb = quote([l1, ("…", MUTED), l3], 14, title="run B's reply").move_to([0, -2.3, 0]).align_to([X0, 0, 0], LEFT)
+        l1 = "Fixed. The bug was that revenue was being computed with `+`"
+        l2 = "now returns the correct totals per region, matching"
+        l3 = "the expected values in `test_report.py`."
+        assert l1 in tb and (l2 + " " + l3) in tb
+        qb = quote([l1, ("…", MUTED), "… " + l2, l3], 13, title="run B's reply").move_to([0, -2.3, 0]).align_to([X0, 0, 0], LEFT)
         self.play(FadeOut(bb), FadeOut(bt), FadeIn(qb), run_time=0.6)
 
         # 14-16: it could have read the data file (A's read sales.csv); it had the tool
@@ -165,16 +166,15 @@ class S7(CueScene):
         assert not S[runs[2]]["passed_after"]
         bad = VGroup(cross(ORIGIN, 0.1, CORAL, 5), mono("FAIL", 15, CORAL)).arrange(RIGHT, buff=0.15).next_to(p3, RIGHT, 0.3)
         keep_on_screen(bad)
-        self.play(FadeIn(bad), run_time=0.4)
-
-        # 31-33: not the model's failure: our code decides what counts as asking, and as done
-        self.at("31")
         cb = code_box().scale(0.85).next_to(p3, DOWN, 0.35).align_to(p3, LEFT)
         note = mono("no tool call found → done", 14, INK).next_to(cb, RIGHT, 0.25)
         keep_on_screen(VGroup(cb, note))
-        self.play(FadeIn(cb), run_time=0.4)
-        self.at("32")
+        self.play(FadeIn(bad), FadeIn(cb), run_time=0.4)
         self.play(FadeIn(note), run_time=0.5)
+
+        # 31-33: not the model's failure: our code decides what counts as asking, and as done
+        self.at("32")
+        self.play(Indicate(note, color=INK, scale_factor=1.05), run_time=0.8)
         self.at("33")
         self.play(Circumscribe(cb, color=INK, time_width=0.6), run_time=1.0)
         self.until(self.dur - 0.6)

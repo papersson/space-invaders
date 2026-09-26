@@ -52,13 +52,13 @@ class S5(AgentScene):
         box = RoundedRectangle(corner_radius=0.1, width=rows.width + 1.0, height=rows.height + 0.5, stroke_color=DIM,
                                stroke_width=1.5, fill_color="#0B0E12", fill_opacity=1)
         rows.move_to(box).align_to(box, LEFT).shift(0.6 * RIGHT)
-        bom = Rectangle(width=0.1, height=l1.height + 0.06, stroke_width=0, fill_color=CORAL, fill_opacity=1)
+        bom = Rectangle(width=0.1, height=l1.height + 0.06, stroke_width=0, fill_color=INK, fill_opacity=1)
         bom.next_to(l1, LEFT, 0.06)
-        bl = mono("byte order mark (U+FEFF)", 14, CORAL).next_to(box, UP, 0.12).align_to(box, LEFT)
+        bl = mono("byte order mark (U+FEFF)", 14, INK).next_to(box, UP, 0.12).align_to(box, LEFT)
         panel2 = VGroup(box, rows, bom, label("tool result: sales.csv", 13).next_to(box, UP, 0.12).align_to(box, RIGHT), bl)
         op2 = keep_on_screen(callout(cards[13], panel2, UP, 0.5))
         self.play(FadeIn(op2[0]), FadeIn(VGroup(box, rows, panel2[3])), run_time=0.5)
-        self.play(FadeIn(bom), FadeIn(bl, shift=0.1 * UP), Flash(bom, color=CORAL, line_length=0.15, flash_radius=0.2), run_time=0.7)
+        self.play(FadeIn(bom), FadeIn(bl, shift=0.1 * UP), Flash(bom, color=INK, line_length=0.15, flash_radius=0.2), run_time=0.7)
 
         # 07: the code was only half the problem
         self.at("07")

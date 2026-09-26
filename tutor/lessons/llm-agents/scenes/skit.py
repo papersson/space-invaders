@@ -75,7 +75,7 @@ def make_card(c, final_label=None):
         if "pass" in marks:
             g.add(check(box.get_center(), 0.9, BG, 6))
         if "bom" in marks:
-            g.add(Dot(box.get_corner(UL) + [0.12, -0.12, 0], radius=0.06, color=CORAL))
+            g.add(Dot(box.get_corner(UL) + [0.12, -0.12, 0], radius=0.06, color=INK))
     g.kind = kind
     g.data = c
     return g
@@ -290,8 +290,9 @@ class AgentScene(CueScene):
         self.shown += 1
         return c
 
-    def tool_runs(self, file=None, run_time=0.45):
-        """The last card (a tool call) goes to our code, which acts on the project; a result comes back."""
+    def tool_runs(self, file=None, run_time=0.45, keep=False):
+        """The last card (a tool call) goes to our code, which acts on the project; a result comes back.
+        keep: leave the arrows (tool call -> our code -> result) on screen and return them."""
         req = self.strip.cards[self.shown - 1]
         ar = Arrow(req.get_top(), self.code[0].get_bottom(), buff=0.08, color=BLUE, stroke_width=3,
                    max_tip_length_to_length_ratio=0.12)
@@ -300,6 +301,15 @@ class AgentScene(CueScene):
             anims.append(Indicate(self.proj.files[file][0], color=INK, scale_factor=1.05))
         self.play(*anims, run_time=run_time)
         c = self.strip.cards[self.shown]
+        if keep:
+            act = Arrow(self.code[0].get_right(), self.proj.get_left() + DOWN * 0.3, buff=0.1, color=MUTED,
+                        stroke_width=2.5, max_tip_length_to_length_ratio=0.15)
+            self.play(GrowArrow(act), run_time=run_time)
+            back = CurvedArrow(self.code[0].get_bottom() + RIGHT * 0.2, c.get_right() + RIGHT * 0.05, angle=-TAU / 7,
+                               color=GREEN, stroke_width=3, tip_length=0.16)
+            self.play(grow_in(c, self.code[0], run_time), Create(back, run_time=run_time))
+            self.shown += 1
+            return c, VGroup(ar, act, back)
         self.play(grow_in(c, self.code[0], run_time), FadeOut(ar, run_time=run_time * 0.8))
         self.shown += 1
         return c

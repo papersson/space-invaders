@@ -17,8 +17,7 @@ class S3(AgentScene):
 
         # 02-05: the tool list and the format, in the instructions (sims/agent.py system prompt)
         self.at("02")
-        docs = AGENT.TOOL_DOCS
-        rows = [(d.split("  ")[0], INK) for d in docs.values()]
+        rows = [(name, INK) for name in AGENT.TOOL_DOCS]
         panel = quote(rows, 14, title="instructions: the tools")
         panel.move_to([0, -0.55, 0]).align_to([X0, 0, 0], LEFT)
         link = Line(self.strip.cards[0].get_top(), panel.get_bottom(), stroke_color=FAINT, stroke_width=1.5)
@@ -50,7 +49,8 @@ class S3(AgentScene):
         # 07-08: our code runs it, and the result joins the context
         self.at("07")
         self.play(FadeOut(op), run_time=0.2)
-        r = self.tool_runs(None, 0.5)
+        self.play(Indicate(self.proj, color=INK, scale_factor=1.03), run_time=0.4)
+        r, flow = self.tool_runs(None, 0.5, keep=True)
         res_txt = S["one_tool_1"]["cards"][4]["text"].split("\n")
         rp = callout(r, quote(res_txt, 14), UP, 0.3)
         self.play(FadeIn(rp), run_time=0.4)
@@ -66,12 +66,12 @@ class S3(AgentScene):
         self.at("11")
         self.play(self.model.animate.set_opacity(1), run_time=0.4)
         self.at("12")
-        src = mono("Claude API docs, “How tool use works”", 13, MUTED).next_to(self.code, DOWN, 0.2)
+        src = mono("Claude API docs, “How tool use works”", 13, MUTED).next_to(self.model, DOWN, 0.55)
         self.play(FadeIn(src), run_time=0.4)
 
         # 13: called again, it asks for a second tool: read the test
         self.at("13")
-        self.play(FadeOut(VGroup(rp, tr, src)), run_time=0.3)
+        self.play(FadeOut(VGroup(rp, tr, src, flow)), run_time=0.3)
         self.read(0.5)
         c2 = self.model_writes(0.45)
         op2 = callout(c2, mono(S["one_tool_1"]["cards"][5]["text"], 15, BLUE), UP, 0.3)

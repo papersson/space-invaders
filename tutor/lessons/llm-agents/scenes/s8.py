@@ -91,20 +91,42 @@ class S8(CueScene):
         keep_on_screen(tt)
         self.play(GrowFromCenter(br), FadeIn(tt), run_time=0.6)
 
-        # 09-10: a longer task: each new call re-reads everything before it
-        self.at("10")
+        # 09-10: a longer task: twice the calls, more than twice the reading (Claude Code's own counts)
+        self.at("09")
         since = VGroup(*[r[1] for r in cc_rows if len(r) > 1])
         self.play(LaggedStart(*[Indicate(s_, color=INK, scale_factor=1.04) for s_ in since], lag_ratio=0.12), run_time=1.6)
+        self.at("10")
+        s4, s8 = sum(CC["calls"][:4]), sum(CC["calls"][:8])
+        assert (s4, s8) == (49369, 107572)
+        self.play(FadeOut(VGroup(br, tt)), run_time=0.3)
+        x = max(c.get_right()[0] for c in cc_cnt) + 0.2
+        def bracket(n, dx, val):
+            top, bot = cc_rows[0].get_top()[1], cc_rows[n - 1].get_bottom()[1]
+            ln = VGroup(Line([x + dx, top, 0], [x + dx, bot, 0], stroke_color=AMBER, stroke_width=2.5),
+                        Line([x + dx - 0.1, top, 0], [x + dx, top, 0], stroke_color=AMBER, stroke_width=2.5),
+                        Line([x + dx - 0.1, bot, 0], [x + dx, bot, 0], stroke_color=AMBER, stroke_width=2.5))
+            t = VGroup(mono(f"{n} calls", 13, AMBER), mono_b(f"{val:,}", 15, AMBER)).arrange(DOWN, buff=0.04, aligned_edge=LEFT)
+            t.next_to(ln, RIGHT, 0.12).align_to(ln, DOWN)
+            return VGroup(ln, t)
+        b4, b8 = bracket(4, 0.0, s4), bracket(8, 1.25, s8)
+        keep_on_screen(b8)
+        self.play(FadeIn(b4), run_time=0.5)
+        self.play(FadeIn(b8), run_time=0.5)
 
         # 11-14: context rot (cited; not shown by these runs)
-        self.at("13")
+        self.at("12")
         rot = VGroup(mono("context rot", 17, INK), mono("Hong, Troynikov and Huber (Chroma), 2025", 13, MUTED)).arrange(DOWN, buff=0.08, aligned_edge=LEFT)
         rot.next_to(w2, DOWN, 0.25).align_to(w2, LEFT)
         self.play(FadeIn(rot), run_time=0.5)
+        self.at("13")
+        self.play(Indicate(rot[0], color=INK, scale_factor=1.08), run_time=0.8)
+        self.at("14")
+        ns = mono("not shown by these runs", 12, MUTED).next_to(rot, DOWN, 0.1).align_to(rot, LEFT)
+        self.play(FadeIn(ns), run_time=0.4)
 
         # 15-18: compaction: the context folded into a summary (a picture of the idea, not a run)
         self.at("15")
-        self.play(FadeOut(VGroup(cc_rows, *cc_cnt, br, tt, gl, sl, A_small, la, name, tag)), run_time=0.6)
+        self.play(FadeOut(VGroup(cc_rows, *cc_cnt, b4, b8, gl, sl, A_small, la, name, tag, ns)), run_time=0.6)
         strip = token_bars("loop_1", SCALE, -0.6)
         self.play(FadeIn(strip), run_time=0.6)
         self.at("16")

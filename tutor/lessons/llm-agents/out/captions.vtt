@@ -1,0 +1,490 @@
+WEBVTT
+
+00:00:00.800 --> 00:00:04.071
+Here's a small Python project with one failing test.
+
+00:00:04.121 --> 00:00:12.611
+We set up an LLM agent, a program that lets a model work on a task step by step, and asked it to fix the test, twice.
+
+00:00:12.861 --> 00:00:15.221
+Same model, same files, same task.
+
+00:00:15.271 --> 00:00:17.363
+And both runs began the same way.
+
+00:00:17.413 --> 00:00:21.860
+They listed the files, read the test, read the code, and fixed the same bug.
+
+00:00:22.110 --> 00:00:23.290
+Then they split.
+
+00:00:23.340 --> 00:00:25.076
+Run A took four more steps.
+
+00:00:25.126 --> 00:00:29.304
+Its last reply began "Fixed", and ended "All tests now pass."
+
+00:00:30.154 --> 00:00:31.790
+Run B stopped right there.
+
+00:00:31.840 --> 00:00:37.614
+Its reply also began "Fixed", and said its code now matched the values the test expects.
+
+00:00:38.664 --> 00:00:40.507
+So we ran the test ourselves.
+
+00:00:40.557 --> 00:00:42.293
+After run A, it passes.
+
+00:00:42.943 --> 00:00:45.088
+After run B, it still fails.
+
+00:00:46.538 --> 00:00:47.723
+That wasn't luck.
+
+00:00:47.773 --> 00:00:49.747
+We ran each version three times.
+
+00:00:49.797 --> 00:00:51.336
+Every run like A passed.
+
+00:00:51.386 --> 00:00:54.096
+Every run like B said "Fixed", and failed.
+
+00:00:55.146 --> 00:00:58.358
+Run B was missing one thing: a way to run the test.
+
+00:00:58.408 --> 00:00:59.873
+The model was the same.
+
+00:00:59.923 --> 00:01:05.292
+So what is an LLM agent, that taking away one tool leaves it sure of something false?
+
+00:01:08.242 --> 00:01:12.507
+To see what's going on, build it up from the start: a model on its own.
+
+00:01:12.757 --> 00:01:15.341
+An LLM reads text and writes text.
+
+00:01:15.391 --> 00:01:18.209
+You send it some, and it writes what comes next.
+
+00:01:18.459 --> 00:01:21.767
+Everything it reads on one call is called its context.
+
+00:01:21.817 --> 00:01:24.375
+Here, that's some instructions and our task.
+
+00:01:25.025 --> 00:01:32.526
+We reach the model through Claude's command-line tool, with that tool's own tools switched off, so text is all it can give back.
+
+00:01:32.776 --> 00:01:34.734
+It replies with text, of course.
+
+00:01:34.784 --> 00:01:37.688
+It even writes out a shell command it would like to run.
+
+00:01:39.138 --> 00:01:40.693
+But nothing runs text.
+
+00:01:40.743 --> 00:01:46.083
+The command never ran, the model never saw a single file, and the test still fails.
+
+00:01:47.133 --> 00:01:51.380
+For anything to change, something else has to act on what the model writes.
+
+00:01:53.330 --> 00:01:54.689
+So let's act for it.
+
+00:01:54.739 --> 00:02:01.224
+We add a list of tools to the instructions: list the files, read a file, write a file, and run the tests.
+
+00:02:01.874 --> 00:02:04.326
+Each is ordinary code, written by us.
+
+00:02:04.576 --> 00:02:10.585
+We also tell the model how to ask for one: reply with one line of JSON that names the tool.
+
+00:02:10.635 --> 00:02:12.689
+That message is called a tool call.
+
+00:02:13.539 --> 00:02:17.301
+Now the model's first reply is a tool call: list the files.
+
+00:02:17.551 --> 00:02:22.600
+Our code reads the tool call, runs the tool, and adds its output to the context.
+
+00:02:22.650 --> 00:02:24.221
+That's the tool result.
+
+00:02:25.271 --> 00:02:26.544
+Notice who ran it.
+
+00:02:26.594 --> 00:02:27.638
+Not the model.
+
+00:02:27.688 --> 00:02:28.840
+It only asked.
+
+00:02:28.890 --> 00:02:34.956
+Anthropic's documentation puts it plainly: the model never executes anything on its own.
+
+00:02:36.006 --> 00:02:40.492
+Then we call the model again, and it asks for a second tool: read the test.
+
+00:02:41.342 --> 00:02:42.772
+But our code stops here.
+
+00:02:42.822 --> 00:02:44.705
+It was written for one tool call.
+
+00:02:44.955 --> 00:02:48.238
+The model can't know in advance how many steps it will need.
+
+00:02:48.288 --> 00:02:50.419
+So our code shouldn't decide that either.
+
+00:02:52.369 --> 00:02:53.585
+Therefore, a loop.
+
+00:02:53.635 --> 00:02:54.653
+Call the model.
+
+00:02:54.703 --> 00:02:59.823
+If its reply is a tool call, run the tool, and add the result to the context.
+
+00:02:59.873 --> 00:03:01.461
+Then call the model again.
+
+00:03:01.711 --> 00:03:07.150
+Stop when it replies without a tool call, or after twenty calls, in case it never does.
+
+00:03:08.600 --> 00:03:11.774
+That loop, with a model and some tools, is an agent.
+
+00:03:11.824 --> 00:03:17.995
+One common definition says just that: an LLM agent runs tools in a loop to achieve a goal.
+
+00:03:19.245 --> 00:03:21.506
+Here's run A, one call at a time.
+
+00:03:21.556 --> 00:03:24.868
+It lists the files, reads the test, and reads the code.
+
+00:03:24.918 --> 00:03:30.112
+And it spots a bug: the code adds the units to the price, where it should multiply them.
+
+00:03:31.162 --> 00:03:34.179
+It rewrites that line, then asks to run the test.
+
+00:03:35.029 --> 00:03:36.992
+Pause here, and make a prediction.
+
+00:03:37.042 --> 00:03:39.472
+The model found a real bug, and fixed it.
+
+00:03:39.522 --> 00:03:40.871
+Will the test pass?
+
+00:03:45.321 --> 00:03:46.272
+It doesn't.
+
+00:03:46.322 --> 00:03:50.239
+The test fails with a key error: there's no column called "region".
+
+00:03:51.689 --> 00:03:54.795
+That result goes into the context, like any other.
+
+00:03:54.845 --> 00:04:00.716
+It's the world's answer, not the model's guess: what Anthropic's guide to agents calls ground truth.
+
+00:04:01.566 --> 00:04:07.102
+And on the next call, the model reads it, and changes course: it asks to see the data file.
+
+00:04:07.352 --> 00:04:13.844
+The file begins with an invisible character, called a byte order mark, glued to the front of the word "region".
+
+00:04:15.294 --> 00:04:17.419
+The code was only half the problem.
+
+00:04:17.669 --> 00:04:21.369
+The model changes how the file is opened, so the mark is skipped.
+
+00:04:21.419 --> 00:04:24.321
+It runs the test again, and this time it passes.
+
+00:04:25.171 --> 00:04:28.304
+Then it replies with no tool call, and the loop ends.
+
+00:04:29.154 --> 00:04:31.937
+Notice who decided to look at the data file.
+
+00:04:31.987 --> 00:04:34.712
+Not our code: it only ran what was asked.
+
+00:04:34.762 --> 00:04:36.823
+Nobody wrote that step in advance.
+
+00:04:37.073 --> 00:04:41.767
+Suppose we had scripted the steps instead: read, then fix, then test.
+
+00:04:41.817 --> 00:04:44.337
+That kind of program is called a workflow.
+
+00:04:44.387 --> 00:04:48.479
+Ours would have stopped at the key error, with no step for what came next.
+
+00:04:49.729 --> 00:04:54.045
+In an agent, the model picks each next step from what's in its context.
+
+00:04:54.095 --> 00:04:56.790
+Here, that included ground truth from the test.
+
+00:04:58.740 --> 00:05:03.446
+Run A called the model nine times: eight tool calls, then the final reply.
+
+00:05:03.696 --> 00:05:07.969
+It looks as if the model worked through the problem, remembering what it had tried.
+
+00:05:08.019 --> 00:05:08.961
+It didn't.
+
+00:05:09.011 --> 00:05:11.211
+Each of those calls started from nothing.
+
+00:05:12.061 --> 00:05:14.257
+The model keeps nothing between calls.
+
+00:05:14.307 --> 00:05:22.064
+So our loop sends it the whole context every time: the instructions, the task, and every tool call and result so far.
+
+00:05:22.314 --> 00:05:27.998
+Here's how much it read on each call, counted in tokens, the chunks of text a model reads.
+
+00:05:28.048 --> 00:05:30.506
+The first call read about fourteen hundred.
+
+00:05:31.356 --> 00:05:39.242
+Most of that is fixed text: our instructions, and notes that the command-line tool we call the model through adds to every call.
+
+00:05:39.492 --> 00:05:45.343
+The ninth read about twenty-seven hundred: everything the first call read, and everything since.
+
+00:05:46.593 --> 00:05:52.526
+Together, the nine calls read about eighteen and a half thousand tokens, to change two lines of code.
+
+00:05:54.276 --> 00:05:56.104
+This isn't a quirk of our code.
+
+00:05:56.154 --> 00:06:05.001
+Anthropic's documentation says the same of its Messages API: it's stateless, so every request carries the whole context again.
+
+00:06:05.251 --> 00:06:07.779
+The model still knows what it learned in training.
+
+00:06:07.829 --> 00:06:10.446
+That's how it knew what a byte order mark was.
+
+00:06:10.696 --> 00:06:15.786
+But what it has tried in this task, and what came back, it knows only from its context.
+
+00:06:15.836 --> 00:06:18.731
+The context is its only memory of the task.
+
+00:06:20.881 --> 00:06:22.427
+Now run B makes sense.
+
+00:06:22.477 --> 00:06:24.644
+It's the same loop and the same model.
+
+00:06:24.694 --> 00:06:28.211
+The only difference is the tool list: there's no run tests.
+
+00:06:28.461 --> 00:06:30.712
+Its first four steps match run A's.
+
+00:06:30.762 --> 00:06:35.261
+Then, where run A asked to run the test, run B had nothing to ask for.
+
+00:06:35.511 --> 00:06:36.660
+So it replied.
+
+00:06:36.710 --> 00:06:40.856
+Look at its context when it did: its own fix, and nothing after it.
+
+00:06:40.906 --> 00:06:44.334
+No tool result could have told it the fix was incomplete.
+
+00:06:45.584 --> 00:06:48.148
+It looks as if the model knew it had succeeded.
+
+00:06:48.198 --> 00:06:49.141
+It didn't.
+
+00:06:49.191 --> 00:06:52.430
+It only knew that nothing in its context said otherwise.
+
+00:06:52.680 --> 00:06:54.435
+Its "Fixed" wasn't a lie.
+
+00:06:54.485 --> 00:06:59.261
+It was a reasonable conclusion, from a context with no evidence against it.
+
+00:07:00.311 --> 00:07:02.018
+It could have read the data file.
+
+00:07:02.068 --> 00:07:03.204
+It had the tool.
+
+00:07:03.254 --> 00:07:05.084
+It just didn't see a reason to.
+
+00:07:06.134 --> 00:07:09.818
+So this is why agents work, and the first way they break down.
+
+00:07:09.868 --> 00:07:12.622
+Each step can put ground truth into the context.
+
+00:07:12.672 --> 00:07:16.576
+Where nothing checks the work, the model's own guess has the last word.
+
+00:07:16.826 --> 00:07:22.553
+If that guess were one step in a longer task, the next call would read it as fact and build on it.
+
+00:07:22.603 --> 00:07:24.458
+Nothing here would catch that either.
+
+00:07:24.508 --> 00:07:26.377
+It's called compounding errors.
+
+00:07:27.627 --> 00:07:29.681
+Would a more capable model do better?
+
+00:07:29.731 --> 00:07:32.573
+We gave run B's setup to one, three times.
+
+00:07:32.823 --> 00:07:38.256
+Twice, with no way to run the test, it read the data file to check the sums by hand.
+
+00:07:38.306 --> 00:07:40.740
+It found the mark, and fixed both bugs.
+
+00:07:40.790 --> 00:07:43.534
+And it said plainly that it couldn't run the test.
+
+00:07:44.384 --> 00:07:49.621
+It did better the same way run A did: it put more ground truth into its own context.
+
+00:07:50.671 --> 00:07:55.657
+The third time, it asked for the data file in a format our code didn't recognise.
+
+00:07:55.707 --> 00:07:59.528
+Our loop saw no tool call, took the reply as final, and stopped.
+
+00:08:00.578 --> 00:08:02.458
+That failure wasn't the model's.
+
+00:08:02.508 --> 00:08:10.086
+It's chapter three again: the model can only ask, and our code decides what counts as asking, and what counts as done.
+
+00:08:10.136 --> 00:08:12.430
+The code around the model isn't plumbing.
+
+00:08:14.580 --> 00:08:17.766
+The second way agents break down is in the staircase.
+
+00:08:17.816 --> 00:08:20.948
+In a loop like ours, the context only grows.
+
+00:08:20.998 --> 00:08:24.430
+Every step adds to it, and every call reads all of it.
+
+00:08:25.280 --> 00:08:30.020
+Here's the same task, run once by Claude Code, Anthropic's coding agent.
+
+00:08:30.070 --> 00:08:40.272
+It's the same command-line tool we've been calling the model through, now running its own loop, with its tools narrowed to match ours: read, edit, and run the test.
+
+00:08:40.522 --> 00:08:48.206
+Its first call read about eleven thousand six hundred tokens: its instructions, its tool descriptions, and our task.
+
+00:08:49.056 --> 00:08:52.129
+It found both bugs in nine calls, like run A.
+
+00:08:52.179 --> 00:08:59.094
+But it read those instructions again on every call, so in all it read over a hundred and twenty thousand tokens.
+
+00:09:00.544 --> 00:09:04.247
+And a longer task means more reading than its length suggests.
+
+00:09:04.297 --> 00:09:10.073
+Each new call re-reads everything before it, so twice the calls means more than twice the reading.
+
+00:09:11.123 --> 00:09:13.219
+The reading has a price beyond time.
+
+00:09:13.269 --> 00:09:17.255
+As a context grows, models get worse at recalling what's in it.
+
+00:09:17.305 --> 00:09:19.499
+Researchers call this context rot.
+
+00:09:19.549 --> 00:09:21.787
+Our runs are far too short to show it.
+
+00:09:22.837 --> 00:09:29.401
+Production agents, Claude Code among them, keep the context in check by summarizing it when it gets long.
+
+00:09:29.451 --> 00:09:31.053
+That's called compaction.
+
+00:09:31.903 --> 00:09:34.656
+But a summary is still the model's only memory.
+
+00:09:34.706 --> 00:09:37.601
+Whatever it leaves out, the model no longer knows.
+
+00:09:39.751 --> 00:09:43.488
+So why did one missing tool leave run B sure of something false?
+
+00:09:43.538 --> 00:09:51.396
+Because an agent is a model that picks each next step from its context, not from steps written in advance, as a workflow would.
+
+00:09:51.646 --> 00:09:55.388
+And a loop that runs those steps, and writes the results back in.
+
+00:09:55.438 --> 00:09:58.356
+About the task, the model remembers nothing else.
+
+00:09:58.606 --> 00:10:01.670
+Run A's context held ground truth from the test.
+
+00:10:01.720 --> 00:10:03.956
+Run B's held only its own fix.
+
+00:10:04.006 --> 00:10:06.150
+Same model, different context.
+
+00:10:07.600 --> 00:10:12.562
+The more capable model did better in just that way: it read the data for itself.
+
+00:10:12.612 --> 00:10:14.875
+And it said what it hadn't been able to check.
+
+00:10:15.925 --> 00:10:20.636
+That's also why coding suits agents so well, as Anthropic's guide points out.
+
+00:10:20.686 --> 00:10:26.104
+Code comes with tests: an answer the agent can check its work against at every step.
+
+00:10:26.354 --> 00:10:31.772
+We've skipped a lot here: planning, memory that lasts between tasks, and teams of agents.
+
+00:10:31.822 --> 00:10:36.146
+But each of those still reaches the model the same way: through its context.
+
+00:10:37.196 --> 00:10:42.520
+So when you build an agent, or hand one a task, don't only ask how clever the model is.
+
+00:10:42.570 --> 00:10:44.488
+Ask what will tell it that it's wrong.
