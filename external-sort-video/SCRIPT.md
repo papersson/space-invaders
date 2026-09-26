@@ -1,6 +1,6 @@
 # Script: Bigger Than Memory (version 2)
 
-**Status: locked after review round 11** (expert PASS, editor PASS, simulated student's retelling covers every objective). The review log at the end records every round.
+**Status: locked after review round 15** (expert PASS, editor PASS, simulated student's retelling covers every objective), with inputs checked to contain only what each reviewer should see. The review log at the end records every round.
 
 ## The argument
 
@@ -59,7 +59,7 @@
 
 ## Script
 
-Word target: about 750 (5 minutes at about 150 words per minute of finished video).
+No length target: the length follows the argument (about 150 words per minute of finished video).
 
 ### 1. The question
 
@@ -80,7 +80,7 @@ emptying. Freeze on the twelve files with a question mark. Title.
 > Moving one block between disk and memory is called an I/O. Once data doesn't fit in memory, the number of I/Os typically dominates the running time.
 > Heapsort and merge sort are both N log N sorts. By comparisons alone, heapsort would be at most about twice as slow.
 > But heapsort compares items that sit far apart in its array. Under virtual memory that array lives on disk, block by block, so heapsort keeps needing blocks that aren't in memory. Merge sort reads its input from front to back, and writes its output from front to back, so every block it fetches gets used completely.
-> We simulated both under virtual memory, on a quarter of a million items, with memory for a twelfth of them, roughly the same proportions as sort's file. Heapsort made about twice as many comparisons as merge sort, but more than twenty times as many I/Os: about three for every item it sorts.
+> We simulated both under virtual memory on a quarter of a million items. Memory held a twelfth of them, roughly the proportions of sort's file. Heapsort made about twice as many comparisons as merge sort, but more than twenty times as many I/Os: about three for every item it sorts.
 > Even if every comparison cost as much as a memory access, heapsort's comparisons would take under a second. Its I/Os take more than a minute. The I/Os decide.
 > So merge sort is our starting point. It sweeps through the whole file again and again, so let's measure it in passes, where one pass reads and writes every block of the file once.
 
@@ -92,8 +92,8 @@ counters running (heapsort 3.2 I/Os per item; merge sort's clean diagonal passes
 > Merge sort merges single items into pairs, then pairs into fours, doubling the pieces every pass. Eighteen doublings take you from one item to a quarter of a million, so that's eighteen passes.
 > But watch the size of the pieces. For the first fourteen passes, every piece is smaller than memory. Merging only needs sorted pieces. It doesn't matter how they got sorted, so each of those pieces could have been sorted without touching the disk.
 > So do exactly that. Fill memory with the start of the file, sort it right there, and write it out to disk as one sorted piece, called a run. Then do the same with the next part of the file, and the next.
-> Our file is twelve memories long, so this makes twelve runs, in a single pass. That one pass covers everything the first fourteen did, so only the last four remain. Eighteen passes become five.
-> And that's what sort's twelve files were. It filled its memory twelve times, and wrote out twelve runs.
+> Our simulated file is exactly twelve memories long, so this makes twelve runs, in a single pass. That one pass covers everything the first fourteen did, so only the last four remain. Eighteen passes become five.
+> And that's what sort's twelve files were: one run for each memory-full of its file, the last one only partly full.
 
 *Screen:* merge sort's eighteen passes from the race, numbered, with "2¹⁸ ≈ 262,144"; piece size doubling under them
 (1, 2, 4 … 16,384) against a line at memory size (21,760); the first fourteen bracketed "smaller than memory". Toy: cards fill the memory tray, sort in place
@@ -105,7 +105,7 @@ fullest, each file labelled "run 1" to "run 12", beside "1,000 MB ÷ 86 MB ≈ 1
 > Each run is sorted, but not against the others, so the runs still have to be merged. Two at a time: twelve runs, then six, three, two, one. Four passes.
 > Watch memory during a two-way merge. It holds the front block of each run, and one block for the output. The rest of memory sits idle.
 > So give every run its own block of memory, and merge them all at once: a multiway merge.
-> With thousands of runs, scanning every front for the smallest item would be slow, so keep a small heap with one entry per run. Unlike heapsort's heap, which was the whole file, this one sits in memory the whole time. Say run three's front item is the smallest: it goes to the output block. When the output block fills, it's written to disk. When run three's block runs dry, its next block comes in from disk.
+> With thousands of runs, scanning every front for the smallest item would be slow, so keep a small heap with one entry per run. Unlike heapsort's heap, which was the whole file, this one sits in memory the whole time. Say run three has the smallest front item: it moves to the output. When the output fills, that block goes to disk. When run three runs dry, its next block comes in from disk.
 > Every block is still read once and written once. So as long as memory has a block for every run, plus one for the output, the merge happens in a single pass. That folds the four merge passes into one. Add the pass that made the runs, and eighteen passes have become two.
 > Sort memory-sized runs, then merge them from disk: that's external merge sort. Merging as many runs at once as memory allows keeps the passes to a minimum.
 > It's exactly what sort did at the end. It read all twelve runs at once while the sorted file grew, and then deleted them.
@@ -117,13 +117,14 @@ read; the runs disappear.
 
 ### 5. How far it goes
 
-> Our file needed only twelve runs. How many could one merge take? One per block of memory, less one for the output. Real sorting programs read much bigger blocks than our simulation did, often a megabyte, to cut down on fetches, and a laptop's memory still holds thousands of those. GNU sort is more cautious by default: it merges at most sixteen runs at a time, trading some speed for less memory. That was plenty for our twelve.
-> But a big enough file needs more runs than memory has blocks. Then you need more than one merge pass. Say a file needed a hundred thousand runs: one merge pass cuts them to seven, and one more makes them one file. Each extra pass lets the file be thousands of times bigger. In practice, even enormous files sort in two or three passes.
-> That's why databases sort this way. Ask PostgreSQL how it ran a query that sorts more than fits in its memory, and it reports an external merge.
+> Our file needed only twelve runs, and GNU sort merges up to sixteen at a time by default, a cautious setting that trades some speed for less memory. That was plenty for twelve.
+> But how many runs could one merge take? One per block of memory, less one for the output. Real sorting programs read much bigger blocks than our simulation did, often a megabyte, to cut down on fetches, and a laptop's memory still holds about sixteen thousand of those.
+> A big enough file needs even more runs than that, so it takes more than one merge pass. Say a file needed a hundred thousand runs. Merging sixteen thousand at a time, one pass cuts them to seven. One more pass makes them one file. So each extra merge pass lets the file grow by that same factor of sixteen thousand. In practice, even enormous files sort in two or three passes.
+> That's why databases sort this way. Ask PostgreSQL how it ran a query that sorts more than fits in its memory, and it reports an external merge: the same runs, then merges.
 
-*Screen:* the tray widening to thousands of block slots ("16 GB ÷ 1 MB ≈ 16,000 blocks"), thin lines from thousands
-of runs converging; "GNU sort: at most 16 per merge (--batch-size)". Merge passes: a column of run counts shrinking by
-thousands per pass. A real PostgreSQL EXPLAIN ANALYZE line: "Sort Method: external merge  Disk: 107696kB".
+*Screen:* "GNU sort: at most 16 runs per merge, by default" beside its twelve runs. Then the tray widening to thousands of block
+slots ("16 GB ÷ 1 MB ≈ 16,000 blocks"), thin lines from thousands of runs converging. Merge passes: 100,000 runs →
+7 → 1, with "16,000 per merge" on the arrows. A real PostgreSQL EXPLAIN ANALYZE output with the line "Sort Method: external merge" highlighted and the rest dimmed.
 
 ### 6. The answer
 
@@ -135,17 +136,8 @@ thousands per pass. A real PostgreSQL EXPLAIN ANALYZE line: "Sort Method: extern
 
 *Screen:* no rule text (the narration carries the words): the opening's file and memory bars return with the pass count 18 → 5 → 2 across them; the capture replayed once more with "pass 1: twelve runs" and "pass 2: one merge" over it.
 End card, for reference: passes = 1 + ⌈log_{(M/B) − 1} ⌈N/M⌉⌉ with N items, memory M items, blocks of B items
-(Ramakrishnan & Gehrke write B for buffer pages, this video's M/B, and N for pages, this video's N/B); "optimal among sorts that move whole records at a time: Aggarwal & Vitter, CACM 1988";
+(Ramakrishnan & Gehrke write B for buffer pages, this video's M/B, and N for pages, this video's N/B); "asymptotically optimal: it matches the lower bound, up to constant factors, for sorts that move records as indivisible units (Aggarwal & Vitter, CACM 1988)";
 Ramakrishnan & Gehrke, Database Management Systems, 3rd ed., ch. 13; Mehlhorn & Sanders, The Basic Toolbox, §5.7.
-
-## Review log
-
-**Round 1** (fresh-context reviewers; expert REVISE, editor PASS, student lost "a few times").
-- Expert, blocking: "a single pass, however many runs there are" is false beyond one block per run. Fixed: "as long as memory has a block for every run", and section 5 asks how many that is.
-- Expert: GNU sort caps a merge at 16 by default, so the scale-up no longer implies sort merges thousands. The formula card notes the database-textbook meaning of B. SSD speed now "hundreds of times". Optimality scoped to sorts that treat items as indivisible.
-- Student: lost on 18, 14, 1, 5 by ear and on the spoken formula. Every number now carries its reason (two to the eighteenth; pieces under twenty thousand; twelve, six, three, two, one), the formula is a silent card, and "more runs than blocks" became the step that derives it.
-- Editor: section 5 was an "and then" list, now a chain (how many fit, then rounds, then optimal, then why databases do it). Added the equal-comparisons line that makes the race disprove the wrong model. Cut "paging". Fewer "sixteen"s.
-- Not taken: the editor asked to change the simulated file's ratio so "twelve" is used once. Kept, and made explicit instead: a file twelve memories long makes twelve runs, which is why sort wrote twelve files.
 
 ## Evidence
 
@@ -164,6 +156,15 @@ Ramakrishnan & Gehrke, Database Management Systems, 3rd ed., ch. 13; Mehlhorn & 
 | Memory ≈ 22,000 items; first 14 passes have pieces ≤ 16,384 | iosim.py parameters: M = 21,760 |
 | PostgreSQL EXPLAIN ANALYZE prints "Sort Method: external merge" | Real EXPLAIN (ANALYZE, COSTS OFF) output, PostgreSQL 16.13, work_mem 4 MB (captures/) |
 | Mehlhorn & Sanders §5.7 is external sorting | Checked against the book PDF by the web-research agent (research/canonical_web_agent.md) |
+
+## Review log
+
+**Round 1** (fresh-context reviewers; expert REVISE, editor PASS, student lost "a few times").
+- Expert, blocking: "a single pass, however many runs there are" is false beyond one block per run. Fixed: "as long as memory has a block for every run", and section 5 asks how many that is.
+- Expert: GNU sort caps a merge at 16 by default, so the scale-up no longer implies sort merges thousands. The formula card notes the database-textbook meaning of B. SSD speed now "hundreds of times". Optimality scoped to sorts that treat items as indivisible.
+- Student: lost on 18, 14, 1, 5 by ear and on the spoken formula. Every number now carries its reason (two to the eighteenth; pieces under twenty thousand; twelve, six, three, two, one), the formula is a silent card, and "more runs than blocks" became the step that derives it.
+- Editor: section 5 was an "and then" list, now a chain (how many fit, then rounds, then optimal, then why databases do it). Added the equal-comparisons line that makes the race disprove the wrong model. Cut "paging". Fewer "sixteen"s.
+- Not taken: the editor asked to change the simulated file's ratio so "twelve" is used once. Kept, and made explicit instead: a file twelve memories long makes twelve runs, which is why sort wrote twelve files.
 
 **Round 2** (expert REVISE, editor REVISE, student lost "a few times").
 - Both, blocking: the hook showed 1 GB against 160 MB (a ratio of about 6) but sort made twelve runs, because sort spent half its buffer on per-line bookkeeping; the only explanation was a screen footnote. Fixed at the source: re-captured with 1000-byte records and `-S 88M`, where runs are 84 MB and the file really is about twelve memories long, and Python re-captured under the same 88 MiB cap. Section 3 now says so.
@@ -206,3 +207,13 @@ Polish applied before a final verification round: the formula card gets its inne
 - Expert, blocking (both introduced by the round-8 edit): "they would run about equally fast" taught "same big-O, same speed"; it now says comparisons alone would make heapsort at most about twice as slow, which the measured 1.97× confirms. The time estimate used 10 ns per comparison against a "hundreds to thousands" memory-to-disk ratio; it now charges each comparison a full memory access (~100 ns, 0.86 s total) against ~100 µs per I/O, a consistent 1,000×.
 
 **Round 11:** expert PASS, editor PASS; the student's retelling answers the opening question and covers all four objectives. The student still reports losing some spoken arithmetic (eighteen, fourteen, seven), which the screen shows as it is said. Script locked.
+
+**Harness fix before round 12.** SCRIPT.md had the round-1 review log between the script and the evidence table, and the extraction for reviewers used section boundaries that assumed the opposite order. From round 3 to round 11 the student and the editor therefore also saw the round-1 log, and the expert received no evidence table (it checked the claims independently). The file is now ordered argument, chain, ledgers, script, evidence, review log, and round 12 reruns all three reviewers on correctly extracted inputs.
+
+**Round 12** (clean inputs): expert PASS, editor PASS, student retell correct. Both the expert and the editor flagged the same should-fix: "a hundred thousand runs, seven after one pass" came right after the spoken "sixteen", so a listener would divide by sixteen. Section 5 now gives sort's sixteen first, then the memory bound, and the example says "merging sixteen thousand at a time". The merge walkthrough no longer uses "block" in three senses in one breath.
+
+**Round 13:** expert REVISE (blocking: the end card said "optimal"; Aggarwal and Vitter give a lower bound that multiway merge sort matches up to constant factors, for indivisible records, so it now says "asymptotically optimal" with that scope), editor PASS, student retell correct. The lock conditions were already met in round 12, so this round's should-fix items are applied once, and a final round decides: section 5's "and then" became "so"; the unspoken --batch-size flag left the screen; the Postgres line ties back to runs and merges and the screen highlights only the Sort Method line; the stacked simulation sentence is split; "each extra pass lets the file grow by that same factor of sixteen thousand" is derived from the numbers just given. Not taken: cutting GNU sort's sixteen and the Postgres line (the expert required the sixteen so the scale-up does not imply sort merges thousands; the Postgres line is the one real-system payoff).
+
+**Round 14:** expert REVISE (blocking: "our file is twelve memories long" read as sort's file, which is 11.6 memories long; it meant the simulated file, which is exactly twelve), editor PASS, student retell correct. Section 3 now says "our simulated file is exactly twelve memories long", and sort's twelve files are "one run for each memory-full of its file, the last one only partly full".
+
+**Round 15 (final):** expert PASS, editor PASS, student retell correct (remembers twelve runs, twice the comparisons against twenty times the I/Os, and 18 → 5 → 2). Locked. Stopping rule from here: no further edits to the narration; remaining should-fix items stay logged in the reviews.

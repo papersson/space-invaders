@@ -100,8 +100,58 @@ def external_mergesort(a, M, B):
         runs = nxt
     return runs[0], io
 
-def run_all(n, B, trace=False):
-    M = n // 16
+def external_passes(a, M, B, fanin):
+    """External merge sort with a given merge width. Returns (passes, block transfers)."""
+    n, io, runs = len(a), 0, []
+    for lo in range(0, n, M):
+        c = a[lo:lo + M]
+        io += 2 * -(-len(c) // B)
+        runs.append(sorted(c))
+    passes = 1
+    while len(runs) > 1:
+        nxt = []
+        for g in range(0, len(runs), fanin):
+            grp = runs[g:g + fanin]
+            io += 2 * -(-sum(len(r) for r in grp) // B)
+            nxt.append(sorted(x for r in grp for x in r))
+        runs = nxt
+        passes += 1
+    return passes, io
+
+def comparisons(a):
+    """Comparisons made by the heapsort and bottom-up merge sort above, on copies of a."""
+    k = [0]
+    def lt(x, y):
+        k[0] += 1
+        return x < y
+    h = list(a); n = len(h)
+    def sift(i, end):
+        while True:
+            l = 2 * i + 1
+            if l >= end: return
+            r, m = l + 1, l
+            if r < end and lt(h[l], h[r]): m = r
+            if not lt(h[i], h[m]): return
+            h[i], h[m] = h[m], h[i]; i = m
+    for i in range(n // 2 - 1, -1, -1): sift(i, n)
+    for end in range(n - 1, 0, -1):
+        h[0], h[end] = h[end], h[0]; sift(0, end)
+    heap_k = k[0]; k[0] = 0
+    src, w = list(a), 1
+    while w < n:
+        dst = [0] * n
+        for lo in range(0, n, 2 * w):
+            i, mid, hi = lo, min(lo + w, n), min(lo + 2 * w, n); j, t = mid, lo
+            while i < mid and j < hi:
+                if lt(src[j], src[i]): dst[t] = src[j]; j += 1
+                else: dst[t] = src[i]; i += 1
+                t += 1
+            dst[t:hi] = src[i:mid] + src[j:hi]
+        src, w = dst, w * 2
+    return heap_k, k[0]
+
+def run_all(n, B, trace=False, M=None):
+    M = M or n // 16
     random.seed(0); a = [random.random() for _ in range(n)]
     ch = LRU(M, B, trace); heapsort(a, ch); assert all(a[i] <= a[i+1] for i in range(n-1))
     random.seed(0); a = [random.random() for _ in range(n)]

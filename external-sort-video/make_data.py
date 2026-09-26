@@ -1,8 +1,9 @@
 """Generate the data behind the video's "real" visuals into data/.
 
-- race_*.png / race.json: every block transfer (trip) heapsort and 2-way merge sort
-  make under an LRU cache (iosim.py, N = 2^18, M = N/16, B = 256), plotted as
-  position-in-file against time.
+- race_*.png / race.json: every block transfer (I/O) heapsort and 2-way merge sort
+  make under an LRU cache (iosim.py: 261,120 items, memory 21,760 items = 1/12 of
+  the file, 256-item blocks), plotted as position-in-file against time; plus both
+  algorithms' comparison counts and the pass counts 18 -> 5 -> 2.
 - strip.json: 1,000,000 random keys sorted by external merge sort in the same
   proportions as the hook (memory = 16% of the file, so 7 runs). One sampled key
   per pixel column, before, after each run is formed, and fully sorted.
@@ -11,6 +12,7 @@
 """
 import heapq
 import json
+import math
 import random
 from pathlib import Path
 
@@ -24,13 +26,24 @@ AMBER = (242, 169, 59)
 
 
 def race():
-    n, B = 1 << 18, 256
-    ch, cm, ext = iosim.run_all(n, B, trace=True)
+    # a file twelve memories long, like the sort demo (1,000 MB against an 86 MB buffer makes 12 runs)
+    B = 256
+    M = 85 * B
+    n = 12 * M
+    ch, cm, ext = iosim.run_all(n, B, trace=True, M=M)
     W, H = 1400, 300
     nblocks = n // B
-    meta = {"n": n, "M": n // 16, "B": B, "external_mergesort": ext}
-    h64, m64, _ = iosim.run_all(n, 64)
-    meta["b64"] = {"heapsort": h64.io, "mergesort": m64.io}
+    random.seed(0)
+    a = [random.random() for _ in range(n)]
+    heap_cmp, merge_cmp = iosim.comparisons(a)
+    p2, io2 = iosim.external_passes(a, M, B, 2)
+    pk, iok = iosim.external_passes(a, M, B, M // B - 1)
+    meta = {"n": n, "M": M, "B": B, "external_mergesort": ext,
+            "comparisons": {"heapsort": heap_cmp, "mergesort": merge_cmp},
+            "passes": {"mergesort": math.ceil(math.log2(n)), "runs_then_two_way": p2, "runs_then_multiway": pk},
+            "pass_ios": {"runs_then_two_way": io2, "runs_then_multiway": iok},
+            "pieces_below_memory": int(math.log2(M))}
+    print(f"comparisons heapsort {heap_cmp:,} merge {merge_cmp:,}; passes 18? {meta['passes']}; ios {meta['pass_ios']}")
     for name, cache in (("heapsort", ch), ("mergesort", cm)):
         tr = np.array(cache.trace, dtype=np.int64)
         x = np.minimum((tr[:, 0] - 1) * W // cache.steps, W - 1)
