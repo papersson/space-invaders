@@ -171,9 +171,9 @@ cc.addEventListener('click',()=>{const on=track.mode!=='showing';track.mode=on?'
 def main():
     PAGE.mkdir(parents=True, exist_ok=True)
     shutil.copy(OUT / "web.mp4", PAGE / "video.mp4")
-    # poster: the multiway merge under way (segment 4, just after run three's first refill)
+    # poster: the multiway merge under way (segment 4: run three's item has gone to the output)
     s4 = next(s for s in T["segments"] if s["id"] == "s4")
-    t = next(l["start"] for l in s4["lines"] if l["id"] == "s4_12") + 3.0
+    t = next(l["end"] for l in s4["lines"] if l["id"] == "s4_10") - 0.15
     import subprocess
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{t:.2f}", "-i", str(OUT / "video.mp4"),
                     "-frames:v", "1", "-vf", "scale=1280:-2", "-q:v", "4", str(PAGE / "poster.jpg")], check=True)
