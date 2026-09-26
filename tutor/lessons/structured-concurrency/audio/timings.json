@@ -1,7 +1,7 @@
 {
  "voice": "af_heart",
  "speed": 0.92,
- "total": 462.702,
+ "total": 465.47,
  "segments": [
   {
    "id": "s1",
@@ -22,54 +22,54 @@
      "caption": "It needs a user and that user's orders, so it asks two services at the same time, with asyncio.gather.",
      "paragraph": 0,
      "start": 3.978,
-     "end": 11.0
+     "end": 10.999
     },
     {
      "id": "s1_03",
      "text": "The user service takes one second.",
      "caption": "The user service takes one second.",
      "paragraph": 1,
-     "start": 11.5,
-     "end": 13.372
+     "start": 11.499,
+     "end": 13.368
     },
     {
      "id": "s1_04",
      "text": "The orders service fails after a tenth of a second.",
      "caption": "The orders service fails after a tenth of a second.",
      "paragraph": 1,
-     "start": 13.672,
-     "end": 16.538
+     "start": 13.668,
+     "end": 16.535
     },
     {
      "id": "s1_05",
      "text": "So the handler returns an error at a tenth of a second.",
      "caption": "So the handler returns an error at a tenth of a second.",
      "paragraph": 2,
-     "start": 17.038,
-     "end": 20.271
+     "start": 17.035,
+     "end": 20.268
     },
     {
      "id": "s1_06",
      "text": "So far, that's what you'd want.",
      "caption": "So far, that's what you'd want.",
      "paragraph": 2,
-     "start": 20.571,
-     "end": 22.253
+     "start": 20.568,
+     "end": 22.252
     },
     {
      "id": "s1_07",
      "text": "But the request to the user service is still running.",
      "caption": "But the request to the user service is still running.",
      "paragraph": 3,
-     "start": 22.753,
-     "end": 25.356
+     "start": 22.752,
+     "end": 25.355
     },
     {
      "id": "s1_08",
      "text": "It finishes a full second after the request began, long after anyone was waiting for it.",
      "caption": "It finishes a full second after the request began, long after anyone was waiting for it.",
      "paragraph": 3,
-     "start": 25.656,
+     "start": 25.655,
      "end": 30.815
     },
     {
@@ -86,70 +86,70 @@
      "caption": "Nothing raises it, and nothing logs it.",
      "paragraph": 4,
      "start": 35.086,
-     "end": 37.444
+     "end": 37.443
     },
     {
      "id": "s1_11",
      "text": "Now serve a thousand requests at once.",
      "caption": "Now serve a thousand requests at once.",
      "paragraph": 5,
-     "start": 38.744,
-     "end": 40.883
+     "start": 38.743,
+     "end": 40.882
     },
     {
      "id": "s1_12",
      "text": "All thousand handlers return almost at once, and a thousand tasks are still running.",
      "caption": "All thousand handlers return almost at once, and a thousand tasks are still running.",
      "paragraph": 5,
-     "start": 41.183,
-     "end": 46.318
+     "start": 41.182,
+     "end": 46.317
     },
     {
      "id": "s1_13",
      "text": "The function returned.",
      "caption": "The function returned.",
      "paragraph": 6,
-     "start": 47.618,
-     "end": 48.822
+     "start": 47.617,
+     "end": 48.818
     },
     {
      "id": "s1_14",
      "text": "Why is its work still running?",
      "caption": "Why is its work still running?",
      "paragraph": 6,
-     "start": 49.122,
-     "end": 50.6
+     "start": 49.118,
+     "end": 50.596
     },
     {
      "id": "s1_15",
      "text": "And what would make \"returned\" mean \"done\"?",
      "caption": "And what would make \"returned\" mean \"done\"?",
      "paragraph": 6,
-     "start": 50.9,
-     "end": 52.917
+     "start": 50.896,
+     "end": 52.913
     }
    ],
-   "end": 56.567
+   "end": 56.563
   },
   {
    "id": "s2",
    "title": "What a call promises",
-   "start": 56.567,
+   "start": 56.563,
    "lines": [
     {
      "id": "s2_01",
      "text": "Start with plain code: fetch the user, then fetch the orders, one after the other.",
      "caption": "Start with plain code: fetch the user, then fetch the orders, one after the other.",
      "paragraph": 0,
-     "start": 56.917,
-     "end": 61.797
+     "start": 56.913,
+     "end": 61.796
     },
     {
      "id": "s2_02",
      "text": "Each call has one way in and one way out.",
      "caption": "Each call has one way in and one way out.",
      "paragraph": 1,
-     "start": 62.297,
+     "start": 62.296,
      "end": 64.735
     },
     {
@@ -198,682 +198,690 @@
      "caption": "But it's slow.",
      "paragraph": 3,
      "start": 85.204,
-     "end": 85.999
+     "end": 85.998
     },
     {
      "id": "s2_09",
      "text": "The calls wait for each other, so the error arrives after one point one seconds.",
      "caption": "The calls wait for each other, so the error arrives after one point one seconds.",
      "paragraph": 3,
-     "start": 86.299,
-     "end": 90.734
+     "start": 86.298,
+     "end": 90.731
     },
     {
      "id": "s2_10",
      "text": "That's why we start the two requests at the same time.",
      "caption": "That's why we start the two requests at the same time.",
      "paragraph": 4,
-     "start": 92.034,
-     "end": 94.576
+     "start": 92.031,
+     "end": 94.572
     }
    ],
-   "end": 95.426
+   "end": 95.422
   },
   {
    "id": "s3",
    "title": "Starting a task",
-   "start": 95.426,
+   "start": 95.422,
    "lines": [
     {
      "id": "s3_01",
      "text": "Starting a task is different from calling a function.",
      "caption": "Starting a task is different from calling a function.",
      "paragraph": 0,
-     "start": 95.776,
-     "end": 98.565
+     "start": 95.772,
+     "end": 98.558
     },
     {
      "id": "s3_02",
      "text": "The start returns at once, and the task runs on by itself.",
      "caption": "The start returns at once, and the task runs on by itself.",
      "paragraph": 0,
-     "start": 98.865,
-     "end": 102.455
+     "start": 98.858,
+     "end": 102.447
     },
     {
      "id": "s3_03",
      "text": "Control splits into two paths, and nothing makes the second one come back.",
      "caption": "Control splits into two paths, and nothing makes the second one come back.",
      "paragraph": 0,
-     "start": 102.755,
-     "end": 106.901
+     "start": 102.747,
+     "end": 106.894
     },
     {
      "id": "s3_04",
      "text": "There are two common ways to wait for tasks, and both leave gaps.",
      "caption": "There are two common ways to wait for tasks, and both leave gaps.",
      "paragraph": 1,
-     "start": 108.201,
-     "end": 111.831
+     "start": 108.194,
+     "end": 111.822
     },
     {
      "id": "s3_05",
      "text": "The first is gather.",
      "caption": "The first is gather.",
      "paragraph": 2,
-     "start": 112.331,
-     "end": 113.546
+     "start": 112.322,
+     "end": 113.537
     },
     {
      "id": "s3_06",
      "text": "You'd expect it to behave like those calls.",
      "caption": "You'd expect it to behave like those calls.",
      "paragraph": 2,
-     "start": 113.846,
-     "end": 116.07
+     "start": 113.837,
+     "end": 116.062
     },
     {
      "id": "s3_07",
      "text": "It waits for both results, and when both requests succeed, it does.",
      "caption": "It waits for both results, and when both requests succeed, it does.",
      "paragraph": 2,
-     "start": 116.37,
-     "end": 120.097
+     "start": 116.362,
+     "end": 120.089
     },
     {
      "id": "s3_08",
      "text": "But when one fails, gather by default passes that error on immediately, and doesn't cancel the other task.",
      "caption": "But when one fails, gather by default passes that error on immediately, and doesn't cancel the other task.",
      "paragraph": 3,
-     "start": 120.597,
-     "end": 127.047
+     "start": 120.589,
+     "end": 127.038
     },
     {
      "id": "s3_09",
      "text": "Python's own documentation says so.",
      "caption": "Python's own documentation says so.",
      "paragraph": 3,
-     "start": 127.347,
-     "end": 129.403
+     "start": 127.338,
+     "end": 129.393
     },
     {
      "id": "s3_10",
      "text": "That's the request left running in the opening. gather waited for results.",
      "caption": "That's the request left running in the opening. gather waited for results.",
      "paragraph": 4,
-     "start": 131.103,
-     "end": 135.314
+     "start": 131.093,
+     "end": 135.304
     },
     {
      "id": "s3_11",
      "text": "It never owned the tasks.",
      "caption": "It never owned the tasks.",
      "paragraph": 4,
-     "start": 135.614,
-     "end": 137.033
+     "start": 135.604,
+     "end": 137.025
     },
     {
      "id": "s3_12",
      "text": "The second way is to start both requests, then await them one at a time, the user request first.",
      "caption": "The second way is to start both requests, then await them one at a time, the user request first.",
      "paragraph": 5,
-     "start": 137.533,
-     "end": 143.232
+     "start": 137.525,
+     "end": 143.225
     },
     {
      "id": "s3_13",
      "text": "If the client gives up after half a second, the user request is cancelled, because it's the one being awaited.",
      "caption": "If the client gives up after half a second, the user request is cancelled, because it's the one being awaited.",
      "paragraph": 5,
-     "start": 143.532,
-     "end": 149.828
+     "start": 143.525,
+     "end": 149.82
     },
     {
      "id": "s3_14",
      "text": "The orders request isn't, and runs on to the end.",
      "caption": "The orders request isn't, and runs on to the end.",
      "paragraph": 5,
-     "start": 150.128,
-     "end": 152.977
+     "start": 150.12,
+     "end": 152.968
     },
     {
      "id": "s3_15",
      "text": "So a real fix has to do three things.",
      "caption": "So a real fix has to do three things.",
      "paragraph": 6,
-     "start": 154.477,
-     "end": 156.508
+     "start": 154.468,
+     "end": 156.5
     },
     {
      "id": "s3_16",
      "text": "Wait for every task it starts.",
      "caption": "Wait for every task it starts.",
      "paragraph": 6,
-     "start": 156.808,
-     "end": 158.52
+     "start": 156.8,
+     "end": 158.512
     },
     {
      "id": "s3_17",
      "text": "When one fails, cancel the rest and pass the error on.",
      "caption": "When one fails, cancel the rest and pass the error on.",
      "paragraph": 6,
-     "start": 158.82,
-     "end": 161.867
+     "start": 158.812,
+     "end": 161.859
     },
     {
      "id": "s3_18",
      "text": "And when the caller gives up, cancel them all.",
      "caption": "And when the caller gives up, cancel them all.",
      "paragraph": 6,
-     "start": 162.167,
-     "end": 164.348
+     "start": 162.159,
+     "end": 164.34
     }
    ],
-   "end": 165.998
+   "end": 165.99
   },
   {
    "id": "s4",
    "title": "Go to, again",
-   "start": 165.998,
+   "start": 165.99,
    "lines": [
     {
      "id": "s4_01",
      "text": "This problem is older than concurrency.",
      "caption": "This problem is older than concurrency.",
      "paragraph": 0,
-     "start": 166.348,
-     "end": 168.627
+     "start": 166.34,
+     "end": 168.621
     },
     {
      "id": "s4_02",
      "text": "In 1968, Edsger Dike-stra argued against the go to statement.",
      "caption": "In 1968, Edsger Dijkstra argued against the go to statement.",
      "paragraph": 0,
-     "start": 168.927,
-     "end": 173.341
+     "start": 168.921,
+     "end": 173.334
     },
     {
      "id": "s4_03",
      "text": "With jumps that can lead anywhere, it becomes hard to follow what a program is doing from its text.",
      "caption": "With jumps that can lead anywhere, it becomes hard to follow what a program is doing from its text.",
      "paragraph": 0,
-     "start": 173.641,
-     "end": 179.113
+     "start": 173.634,
+     "end": 179.107
     },
     {
      "id": "s4_04",
      "text": "The fix was structured programming: blocks, conditionals, loops and function calls, where control goes in at the top and comes out at the bottom.",
      "caption": "The fix was structured programming: blocks, conditionals, loops and function calls, where control goes in at the top and comes out at the bottom.",
      "paragraph": 1,
-     "start": 179.613,
-     "end": 188.161
+     "start": 179.607,
+     "end": 188.155
     },
     {
      "id": "s4_05",
      "text": "Fifty years later, in 2018, Nathaniel Smith pointed out that starting a task is the same kind of jump.",
      "caption": "Fifty years later, in 2018, Nathaniel Smith pointed out that starting a task is the same kind of jump.",
      "paragraph": 2,
-     "start": 188.661,
-     "end": 195.402
+     "start": 188.655,
+     "end": 195.396
     },
     {
      "id": "s4_06",
      "text": "Control goes in, and part of it never has to come out, so you can no longer treat a function as a black box.",
      "caption": "Control goes in, and part of it never has to come out, so you can no longer treat a function as a black box.",
      "paragraph": 2,
-     "start": 195.702,
-     "end": 202.229
+     "start": 195.696,
+     "end": 202.223
     },
     {
      "id": "s4_07",
      "text": "His essay was called \"Notes on structured concurrency, or: Go statement considered harmful\".",
      "caption": "His essay was called \"Notes on structured concurrency, or: Go statement considered harmful\".",
      "paragraph": 2,
-     "start": 202.529,
-     "end": 207.917
+     "start": 202.523,
+     "end": 207.91
     },
     {
      "id": "s4_08",
      "text": "The fix is the same too: a block.",
      "caption": "The fix is the same too: a block.",
      "paragraph": 3,
-     "start": 209.417,
-     "end": 211.524
+     "start": 209.41,
+     "end": 211.517
     },
     {
      "id": "s4_09",
      "text": "Tasks started inside it can't outlive it.",
      "caption": "Tasks started inside it can't outlive it.",
      "paragraph": 3,
-     "start": 211.824,
-     "end": 213.959
+     "start": 211.817,
+     "end": 213.952
     },
     {
      "id": "s4_10",
      "text": "The block doesn't end until every task in it has finished.",
      "caption": "The block doesn't end until every task in it has finished.",
      "paragraph": 3,
-     "start": 214.259,
-     "end": 217.575
+     "start": 214.252,
+     "end": 217.567
     },
     {
      "id": "s4_11",
      "text": "That rule is called structured concurrency, a name Martin Sustrick had given it two years earlier.",
      "caption": "That rule is called structured concurrency, a name Martin S\u00fastrik had given it two years earlier.",
      "paragraph": 4,
-     "start": 218.875,
-     "end": 224.652
+     "start": 218.867,
+     "end": 224.645
     },
     {
      "id": "s4_12",
      "text": "Smith built it into his own library, Trio, and Python's async I O later added the same kind of block, the task group, in version three point eleven.",
      "caption": "Smith built it into his own library, Trio, and Python's asyncio later added the same kind of block, the task group, in version three point eleven.",
      "paragraph": 4,
-     "start": 224.952,
-     "end": 234.826
+     "start": 224.945,
+     "end": 234.819
     }
    ],
-   "end": 236.676
+   "end": 236.669
   },
   {
    "id": "s5",
    "title": "The same handler, in a task group",
-   "start": 236.676,
+   "start": 236.669,
    "lines": [
     {
      "id": "s5_01",
      "text": "Here's the handler again, with both requests started inside a task group.",
      "caption": "Here's the handler again, with both requests started inside a task group.",
      "paragraph": 0,
-     "start": 237.026,
-     "end": 241.158
+     "start": 237.019,
+     "end": 241.151
     },
     {
      "id": "s5_02",
      "text": "The orders service fails at a tenth of a second.",
      "caption": "The orders service fails at a tenth of a second.",
      "paragraph": 1,
-     "start": 241.658,
-     "end": 244.212
+     "start": 241.651,
+     "end": 244.2
     },
     {
      "id": "s5_03",
      "text": "At once, the task group cancels the user request, which asks it to stop, and waits until it has.",
      "caption": "At once, the task group cancels the user request, which asks it to stop, and waits until it has.",
      "paragraph": 1,
-     "start": 244.512,
-     "end": 250.539
+     "start": 244.5,
+     "end": 250.527
     },
     {
      "id": "s5_04",
      "text": "Then it raises the error in the handler.",
      "caption": "Then it raises the error in the handler.",
      "paragraph": 2,
-     "start": 251.639,
-     "end": 253.731
+     "start": 251.627,
+     "end": 253.719
     },
     {
      "id": "s5_05",
      "text": "It arrives inside an exception group, a container for errors, since more than one task could fail.",
      "caption": "It arrives inside an exception group, a container for errors, since more than one task could fail.",
      "paragraph": 2,
-     "start": 254.031,
-     "end": 259.914
+     "start": 254.019,
+     "end": 259.901
     },
     {
      "id": "s5_06",
-     "text": "So the handler catches it with except star, not a plain except.",
-     "caption": "So the handler catches it with except star, not a plain except.",
+     "text": "So a plain except ConnectionError won't match it.",
+     "caption": "So a plain except ConnectionError won't match it.",
      "paragraph": 2,
-     "start": 260.214,
-     "end": 263.859
+     "start": 260.201,
+     "end": 262.61
     },
     {
      "id": "s5_07",
-     "text": "At a tenth of a second the handler returns, and nothing it started is still running.",
-     "caption": "At a tenth of a second the handler returns, and nothing it started is still running.",
-     "paragraph": 3,
-     "start": 265.159,
-     "end": 269.766
+     "text": "The handler catches it with except star, which looks inside the group.",
+     "caption": "The handler catches it with except star, which looks inside the group.",
+     "paragraph": 2,
+     "start": 262.91,
+     "end": 266.614
     },
     {
      "id": "s5_08",
-     "text": "So nothing is left to fail later, where no one would hear it.",
-     "caption": "So nothing is left to fail later, where no one would hear it.",
+     "text": "At a tenth of a second the handler returns, and nothing it started is still running.",
+     "caption": "At a tenth of a second the handler returns, and nothing it started is still running.",
      "paragraph": 3,
-     "start": 270.066,
-     "end": 273.176
+     "start": 267.914,
+     "end": 272.521
     },
     {
      "id": "s5_09",
-     "text": "A thousand requests: all the handlers return, and no tasks are left.",
-     "caption": "A thousand requests: all the handlers return, and no tasks are left.",
-     "paragraph": 4,
-     "start": 273.676,
-     "end": 277.917
+     "text": "So nothing is left to fail later, where no one would hear it.",
+     "caption": "So nothing is left to fail later, where no one would hear it.",
+     "paragraph": 3,
+     "start": 272.821,
+     "end": 275.932
     },
     {
      "id": "s5_10",
-     "text": "And if the client gives up after half a second, cancelling the handler cancels both requests inside it, not just the one being awaited.",
-     "caption": "And if the client gives up after half a second, cancelling the handler cancels both requests inside it, not just the one being awaited.",
-     "paragraph": 5,
-     "start": 278.417,
-     "end": 286.26
+     "text": "A thousand requests: all the handlers return, and no tasks are left.",
+     "caption": "A thousand requests: all the handlers return, and no tasks are left.",
+     "paragraph": 4,
+     "start": 276.432,
+     "end": 280.675
     },
     {
      "id": "s5_11",
-     "text": "So a task group gives three guarantees.",
-     "caption": "So a task group gives three guarantees.",
-     "paragraph": 6,
-     "start": 287.76,
-     "end": 289.881
+     "text": "And if the client gives up after half a second, cancelling the handler cancels both requests inside it, not just the one being awaited.",
+     "caption": "And if the client gives up after half a second, cancelling the handler cancels both requests inside it, not just the one being awaited.",
+     "paragraph": 5,
+     "start": 281.175,
+     "end": 289.018
     },
     {
      "id": "s5_12",
-     "text": "The block waits for every task started in it.",
-     "caption": "The block waits for every task started in it.",
+     "text": "So a task group gives three guarantees.",
+     "caption": "So a task group gives three guarantees.",
      "paragraph": 6,
-     "start": 290.181,
-     "end": 292.45
+     "start": 290.518,
+     "end": 292.64
     },
     {
      "id": "s5_13",
-     "text": "When one fails, the others are cancelled and the error reaches the caller.",
-     "caption": "When one fails, the others are cancelled and the error reaches the caller.",
+     "text": "The block waits for every task started in it.",
+     "caption": "The block waits for every task started in it.",
      "paragraph": 6,
-     "start": 292.75,
-     "end": 296.651
+     "start": 292.94,
+     "end": 295.211
     },
     {
      "id": "s5_14",
+     "text": "When one fails, the others are cancelled and the error reaches the caller.",
+     "caption": "When one fails, the others are cancelled and the error reaches the caller.",
+     "paragraph": 6,
+     "start": 295.511,
+     "end": 299.411
+    },
+    {
+     "id": "s5_15",
      "text": "And cancelling the caller cancels its tasks.",
      "caption": "And cancelling the caller cancels its tasks.",
      "paragraph": 6,
-     "start": 296.951,
-     "end": 299.285
+     "start": 299.711,
+     "end": 302.048
     }
    ],
-   "end": 300.935
+   "end": 303.698
   },
   {
    "id": "s6",
    "title": "What it doesn't promise",
-   "start": 300.935,
+   "start": 303.698,
    "lines": [
     {
      "id": "s6_01",
      "text": "A task group can only ask a task to stop.",
      "caption": "A task group can only ask a task to stop.",
      "paragraph": 0,
-     "start": 301.285,
-     "end": 303.719
+     "start": 304.048,
+     "end": 306.485
     },
     {
      "id": "s6_02",
      "text": "The request arrives at the task's next await.",
      "caption": "The request arrives at the task's next await.",
      "paragraph": 0,
-     "start": 304.019,
-     "end": 306.478
+     "start": 306.785,
+     "end": 309.244
     },
     {
      "id": "s6_03",
      "text": "It arrives as an exception, called CancelledError.",
      "caption": "It arrives as an exception, called CancelledError.",
      "paragraph": 0,
-     "start": 306.778,
-     "end": 309.455
+     "start": 309.544,
+     "end": 312.22
     },
     {
      "id": "s6_04",
      "text": "A task that never awaits, or that catches that exception and carries on, keeps running.",
      "caption": "A task that never awaits, or that catches that exception and carries on, keeps running.",
      "paragraph": 0,
-     "start": 309.755,
-     "end": 314.867
+     "start": 312.52,
+     "end": 317.632
     },
     {
      "id": "s6_05",
      "text": "Here's a retry loop with a bare except: an except with no exception type, so it catches everything, cancellation included.",
      "caption": "Here's a retry loop with a bare except: an except with no exception type, so it catches everything, cancellation included.",
      "paragraph": 1,
-     "start": 315.367,
-     "end": 322.919
+     "start": 318.132,
+     "end": 325.687
     },
     {
      "id": "s6_06",
      "text": "When the orders service fails, the user request catches its cancellation and tries again.",
      "caption": "When the orders service fails, the user request catches its cancellation and tries again.",
      "paragraph": 1,
-     "start": 323.219,
-     "end": 328.526
+     "start": 325.987,
+     "end": 331.294
     },
     {
      "id": "s6_07",
      "text": "The task group has to wait for it.",
      "caption": "The task group has to wait for it.",
      "paragraph": 2,
-     "start": 329.026,
-     "end": 330.717
+     "start": 331.794,
+     "end": 333.485
     },
     {
      "id": "s6_08",
      "text": "The handler returns after one point one seconds, instead of a tenth.",
      "caption": "The handler returns after one point one seconds, instead of a tenth.",
      "paragraph": 2,
-     "start": 331.017,
-     "end": 334.982
+     "start": 333.785,
+     "end": 337.75
     },
     {
      "id": "s6_09",
      "text": "Before, the stubborn work ran on after the handler returned.",
      "caption": "Before, the stubborn work ran on after the handler returned.",
      "paragraph": 3,
-     "start": 336.482,
-     "end": 340.193
+     "start": 339.25,
+     "end": 342.961
     },
     {
      "id": "s6_10",
      "text": "Now it can't escape the block, so the handler waits for it instead.",
      "caption": "Now it can't escape the block, so the handler waits for it instead.",
      "paragraph": 3,
-     "start": 340.493,
-     "end": 343.976
+     "start": 343.261,
+     "end": 346.744
     },
     {
      "id": "s6_11",
      "text": "And the rule covers only tasks started through the task group, with its own create task.",
      "caption": "And the rule covers only tasks started through the task group, with its own create_task.",
      "paragraph": 4,
-     "start": 344.476,
-     "end": 349.59
+     "start": 347.244,
+     "end": 352.358
     },
     {
      "id": "s6_12",
      "text": "A task started with plain async I O dot create task is on its own again.",
      "caption": "A task started with plain asyncio.create_task is on its own again.",
      "paragraph": 4,
-     "start": 349.89,
-     "end": 354.553
+     "start": 352.658,
+     "end": 357.32
     },
     {
      "id": "s6_13",
      "text": "And it's about lifetimes, not shared data.",
      "caption": "And it's about lifetimes, not shared data.",
      "paragraph": 5,
-     "start": 355.053,
-     "end": 357.52
+     "start": 357.82,
+     "end": 360.288
     },
     {
      "id": "s6_14",
      "text": "Two tasks in the same group can still race on a variable, or deadlock.",
      "caption": "Two tasks in the same group can still race on a variable, or deadlock.",
      "paragraph": 5,
-     "start": 358.42,
-     "end": 362.436
+     "start": 360.588,
+     "end": 364.604
     }
    ],
-   "end": 363.286
+   "end": 366.054
   },
   {
    "id": "s7",
    "title": "Not just Python",
-   "start": 363.286,
+   "start": 366.054,
    "lines": [
     {
      "id": "s7_01",
      "text": "But this isn't a quirk of Python.",
      "caption": "But this isn't a quirk of Python.",
      "paragraph": 0,
-     "start": 363.636,
-     "end": 365.396
+     "start": 366.404,
+     "end": 368.166
     },
     {
      "id": "s7_02",
      "text": "Here's the same handler in Go, with plain go routines.",
      "caption": "Here's the same handler in Go, with plain goroutines.",
      "paragraph": 0,
-     "start": 365.696,
-     "end": 368.88
+     "start": 368.466,
+     "end": 371.649
     },
     {
      "id": "s7_03",
      "text": "After a thousand requests, a thousand go routines are left, and they never finish: each is waiting to hand its result to a handler that has already returned.",
      "caption": "After a thousand requests, a thousand goroutines are left, and they never finish: each is waiting to hand its result to a handler that has already returned.",
      "paragraph": 0,
-     "start": 369.18,
-     "end": 378.805
+     "start": 371.949,
+     "end": 381.575
     },
     {
      "id": "s7_04",
      "text": "Go has no task group in the language.",
      "caption": "Go has no task group in the language.",
      "paragraph": 1,
-     "start": 380.105,
-     "end": 382.088
+     "start": 382.875,
+     "end": 384.858
     },
     {
      "id": "s7_05",
      "text": "A common convention is an error group, from Go's extended libraries: the closest thing Go has to a task group.",
      "caption": "A common convention is an error group, from Go's extended libraries: the closest thing Go has to a task group.",
      "paragraph": 1,
-     "start": 382.388,
-     "end": 389.468
+     "start": 385.158,
+     "end": 392.238
     },
     {
      "id": "s7_06",
      "text": "An error group works with a context: Go's standard way of passing cancellation and deadlines to go routines.",
      "caption": "An error group works with a context: Go's standard way of passing cancellation and deadlines to goroutines.",
      "paragraph": 2,
-     "start": 389.968,
-     "end": 396.941
+     "start": 392.738,
+     "end": 399.71
     },
     {
      "id": "s7_07",
      "text": "With an error group, none are left.",
      "caption": "With an error group, none are left.",
      "paragraph": 3,
-     "start": 397.441,
-     "end": 399.286
+     "start": 400.21,
+     "end": 402.056
     },
     {
      "id": "s7_08",
      "text": "The first error cancels the context, and here each go routine checks the context and returns.",
      "caption": "The first error cancels the context, and here each goroutine checks the context and returns.",
      "paragraph": 3,
-     "start": 400.186,
-     "end": 405.715
+     "start": 402.956,
+     "end": 408.485
     },
     {
      "id": "s7_09",
      "text": "Like a task group, an error group can only ask.",
      "caption": "Like a task group, an error group can only ask.",
      "paragraph": 3,
-     "start": 406.015,
-     "end": 408.888
+     "start": 408.785,
+     "end": 411.658
     },
     {
      "id": "s7_10",
      "text": "Swift and Java have the same kind of block built in, Java's still as a preview feature.",
      "caption": "Swift and Java have the same kind of block built in, Java's still as a preview feature.",
      "paragraph": 4,
-     "start": 409.388,
-     "end": 414.458
+     "start": 412.158,
+     "end": 417.227
     },
     {
      "id": "s7_11",
      "text": "Kotlin has it in its official coroutines library.",
      "caption": "Kotlin has it in its official coroutines library.",
      "paragraph": 4,
-     "start": 414.758,
-     "end": 417.652
+     "start": 417.527,
+     "end": 420.419
     }
    ],
-   "end": 419.102
+   "end": 421.869
   },
   {
    "id": "s8",
    "title": "The answer",
-   "start": 419.102,
+   "start": 421.869,
    "lines": [
     {
      "id": "s8_01",
      "text": "So why was the handler's work still running after it returned?",
      "caption": "So why was the handler's work still running after it returned?",
      "paragraph": 0,
-     "start": 419.452,
-     "end": 422.604
+     "start": 422.219,
+     "end": 425.371
     },
     {
      "id": "s8_02",
      "text": "Because starting a task split control into two paths, and nothing made the second one come back. gather waited for the results, but it didn't own the tasks.",
      "caption": "Because starting a task split control into two paths, and nothing made the second one come back. gather waited for the results, but it didn't own the tasks.",
      "paragraph": 0,
-     "start": 422.904,
-     "end": 431.981
+     "start": 425.671,
+     "end": 434.748
     },
     {
      "id": "s8_03",
      "text": "Structured concurrency gives every task an owner: a block that can't end until its tasks have.",
      "caption": "Structured concurrency gives every task an owner: a block that can't end until its tasks have.",
      "paragraph": 1,
-     "start": 432.481,
-     "end": 438.515
+     "start": 435.248,
+     "end": 441.282
     },
     {
      "id": "s8_04",
      "text": "When one fails, the rest are cancelled and the error comes back.",
      "caption": "When one fails, the rest are cancelled and the error comes back.",
      "paragraph": 1,
-     "start": 438.815,
-     "end": 442.293
+     "start": 441.582,
+     "end": 445.061
     },
     {
      "id": "s8_05",
      "text": "When the caller is cancelled, so are its tasks.",
      "caption": "When the caller is cancelled, so are its tasks.",
      "paragraph": 1,
-     "start": 442.593,
-     "end": 444.974
+     "start": 445.361,
+     "end": 447.74
     },
     {
      "id": "s8_06",
      "text": "The request fails at a tenth of a second, and at a tenth of a second nothing is left running.",
      "caption": "The request fails at a tenth of a second, and at a tenth of a second nothing is left running.",
      "paragraph": 2,
-     "start": 445.474,
-     "end": 450.621
+     "start": 448.24,
+     "end": 453.389
     },
     {
      "id": "s8_07",
      "text": "Give every task an owner, and \"returned\" means \"done\".",
      "caption": "Give every task an owner, and \"returned\" means \"done\".",
      "paragraph": 3,
-     "start": 451.121,
-     "end": 454.102
+     "start": 453.889,
+     "end": 456.87
     }
    ],
-   "end": 462.702
+   "end": 465.47
   }
  ],
  "phonemes": {
@@ -937,15 +945,16 @@
   "s5_03": "\u02cc\u00e6t w\u02c8\u028cns, \u00f0\u0259 t\u02c8\u00e6sk \u0261\u0279\u02c8up k\u02c8\u00e6ns\u1d4alz \u00f0\u0259 j\u02c8uz\u0259\u0279 \u0279\u0259kw\u02c8\u025bst, w\u02cc\u026a\u02a7 \u02c8\u00e6sks \u026at t\u0259 st\u02c8\u0251p, \u00e6nd w\u02c8Ats \u02cc\u028cnt\u02c8\u026al \u026at h\u02c8\u00e6z.",
   "s5_04": "\u00f0\u02c8\u025bn \u026at \u0279\u02c8Az\u1d7bz \u00f0i \u02c8\u025b\u0279\u0259\u0279 \u026an \u00f0\u0259 h\u02c8\u00e6nd\u1d4al\u0259\u0279.",
   "s5_05": "\u02cc\u026at \u0259\u0279\u02c8Ivz \u026ans\u02c8Id \u0250n \u026aks\u02c8\u025bp\u0283\u0259n \u0261\u0279\u02c8up, \u0250 k\u0259nt\u02c8An\u0259\u0279 f\u0254\u0279 \u02c8\u025b\u0279\u0259\u0279z, s\u02c8\u026ans m\u02c8\u0254\u0279 \u00f0\u0259n w\u02c8\u028cn t\u02c8\u00e6sk k\u028ad f\u02c8Al.",
-  "s5_06": "s\u02ccO \u00f0\u0259 h\u02c8\u00e6nd\u1d4al\u0259\u0279 k\u02c8\u025b\u02a7\u1d7bz \u026at w\u026a\u00f0 \u026aks\u02c8\u025bpt st\u02c8\u0251\u0279, n\u02cc\u0251t \u0250 pl\u02c8An \u026aks\u02c8\u025bpt.",
-  "s5_07": "\u02cc\u00e6t \u0250 t\u02c8\u025bn\u03b8 \u028cv \u0250 s\u02c8\u025bk\u0259nd \u00f0\u0259 h\u02c8\u00e6nd\u1d4al\u0259\u0279 \u0279\u0259t\u02c8\u025c\u0279nz, \u00e6nd n\u02c8\u028c\u03b8\u026a\u014b \u026at st\u02c8\u0251\u0279T\u1d7bd \u026az st\u02c8\u026al \u0279\u02c8\u028cn\u026a\u014b.",
-  "s5_08": "s\u02ccO n\u02c8\u028c\u03b8\u026a\u014b \u026az l\u02c8\u025bft t\u0259 f\u02c8Al l\u02c8AT\u0259\u0279, w\u02cc\u025b\u0279 n\u02c8O w\u02c8\u028cn w\u028ad h\u02c8\u026a\u0279 \u026at.",
-  "s5_09": "\u0250 \u03b8\u02c8Wz\u1d4and \u0279\u0259kw\u02c8\u025bsts: \u02c8\u0254l \u00f0\u0259 h\u02c8\u00e6nd\u1d4al\u0259\u0279z \u0279\u0259t\u02c8\u025c\u0279n, \u00e6nd n\u02c8O t\u02c8\u00e6sks \u0251\u0279 l\u02c8\u025bft.",
-  "s5_10": "\u02cc\u00e6nd \u026af \u00f0\u0259 kl\u02c8I\u0259nt \u0261\u02c8\u026avz \u02cc\u028cp \u02c8\u00e6ft\u0259\u0279 h\u02c8\u00e6f \u0250 s\u02c8\u025bk\u0259nd, k\u02c8\u00e6ns\u1d4al\u026a\u014b \u00f0\u0259 h\u02c8\u00e6nd\u1d4al\u0259\u0279 k\u02c8\u00e6ns\u1d4alz b\u02c8O\u03b8 \u0279\u0259kw\u02c8\u025bsts \u026ans\u02c8Id \u026at, n\u02cc\u0251t \u02a4\u02c8\u028cst \u00f0\u0259 w\u02c8\u028cn b\u02c8i\u026a\u014b \u0259w\u02c8AT\u1d7bd.",
-  "s5_11": "s\u02ccO \u0250 t\u02c8\u00e6sk \u0261\u0279\u02c8up \u0261\u02c8\u026avz \u03b8\u0279\u02c8i \u0261\u02cc\u025b\u0279\u0259nt\u02c8iz.",
-  "s5_12": "\u00f0\u0259 bl\u02c8\u0251k w\u02c8Ats f\u0254\u0279 \u02c8\u025bv\u0259\u0279i t\u02c8\u00e6sk st\u02c8\u0251\u0279T\u1d7bd \u026an \u026at.",
-  "s5_13": "w\u02cc\u025bn w\u02c8\u028cn f\u02c8Alz, \u00f0i \u02c8\u028c\u00f0\u0259\u0279z \u0251\u0279 k\u02c8\u00e6ns\u0259ld \u00e6nd \u00f0i \u02c8\u025b\u0279\u0259\u0279 \u0279\u02c8i\u02a7\u1d7bz \u00f0\u0259 k\u02c8\u0254l\u0259\u0279.",
-  "s5_14": "\u02cc\u00e6nd k\u02c8\u00e6ns\u1d4al\u026a\u014b \u00f0\u0259 k\u02c8\u0254l\u0259\u0279 k\u02c8\u00e6ns\u1d4alz \u026ats t\u02c8\u00e6sks.",
+  "s5_06": "s\u02ccO \u0250 pl\u02c8An \u026aks\u02c8\u025bpt k\u0259n\u02c8\u025bk\u0283\u0259n\u02cc\u025b\u0279\u0259\u0279 wOnt m\u02c8\u00e6\u02a7 \u026at.",
+  "s5_07": "\u00f0\u0259 h\u02c8\u00e6nd\u1d4al\u0259\u0279 k\u02c8\u025b\u02a7\u1d7bz \u026at w\u026a\u00f0 \u026aks\u02c8\u025bpt st\u02c8\u0251\u0279, w\u02cc\u026a\u02a7 l\u02c8\u028aks \u026ans\u02c8Id \u00f0\u0259 \u0261\u0279\u02c8up.",
+  "s5_08": "\u02cc\u00e6t \u0250 t\u02c8\u025bn\u03b8 \u028cv \u0250 s\u02c8\u025bk\u0259nd \u00f0\u0259 h\u02c8\u00e6nd\u1d4al\u0259\u0279 \u0279\u0259t\u02c8\u025c\u0279nz, \u00e6nd n\u02c8\u028c\u03b8\u026a\u014b \u026at st\u02c8\u0251\u0279T\u1d7bd \u026az st\u02c8\u026al \u0279\u02c8\u028cn\u026a\u014b.",
+  "s5_09": "s\u02ccO n\u02c8\u028c\u03b8\u026a\u014b \u026az l\u02c8\u025bft t\u0259 f\u02c8Al l\u02c8AT\u0259\u0279, w\u02cc\u025b\u0279 n\u02c8O w\u02c8\u028cn w\u028ad h\u02c8\u026a\u0279 \u026at.",
+  "s5_10": "\u0250 \u03b8\u02c8Wz\u1d4and \u0279\u0259kw\u02c8\u025bsts: \u02c8\u0254l \u00f0\u0259 h\u02c8\u00e6nd\u1d4al\u0259\u0279z \u0279\u0259t\u02c8\u025c\u0279n, \u00e6nd n\u02c8O t\u02c8\u00e6sks \u0251\u0279 l\u02c8\u025bft.",
+  "s5_11": "\u02cc\u00e6nd \u026af \u00f0\u0259 kl\u02c8I\u0259nt \u0261\u02c8\u026avz \u02cc\u028cp \u02c8\u00e6ft\u0259\u0279 h\u02c8\u00e6f \u0250 s\u02c8\u025bk\u0259nd, k\u02c8\u00e6ns\u1d4al\u026a\u014b \u00f0\u0259 h\u02c8\u00e6nd\u1d4al\u0259\u0279 k\u02c8\u00e6ns\u1d4alz b\u02c8O\u03b8 \u0279\u0259kw\u02c8\u025bsts \u026ans\u02c8Id \u026at, n\u02cc\u0251t \u02a4\u02c8\u028cst \u00f0\u0259 w\u02c8\u028cn b\u02c8i\u026a\u014b \u0259w\u02c8AT\u1d7bd.",
+  "s5_12": "s\u02ccO \u0250 t\u02c8\u00e6sk \u0261\u0279\u02c8up \u0261\u02c8\u026avz \u03b8\u0279\u02c8i \u0261\u02cc\u025b\u0279\u0259nt\u02c8iz.",
+  "s5_13": "\u00f0\u0259 bl\u02c8\u0251k w\u02c8Ats f\u0254\u0279 \u02c8\u025bv\u0259\u0279i t\u02c8\u00e6sk st\u02c8\u0251\u0279T\u1d7bd \u026an \u026at.",
+  "s5_14": "w\u02cc\u025bn w\u02c8\u028cn f\u02c8Alz, \u00f0i \u02c8\u028c\u00f0\u0259\u0279z \u0251\u0279 k\u02c8\u00e6ns\u0259ld \u00e6nd \u00f0i \u02c8\u025b\u0279\u0259\u0279 \u0279\u02c8i\u02a7\u1d7bz \u00f0\u0259 k\u02c8\u0254l\u0259\u0279.",
+  "s5_15": "\u02cc\u00e6nd k\u02c8\u00e6ns\u1d4al\u026a\u014b \u00f0\u0259 k\u02c8\u0254l\u0259\u0279 k\u02c8\u00e6ns\u1d4alz \u026ats t\u02c8\u00e6sks.",
   "s6_01": "\u0250 t\u02c8\u00e6sk \u0261\u0279\u02c8up k\u00e6n \u02c8Onli \u02c8\u00e6sk \u0250 t\u02c8\u00e6sk t\u0259 st\u02c8\u0251p.",
   "s6_02": "\u00f0\u0259 \u0279\u0259kw\u02c8\u025bst \u0259\u0279\u02c8Ivz \u00e6t \u00f0\u0259 t\u02c8\u00e6sks n\u02c8\u025bkst \u0259w\u02c8At.",
   "s6_03": "\u02cc\u026at \u0259\u0279\u02c8Ivz \u00e6z \u0250n \u026aks\u02c8\u025bp\u0283\u0259n, k\u02c8\u0254ld k\u02c8\u00e6ns\u0259ld\u02cc\u025b\u0279\u0259\u0279.",
@@ -979,5 +988,5 @@
   "s8_06": "\u00f0\u0259 \u0279\u0259kw\u02c8\u025bst f\u02c8Alz \u00e6t \u0250 t\u02c8\u025bn\u03b8 \u028cv \u0250 s\u02c8\u025bk\u0259nd, \u00e6nd \u00e6t \u0250 t\u02c8\u025bn\u03b8 \u028cv \u0250 s\u02c8\u025bk\u0259nd n\u02c8\u028c\u03b8\u026a\u014b \u026az l\u02c8\u025bft \u0279\u02c8\u028cn\u026a\u014b.",
   "s8_07": "\u0261\u02c8\u026av \u02c8\u025bv\u0259\u0279i t\u02c8\u00e6sk \u0250n \u02c8On\u0259\u0279, \u00e6nd \u201c\u0279\u0259t\u02c8\u025c\u0279nd\u201d m\u02c8inz \u201cd\u02c8\u028cn\u201d."
  },
- "peak": 0.8049139380455017
+ "peak": 0.7808732390403748
 }
