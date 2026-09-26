@@ -1,5 +1,1 @@
-{"tail": 8.0,
- "holds": {},
- "spoken": [["asyncio.gather", "async I O dot gather"], ["asyncio", "async I O"], ["fetch_user", "fetch user"],
-            ["create_task", "create task"], ["Dijkstra", "Dike-stra"], ["Sústrik", "Sustrick"],
-            ["goroutines", "go routines"]]}
+{"tail": 8.0, "holds": {}, "spoken": [["asyncio.gather", "async I O dot gather"], ["asyncio", "async I O"], ["fetch_user", "fetch user"], ["create_task", "create task"], ["Dijkstra", "Dike-stra"], ["S\u00fastrik", "Sustrick"], ["goroutines", "go routines"], ["except star", "except star"]]}

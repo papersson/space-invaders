@@ -1,6 +1,6 @@
 # Where Did That Task Go?
 
-Status: in review round 6
+Status: in review round 7
 
 ## Argument
 
@@ -80,7 +80,7 @@ No length target: the length follows the argument (about 150 words per minute).
 > Now serve a thousand requests at once. All thousand handlers return almost at once, and a thousand tasks are still running.
 > The function returned. Why is its work still running? And what would make "returned" mean "done"?
 
-*Screen:* a code card (sims/handler.py, `handler_gather`): `user, orders = await asyncio.gather(fetch_user(), fetch_orders())` inside a `try`. Below it, a timeline from 0 to 1.4 s (data/timeline.json, "gather"): a bar "fetch_user" from 0 to 1.00 s and a bar "fetch_orders" from 0 to 0.10 s ending in a red cross; a vertical line at 0.10 s, "handler returned an error". The part of the fetch_user bar after that line turns amber: "still running". Then the variant run ("gather_late"): the bar ends at 1.00 s in a cross labelled "TimeoutError", with an arrow from it to an empty circle. Then a counter from the real run: "1,000 requests at once · all handlers returned within 0.12 s · tasks still running: 1,000". The question.
+*Screen:* a code card (sims/handler.py, `handler_gather`): `user, orders = await asyncio.gather(fetch_user(), fetch_orders())` inside a `try`. Below it, a timeline from 0 to 1.4 s (data/timeline.json, "gather"): a bar "fetch_user" from 0 to 1.00 s and a bar "fetch_orders" from 0 to 0.10 s ending in a red cross; a vertical line at 0.10 s, "handler returned an error". The part of the fetch_user bar after that line turns amber: "still running". Then the variant run ("gather_late"): the bar ends at 1.00 s in a cross labelled "TimeoutError", with an arrow from it to an empty circle. Then a counter from the real run: "1,000 requests at once · all handlers returned · tasks still running: 1,000". The question.
 
 ### 2. What a call promises
 
@@ -102,7 +102,7 @@ No length target: the length follows the argument (about 150 words per minute).
 > The second way is to start both requests, then await them one at a time, the user request first. If the client gives up after half a second, the user request is cancelled, because it's the one being awaited. The orders request isn't, and runs on to the end.
 > So a real fix has to do three things. Wait for every task it starts. When one fails, cancel the rest and pass the error on. And when the caller gives up, cancel them all.
 
-*Screen:* the arrow picture again: one arrow enters the handler; at "start a task" it splits into two, and the second arrow leaves the box sideways with no way back (amber). Then the gather timeline from chapter 1 again, the Python docs' own sentences beneath it (asyncio.gather, research/verified_primary_sources.md), the first sentence appearing with "immediately" and the second with "doesn't cancel": "If return_exceptions is False (default), the first raised exception is immediately propagated to the task that awaits on gather(). Other awaitables in the aws sequence won't be cancelled and will continue to run." A small gloss: "awaitables in the aws sequence: here, the two requests". Then a code card: `u = asyncio.create_task(fetch_user())`, `o = asyncio.create_task(fetch_orders())`, `await u`, `await o`, with a timeline from the real run ("cancel_create_task", both requests succeed after 1.0 s here): the client's timeout at 0.50 s; fetch_user cancelled at 0.50 s; fetch_orders runs on to 1.00 s (amber). Then three short lines, the spec, each appearing as it is said and each with a check box left empty: "wait for every task", "one fails → cancel the rest, pass the error on", "caller gives up → cancel them all".
+*Screen:* the arrow picture again: one arrow enters the handler; at "start a task" it splits into two, and the second arrow leaves the box sideways with no way back (amber). Then the gather timeline from chapter 1 again, the Python docs' own sentences beneath it (asyncio.gather, research/verified_primary_sources.md), the first sentence appearing with "immediately" and the second with "doesn't cancel": "If return_exceptions is False (default), the first raised exception is immediately propagated to the task that awaits on gather(). Other awaitables in the aws sequence won't be cancelled and will continue to run." A small gloss: "awaitables in the aws sequence: here, the two requests". Then a code card: `u = asyncio.create_task(fetch_user())`, `o = asyncio.create_task(fetch_orders())`, `await u`, `await o`, with a timeline from the real run ("cancel_create_task", both requests succeed after 1.0 s here): the client's timeout at 0.50 s; fetch_user cancelled at 0.50 s; fetch_orders runs on to 1.00 s (amber). Then the spec as three short labels with empty check boxes, each appearing as it is said: "wait for all", "one fails → cancel the rest, error out", "caller gone → cancel all".
 
 ### 4. Go to, again
 
@@ -118,7 +118,7 @@ No length target: the length follows the argument (about 150 words per minute).
 
 > Here's the handler again, with both requests started inside a task group.
 > The orders service fails at a tenth of a second. At once, the task group cancels the user request, which asks it to stop, and waits until it has.
-> Then it raises the error in the handler. It arrives inside an exception group, a container that can hold the errors of several tasks.
+> Then it raises the error in the handler. It arrives inside an exception group, a container for errors, since more than one task could fail. So the handler catches it with except star, not a plain except.
 > At a tenth of a second the handler returns, and nothing it started is still running. So nothing is left to fail later, where no one would hear it.
 > A thousand requests: all the handlers return, and no tasks are left.
 > And if the client gives up after half a second, cancelling the handler cancels both requests inside it, not just the one being awaited.
@@ -129,7 +129,7 @@ No length target: the length follows the argument (about 150 words per minute).
 ### 6. What it doesn't promise
 
 > A task group can only ask a task to stop. The request arrives at the task's next await. It arrives as an exception, called CancelledError. A task that never awaits, or that catches that exception and carries on, keeps running.
-> Here's a retry loop with a bare except, an except with no type, which catches everything, cancellation included. When the orders service fails, the user request catches its cancellation and tries again.
+> Here's a retry loop with a bare except: an except with no exception type, so it catches everything, cancellation included. When the orders service fails, the user request catches its cancellation and tries again.
 > The task group has to wait for it. The handler returns after one point one seconds, instead of a tenth.
 > Before, the stubborn work ran on after the handler returned. Now it can't escape the block, so the handler waits for it instead.
 > And the rule covers only tasks started through the task group, with its own create_task. A task started with plain asyncio.create_task is on its own again.
@@ -141,8 +141,8 @@ No length target: the length follows the argument (about 150 words per minute).
 
 > But this isn't a quirk of Python. Here's the same handler in Go, with plain goroutines. After a thousand requests, a thousand goroutines are left, and they never finish: each is waiting to hand its result to a handler that has already returned.
 > Go has no task group in the language. A common convention is an error group, from Go's extended libraries: the closest thing Go has to a task group.
-> An error group works with a context, Go's standard way of passing cancellation, and deadlines, to goroutines.
-> With an error group, none are left. The first error cancels the context, and each goroutine checks the context and returns.
+> An error group works with a context: Go's standard way of passing cancellation and deadlines to goroutines.
+> With an error group, none are left. The first error cancels the context, and here each goroutine checks the context and returns. Like a task group, an error group can only ask.
 > Swift and Java have the same kind of block built in, Java's still as a preview feature. Kotlin has it in its official coroutines library.
 
 *Screen:* the real Go run (sims/goleak, data/runs.txt): the bare-goroutine handler reduced to its key lines (`go func() { u, _ := fetchUser(context.Background()); users <- u }()` and its twin for fetchOrders) and a small picture of one goroutine holding a result at a channel whose other end, the handler, is gone; then the count "bare goroutines: 1,000 left over" and, checked again 1.2 s later, after every request's one second has passed, "still 1,000" (amber). Then the errgroup handler's key lines (`g, ctx := errgroup.WithContext(...)`, `g.Go(func() error { _, err := fetchUser(ctx); return err })`) and "errgroup + context: 0 left over; 1.2 s later: 0" (blue). Last, one small line of names: "Swift: task groups (built in) · Java: StructuredTaskScope (built in, preview) · Kotlin: coroutineScope (kotlinx.coroutines library)".
@@ -154,7 +154,7 @@ No length target: the length follows the argument (about 150 words per minute).
 > The request fails at a tenth of a second, and at a tenth of a second nothing is left running.
 > Give every task an owner, and "returned" means "done".
 
-*Screen:* the chapter 1 timeline and the chapter 5 timeline stacked: gather (fetch_user runs on to 1.00 s, amber) above, task group (cut at 0.10 s) below; the counters "1,000 still running" and "0". Then the block diagram from chapter 4. End card with the takeaway and references: Smith, "Notes on structured concurrency, or: Go statement considered harmful" (2018); Sústrik, "Structured Concurrency" (2016); Dijkstra, "Go To Statement Considered Harmful", CACM (1968); Python documentation, "Coroutines and Tasks" (Task Groups); JEP 533, Structured Concurrency (Seventh Preview, JDK 27), and JEP 543 (Candidate, to finalize in JDK 28); Kotlin documentation, "Composing suspending functions"; SE-0304, Structured concurrency (Swift).
+*Screen:* the chapter 1 timeline and the chapter 5 timeline stacked: gather (fetch_user runs on to 1.00 s, amber) above, task group (cut at 0.10 s) below; the counters "1,000 still running" and "0". Then the block diagram from chapter 4. End card with the takeaway and references: Smith, "Notes on structured concurrency, or: Go statement considered harmful" (2018); Sústrik, "Structured Concurrency" (2016); Dijkstra, "Go To Statement Considered Harmful" (title by the editor, Niklaus Wirth), CACM (1968); Python documentation, "Coroutines and Tasks" (Task Groups); JEP 533, Structured Concurrency (Seventh Preview, JDK 27), and JEP 543 (Candidate, proposing to finalize it in JDK 28); Kotlin documentation, "Composing suspending functions"; SE-0304, Structured concurrency (Swift).
 
 ## Evidence
 
@@ -215,3 +215,9 @@ No length target: the length follows the argument (about 150 words per minute).
 - Expert, not taken: re-checking the JEP numbers again. They were checked at openjdk.org on the day of this build (research/verified_primary_sources.md); the page makes no claim beyond that date.
 - Editor, not taken: deriving the exception group from a visible two-failure case, demonstrating races and deadlocks, and illustrating Kotlin, Swift and Java. Each is a generalization given one sentence, as the research's essential/extra split and the depth-over-breadth rule ask; the exception group is named because it is the type the viewer's own code will catch.
 - Student: lost at the difference between the task group's create_task and plain asyncio.create_task (chapter 6 now names both); the chapter 4 names and dates are unchanged apart from the Sústrik clause.
+
+**Round 6:** expert PASS, editor PASS, student retold the question and answer correctly (lost "a few times"). The gate is passed; the should-fix items are applied once, and round 7 decides the lock.
+- Expert: chapter 5 now says the exception group is caught with `except*`, not a plain `except` (the code card already shows it); the Go error group gets the same caveat as the task group ("here each goroutine checks the context and returns. Like a task group, an error group can only ask."); JEP 543 is described as proposing to finalize the API in JDK 28, as its own text says, not as a settled target; the end card notes that the title of Dijkstra's letter was the editor's, Niklaus Wirth's.
+- Editor: the chapter 3 spec on screen is three short labels, not the spoken sentences; the chapter 1 counter no longer shows 0.12 s beside the 0.10 s anchor (the number stays in the evidence); the Go context sentence and the bare-except sentence are rephrased for the ear; the exception group's reason ("more than one task could fail") is stated as a possibility.
+- Editor, not taken: cutting Sústrik. The JEP credits him with coining the term, and the expert asked in round 5 for the narration to keep that credit; it is one clause.
+- Student: lost at cancellation being used before its mechanism (chapter 2 says it "asks the code to stop"; chapter 6 gives the mechanism, which is the order the research recommends) and in the compressed Go section (the context sentence is simpler).

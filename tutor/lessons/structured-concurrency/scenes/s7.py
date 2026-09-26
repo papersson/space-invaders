@@ -59,10 +59,10 @@ class S7(CueScene):
 
         # 08-09: the same block elsewhere
         self.at("09")
-        names = mono("Swift: task groups (built in) · Java: StructuredTaskScope (built in)", 16, INK).move_to([0, -2.5, 0])
+        names = mono("built in: Swift task groups · Java StructuredTaskScope (preview)", 16, INK).move_to([0, -2.5, 0])
         self.play(FadeIn(names), run_time=0.5)
         self.at("10")
-        pv = mono("Java: still a preview · Kotlin: coroutineScope, in the kotlinx.coroutines library", 14, MUTED).next_to(names, DOWN, 0.15)
+        pv = mono("Kotlin: coroutineScope, in the kotlinx.coroutines library", 15, MUTED).next_to(names, DOWN, 0.15)
         self.play(FadeIn(pv), run_time=0.4)
         self.until(self.dur - 0.5)
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.45)
