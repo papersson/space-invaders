@@ -42,34 +42,43 @@ def script():
 
 
 def sources():
-    h, m, e = RACE["heapsort"]["trips"], RACE["mergesort"]["trips"], RACE["external_mergesort"]
-    h64, m64 = RACE["b64"]["heapsort"], RACE["b64"]["mergesort"]
-    temp = SORTCAP["n_temp_files_max"]
-    run_mb = max(f["bytes"] for s in SORTCAP["samples"] for f in s["tmp_files"]) / 1e6
+    h, m = RACE["heapsort"]["trips"], RACE["mergesort"]["trips"]
+    ch, cm = RACE["comparisons"]["heapsort"], RACE["comparisons"]["mergesort"]
+    runs = sorted({f["bytes"] for s in SORTCAP["samples"] for f in s["tmp_files"]}, reverse=True)
     rows = [
-        ("Heapsort vs. merge sort race, scoreboard",
-         f"Simulation (<code>iosim.py</code>): 262,144 keys, memory holds 1/16, blocks of 256, LRU cache. "
-         f"Heapsort {h:,} trips, 2-way merge sort {m:,}, external merge sort {e:,}. "
-         f"With blocks of 64: {h64:,} vs {m64:,} ({h64 / m64:.1f}×)."),
-        ("Cold open: sort vs. Python",
-         f"Real runs on this machine, scaled down 100×. GNU sort 9.4 on a 1 GB file with <code>-S 160M</code> "
-         f"wrote {temp} temp files of {run_mb:.1f} MB, then did one {temp}-way merge. Python under a 600 MB "
-         f"cap raised <code>MemoryError</code> at {PYCAP['peak_rss_kb_vmhwm'] / 1000:.0f} MB."),
-        ("Postgres line",
-         "PostgreSQL 16.13, 1,000,000 rows, default <code>work_mem</code> (4 MB), parallel query off: "
-         "<code>Sort Method: external merge&nbsp; Disk: 107696kB</code>."),
-        ("Sawtooth strip",
-         "1,000,000 random keys, memory holds 160,000 (the 16 GB to 100 GB ratio): 7 real runs, "
-         "one sampled key per pixel column."),
+        ("Opening: Python vs. sort",
+         f"Real runs on this machine. GNU sort 9.4 on 1,000 MB of 10,000-byte records with "
+         f"<code>-S 86000000b</code> (86 MB): {SORTCAP['n_temp_files_max']} temp files "
+         f"({SORTCAP['n_temp_files_max'] - 1} of {runs[0] / 1e6:.2f} MB and one of {runs[-1] / 1e6:.2f} MB), "
+         f"then one {SORTCAP['n_temp_files_max']}-way merge; done in {SORTCAP['duration_s']:.1f} s. "
+         f"Python 3 under an 86 MB address-space cap: <code>MemoryError</code> after {PYCAP['duration_s']:.2f} s."),
+        ("Heapsort vs. merge sort race",
+         f"Simulation (<code>iosim.py</code>), LRU virtual memory: {RACE['n']:,} items, memory {RACE['M']:,} "
+         f"items (1/12, the proportions of sort's file), blocks of {RACE['B']} items. Comparisons {ch:,} vs "
+         f"{cm:,} ({ch / cm:.2f}×); I/Os {h:,} vs {m:,} ({h / m:.1f}×), {h / RACE['n']:.1f} per item for heapsort."),
+        ("Time at typical speeds",
+         f"Not measured: {ch / 1e6:.2f} M comparisons × ~100 ns (a memory access, generous for a comparison) "
+         f"= {ch * 100e-9:.2f} s; {h:,} I/Os × ~100 µs (a typical SSD access) = {h * 100e-6:.0f} s."),
+        ("18 → 5 → 2 passes",
+         f"⌈log₂ {RACE['n']:,}⌉ = 18 merge sort passes; the first {RACE['pieces_below_memory']} make pieces "
+         f"of at most 16,384 items, under memory's {RACE['M']:,}. Twelve runs plus four two-way passes = 5 "
+         f"({RACE['pass_ios']['runs_then_two_way']:,} I/Os); twelve runs plus one 12-way merge = 2 "
+         f"({RACE['pass_ios']['runs_then_multiway']:,} I/Os)."),
+        ("The card toy",
+         "48 cards, blocks of 4, memory of 4 blocks: 3 runs. The merge replays the event log of a real "
+         "3-way merge: 24 I/Os to make the runs, 24 for the merge."),
         ("Scale-up numbers",
-         "16 GiB of memory ÷ 1 MiB blocks = 16,384 blocks, so 16,383 runs merge at once and two passes "
-         "sort up to 16 GiB × 16,383 ≈ 256 TiB. 10 TB with 16 GB runs is 583 runs, which takes 10 two-way rounds."),
-        ("Latency ladder",
-         "Typical values, not measured here: memory ~100 ns, NVMe random read ~90 µs, hard disk seek ~10 ms, "
-         "scaled so memory = 1 second."),
-        ("Merge animation",
-         "Replays the event log of a real 3-way merge of the 48-card toy (B = 4, M = 16): 24 trips for phase 1, "
-         "24 for the merge, against 64 for 2-way merging."),
+         "GNU sort merges at most 16 files at once by default (coreutils manual, <code>--batch-size</code>). "
+         "16 GB ÷ 1 MB = 16,000 blocks (decimal units throughout), so about 16,000 runs per merge; "
+         "100,000 runs → ⌈100,000 ÷ 15,999⌉ = 7 → 1."),
+        ("PostgreSQL line",
+         "PostgreSQL 16.13, a 1,000,000-row table (128 MB), default <code>work_mem</code> (4 MB), parallel "
+         "query off, <code>EXPLAIN (ANALYZE, COSTS OFF)</code>: <code>Sort Method: external merge&nbsp; "
+         "Disk: 107696kB</code>."),
+        ("End card",
+         "Ramakrishnan &amp; Gehrke, <i>Database Management Systems</i>, 3rd ed., ch. 13 (external sorting); "
+         "Aggarwal &amp; Vitter, “The input/output complexity of sorting and related problems”, CACM 31(9), "
+         "1988 (the lower bound); Mehlhorn &amp; Sanders, <i>The Basic Toolbox</i>, §5.7."),
     ]
     return "\n".join(f"<div class=\"src\"><dt>{a}</dt><dd>{b}</dd></div>" for a, b in rows)
 
@@ -162,16 +171,16 @@ cc.addEventListener('click',()=>{const on=track.mode!=='showing';track.mode=on?'
 def main():
     PAGE.mkdir(parents=True, exist_ok=True)
     shutil.copy(OUT / "web.mp4", PAGE / "video.mp4")
-    # poster: the wide merge in full swing (segment 5, a few seconds after the heap appears)
-    s5 = next(s for s in T["segments"] if s["id"] == "s5")
-    t = s5["start"] + next(l["start"] for l in s5["lines"] if l["id"] == "s5_l11") - s5["start"]
+    # poster: the multiway merge under way (segment 4, just after run three's first refill)
+    s4 = next(s for s in T["segments"] if s["id"] == "s4")
+    t = next(l["start"] for l in s4["lines"] if l["id"] == "s4_12") + 3.0
     import subprocess
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{t:.2f}", "-i", str(OUT / "video.mp4"),
                     "-frames:v", "1", "-vf", "scale=1280:-2", "-q:v", "4", str(PAGE / "poster.jpg")], check=True)
     total = T["total"]
     cues = json.dumps([[round(l["start"], 2), round(l["end"] + 0.25, 2), l["caption"]]
                        for s in T["segments"] for l in s["lines"]])
-    words = sum(len(l["text"].split()) for s in T["segments"] for l in s["lines"])
+    words = sum(len(l["caption"].split()) for s in T["segments"] for l in s["lines"])
     doc = f"""<title>Bigger Than Memory</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -182,8 +191,9 @@ def main():
     <div class="eyebrow"><span>Explainer video</span><span class="dot">●</span><span>{mmss(total)}</span>
       <span class="dot">●</span><span>Undergrad CS</span><span class="dot">●</span><span>External memory algorithms</span></div>
     <h1>Bigger Than Memory</h1>
-    <p class="lede">How external merge sort sorts a file much larger than RAM, and the I/O model that explains
-      why it takes only two passes. Narrated, with captions you can turn on under the player.</p>
+    <p class="lede">Sort a file twelve times bigger than the memory you allow, and Unix sort just finishes
+      while twelve temporary files come and go. This explains what those files are: external merge sort, and why
+      counting I/Os rather than comparisons is what makes it fast. Narrated, with captions under the player.</p>
   </header>
   <div class="player"><video id="v" controls preload="metadata" poster="poster.jpg" playsinline>
     <source src="video.mp4" type="video/mp4">
@@ -205,6 +215,10 @@ def main():
       <dl>{sources()}</dl>
       <div class="legend"><span><i class="sw" style="background:var(--amber)"></i>amber: cost (block transfers)</span>
         <span><i class="sw" style="background:var(--ice)"></i>ice: the current selection</span></div>
+      <p class="made"><b>How it was made.</b> The script came first and was locked before any animation:
+        written from a canonical-sources survey, then revised over 15 rounds by three fresh-context reviewers
+        (a domain expert, a student and an editor) until none had a blocking finding. Every number on screen
+        traces to a row above.</p>
       <p class="made"><b>Made with</b> Manim Community 0.21, Kokoro TTS, ffmpeg, IBM Plex, and seaborn's
         "mako" colormap. Source: <code>external-sort-video/</code> on branch <code>claude/umap-video-plan-jp3tjk</code>.</p>
     </aside>

@@ -147,7 +147,7 @@ Ramakrishnan & Gehrke, Database Management Systems, 3rd ed., ch. 13; Mehlhorn & 
 | Heapsort ≈ 3.2 I/Os per item (837,090 for 261,120 items); merge sort 36,720 (heapsort 22.8× more); comparisons 8,591,468 vs 4,369,072 (1.97×) | iosim.py: LRU paging, 261,120 items, memory 21,760 items (file = 12 memories), 256-item blocks |
 | 18 → 5 → 2 passes | iosim.py: plain merge sort ⌈log₂ 261,120⌉ = 18 passes, of which the first 14 produce pieces ≤ 16,384 ≤ M; 12 runs + ⌈log₂ 12⌉ = 4 two-way passes = 5; 12 runs + one 12-way merge = 2 (4,080 I/Os) |
 | Heapsort's comparisons < 1 s and its I/Os ≈ 84 s at typical speeds | 8,591,468 × ~100 ns (a memory access, generous for a comparison) = 0.86 s; 837,090 × ~100 µs = 84 s (typical values, labelled as such); ratio of the two costs 1,000×, matching "hundreds to thousands" |
-| 100,000 runs → 7 after one merge pass | ⌈100,000 / 16,383⌉ = 7 |
+| 100,000 runs → 7 after one merge pass | 16 GB ÷ 1 MB = 16,000 blocks, so 15,999 runs per merge; ⌈100,000 / 15,999⌉ = 7 |
 | SSD read hundreds of times slower than memory | Typical values: memory ~100 ns, NVMe random read ~50-100 µs (labelled typical) |
 | A laptop's memory holds thousands of blocks (16 GB / 1 MB ≈ 16,000) | Arithmetic, decimal units as everywhere else in the video |
 | Real systems: 2-3 passes | Ramakrishnan & Gehrke Ch. 13 |

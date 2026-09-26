@@ -22,20 +22,24 @@ LEAD_IN = 0.8        # silence before the first sentence
 SENTENCE_GAP = 0.3   # between sentences of one paragraph
 PARAGRAPH_GAP = 0.5  # between paragraphs
 SEGMENT_GAP = 1.2    # between segments
-TAIL = 3.0           # silence after the last sentence (end card)
+TAIL = 6.0           # silence after the last sentence (end card)
 
 # Extra silence after particular sentences, where the picture needs time to be read.
 HOLDS = {
     "s1_05": 2.8,    # title card
+    "s2_13": 1.0,    # the race counters finishing
     "s2_16": 1.2,    # the time bar: the I/Os decide
-    "s3_12": 1.0,    # the twelve temp files labelled as runs
+    "s3_12": 1.0,    # 18 -> 5 on the trace
     "s4_13": 1.5,    # the merge replay finishing
-    "s4_18": 1.2,    # sort's runs vanish
-    "s5_12": 1.0,    # the PostgreSQL line
+    "s4_20": 1.2,    # sort's runs vanish
+    "s5_13": 1.2,    # the PostgreSQL line
 }
 
-# Written form -> spoken form.
+# Written form -> spoken form, everywhere and for particular sentences (Kokoro reads some
+# present-tense "read"s as the past tense "red").
 SPOKEN = [("PostgreSQL", "Post gress Q L")]
+SPOKEN_BY_ID = {"s5_05": [("programs read much", "programs reed much")],
+                "s6_02": [("passes that read and", "passes that reed and")]}
 
 HERE = Path(__file__).parent
 OUT = HERE / "audio"
@@ -60,8 +64,8 @@ def load_script():
     return segs
 
 
-def spoken(text):
-    for written, said in SPOKEN:
+def spoken(text, lid=None):
+    for written, said in SPOKEN + SPOKEN_BY_ID.get(lid, []):
         text = text.replace(written, said)
     return text
 
@@ -77,7 +81,7 @@ def layout(segs, durations):
             if prev_p is not None:
                 t += SENTENCE_GAP if pi == prev_p else PARAGRAPH_GAP
             d = durations[lid]
-            seg["lines"].append({"id": lid, "text": spoken(cap), "caption": cap, "paragraph": pi,
+            seg["lines"].append({"id": lid, "text": spoken(cap, lid), "caption": cap, "paragraph": pi,
                                  "start": round(t, 3), "end": round(t + d, 3)})
             t += d + HOLDS.get(lid, 0.0)
             prev_p = pi
@@ -112,7 +116,7 @@ def main():
     pipe = KPipeline(lang_code="a", repo_id="hexgrad/Kokoro-82M")
     clips, phonemes = {}, {}
     for key, cap in sents:
-        parts = list(pipe(spoken(cap), voice=VOICE, speed=SPEED, split_pattern=None))
+        parts = list(pipe(spoken(cap, key), voice=VOICE, speed=SPEED, split_pattern=None))
         audio = np.concatenate([p.audio.numpy() for p in parts])
         nz = np.flatnonzero(np.abs(audio) > 0.01)   # trim Kokoro's own silence
         clips[key] = audio[max(nz[0] - 240, 0): nz[-1] + 480]

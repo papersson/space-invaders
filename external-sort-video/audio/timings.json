@@ -1,514 +1,733 @@
 {
  "voice": "af_heart",
  "speed": 0.92,
- "total": 303.287,
+ "total": 385.209,
  "segments": [
   {
    "id": "s1",
-   "title": "Cold open",
+   "title": "The question",
    "start": 0.0,
    "lines": [
     {
-     "id": "s1_l1",
-     "text": "Here's a hundred-gigabyte file, and a laptop with sixteen gigabytes of memory.",
-     "caption": "Here's a 100 GB file, and a laptop with 16 GB of memory.",
+     "id": "s1_01",
+     "text": "This file is about twelve times bigger than the memory we'll let our programs use.",
+     "caption": "This file is about twelve times bigger than the memory we'll let our programs use.",
+     "paragraph": 0,
      "start": 0.8,
-     "end": 5.403
+     "end": 5.406
     },
     {
-     "id": "s1_l2",
-     "text": "Ask Python to sort it, and it runs out of memory.",
-     "caption": "Ask Python to sort it, and it runs out of memory.",
-     "start": 5.853,
-     "end": 8.716
+     "id": "s1_02",
+     "text": "Ask a simple Python script to read every line into a list and sort it, and it runs out of memory just reading the file in.",
+     "caption": "Ask a simple Python script to read every line into a list and sort it, and it runs out of memory just reading the file in.",
+     "paragraph": 1,
+     "start": 5.906,
+     "end": 13.253
     },
     {
-     "id": "s1_l3",
-     "text": "Ask the Unix sort command, and it just... finishes.",
-     "caption": "Ask the Unix sort command, and it just\u2026 finishes.",
-     "start": 9.466,
-     "end": 12.471
+     "id": "s1_03",
+     "text": "Ask the Unix sort command, with the same memory, and it just finishes.",
+     "caption": "Ask the Unix sort command, with the same memory, and it just finishes.",
+     "paragraph": 2,
+     "start": 13.753,
+     "end": 17.713
     },
     {
-     "id": "s1_l4",
-     "text": "While it works, files pile up in the temp folder, and then they vanish.",
-     "caption": "While it works, files pile up in the temp folder, and then they vanish.",
-     "start": 12.921,
-     "end": 16.708
+     "id": "s1_04",
+     "text": "While it works, twelve files appear in a temporary folder, and then they vanish.",
+     "caption": "While it works, twelve files appear in a temporary folder, and then they vanish.",
+     "paragraph": 3,
+     "start": 18.213,
+     "end": 22.548
     },
     {
-     "id": "s1_l5",
-     "text": "Those files are the whole trick.",
-     "caption": "Those files are the whole trick.",
-     "start": 17.558,
-     "end": 19.176
-    },
-    {
-     "id": "s1_l6",
-     "text": "This is how you compute on data that's bigger than your memory.",
-     "caption": "This is how you compute on data that's bigger than your memory.",
-     "start": 19.926,
-     "end": 23.225
+     "id": "s1_05",
+     "text": "What are those files, and how does sort get away with it?",
+     "caption": "What are those files, and how does sort get away with it?",
+     "paragraph": 4,
+     "start": 23.048,
+     "end": 25.597
     }
    ],
-   "end": 26.675
+   "end": 29.247
   },
   {
    "id": "s2",
-   "title": "The memory wall",
-   "start": 26.675,
+   "title": "Why the obvious fix fails",
+   "start": 29.247,
    "lines": [
     {
-     "id": "s2_l1",
-     "text": "Picture memory as your desk, and the disk as a warehouse across town.",
-     "caption": "Picture memory as your desk, and the disk as a warehouse across town.",
-     "start": 27.025,
-     "end": 31.098
+     "id": "s2_01",
+     "text": "The obvious fix is virtual memory: treat the disk as memory, and let the operating system keep the parts it used recently in memory, fetching the rest from disk as needed.",
+     "caption": "The obvious fix is virtual memory: treat the disk as memory, and let the operating system keep the parts it used recently in memory, fetching the rest from disk as needed.",
+     "paragraph": 0,
+     "start": 29.597,
+     "end": 40.658
     },
     {
-     "id": "s2_l2",
-     "text": "The desk is small, but anything on it is instant. The warehouse holds everything, but every trip is slow.",
-     "caption": "The desk is small, but anything on it is instant. The warehouse holds everything, but every trip is slow.",
-     "start": 31.548,
-     "end": 38.091
+     "id": "s2_02",
+     "text": "But a disk never fetches one number.",
+     "caption": "But a disk never fetches one number.",
+     "paragraph": 1,
+     "start": 41.158,
+     "end": 43.216
     },
     {
-     "id": "s2_l3",
-     "text": "How slow? If reaching into memory took one second, a read from a fast SSD would take about fifteen minutes.",
-     "caption": "How slow? If reaching into memory took one second, a read from a fast SSD would take about fifteen minutes.",
-     "start": 38.541,
-     "end": 45.306
+     "id": "s2_03",
+     "text": "It fetches a whole block, thousands of bytes at least, and every fetch takes hundreds to thousands of times longer than reading memory, even on a fast SSD.",
+     "caption": "It fetches a whole block, thousands of bytes at least, and every fetch takes hundreds to thousands of times longer than reading memory, even on a fast SSD.",
+     "paragraph": 1,
+     "start": 43.516,
+     "end": 53.277
     },
     {
-     "id": "s2_l4",
-     "text": "A seek on a spinning hard drive: more than a day.",
-     "caption": "A seek on a spinning hard drive: more than a day.",
-     "start": 45.756,
-     "end": 48.467
+     "id": "s2_04",
+     "text": "Moving one block between disk and memory is called an I/O.",
+     "caption": "Moving one block between disk and memory is called an I/O.",
+     "paragraph": 2,
+     "start": 53.777,
+     "end": 57.212
     },
     {
-     "id": "s2_l5",
-     "text": "There's one saving grace. A trip costs about the same whether you bring back one item, or a whole crate.",
-     "caption": "There's one saving grace. A trip costs about the same whether you bring back one item, or a whole crate.",
-     "start": 49.517,
-     "end": 55.82
+     "id": "s2_05",
+     "text": "Once data doesn't fit in memory, the number of I/Os typically dominates the running time.",
+     "caption": "Once data doesn't fit in memory, the number of I/Os typically dominates the running time.",
+     "paragraph": 2,
+     "start": 57.512,
+     "end": 62.627
     },
     {
-     "id": "s2_l6",
-     "text": "So what matters isn't how many operations you do. It's how many trips you make.",
-     "caption": "So what matters isn't how many operations you do. It's how many trips you make.",
-     "start": 56.27,
-     "end": 60.634
+     "id": "s2_06",
+     "text": "Heapsort and merge sort are both N log N sorts.",
+     "caption": "Heapsort and merge sort are both N log N sorts.",
+     "paragraph": 3,
+     "start": 63.127,
+     "end": 66.002
     },
     {
-     "id": "s2_l7",
-     "text": "On paper, heapsort and merge sort are both N log N.",
-     "caption": "On paper, heapsort and merge sort are both N log N.",
-     "start": 61.484,
-     "end": 64.535
+     "id": "s2_07",
+     "text": "By comparisons alone, heapsort would be at most about twice as slow.",
+     "caption": "By comparisons alone, heapsort would be at most about twice as slow.",
+     "paragraph": 3,
+     "start": 66.302,
+     "end": 70.202
     },
     {
-     "id": "s2_l8",
-     "text": "But heapsort hops all over the file, and makes about four trips for every item it sorts.",
-     "caption": "But heapsort hops all over the file, and makes about four trips for every item it sorts.",
-     "start": 64.985,
-     "end": 70.059
+     "id": "s2_08",
+     "text": "But heapsort compares items that sit far apart in its array.",
+     "caption": "But heapsort compares items that sit far apart in its array.",
+     "paragraph": 4,
+     "start": 70.702,
+     "end": 74.035
     },
     {
-     "id": "s2_l9",
-     "text": "Merge sort sweeps through in long, straight lines, and needs dozens of times fewer.",
-     "caption": "Merge sort sweeps through in long, straight lines, and needs dozens of times fewer.",
-     "start": 70.509,
-     "end": 75.042
+     "id": "s2_09",
+     "text": "Under virtual memory that array lives on disk, block by block, so heapsort keeps needing blocks that aren't in memory.",
+     "caption": "Under virtual memory that array lives on disk, block by block, so heapsort keeps needing blocks that aren't in memory.",
+     "paragraph": 4,
+     "start": 74.335,
+     "end": 81.189
     },
     {
-     "id": "s2_l10",
-     "text": "And bigger crates only widen the gap.",
-     "caption": "And bigger crates only widen the gap.",
-     "start": 75.492,
-     "end": 77.416
+     "id": "s2_10",
+     "text": "Merge sort reads its input from front to back, and writes its output from front to back, so every block it fetches gets used completely.",
+     "caption": "Merge sort reads its input from front to back, and writes its output from front to back, so every block it fetches gets used completely.",
+     "paragraph": 4,
+     "start": 81.489,
+     "end": 89.207
+    },
+    {
+     "id": "s2_11",
+     "text": "We simulated both under virtual memory on a quarter of a million items.",
+     "caption": "We simulated both under virtual memory on a quarter of a million items.",
+     "paragraph": 5,
+     "start": 89.707,
+     "end": 94.103
+    },
+    {
+     "id": "s2_12",
+     "text": "Memory held a twelfth of them, roughly the proportions of sort's file.",
+     "caption": "Memory held a twelfth of them, roughly the proportions of sort's file.",
+     "paragraph": 5,
+     "start": 94.403,
+     "end": 98.361
+    },
+    {
+     "id": "s2_13",
+     "text": "Heapsort made about twice as many comparisons as merge sort, but more than twenty times as many I/Os: about three for every item it sorts.",
+     "caption": "Heapsort made about twice as many comparisons as merge sort, but more than twenty times as many I/Os: about three for every item it sorts.",
+     "paragraph": 5,
+     "start": 98.661,
+     "end": 107.727
+    },
+    {
+     "id": "s2_14",
+     "text": "Even if every comparison cost as much as a memory access, heapsort's comparisons would take under a second.",
+     "caption": "Even if every comparison cost as much as a memory access, heapsort's comparisons would take under a second.",
+     "paragraph": 6,
+     "start": 109.227,
+     "end": 115.862
+    },
+    {
+     "id": "s2_15",
+     "text": "Its I/Os take more than a minute.",
+     "caption": "Its I/Os take more than a minute.",
+     "paragraph": 6,
+     "start": 116.162,
+     "end": 117.813
+    },
+    {
+     "id": "s2_16",
+     "text": "The I/Os decide.",
+     "caption": "The I/Os decide.",
+     "paragraph": 6,
+     "start": 118.113,
+     "end": 119.327
+    },
+    {
+     "id": "s2_17",
+     "text": "So merge sort is our starting point.",
+     "caption": "So merge sort is our starting point.",
+     "paragraph": 7,
+     "start": 121.027,
+     "end": 122.949
+    },
+    {
+     "id": "s2_18",
+     "text": "It sweeps through the whole file again and again, so let's measure it in passes, where one pass reads and writes every block of the file once.",
+     "caption": "It sweeps through the whole file again and again, so let's measure it in passes, where one pass reads and writes every block of the file once.",
+     "paragraph": 7,
+     "start": 123.249,
+     "end": 131.497
     }
    ],
-   "end": 79.766
+   "end": 132.347
   },
   {
    "id": "s3",
-   "title": "The I/O model",
-   "start": 79.766,
+   "title": "Runs",
+   "start": 132.347,
    "lines": [
     {
-     "id": "s3_l1",
-     "text": "Computer scientists turned this into a model with three numbers.",
-     "caption": "Computer scientists turned this into a model with three numbers.",
-     "start": 80.116,
-     "end": 83.561
+     "id": "s3_01",
+     "text": "Merge sort merges single items into pairs, then pairs into fours, doubling the pieces every pass.",
+     "caption": "Merge sort merges single items into pairs, then pairs into fours, doubling the pieces every pass.",
+     "paragraph": 0,
+     "start": 132.697,
+     "end": 139.026
     },
     {
-     "id": "s3_l2",
-     "text": "N: how many items you have.",
-     "caption": "N: how many items you have.",
-     "start": 84.011,
-     "end": 85.689
+     "id": "s3_02",
+     "text": "Eighteen doublings take you from one item to a quarter of a million, so that's eighteen passes.",
+     "caption": "Eighteen doublings take you from one item to a quarter of a million, so that's eighteen passes.",
+     "paragraph": 0,
+     "start": 139.326,
+     "end": 144.653
     },
     {
-     "id": "s3_l3",
-     "text": "M: how many fit in memory.",
-     "caption": "M: how many fit in memory.",
-     "start": 86.139,
-     "end": 87.738
+     "id": "s3_03",
+     "text": "But watch the size of the pieces.",
+     "caption": "But watch the size of the pieces.",
+     "paragraph": 1,
+     "start": 145.153,
+     "end": 146.862
     },
     {
-     "id": "s3_l4",
-     "text": "B: how many come in one crate, called a block.",
-     "caption": "B: how many come in one crate, called a block.",
-     "start": 88.188,
-     "end": 90.478
+     "id": "s3_04",
+     "text": "For the first fourteen passes, every piece is smaller than memory.",
+     "caption": "For the first fourteen passes, every piece is smaller than memory.",
+     "paragraph": 1,
+     "start": 147.162,
+     "end": 150.897
     },
     {
-     "id": "s3_l5",
-     "text": "Then one bold simplification: computation is free. The only cost is the number of blocks moved between disk and memory.",
-     "caption": "Then one bold simplification: computation is free. The only cost is the number of blocks moved between disk and memory.",
-     "start": 91.128,
-     "end": 99.24
+     "id": "s3_05",
+     "text": "Merging only needs sorted pieces.",
+     "caption": "Merging only needs sorted pieces.",
+     "paragraph": 1,
+     "start": 151.197,
+     "end": 153.262
     },
     {
-     "id": "s3_l6",
-     "text": "Reading the whole file once costs N over B. That's our yardstick, and it's called a scan.",
-     "caption": "Reading the whole file once costs N over B. That's our yardstick, and it's called a scan.",
-     "start": 99.69,
-     "end": 104.495
+     "id": "s3_06",
+     "text": "It doesn't matter how they got sorted, so each of those pieces could have been sorted without touching the disk.",
+     "caption": "It doesn't matter how they got sorted, so each of those pieces could have been sorted without touching the disk.",
+     "paragraph": 1,
+     "start": 153.562,
+     "end": 159.235
+    },
+    {
+     "id": "s3_07",
+     "text": "So do exactly that.",
+     "caption": "So do exactly that.",
+     "paragraph": 2,
+     "start": 159.735,
+     "end": 161.053
+    },
+    {
+     "id": "s3_08",
+     "text": "Fill memory with the start of the file, sort it right there, and write it out to disk as one sorted piece, called a run.",
+     "caption": "Fill memory with the start of the file, sort it right there, and write it out to disk as one sorted piece, called a run.",
+     "paragraph": 2,
+     "start": 161.353,
+     "end": 168.174
+    },
+    {
+     "id": "s3_09",
+     "text": "Then do the same with the next part of the file, and the next.",
+     "caption": "Then do the same with the next part of the file, and the next.",
+     "paragraph": 2,
+     "start": 168.474,
+     "end": 171.545
+    },
+    {
+     "id": "s3_10",
+     "text": "Our simulated file is exactly twelve memories long, so this makes twelve runs, in a single pass.",
+     "caption": "Our simulated file is exactly twelve memories long, so this makes twelve runs, in a single pass.",
+     "paragraph": 3,
+     "start": 172.045,
+     "end": 178.23
+    },
+    {
+     "id": "s3_11",
+     "text": "That one pass covers everything the first fourteen did, so only the last four remain.",
+     "caption": "That one pass covers everything the first fourteen did, so only the last four remain.",
+     "paragraph": 3,
+     "start": 178.53,
+     "end": 183.575
+    },
+    {
+     "id": "s3_12",
+     "text": "Eighteen passes become five.",
+     "caption": "Eighteen passes become five.",
+     "paragraph": 3,
+     "start": 183.875,
+     "end": 185.543
+    },
+    {
+     "id": "s3_13",
+     "text": "And that's what sort's twelve files were: one run for each memory-full of its file, the last one only partly full.",
+     "caption": "And that's what sort's twelve files were: one run for each memory-full of its file, the last one only partly full.",
+     "paragraph": 4,
+     "start": 187.043,
+     "end": 193.909
     }
    ],
-   "end": 106.145
+   "end": 194.759
   },
   {
    "id": "s4",
-   "title": "Phase 1: runs",
-   "start": 106.145,
+   "title": "The multiway merge",
+   "start": 194.759,
    "lines": [
     {
-     "id": "s4_l1",
-     "text": "The classic algorithm is external merge sort, and it works in two phases.",
-     "caption": "The classic algorithm is external merge sort, and it works in two phases.",
-     "start": 106.495,
-     "end": 110.91
+     "id": "s4_01",
+     "text": "Each run is sorted, but not against the others, so the runs still have to be merged.",
+     "caption": "Each run is sorted, but not against the others, so the runs still have to be merged.",
+     "paragraph": 0,
+     "start": 195.109,
+     "end": 199.866
     },
     {
-     "id": "s4_l2",
-     "text": "Phase one: fill memory, sort it right there, which is free, and write it back to disk as a sorted chunk called a run.",
-     "caption": "Phase one: fill memory, sort it right there, which is free, and write it back to disk as a sorted chunk called a run.",
-     "start": 111.36,
-     "end": 118.434
+     "id": "s4_02",
+     "text": "Two at a time: twelve runs, then six, three, two, one.",
+     "caption": "Two at a time: twelve runs, then six, three, two, one.",
+     "paragraph": 0,
+     "start": 200.166,
+     "end": 203.571
     },
     {
-     "id": "s4_l3",
-     "text": "Repeat until you've been through the whole file.",
-     "caption": "Repeat until you've been through the whole file.",
-     "start": 118.884,
-     "end": 121.121
+     "id": "s4_03",
+     "text": "Four passes.",
+     "caption": "Four passes.",
+     "paragraph": 0,
+     "start": 203.871,
+     "end": 204.789
     },
     {
-     "id": "s4_l4",
-     "text": "It still isn't sorted, but now it's made of sorted runs.",
-     "caption": "It still isn't sorted, but now it's made of sorted runs.",
-     "start": 122.371,
-     "end": 125.616
+     "id": "s4_04",
+     "text": "Watch memory during a two-way merge.",
+     "caption": "Watch memory during a two-way merge.",
+     "paragraph": 1,
+     "start": 205.289,
+     "end": 207.223
     },
     {
-     "id": "s4_l5",
-     "text": "Every block was read once and written once: two scans.",
-     "caption": "Every block was read once and written once: two scans.",
-     "start": 126.066,
-     "end": 129.273
+     "id": "s4_05",
+     "text": "It holds the front block of each run, and one block for the output.",
+     "caption": "It holds the front block of each run, and one block for the output.",
+     "paragraph": 1,
+     "start": 207.523,
+     "end": 211.205
+    },
+    {
+     "id": "s4_06",
+     "text": "The rest of memory sits idle.",
+     "caption": "The rest of memory sits idle.",
+     "paragraph": 1,
+     "start": 211.505,
+     "end": 213.229
+    },
+    {
+     "id": "s4_07",
+     "text": "So give every run its own block of memory, and merge them all at once: a multiway merge.",
+     "caption": "So give every run its own block of memory, and merge them all at once: a multiway merge.",
+     "paragraph": 2,
+     "start": 213.729,
+     "end": 219.138
+    },
+    {
+     "id": "s4_08",
+     "text": "With thousands of runs, scanning every front for the smallest item would be slow, so keep a small heap with one entry per run.",
+     "caption": "With thousands of runs, scanning every front for the smallest item would be slow, so keep a small heap with one entry per run.",
+     "paragraph": 3,
+     "start": 219.638,
+     "end": 227.071
+    },
+    {
+     "id": "s4_09",
+     "text": "Unlike heapsort's heap, which was the whole file, this one sits in memory the whole time.",
+     "caption": "Unlike heapsort's heap, which was the whole file, this one sits in memory the whole time.",
+     "paragraph": 3,
+     "start": 227.371,
+     "end": 232.286
+    },
+    {
+     "id": "s4_10",
+     "text": "Say run three has the smallest front item: it moves to the output.",
+     "caption": "Say run three has the smallest front item: it moves to the output.",
+     "paragraph": 3,
+     "start": 232.586,
+     "end": 236.537
+    },
+    {
+     "id": "s4_11",
+     "text": "When the output fills, that block goes to disk.",
+     "caption": "When the output fills, that block goes to disk.",
+     "paragraph": 3,
+     "start": 236.837,
+     "end": 239.575
+    },
+    {
+     "id": "s4_12",
+     "text": "When run three runs dry, its next block comes in from disk.",
+     "caption": "When run three runs dry, its next block comes in from disk.",
+     "paragraph": 3,
+     "start": 239.875,
+     "end": 243.498
+    },
+    {
+     "id": "s4_13",
+     "text": "Every block is still read once and written once.",
+     "caption": "Every block is still read once and written once.",
+     "paragraph": 4,
+     "start": 243.998,
+     "end": 246.594
+    },
+    {
+     "id": "s4_14",
+     "text": "So as long as memory has a block for every run, plus one for the output, the merge happens in a single pass.",
+     "caption": "So as long as memory has a block for every run, plus one for the output, the merge happens in a single pass.",
+     "paragraph": 4,
+     "start": 248.394,
+     "end": 255.125
+    },
+    {
+     "id": "s4_15",
+     "text": "That folds the four merge passes into one.",
+     "caption": "That folds the four merge passes into one.",
+     "paragraph": 4,
+     "start": 255.425,
+     "end": 258.01
+    },
+    {
+     "id": "s4_16",
+     "text": "Add the pass that made the runs, and eighteen passes have become two.",
+     "caption": "Add the pass that made the runs, and eighteen passes have become two.",
+     "paragraph": 4,
+     "start": 258.31,
+     "end": 262.102
+    },
+    {
+     "id": "s4_17",
+     "text": "Sort memory-sized runs, then merge them from disk: that's external merge sort.",
+     "caption": "Sort memory-sized runs, then merge them from disk: that's external merge sort.",
+     "paragraph": 5,
+     "start": 262.602,
+     "end": 267.599
+    },
+    {
+     "id": "s4_18",
+     "text": "Merging as many runs at once as memory allows keeps the passes to a minimum.",
+     "caption": "Merging as many runs at once as memory allows keeps the passes to a minimum.",
+     "paragraph": 5,
+     "start": 267.899,
+     "end": 272.484
+    },
+    {
+     "id": "s4_19",
+     "text": "It's exactly what sort did at the end.",
+     "caption": "It's exactly what sort did at the end.",
+     "paragraph": 6,
+     "start": 272.984,
+     "end": 274.911
+    },
+    {
+     "id": "s4_20",
+     "text": "It read all twelve runs at once while the sorted file grew, and then deleted them.",
+     "caption": "It read all twelve runs at once while the sorted file grew, and then deleted them.",
+     "paragraph": 6,
+     "start": 275.211,
+     "end": 279.664
     }
    ],
-   "end": 132.323
+   "end": 281.714
   },
   {
    "id": "s5",
-   "title": "Phase 2: the wide merge",
-   "start": 132.323,
+   "title": "How far it goes",
+   "start": 281.714,
    "lines": [
     {
-     "id": "s5_l1",
-     "text": "Phase two: merge the runs.",
-     "caption": "Phase two: merge the runs.",
-     "start": 132.673,
-     "end": 134.08
+     "id": "s5_01",
+     "text": "Our file needed only twelve runs, and GNU sort merges up to sixteen at a time by default, a cautious setting that trades some speed for less memory.",
+     "caption": "Our file needed only twelve runs, and GNU sort merges up to sixteen at a time by default, a cautious setting that trades some speed for less memory.",
+     "paragraph": 0,
+     "start": 282.064,
+     "end": 291.331
     },
     {
-     "id": "s5_l2",
-     "text": "You already know how to merge two sorted lists: compare the fronts, take the smaller, repeat.",
-     "caption": "You already know how to merge two sorted lists: compare the fronts, take the smaller, repeat.",
-     "start": 134.53,
-     "end": 139.767
+     "id": "s5_02",
+     "text": "That was plenty for twelve.",
+     "caption": "That was plenty for twelve.",
+     "paragraph": 0,
+     "start": 291.631,
+     "end": 293.02
     },
     {
-     "id": "s5_l3",
-     "text": "Merge the runs in pairs, then pairs of pairs, until one is left, and every round reads and writes the whole file.",
-     "caption": "Merge the runs in pairs, then pairs of pairs, until one is left, and every round reads and writes the whole file.",
-     "start": 140.217,
-     "end": 147.375
+     "id": "s5_03",
+     "text": "But how many runs could one merge take?",
+     "caption": "But how many runs could one merge take?",
+     "paragraph": 1,
+     "start": 293.52,
+     "end": 295.45
     },
     {
-     "id": "s5_l4",
-     "text": "But look at memory while that happens.",
-     "caption": "But look at memory while that happens.",
-     "start": 148.425,
-     "end": 150.406
+     "id": "s5_04",
+     "text": "One per block of memory, less one for the output.",
+     "caption": "One per block of memory, less one for the output.",
+     "paragraph": 1,
+     "start": 295.75,
+     "end": 298.63
     },
     {
-     "id": "s5_l5",
-     "text": "To merge two runs, you only need the front block of each, plus one block for the output. The rest of the desk sits empty.",
-     "caption": "To merge two runs, you only need the front block of each, plus one block for the output. The rest of the desk sits empty.",
-     "start": 150.856,
-     "end": 158.036
+     "id": "s5_05",
+     "text": "Real sorting programs reed much bigger blocks than our simulation did, often a megabyte, to cut down on fetches, and a laptop's memory still holds about sixteen thousand of those.",
+     "caption": "Real sorting programs read much bigger blocks than our simulation did, often a megabyte, to cut down on fetches, and a laptop's memory still holds about sixteen thousand of those.",
+     "paragraph": 1,
+     "start": 298.93,
+     "end": 310.478
     },
     {
-     "id": "s5_l6",
-     "text": "So use it. Give every run its own one-block buffer, and merge them all at once.",
-     "caption": "So use it. Give every run its own one-block buffer, and merge them all at once.",
-     "start": 158.986,
-     "end": 163.779
+     "id": "s5_06",
+     "text": "A big enough file needs even more runs than that, so it takes more than one merge pass.",
+     "caption": "A big enough file needs even more runs than that, so it takes more than one merge pass.",
+     "paragraph": 2,
+     "start": 310.978,
+     "end": 315.864
     },
     {
-     "id": "s5_l7",
-     "text": "A small heap tracks which run has the smallest item at its front.",
-     "caption": "A small heap tracks which run has the smallest item at its front.",
-     "start": 164.229,
-     "end": 167.932
+     "id": "s5_07",
+     "text": "Say a file needed a hundred thousand runs.",
+     "caption": "Say a file needed a hundred thousand runs.",
+     "paragraph": 2,
+     "start": 316.164,
+     "end": 318.52
     },
     {
-     "id": "s5_l8",
-     "text": "Move that item to the output buffer.",
-     "caption": "Move that item to the output buffer.",
-     "start": 168.382,
-     "end": 170.303
+     "id": "s5_08",
+     "text": "Merging sixteen thousand at a time, one pass cuts them to seven.",
+     "caption": "Merging sixteen thousand at a time, one pass cuts them to seven.",
+     "paragraph": 2,
+     "start": 318.82,
+     "end": 322.596
     },
     {
-     "id": "s5_l9",
-     "text": "When the output block fills, write it out in one trip.",
-     "caption": "When the output block fills, write it out in one trip.",
-     "start": 170.753,
-     "end": 173.617
+     "id": "s5_09",
+     "text": "One more pass makes them one file.",
+     "caption": "One more pass makes them one file.",
+     "paragraph": 2,
+     "start": 322.896,
+     "end": 324.754
     },
     {
-     "id": "s5_l10",
-     "text": "When an input buffer runs dry, fetch that run's next block.",
-     "caption": "When an input buffer runs dry, fetch that run's next block.",
-     "start": 174.067,
-     "end": 177.573
+     "id": "s5_10",
+     "text": "So each extra merge pass lets the file grow by that same factor of sixteen thousand.",
+     "caption": "So each extra merge pass lets the file grow by that same factor of sixteen thousand.",
+     "paragraph": 2,
+     "start": 325.054,
+     "end": 330.343
     },
     {
-     "id": "s5_l11",
-     "text": "Every block still makes exactly one trip in, and one trip out.",
-     "caption": "Every block still makes exactly one trip in, and one trip out.",
-     "start": 178.023,
-     "end": 181.767
+     "id": "s5_11",
+     "text": "In practice, even enormous files sort in two or three passes.",
+     "caption": "In practice, even enormous files sort in two or three passes.",
+     "paragraph": 2,
+     "start": 330.643,
+     "end": 334.514
     },
     {
-     "id": "s5_l12",
-     "text": "How many runs fit at once? About one per block of memory: M over B.",
-     "caption": "How many runs fit at once? About one per block of memory: M over B.",
-     "start": 185.217,
-     "end": 189.477
+     "id": "s5_12",
+     "text": "That's why databases sort this way.",
+     "caption": "That's why databases sort this way.",
+     "paragraph": 3,
+     "start": 335.014,
+     "end": 336.932
     },
     {
-     "id": "s5_l13",
-     "text": "With sixteen gigabytes of memory and one-megabyte blocks, that's over sixteen thousand runs, merged in a single pass.",
-     "caption": "With 16 GB of memory and 1 MB blocks, that's over 16,000 runs, merged in a single pass.",
-     "start": 189.927,
-     "end": 197.45
+     "id": "s5_13",
+     "text": "Ask Post gress Q L how it ran a query that sorts more than fits in its memory, and it reports an external merge: the same runs, then merges.",
+     "caption": "Ask PostgreSQL how it ran a query that sorts more than fits in its memory, and it reports an external merge: the same runs, then merges.",
+     "paragraph": 3,
+     "start": 337.232,
+     "end": 346.6
     }
    ],
-   "end": 199.5
+   "end": 348.65
   },
   {
    "id": "s6",
-   "title": "How many passes",
-   "start": 199.5,
+   "title": "The answer",
+   "start": 348.65,
    "lines": [
     {
-     "id": "s6_l1",
-     "text": "So the number of passes is still a logarithm, but its base is M over B instead of two, and that base is enormous.",
-     "caption": "So the number of passes is still a logarithm, but its base is M over B instead of two, and that base is enormous.",
-     "start": 199.85,
-     "end": 207.231
+     "id": "s6_01",
+     "text": "So, when data doesn't fit in memory, count I/Os, not comparisons.",
+     "caption": "So, when data doesn't fit in memory, count I/Os, not comparisons.",
+     "paragraph": 0,
+     "start": 349.0,
+     "end": 353.112
     },
     {
-     "id": "s6_l2",
-     "text": "To sort ten terabytes on this laptop, two-way merging needs ten rounds over the data. The wide merge needs one.",
-     "caption": "To sort 10 TB on this laptop, two-way merging needs ten rounds over the data. The wide merge needs one.",
-     "start": 207.681,
-     "end": 214.448
+     "id": "s6_02",
+     "text": "Work in passes that reed and write in order, so every block you fetch gets used.",
+     "caption": "Work in passes that read and write in order, so every block you fetch gets used.",
+     "paragraph": 1,
+     "start": 353.612,
+     "end": 358.398
     },
     {
-     "id": "s6_l3",
-     "text": "In fact, one pass to form runs plus one pass to merge can sort about a quarter of a petabyte.",
-     "caption": "In fact, one pass to form runs plus one pass to merge can sort about a quarter of a petabyte.",
-     "start": 214.898,
-     "end": 220.814
+     "id": "s6_03",
+     "text": "And cut the passes: make runs as big as memory, then merge as many runs at once as memory has blocks to spare.",
+     "caption": "And cut the passes: make runs as big as memory, then merge as many runs at once as memory has blocks to spare.",
+     "paragraph": 2,
+     "start": 358.898,
+     "end": 365.922
     },
     {
-     "id": "s6_l4",
-     "text": "And it's optimal: in nineteen eighty-eight, Aggarwal and Vitter proved that no comparison sort can do asymptotically fewer transfers.",
-     "caption": "And it's optimal: in 1988, Aggarwal and Vitter proved that no comparison sort can do asymptotically fewer transfers.",
-     "start": 221.664,
-     "end": 229.974
+     "id": "s6_04",
+     "text": "Python tried to hold the whole file in memory at once.",
+     "caption": "Python tried to hold the whole file in memory at once.",
+     "paragraph": 3,
+     "start": 366.422,
+     "end": 369.354
     },
     {
-     "id": "s6_l5",
-     "text": "In our simulation, that's the difference between almost a million trips, and about four thousand.",
-     "caption": "In our simulation, that's the difference between almost a million trips, and about four thousand.",
-     "start": 230.724,
-     "end": 236.325
+     "id": "s6_05",
+     "text": "Sort never held more than a memory's worth.",
+     "caption": "Sort never held more than a memory's worth.",
+     "paragraph": 3,
+     "start": 369.654,
+     "end": 371.806
+    },
+    {
+     "id": "s6_06",
+     "text": "That's how sort handled a file about twelve times bigger than its memory: twelve runs, one merge, two passes.",
+     "caption": "That's how sort handled a file about twelve times bigger than its memory: twelve runs, one merge, two passes.",
+     "paragraph": 4,
+     "start": 372.306,
+     "end": 379.209
     }
    ],
-   "end": 238.675
-  },
-  {
-   "id": "s7",
-   "title": "You've seen this",
-   "start": 238.675,
-   "lines": [
-    {
-     "id": "s7_l1",
-     "text": "Once you know this pattern, you see it everywhere.",
-     "caption": "Once you know this pattern, you see it everywhere.",
-     "start": 239.025,
-     "end": 241.309
-    },
-    {
-     "id": "s7_l2",
-     "text": "When a database has to sort more rows than its memory budget, Postgress reports external merge, and spills runs to disk.",
-     "caption": "When a database has to sort more rows than its memory budget, Postgres reports external merge, and spills runs to disk.",
-     "start": 241.759,
-     "end": 249.315
-    },
-    {
-     "id": "s7_l3",
-     "text": "Big-data shuffles in MapReduce and Spark sort chunks, spill them, and merge.",
-     "caption": "Big-data shuffles in MapReduce and Spark sort chunks, spill them, and merge.",
-     "start": 249.765,
-     "end": 254.096
-    },
-    {
-     "id": "s7_l4",
-     "text": "Storage engines like Rocks D B write sorted files, and keep merging them in the background.",
-     "caption": "Storage engines like RocksDB write sorted files, and keep merging them in the background.",
-     "start": 254.546,
-     "end": 260.077
-    },
-    {
-     "id": "s7_l5",
-     "text": "Searching gets the same treatment: a B-tree gives each node hundreds of children, so any of a billion keys is three or four trips away.",
-     "caption": "Searching gets the same treatment: a B-tree gives each node hundreds of children, so any of a billion keys is three or four trips away.",
-     "start": 260.527,
-     "end": 269.067
-    },
-    {
-     "id": "s7_l6",
-     "text": "And the desk and warehouse are relative: the same model describes cache versus RAM, and GPU memory versus the rest of the machine.",
-     "caption": "And the desk and warehouse are relative: the same model describes cache versus RAM, and GPU memory versus the rest of the machine.",
-     "start": 269.517,
-     "end": 277.897
-    }
-   ],
-   "end": 279.247
-  },
-  {
-   "id": "s8",
-   "title": "Recap",
-   "start": 279.247,
-   "lines": [
-    {
-     "id": "s8_l1",
-     "text": "So, when data outgrows memory: count trips, not operations.",
-     "caption": "So, when data outgrows memory: count trips, not operations.",
-     "start": 279.597,
-     "end": 283.353
-    },
-    {
-     "id": "s8_l2",
-     "text": "Stream through the data, instead of hopping around it.",
-     "caption": "Stream through the data, instead of hopping around it.",
-     "start": 283.803,
-     "end": 286.535
-    },
-    {
-     "id": "s8_l3",
-     "text": "Build runs as big as memory, then merge as many as memory allows.",
-     "caption": "Build runs as big as memory, then merge as many as memory allows.",
-     "start": 286.985,
-     "end": 291.351
-    },
-    {
-     "id": "s8_l4",
-     "text": "That's external merge sort: a logarithm with a huge base, which is why sorting a file bigger than your RAM usually takes just two passes.",
-     "caption": "That's external merge sort: a logarithm with a huge base, which is why sorting a file bigger than your RAM usually takes just two passes.",
-     "start": 292.101,
-     "end": 300.787
-    }
-   ],
-   "end": 303.287
+   "end": 385.209
   }
  ],
  "phonemes": {
-  "s1_l1": "h\u02c8\u026a\u0279z \u0250 h\u02cc\u028cnd\u0279\u0259d\u0261\u02c8\u026a\u0261\u0259b\u02ccIt f\u02c8Il, \u00e6nd \u0250 l\u02c8\u00e6pt\u02cc\u0251p w\u026a\u00f0 s\u02cc\u026akst\u02c8in \u0261\u02c8\u026a\u0261\u0259b\u02ccIts \u028cv m\u02c8\u025bm\u0259\u0279i.",
-  "s1_l2": "\u02c8\u00e6sk p\u02c8I\u03b8\u02cc\u0251n t\u0259 s\u02c8\u0254\u0279t \u026at, \u00e6nd \u026at \u0279\u02c8\u028cnz \u02c8Wt \u028cv m\u02c8\u025bm\u0259\u0279i.",
-  "s1_l3": "\u02c8\u00e6sk \u00f0\u0259 j\u02c8un\u026aks s\u02c8\u0254\u0279t k\u0259m\u02c8\u00e6nd, \u00e6nd \u026at \u02a4\u02c8\u028cst... f\u02c8\u026an\u0259\u0283\u1d7bz.",
-  "s1_l4": "w\u02ccIl \u026at w\u02c8\u025c\u0279ks, f\u02c8Ilz p\u02c8Il \u02cc\u028cp \u026an \u00f0\u0259 t\u02c8\u025bmp f\u02c8Old\u0259\u0279, \u00e6nd \u00f0\u02c8\u025bn \u00f0A v\u02c8\u00e6n\u026a\u0283.",
-  "s1_l5": "\u00f0\u02ccOz f\u02c8Ilz \u0251\u0279 \u00f0\u0259 h\u02c8Ol t\u0279\u02c8\u026ak.",
-  "s1_l6": "\u00f0\u02cc\u026as \u026az h\u02ccW ju k\u0259mpj\u02c8ut \u02cc\u0254n d\u02c8AT\u0259 \u00f0\u00e6ts b\u02c8\u026a\u0261\u0259\u0279 \u00f0\u0259n j\u028a\u0279 m\u02c8\u025bm\u0259\u0279i.",
-  "s2_l1": "p\u02c8\u026ak\u02a7\u0259\u0279 m\u02c8\u025bm\u0259\u0279i \u00e6z j\u028a\u0279 d\u02c8\u025bsk, \u00e6nd \u00f0\u0259 d\u02c8\u026ask \u00e6z \u0250 w\u02c8\u025b\u0279h\u02ccWs \u0259k\u0279\u02c8\u0254s t\u02c8Wn.",
-  "s2_l2": "\u00f0\u0259 d\u02c8\u025bsk \u026az sm\u02c8\u0254l, b\u02cc\u028ct \u02c8\u025bni\u03b8\u02cc\u026a\u014b \u02cc\u0254n \u026at \u026az \u02c8\u026anst\u1d4ant. \u00f0\u0259 w\u02c8\u025b\u0279h\u02ccWs h\u02c8Oldz \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b, b\u02cc\u028ct \u02c8\u025bv\u0259\u0279i t\u0279\u02c8\u026ap \u026az sl\u02c8O.",
-  "s2_l3": "h\u02ccW sl\u02c8O? \u02cc\u026af \u0279\u02c8i\u02a7\u026a\u014b \u02c8\u026antu m\u02c8\u025bm\u0259\u0279i t\u02c8\u028ak w\u02c8\u028cn s\u02c8\u025bk\u0259nd, \u0250 \u0279\u02c8id f\u0279\u028cm \u0250 f\u02c8\u00e6st \u02cc\u025bs\u02cc\u025bsd\u02c8i w\u028ad t\u02c8Ak \u0259b\u02c8Wt f\u02cc\u026aft\u02c8in m\u02c8\u026an\u0259ts.",
-  "s2_l4": "\u0250 s\u02c8ik \u02cc\u0254n \u0250 sp\u02c8\u026an\u026a\u014b h\u02c8\u0251\u0279d d\u0279\u02c8Iv: m\u02c8\u0254\u0279 \u00f0\u0259n \u0250 d\u02c8A.",
-  "s2_l5": "\u00f0\u02cc\u025b\u0279z w\u02c8\u028cn s\u02c8Av\u026a\u014b \u0261\u0279\u02c8As. \u0250 t\u0279\u02c8\u026ap k\u02c8\u0254sts \u0259b\u02c8Wt \u00f0\u0259 s\u02c8Am w\u02c8\u025b\u00f0\u0259\u0279 ju b\u0279\u02c8\u026a\u014b b\u02c8\u00e6k w\u02c8\u028cn \u02c8IT\u0259m, \u0254\u0279 \u0250 h\u02c8Ol k\u0279\u02c8At.",
-  "s2_l6": "s\u02ccO w\u02cc\u028ct m\u02c8\u00e6T\u0259\u0279z \u02c8\u026az\u1d4ant h\u02ccW m\u02c8\u025bni \u02cc\u0251p\u0259\u0279\u02c8A\u0283\u0259nz ju d\u02c8u. \u02cc\u026ats h\u02ccW m\u02c8\u025bni t\u0279\u02c8\u026aps ju m\u02ccAk.",
-  "s2_l7": "\u02cc\u0254n p\u02c8Ap\u0259\u0279, h\u02c8ips\u0254\u0279t \u00e6nd m\u02c8\u025c\u0279\u02a4 s\u02c8\u0254\u0279t \u0251\u0279 b\u02c8O\u03b8 \u02c8\u025bn l\u02c8\u0254\u0261 \u02c8\u025bn",
-  "s2_l8": "b\u02cc\u028ct h\u02c8ips\u0254\u0279t h\u02c8\u0251ps \u02c8\u0254l \u02c8Ov\u0259\u0279 \u00f0\u0259 f\u02c8Il, \u00e6nd m\u02ccAks \u0259b\u02c8Wt f\u02c8\u0254\u0279 t\u0279\u02c8\u026aps f\u0254\u0279 \u02c8\u025bv\u0259\u0279i \u02c8IT\u0259m \u026at s\u02c8\u0254\u0279ts.",
-  "s2_l9": "m\u02c8\u025c\u0279\u02a4 s\u02c8\u0254\u0279t sw\u02c8ips \u03b8\u0279u \u026an l\u02c8\u0254\u014b, st\u0279\u02c8At l\u02c8Inz, \u00e6nd n\u02c8idz d\u02c8\u028cz\u1d4anz \u028cv t\u02c8Imz fj\u02c8u\u0259\u0279.",
-  "s2_l10": "\u02cc\u00e6nd b\u02c8\u026a\u0261\u0259\u0279 k\u0279\u02c8Ats \u02c8Onli w\u02c8Id\u0259n \u00f0\u0259 \u0261\u02c8\u00e6p.",
-  "s3_l1": "k\u0259mpj\u02c8uT\u0259\u0279 s\u02c8I\u0259nt\u026asts t\u02c8\u025c\u0279nd \u00f0\u026as \u02c8\u026antu \u0250 m\u02c8\u0251d\u1d4al w\u026a\u00f0 \u03b8\u0279\u02c8i n\u02c8\u028cmb\u0259\u0279z.",
-  "s3_l2": "\u02c8\u025bn: h\u02ccW m\u02c8\u025bni \u02c8IT\u0259mz ju h\u02c8\u00e6v.",
-  "s3_l3": "\u02c8\u025bm: h\u02ccW m\u02c8\u025bni f\u02c8\u026at \u026an m\u02c8\u025bm\u0259\u0279i.",
-  "s3_l4": "b\u02c8i: h\u02ccW m\u02c8\u025bni k\u02c8\u028cm \u026an w\u02c8\u028cn k\u0279\u02c8At, k\u02c8\u0254ld \u0250 bl\u02c8\u0251k.",
-  "s3_l5": "\u00f0\u02c8\u025bn w\u02c8\u028cn b\u02c8Old s\u02cc\u026ampl\u0259f\u0259k\u02c8A\u0283\u0259n: k\u02cc\u0251mpj\u0259t\u02c8A\u0283\u0259n \u026az f\u0279\u02c8i. \u00f0i \u02c8Onli k\u02c8\u0254st \u026az \u00f0\u0259 n\u02c8\u028cmb\u0259\u0279 \u028cv bl\u02c8\u0251ks m\u02c8uvd b\u0259tw\u02c8in d\u02c8\u026ask \u00e6nd m\u02c8\u025bm\u0259\u0279i.",
-  "s3_l6": "\u0279\u02c8id\u026a\u014b \u00f0\u0259 h\u02c8Ol f\u02c8Il w\u02c8\u028cns k\u02c8\u0254sts \u02c8\u025bn \u02c8Ov\u0259\u0279 b\u02c8i \u00f0\u02c8\u00e6ts \u02ccW\u0259\u0279 j\u02c8\u0251\u0279dst\u02cc\u026ak, \u00e6nd \u026ats k\u02c8\u0254ld \u0250 sk\u02c8\u00e6n.",
-  "s4_l1": "\u00f0\u0259 kl\u02c8\u00e6s\u026ak \u02c8\u00e6l\u0261\u0259\u0279\u02cc\u026a\u00f0\u0259m \u026az \u026akst\u02c8\u025c\u0279n\u1d4al m\u02c8\u025c\u0279\u02a4 s\u02c8\u0254\u0279t, \u00e6nd \u026at w\u02c8\u025c\u0279ks \u026an t\u02c8u f\u02c8Az\u1d7bz.",
-  "s4_l2": "f\u02c8Az w\u02c8\u028cn: f\u02c8\u026al m\u02c8\u025bm\u0259\u0279i, s\u02c8\u0254\u0279t \u026at \u0279\u02c8It \u00f0\u02c8\u025b\u0279, w\u02cc\u026a\u02a7 \u026az f\u0279\u02c8i, \u00e6nd \u0279\u02c8It \u026at b\u02c8\u00e6k t\u0259 d\u02c8\u026ask \u00e6z \u0250 s\u02c8\u0254\u0279T\u1d7bd \u02a7\u02c8\u028c\u014bk k\u02c8\u0254ld \u0250 \u0279\u02c8\u028cn.",
-  "s4_l3": "\u0279\u0259p\u02c8it \u02cc\u028cnt\u02c8\u026al juv b\u026an \u03b8\u0279u \u00f0\u0259 h\u02c8Ol f\u02c8Il.",
-  "s4_l4": "\u02cc\u026at st\u02c8\u026al \u02c8\u026az\u1d4ant s\u02c8\u0254\u0279T\u1d7bd, b\u02cc\u028ct n\u02c8W \u026ats m\u02ccAd \u028cv s\u02c8\u0254\u0279T\u1d7bd \u0279\u02c8\u028cnz.",
-  "s4_l5": "\u02c8\u025bv\u0259\u0279i bl\u02c8\u0251k w\u028cz \u0279\u02c8\u025bd w\u02c8\u028cns \u00e6nd \u0279\u02c8\u026atn w\u02c8\u028cns: t\u02c8u sk\u02c8\u00e6nz.",
-  "s5_l1": "f\u02c8Az t\u02c8u: m\u02c8\u025c\u0279\u02a4 \u00f0\u0259 \u0279\u02c8\u028cnz.",
-  "s5_l2": "j\u02ccu \u02cc\u0254l\u0279\u02c8\u025bdi n\u02c8O h\u02ccW t\u0259 m\u02c8\u025c\u0279\u02a4 t\u02c8u s\u02c8\u0254\u0279T\u1d7bd l\u02c8\u026asts: k\u0259mp\u02c8\u025b\u0279 \u00f0\u0259 f\u0279\u02c8\u028cnts, t\u02c8Ak \u00f0\u0259 sm\u02c8\u0254l\u0259\u0279, \u0279\u0259p\u02c8it.",
-  "s5_l3": "m\u02c8\u025c\u0279\u02a4 \u00f0\u0259 \u0279\u02c8\u028cnz \u026an p\u02c8\u025b\u0279z, \u00f0\u02c8\u025bn p\u02c8\u025b\u0279z \u028cv p\u02c8\u025b\u0279z, \u02cc\u028cnt\u02c8\u026al w\u02c8\u028cn \u026az l\u02c8\u025bft, \u00e6nd \u02c8\u025bv\u0259\u0279i \u0279\u02c8Wnd \u0279\u02c8idz \u00e6nd \u0279\u02c8Its \u00f0\u0259 h\u02c8Ol f\u02c8Il.",
-  "s5_l4": "b\u02cc\u028ct l\u02c8\u028ak \u00e6t m\u02c8\u025bm\u0259\u0279i w\u02ccIl \u00f0\u02c8\u00e6t h\u02c8\u00e6p\u0259nz.",
-  "s5_l5": "t\u0259 m\u02c8\u025c\u0279\u02a4 t\u02c8u \u0279\u02c8\u028cnz, ju \u02c8Onli n\u02c8id \u00f0\u0259 f\u0279\u02c8\u028cnt bl\u02c8\u0251k \u028cv \u02c8i\u02a7, pl\u02c8\u028cs w\u02c8\u028cn bl\u02c8\u0251k f\u0254\u0279 \u00f0i \u02c8Wtp\u02cc\u028at. \u00f0\u0259 \u0279\u02c8\u025bst \u028cv \u00f0\u0259 d\u02c8\u025bsk s\u02c8\u026ats \u02c8\u025bmpti.",
-  "s5_l6": "s\u02ccO j\u02c8uz \u026at. \u0261\u02c8\u026av \u02c8\u025bv\u0259\u0279i \u0279\u02c8\u028cn \u026ats \u02c8On w\u02cc\u028cnbl\u02c8\u0251k b\u02c8\u028cf\u0259\u0279, \u00e6nd m\u02c8\u025c\u0279\u02a4 \u00f0\u02cc\u025bm \u02c8\u0254l \u00e6t w\u02c8\u028cns.",
-  "s5_l7": "\u0250 sm\u02c8\u0254l h\u02c8ip t\u0279\u02c8\u00e6ks w\u02cc\u026a\u02a7 \u0279\u02c8\u028cn h\u00e6z \u00f0\u0259 sm\u02c8\u0254l\u1d7bst \u02c8IT\u0259m \u00e6t \u026ats f\u0279\u02c8\u028cnt.",
-  "s5_l8": "m\u02c8uv \u00f0\u02c8\u00e6t \u02c8IT\u0259m t\u0259 \u00f0i \u02c8Wtp\u02cc\u028at b\u02c8\u028cf\u0259\u0279.",
-  "s5_l9": "w\u02cc\u025bn \u00f0i \u02c8Wtp\u02cc\u028at bl\u02c8\u0251k f\u02c8\u026alz, \u0279\u02c8It \u026at \u02c8Wt \u026an w\u02c8\u028cn t\u0279\u02c8\u026ap.",
-  "s5_l10": "w\u02cc\u025bn \u0250n \u02c8\u026anp\u02cc\u028at b\u02c8\u028cf\u0259\u0279 \u0279\u02c8\u028cnz d\u0279\u02c8I, f\u02c8\u025b\u02a7 \u00f0\u00e6t \u0279\u02c8\u028cnz n\u02c8\u025bkst bl\u02c8\u0251k.",
-  "s5_l11": "\u02c8\u025bv\u0259\u0279i bl\u02c8\u0251k st\u02c8\u026al m\u02ccAks \u026a\u0261z\u02c8\u00e6ktli w\u02c8\u028cn t\u0279\u02c8\u026ap \u02c8\u026an, \u00e6nd w\u02c8\u028cn t\u0279\u02c8\u026ap \u02c8Wt.",
-  "s5_l12": "h\u02ccW m\u02c8\u025bni \u0279\u02c8\u028cnz f\u02c8\u026at \u00e6t w\u02c8\u028cns? \u0259b\u02c8Wt w\u02c8\u028cn p\u025c\u0279 bl\u02c8\u0251k \u028cv m\u02c8\u025bm\u0259\u0279i: \u02c8\u025bm \u02c8Ov\u0259\u0279 b\u02c8i",
-  "s5_l13": "w\u02cc\u026a\u00f0 s\u02cc\u026akst\u02c8in \u0261\u02c8\u026a\u0261\u0259b\u02ccIts \u028cv m\u02c8\u025bm\u0259\u0279i \u00e6nd w\u02cc\u028cnm\u02c8\u025b\u0261\u0259b\u02ccIt bl\u02c8\u0251ks, \u00f0\u02c8\u00e6ts \u02c8Ov\u0259\u0279 s\u02cc\u026akst\u02c8in \u03b8\u02c8Wz\u1d4and \u0279\u02c8\u028cnz, m\u02c8\u025c\u0279\u02a4d \u026an \u0250 s\u02c8\u026a\u014b\u0261\u1d4al p\u02c8\u00e6s.",
-  "s6_l1": "s\u02ccO \u00f0\u0259 n\u02c8\u028cmb\u0259\u0279 \u028cv p\u02c8\u00e6s\u1d7bz \u026az st\u02c8\u026al \u0250 l\u02c8\u0254\u0261\u0259\u0279\u02cc\u026a\u00f0\u0259m, b\u02cc\u028ct \u026ats b\u02c8As \u026az \u02c8\u025bm \u02c8Ov\u0259\u0279 b\u02c8i \u026anst\u02c8\u025bd \u028cv t\u02c8u, \u00e6nd \u00f0\u02c8\u00e6t b\u02c8As \u026az \u026an\u02c8\u0254\u0279m\u0259s.",
-  "s6_l2": "t\u0259 s\u02c8\u0254\u0279t t\u02c8\u025bn t\u02c8\u025b\u0279\u0259b\u02ccIts \u02cc\u0254n \u00f0\u026as l\u02c8\u00e6pt\u02cc\u0251p, t\u02c8uw\u02ccA m\u02c8\u025c\u0279\u02a4\u026a\u014b n\u02c8idz t\u02c8\u025bn \u0279\u02c8Wndz \u02c8Ov\u0259\u0279 \u00f0\u0259 d\u02c8AT\u0259. \u00f0\u0259 w\u02c8Id m\u02c8\u025c\u0279\u02a4 n\u02c8idz w\u02c8\u028cn.",
-  "s6_l3": "\u026an f\u02c8\u00e6kt, w\u02c8\u028cn p\u02c8\u00e6s t\u0259 f\u02c8\u0254\u0279m \u0279\u02c8\u028cnz pl\u02c8\u028cs w\u02c8\u028cn p\u02c8\u00e6s t\u0259 m\u02c8\u025c\u0279\u02a4 k\u00e6n s\u02c8\u0254\u0279t \u0259b\u02c8Wt \u0250 kw\u02c8\u0254\u0279T\u0259\u0279 \u028cv \u0250 p\u02c8\u025bT\u0259b\u02ccIt.",
-  "s6_l4": "\u02cc\u00e6nd \u026ats \u02c8\u0251pt\u0259m\u1d4al: \u026an n\u02ccInt\u02c8in \u02c8ATi\u02ccAt, \u0259\u0261\u02c8\u0251\u0279w\u1d4al \u00e6nd v\u02c8\u026aT\u0259\u0279 p\u0279\u02c8uvd \u00f0\u00e6t n\u02c8O k\u0259mp\u02c8\u025b\u0279\u0259s\u1d4an s\u02c8\u0254\u0279t k\u00e6n d\u02c8u \u02cc\u00e6s\u0259mt\u02c8\u0251T\u0259k\u1d4ali fj\u02c8u\u0259\u0279 t\u0279\u02c8\u00e6nsf\u0259\u0279z.",
-  "s6_l5": "\u026an \u02ccW\u0259\u0279 s\u02cc\u026amj\u0259l\u02c8A\u0283\u0259n, \u00f0\u02c8\u00e6ts \u00f0\u0259 d\u02c8\u026af\u0259\u0279\u0259ns b\u0259tw\u02c8in \u02c8\u0254lmOst \u0250 m\u02c8\u026alj\u1d4an t\u0279\u02c8\u026aps, \u00e6nd \u0259b\u02c8Wt f\u02c8\u0254\u0279 \u03b8\u02c8Wz\u1d4and.",
-  "s7_l1": "w\u02c8\u028cns ju n\u02c8O \u00f0\u026as p\u02c8\u00e6T\u0259\u0279n, ju s\u02c8i \u026at \u02c8\u025bv\u0279iw\u02cc\u025b\u0279.",
-  "s7_l2": "w\u02cc\u025bn \u0250 d\u02c8\u00e6T\u0259b\u02ccAs h\u00e6z t\u0259 s\u02c8\u0254\u0279t m\u02c8\u0254\u0279 \u0279\u02c8Oz \u00f0\u0259n \u026ats m\u02c8\u025bm\u0259\u0279i b\u02c8\u028c\u02a4\u0259t, p\u02c8Ost\u0261\u0279\u025bs \u0279\u0259p\u02c8\u0254\u0279ts \u026akst\u02c8\u025c\u0279n\u1d4al m\u02c8\u025c\u0279\u02a4, \u00e6nd sp\u02c8\u026alz \u0279\u02c8\u028cnz t\u0259 d\u02c8\u026ask.",
-  "s7_l3": "b\u02cc\u026a\u0261d\u02c8AT\u0259 \u0283\u02c8\u028cf\u1d4alz \u026an m\u02cc\u00e6p\u0279\u0259d\u02c8us \u00e6nd sp\u02c8\u0251\u0279k s\u02c8\u0254\u0279t \u02a7\u02c8\u028c\u014bks, sp\u02c8\u026al \u00f0\u02cc\u025bm, \u00e6nd m\u02c8\u025c\u0279\u02a4.",
-  "s7_l4": "st\u02c8\u0254\u0279\u026a\u02a4 \u02c8\u025bn\u02a4\u0259nz l\u02c8Ik \u0279\u02c8\u0251ks d\u02c8i b\u02c8i \u0279\u02c8It s\u02c8\u0254\u0279T\u1d7bd f\u02c8Ilz, \u00e6nd k\u02c8ip m\u02c8\u025c\u0279\u02a4\u026a\u014b \u00f0\u02cc\u025bm \u026an \u00f0\u0259 b\u02c8\u00e6k\u0261\u0279\u02ccWnd.",
-  "s7_l5": "s\u02c8\u025c\u0279\u02a7\u026a\u014b \u0261\u025bts \u00f0\u0259 s\u02c8Am t\u0279\u02c8itm\u0259nt: \u0250 b\u02c8it\u0279\u02cci \u0261\u02c8\u026avz \u02c8i\u02a7 n\u02c8Od h\u02c8\u028cnd\u0279\u0259dz \u028cv \u02a7\u02c8\u026ald\u0279\u1d4an, s\u02ccO \u02c8\u025bni \u028cv \u0250 b\u02c8\u026alj\u0259n k\u02c8iz \u026az \u03b8\u0279\u02c8i \u0254\u0279 f\u02c8\u0254\u0279 t\u0279\u02c8\u026aps \u0259w\u02c8A.",
-  "s7_l6": "\u02cc\u00e6nd \u00f0\u0259 d\u02c8\u025bsk \u00e6nd w\u02c8\u025b\u0279h\u02ccWs \u0251\u0279 \u0279\u02c8\u025bl\u0259T\u026av: \u00f0\u0259 s\u02c8Am m\u02c8\u0251d\u1d4al d\u0259sk\u0279\u02c8Ibz k\u02c8\u00e6\u0283 v\u02c8\u025c\u0279s\u0259s \u0279\u02c8\u00e6m, \u00e6nd \u02a4\u02ccip\u02ccij\u02c8u m\u02c8\u025bm\u0259\u0279i v\u02c8\u025c\u0279s\u0259s \u00f0\u0259 \u0279\u02c8\u025bst \u028cv \u00f0\u0259 m\u0259\u0283\u02c8in.",
-  "s8_l1": "s\u02ccO, w\u02cc\u025bn d\u02c8AT\u0259 \u02ccWt\u0261\u0279\u02c8Oz m\u02c8\u025bm\u0259\u0279i: k\u02c8Wnt t\u0279\u02c8\u026aps, n\u02cc\u0251t \u02cc\u0251p\u0259\u0279\u02c8A\u0283\u0259nz.",
-  "s8_l2": "st\u0279\u02c8im \u03b8\u0279u \u00f0\u0259 d\u02c8AT\u0259, \u026anst\u02c8\u025bd \u028cv h\u02c8\u0251p\u026a\u014b \u0259\u0279\u02c8Wnd \u026at.",
-  "s8_l3": "b\u02c8\u026ald \u0279\u02c8\u028cnz \u00e6z b\u02c8\u026a\u0261 \u00e6z m\u02c8\u025bm\u0259\u0279i, \u00f0\u02c8\u025bn m\u02c8\u025c\u0279\u02a4 \u00e6z m\u02c8\u025bni \u00e6z m\u02c8\u025bm\u0259\u0279i \u0259l\u02c8Wz.",
-  "s8_l4": "\u00f0\u02c8\u00e6ts \u026akst\u02c8\u025c\u0279n\u1d4al m\u02c8\u025c\u0279\u02a4 s\u02c8\u0254\u0279t: \u0250 l\u02c8\u0254\u0261\u0259\u0279\u02cc\u026a\u00f0\u0259m w\u026a\u00f0 \u0250 hj\u02c8u\u02a4 b\u02c8As, w\u02cc\u026a\u02a7 \u026az w\u02ccI s\u02c8\u0254\u0279T\u026a\u014b \u0250 f\u02c8Il b\u02c8\u026a\u0261\u0259\u0279 \u00f0\u0259n j\u028a\u0279 \u0279\u02c8\u00e6m j\u02c8u\u0292\u0259w\u0259li t\u02c8Aks \u02a4\u02c8\u028cst t\u02c8u p\u02c8\u00e6s\u1d7bz."
+  "s1_01": "\u00f0\u02cc\u026as f\u02c8Il \u026az \u0259b\u02c8Wt tw\u02c8\u025blv t\u02c8Imz b\u02c8\u026a\u0261\u0259\u0279 \u00f0\u0259n \u00f0\u0259 m\u02c8\u025bm\u0259\u0279i wil l\u02c8\u025bt \u02ccW\u0259\u0279 p\u0279\u02c8O\u0261\u0279\u02cc\u00e6mz j\u02c8uz.",
+  "s1_02": "\u02c8\u00e6sk \u0250 s\u02c8\u026amp\u0259l p\u02c8I\u03b8\u02cc\u0251n sk\u0279\u02c8\u026apt t\u0259 \u0279\u02c8id \u02c8\u025bv\u0259\u0279i l\u02c8In \u02c8\u026antu \u0250 l\u02c8\u026ast \u00e6nd s\u02c8\u0254\u0279t \u026at, \u00e6nd \u026at \u0279\u02c8\u028cnz \u02c8Wt \u028cv m\u02c8\u025bm\u0259\u0279i \u02a4\u02c8\u028cst \u0279\u02c8id\u026a\u014b \u00f0\u0259 f\u02c8Il \u02c8\u026an.",
+  "s1_03": "\u02c8\u00e6sk \u00f0\u0259 j\u02c8un\u026aks s\u02c8\u0254\u0279t k\u0259m\u02c8\u00e6nd, w\u026a\u00f0 \u00f0\u0259 s\u02c8Am m\u02c8\u025bm\u0259\u0279i, \u00e6nd \u026at \u02a4\u02c8\u028cst f\u02c8\u026an\u0259\u0283\u1d7bz.",
+  "s1_04": "w\u02ccIl \u026at w\u02c8\u025c\u0279ks, tw\u02c8\u025blv f\u02c8Ilz \u0259p\u02c8\u026a\u0279 \u026an \u0250 t\u02c8\u025bmp\u0259\u0279\u02cc\u025b\u0279i f\u02c8Old\u0259\u0279, \u00e6nd \u00f0\u02c8\u025bn \u00f0A v\u02c8\u00e6n\u026a\u0283.",
+  "s1_05": "w\u02cc\u028ct \u0251\u0279 \u00f0Oz f\u02c8Ilz, \u00e6nd h\u02ccW d\u02c8\u028cz s\u02c8\u0254\u0279t \u0261\u025bt \u0259w\u02c8A w\u026a\u00f0 \u026at?",
+  "s2_01": "\u00f0i \u02c8\u0251bvi\u0259s f\u02c8\u026aks \u026az v\u02c8\u025c\u0279\u02a7\u0259w\u0259l m\u02c8\u025bm\u0259\u0279i: t\u0279\u02c8it \u00f0\u0259 d\u02c8\u026ask \u00e6z m\u02c8\u025bm\u0259\u0279i, \u00e6nd l\u02c8\u025bt \u00f0i \u02c8\u0251p\u0259\u0279\u02ccAT\u026a\u014b s\u02c8\u026ast\u0259m k\u02c8ip \u00f0\u0259 p\u02c8\u0251\u0279ts \u026at j\u02c8uzd \u0279\u02c8is\u1d4antli \u026an m\u02c8\u025bm\u0259\u0279i, f\u02c8\u025b\u02a7\u026a\u014b \u00f0\u0259 \u0279\u02c8\u025bst f\u0279\u028cm d\u02c8\u026ask \u00e6z n\u02c8id\u1d7bd.",
+  "s2_02": "b\u02cc\u028ct \u0250 d\u02c8\u026ask n\u02c8\u025bv\u0259\u0279 f\u02c8\u025b\u02a7\u1d7bz w\u02c8\u028cn n\u02c8\u028cmb\u0259\u0279.",
+  "s2_03": "\u02cc\u026at f\u02c8\u025b\u02a7\u1d7bz \u0250 h\u02c8Ol bl\u02c8\u0251k, \u03b8\u02c8Wz\u1d4andz \u028cv b\u02c8Its \u00e6t l\u02c8ist, \u00e6nd \u02c8\u025bv\u0259\u0279i f\u02c8\u025b\u02a7 t\u02c8Aks h\u02c8\u028cnd\u0279\u0259dz t\u0259 \u03b8\u02c8Wz\u1d4andz \u028cv t\u02c8Imz l\u02c8\u0254\u014b\u0261\u0259\u0279 \u00f0\u0259n \u0279\u02c8id\u026a\u014b m\u02c8\u025bm\u0259\u0279i, \u02c8iv\u0259n \u02cc\u0254n \u0250 f\u02c8\u00e6st \u02cc\u025bs\u02cc\u025bsd\u02c8i.",
+  "s2_04": "m\u02c8uv\u026a\u014b w\u02c8\u028cn bl\u02c8\u0251k b\u0259tw\u02c8in d\u02c8\u026ask \u00e6nd m\u02c8\u025bm\u0259\u0279i \u026az k\u02c8\u0254ld \u0250n \u02c8I \u02c8O",
+  "s2_05": "w\u02c8\u028cns d\u02c8AT\u0259 d\u02c8\u028cz\u1d4ant f\u02c8\u026at \u026an m\u02c8\u025bm\u0259\u0279i, \u00f0\u0259 n\u02c8\u028cmb\u0259\u0279 \u028cv \u02ccI\u02c8Oz t\u02c8\u026ap\u0259k\u1d4ali d\u02c8\u0251m\u0259n\u02ccAts \u00f0\u0259 \u0279\u02c8\u028cn\u026a\u014b t\u02c8Im.",
+  "s2_06": "h\u02c8ips\u0254\u0279t \u00e6nd m\u02c8\u025c\u0279\u02a4 s\u02c8\u0254\u0279t \u0251\u0279 b\u02c8O\u03b8 \u02c8\u025bn l\u02c8\u0254\u0261 \u02c8\u025bn s\u02c8\u0254\u0279ts.",
+  "s2_07": "b\u02ccI k\u0259mp\u02c8\u025b\u0279\u0259s\u1d4anz \u0259l\u02c8On, h\u02c8ips\u0254\u0279t w\u028ad bi \u00e6t m\u02c8Ost \u0259b\u02c8Wt tw\u02c8Is \u00e6z sl\u02c8O.",
+  "s2_08": "b\u02cc\u028ct h\u02c8ips\u0254\u0279t k\u0259mp\u02c8\u025b\u0279z \u02c8IT\u0259mz \u00f0\u00e6t s\u02c8\u026at f\u02c8\u0251\u0279 \u0259p\u02c8\u0251\u0279t \u026an \u026ats \u0259\u0279\u02c8A.",
+  "s2_09": "\u02c8\u028cnd\u0259\u0279 v\u02c8\u025c\u0279\u02a7\u0259w\u0259l m\u02c8\u025bm\u0259\u0279i \u00f0\u00e6t \u0259\u0279\u02c8A l\u02c8\u026avz \u02cc\u0254n d\u02c8\u026ask, bl\u02c8\u0251k bI bl\u02c8\u0251k, s\u02ccO h\u02c8ips\u0254\u0279t k\u02c8ips n\u02c8id\u026a\u014b bl\u02c8\u0251ks \u00f0\u00e6t \u02cc\u0251\u0279nt \u026an m\u02c8\u025bm\u0259\u0279i.",
+  "s2_10": "m\u02c8\u025c\u0279\u02a4 s\u02c8\u0254\u0279t \u0279\u02c8idz \u026ats \u02c8\u026anp\u02cc\u028at f\u0279\u028cm f\u0279\u02c8\u028cnt t\u0259 b\u02c8\u00e6k, \u00e6nd \u0279\u02c8Its \u026ats \u02c8Wtp\u02cc\u028at f\u0279\u028cm f\u0279\u02c8\u028cnt t\u0259 b\u02c8\u00e6k, s\u02ccO \u02c8\u025bv\u0259\u0279i bl\u02c8\u0251k \u026at f\u02c8\u025b\u02a7\u1d7bz \u0261\u025bts j\u02c8uzd k\u0259mpl\u02c8itli.",
+  "s2_11": "w\u02cci s\u02c8\u026amj\u0259l\u02ccAT\u1d7bd b\u02c8O\u03b8 \u02c8\u028cnd\u0259\u0279 v\u02c8\u025c\u0279\u02a7\u0259w\u0259l m\u02c8\u025bm\u0259\u0279i \u02cc\u0254n \u0250 kw\u02c8\u0254\u0279T\u0259\u0279 \u028cv \u0250 m\u02c8\u026alj\u1d4an \u02c8IT\u0259mz.",
+  "s2_12": "m\u02c8\u025bm\u0259\u0279i h\u02c8\u025bld \u0250 tw\u02c8\u025blf\u03b8 \u028cv \u00f0\u02cc\u025bm, \u0279\u02c8\u028cfli \u00f0\u0259 p\u0279\u0259p\u02c8\u0254\u0279\u0283\u0259nz \u028cv s\u02c8\u0254\u0279ts f\u02c8Il.",
+  "s2_13": "h\u02c8ips\u0254\u0279t m\u02ccAd \u0259b\u02c8Wt tw\u02c8Is \u00e6z m\u02c8\u025bni k\u0259mp\u02c8\u025b\u0279\u0259s\u1d4anz \u00e6z m\u02c8\u025c\u0279\u02a4 s\u02c8\u0254\u0279t, b\u02cc\u028ct m\u02c8\u0254\u0279 \u00f0\u0259n tw\u02c8\u025bnti t\u02c8Imz \u00e6z m\u02c8\u025bni \u02c8I\u02c8Oz: \u0259b\u02c8Wt \u03b8\u0279\u02c8i f\u0254\u0279 \u02c8\u025bv\u0259\u0279i \u02c8IT\u0259m \u026at s\u02c8\u0254\u0279ts.",
+  "s2_14": "\u02c8iv\u0259n \u026af \u02c8\u025bv\u0259\u0279i k\u0259mp\u02c8\u025b\u0279\u0259s\u1d4an k\u02c8\u0254st \u00e6z m\u02c8\u028c\u02a7 \u00e6z \u0250 m\u02c8\u025bm\u0259\u0279i \u02c8\u00e6ks\u02cc\u025bs, h\u02c8ips\u0254\u0279ts k\u0259mp\u02c8\u025b\u0279\u0259s\u1d4anz w\u028ad t\u02c8Ak \u02c8\u028cnd\u0259\u0279 \u0250 s\u02c8\u025bk\u0259nd.",
+  "s2_15": "\u02cc\u026ats \u02ccI\u02c8Oz t\u02c8Ak m\u02c8\u0254\u0279 \u00f0\u0259n \u0250 m\u02c8\u026an\u0259t.",
+  "s2_16": "\u00f0i \u02c8I \u02c8Oz d\u0259s\u02c8Id.",
+  "s2_17": "s\u02ccO m\u02c8\u025c\u0279\u02a4 s\u02c8\u0254\u0279t \u026az \u02ccW\u0259\u0279 st\u02c8\u0251\u0279T\u026a\u014b p\u02c8Ynt.",
+  "s2_18": "\u02cc\u026at sw\u02c8ips \u03b8\u0279u \u00f0\u0259 h\u02c8Ol f\u02c8Il \u0259\u0261\u02c8\u025bn \u00e6nd \u0259\u0261\u02c8\u025bn, s\u02ccO l\u02c8\u025bts m\u02c8\u025b\u0292\u0259\u0279 \u026at \u026an p\u02c8\u00e6s\u1d7bz, w\u02cc\u025b\u0279 w\u02c8\u028cn p\u02c8\u00e6s \u0279\u02c8idz \u00e6nd \u0279\u02c8Its \u02c8\u025bv\u0259\u0279i bl\u02c8\u0251k \u028cv \u00f0\u0259 f\u02c8Il w\u02c8\u028cns.",
+  "s3_01": "m\u02c8\u025c\u0279\u02a4 s\u02c8\u0254\u0279t m\u02c8\u025c\u0279\u02a4\u1d7bz s\u02c8\u026a\u014b\u0261\u1d4al \u02c8IT\u0259mz \u02c8\u026antu p\u02c8\u025b\u0279z, \u00f0\u02c8\u025bn p\u02c8\u025b\u0279z \u02c8\u026antu f\u02c8\u0254\u0279z, d\u02c8\u028cbl\u026a\u014b \u00f0\u0259 p\u02c8is\u1d7bz \u02c8\u025bv\u0259\u0279i p\u02c8\u00e6s.",
+  "s3_02": "\u02ccAt\u02c8in d\u02c8\u028cbl\u026a\u014bz t\u02c8Ak ju f\u0279\u028cm w\u02c8\u028cn \u02c8IT\u0259m t\u0259 \u0250 kw\u02c8\u0254\u0279T\u0259\u0279 \u028cv \u0250 m\u02c8\u026alj\u1d4an, s\u02ccO \u00f0\u02c8\u00e6ts \u02ccAt\u02c8in p\u02c8\u00e6s\u1d7bz.",
+  "s3_03": "b\u02cc\u028ct w\u02c8\u0251\u02a7 \u00f0\u0259 s\u02c8Iz \u028cv \u00f0\u0259 p\u02c8is\u1d7bz.",
+  "s3_04": "f\u02cc\u0254\u0279 \u00f0\u0259 f\u02c8\u025c\u0279st f\u02cc\u0254\u0279t\u02c8in p\u02c8\u00e6s\u1d7bz, \u02c8\u025bv\u0259\u0279i p\u02c8is \u026az sm\u02c8\u0254l\u0259\u0279 \u00f0\u0259n m\u02c8\u025bm\u0259\u0279i.",
+  "s3_05": "m\u02c8\u025c\u0279\u02a4\u026a\u014b \u02c8Onli n\u02c8idz s\u02c8\u0254\u0279T\u1d7bd p\u02c8is\u1d7bz.",
+  "s3_06": "\u02cc\u026at d\u02c8\u028cz\u1d4ant m\u02c8\u00e6T\u0259\u0279 h\u02ccW \u00f0A \u0261\u0251t s\u02c8\u0254\u0279T\u1d7bd, s\u02ccO \u02c8i\u02a7 \u028cv \u00f0Oz p\u02c8is\u1d7bz k\u028ad h\u00e6v b\u026an s\u02c8\u0254\u0279T\u1d7bd w\u026a\u00f0\u02c8Wt t\u02c8\u028c\u02a7\u026a\u014b \u00f0\u0259 d\u02c8\u026ask.",
+  "s3_07": "s\u02ccO d\u02c8u \u026a\u0261z\u02c8\u00e6ktli \u00f0\u02c8\u00e6t.",
+  "s3_08": "f\u02c8\u026al m\u02c8\u025bm\u0259\u0279i w\u026a\u00f0 \u00f0\u0259 st\u02c8\u0251\u0279t \u028cv \u00f0\u0259 f\u02c8Il, s\u02c8\u0254\u0279t \u026at \u0279\u02c8It \u00f0\u02c8\u025b\u0279, \u00e6nd \u0279\u02c8It \u026at \u02c8Wt t\u0259 d\u02c8\u026ask \u00e6z w\u02c8\u028cn s\u02c8\u0254\u0279T\u1d7bd p\u02c8is, k\u02c8\u0254ld \u0250 \u0279\u02c8\u028cn.",
+  "s3_09": "\u00f0\u02c8\u025bn d\u02c8u \u00f0\u0259 s\u02c8Am w\u026a\u00f0 \u00f0\u0259 n\u02c8\u025bkst p\u02c8\u0251\u0279t \u028cv \u00f0\u0259 f\u02c8Il, \u00e6nd \u00f0\u0259 n\u02c8\u025bkst.",
+  "s3_10": "\u02ccW\u0259\u0279 s\u02c8\u026amj\u0259l\u02ccAT\u1d7bd f\u02c8Il \u026az \u026a\u0261z\u02c8\u00e6ktli tw\u02c8\u025blv m\u02c8\u025bm\u0259\u0279iz l\u02c8\u0254\u014b, s\u02ccO \u00f0\u026as m\u02ccAks tw\u02c8\u025blv \u0279\u02c8\u028cnz, \u026an \u0250 s\u02c8\u026a\u014b\u0261\u1d4al p\u02c8\u00e6s.",
+  "s3_11": "\u00f0\u02c8\u00e6t w\u02c8\u028cn p\u02c8\u00e6s k\u02c8\u028cv\u0259\u0279z \u02c8\u025bv\u0259\u0279i\u03b8\u02cc\u026a\u014b \u00f0\u0259 f\u02c8\u025c\u0279st f\u02cc\u0254\u0279t\u02c8in d\u02c8\u026ad, s\u02ccO \u02c8Onli \u00f0\u0259 l\u02c8\u00e6st f\u02c8\u0254\u0279 \u0279\u0259m\u02c8An.",
+  "s3_12": "\u02ccAt\u02c8in p\u02c8\u00e6s\u1d7bz b\u0259k\u02c8\u028cm f\u02c8Iv.",
+  "s3_13": "\u02cc\u00e6nd \u00f0\u02c8\u00e6ts w\u02cc\u028ct s\u02c8\u0254\u0279ts tw\u02c8\u025blv f\u02c8Ilz w\u025c\u0279: w\u02c8\u028cn \u0279\u02c8\u028cn f\u0254\u0279 \u02c8i\u02a7 m\u02c8\u025bm\u0259\u0279if\u02cc\u028al \u028cv \u026ats f\u02c8Il, \u00f0\u0259 l\u02c8\u00e6st w\u02c8\u028cn \u02c8Onli p\u02c8\u0251\u0279tli f\u02c8\u028al.",
+  "s4_01": "\u02c8i\u02a7 \u0279\u02c8\u028cn \u026az s\u02c8\u0254\u0279T\u1d7bd, b\u02cc\u028ct n\u02cc\u0251t \u0259\u0261\u02c8\u025bnst \u00f0i \u02c8\u028c\u00f0\u0259\u0279z, s\u02ccO \u00f0\u0259 \u0279\u02c8\u028cnz st\u02c8\u026al h\u00e6v t\u0259 bi m\u02c8\u025c\u0279\u02a4d.",
+  "s4_02": "t\u02c8u \u00e6t \u0250 t\u02c8Im: tw\u02c8\u025blv \u0279\u02c8\u028cnz, \u00f0\u02c8\u025bn s\u02c8\u026aks, \u03b8\u0279\u02c8i, t\u02c8u, w\u02c8\u028cn.",
+  "s4_03": "f\u02c8\u0254\u0279 p\u02c8\u00e6s\u1d7bz.",
+  "s4_04": "w\u02c8\u0251\u02a7 m\u02c8\u025bm\u0259\u0279i d\u02c8\u028a\u0279\u026a\u014b \u0250 t\u02c8uw\u02ccA m\u02c8\u025c\u0279\u02a4.",
+  "s4_05": "\u02cc\u026at h\u02c8Oldz \u00f0\u0259 f\u0279\u02c8\u028cnt bl\u02c8\u0251k \u028cv \u02c8i\u02a7 \u0279\u02c8\u028cn, \u00e6nd w\u02c8\u028cn bl\u02c8\u0251k f\u0254\u0279 \u00f0i \u02c8Wtp\u02cc\u028at.",
+  "s4_06": "\u00f0\u0259 \u0279\u02c8\u025bst \u028cv m\u02c8\u025bm\u0259\u0279i s\u02c8\u026ats \u02c8Id\u1d4al.",
+  "s4_07": "s\u02ccO \u0261\u02c8\u026av \u02c8\u025bv\u0259\u0279i \u0279\u02c8\u028cn \u026ats \u02c8On bl\u02c8\u0251k \u028cv m\u02c8\u025bm\u0259\u0279i, \u00e6nd m\u02c8\u025c\u0279\u02a4 \u00f0\u02cc\u025bm \u02c8\u0254l \u00e6t w\u02c8\u028cns: \u0250 m\u02cc\u028cltiw\u02c8A m\u02c8\u025c\u0279\u02a4.",
+  "s4_08": "w\u02cc\u026a\u00f0 \u03b8\u02c8Wz\u1d4andz \u028cv \u0279\u02c8\u028cnz, sk\u02c8\u00e6n\u026a\u014b \u02c8\u025bv\u0259\u0279i f\u0279\u02c8\u028cnt f\u0254\u0279 \u00f0\u0259 sm\u02c8\u0254l\u1d7bst \u02c8IT\u0259m w\u028ad bi sl\u02c8O, s\u02ccO k\u02c8ip \u0250 sm\u02c8\u0254l h\u02c8ip w\u026a\u00f0 w\u02c8\u028cn \u02c8\u025bnt\u0279i p\u025c\u0279 \u0279\u02c8\u028cn.",
+  "s4_09": "\u02cc\u028cnl\u02c8Ik h\u02c8ips\u0254\u0279ts h\u02c8ip, w\u02cc\u026a\u02a7 w\u028cz \u00f0\u0259 h\u02c8Ol f\u02c8Il, \u00f0\u026as w\u02c8\u028cn s\u02c8\u026ats \u026an m\u02c8\u025bm\u0259\u0279i \u00f0\u0259 h\u02c8Ol t\u02c8Im.",
+  "s4_10": "s\u02c8A \u0279\u02c8\u028cn \u03b8\u0279\u02c8i h\u00e6z \u00f0\u0259 sm\u02c8\u0254l\u1d7bst f\u0279\u02c8\u028cnt \u02c8IT\u0259m: \u026at m\u02c8uvz t\u0259 \u00f0i \u02c8Wtp\u02cc\u028at.",
+  "s4_11": "w\u02cc\u025bn \u00f0i \u02c8Wtp\u02cc\u028at f\u02c8\u026alz, \u00f0\u02c8\u00e6t bl\u02c8\u0251k \u0261\u02c8Oz t\u0259 d\u02c8\u026ask.",
+  "s4_12": "w\u02cc\u025bn \u0279\u02c8\u028cn \u03b8\u0279\u02c8i \u0279\u02c8\u028cnz d\u0279\u02c8I, \u026ats n\u02c8\u025bkst bl\u02c8\u0251k k\u02c8\u028cmz \u02c8\u026an f\u0279\u028cm d\u02c8\u026ask.",
+  "s4_13": "\u02c8\u025bv\u0259\u0279i bl\u02c8\u0251k \u026az st\u02c8\u026al \u0279\u02c8\u025bd w\u02c8\u028cns \u00e6nd \u0279\u02c8\u026atn w\u02c8\u028cns.",
+  "s4_14": "s\u02ccO \u00e6z l\u02c8\u0254\u014b \u00e6z m\u02c8\u025bm\u0259\u0279i h\u00e6z \u0250 bl\u02c8\u0251k f\u0254\u0279 \u02c8\u025bv\u0259\u0279i \u0279\u02c8\u028cn, pl\u02c8\u028cs w\u02c8\u028cn f\u0254\u0279 \u00f0i \u02c8Wtp\u02cc\u028at, \u00f0\u0259 m\u02c8\u025c\u0279\u02a4 h\u02c8\u00e6p\u0259nz \u026an \u0250 s\u02c8\u026a\u014b\u0261\u1d4al p\u02c8\u00e6s.",
+  "s4_15": "\u00f0\u02c8\u00e6t f\u02c8Oldz \u00f0\u0259 f\u02c8\u0254\u0279 m\u02c8\u025c\u0279\u02a4 p\u02c8\u00e6s\u1d7bz \u02c8\u026antu w\u02c8\u028cn.",
+  "s4_16": "\u02c8\u00e6d \u00f0\u0259 p\u02c8\u00e6s \u00f0\u00e6t m\u02ccAd \u00f0\u0259 \u0279\u02c8\u028cnz, \u00e6nd \u02ccAt\u02c8in p\u02c8\u00e6s\u1d7bz h\u00e6v b\u0259k\u02c8\u028cm t\u02c8u.",
+  "s4_17": "s\u02c8\u0254\u0279t m\u02c8\u025bm\u0259\u0279is\u02ccIzd \u0279\u02c8\u028cnz, \u00f0\u02c8\u025bn m\u02c8\u025c\u0279\u02a4 \u00f0\u02cc\u025bm f\u0279\u028cm d\u02c8\u026ask: \u00f0\u02c8\u00e6ts \u026akst\u02c8\u025c\u0279n\u1d4al m\u02c8\u025c\u0279\u02a4 s\u02c8\u0254\u0279t.",
+  "s4_18": "m\u02c8\u025c\u0279\u02a4\u026a\u014b \u00e6z m\u02c8\u025bni \u0279\u02c8\u028cnz \u00e6t w\u02c8\u028cns \u00e6z m\u02c8\u025bm\u0259\u0279i \u0259l\u02c8Wz k\u02c8ips \u00f0\u0259 p\u02c8\u00e6s\u1d7bz t\u0259 \u0250 m\u02c8\u026an\u0259m\u0259m.",
+  "s4_19": "\u02cc\u026ats \u026a\u0261z\u02c8\u00e6ktli w\u02cc\u028ct s\u02c8\u0254\u0279t d\u02c8\u026ad \u00e6t \u00f0i \u02c8\u025bnd.",
+  "s4_20": "\u02cc\u026at \u0279\u02c8\u025bd \u02c8\u0254l tw\u02c8\u025blv \u0279\u02c8\u028cnz \u00e6t w\u02c8\u028cns w\u02ccIl \u00f0\u0259 s\u02c8\u0254\u0279T\u1d7bd f\u02c8Il \u0261\u0279\u02c8u, \u00e6nd \u00f0\u02c8\u025bn d\u0259l\u02c8iT\u1d7bd \u00f0\u02cc\u025bm.",
+  "s5_01": "\u02ccW\u0259\u0279 f\u02c8Il n\u02c8id\u1d7bd \u02c8Onli tw\u02c8\u025blv \u0279\u02c8\u028cnz, \u00e6nd \u0261\u0259n\u02c8u s\u02c8\u0254\u0279t m\u02c8\u025c\u0279\u02a4\u1d7bz \u02cc\u028cp t\u0259 s\u02cc\u026akst\u02c8in \u00e6t \u0250 t\u02c8Im bI d\u0259f\u02c8\u0254lt, \u0250 k\u02c8\u0254\u0283\u0259s s\u02c8\u025bT\u026a\u014b \u00f0\u00e6t t\u0279\u02c8Adz s\u02cc\u028cm sp\u02c8id f\u0254\u0279 l\u02c8\u025bs m\u02c8\u025bm\u0259\u0279i.",
+  "s5_02": "\u00f0\u02c8\u00e6t w\u028cz pl\u02c8\u025bnti f\u0254\u0279 tw\u02c8\u025blv.",
+  "s5_03": "b\u02cc\u028ct h\u02ccW m\u02c8\u025bni \u0279\u02c8\u028cnz k\u028ad w\u02c8\u028cn m\u02c8\u025c\u0279\u02a4 t\u02c8Ak?",
+  "s5_04": "w\u02c8\u028cn p\u025c\u0279 bl\u02c8\u0251k \u028cv m\u02c8\u025bm\u0259\u0279i, l\u02c8\u025bs w\u02c8\u028cn f\u0254\u0279 \u00f0i \u02c8Wtp\u02cc\u028at.",
+  "s5_05": "\u0279\u02c8i\u1d4al s\u02c8\u0254\u0279T\u026a\u014b p\u0279\u02c8O\u0261\u0279\u02cc\u00e6mz \u0279\u02c8id m\u02c8\u028c\u02a7 b\u02c8\u026a\u0261\u0259\u0279 bl\u02c8\u0251ks \u00f0\u0259n \u02ccW\u0259\u0279 s\u02cc\u026amj\u0259l\u02c8A\u0283\u0259n d\u02c8\u026ad, \u02c8\u0254f\u1d4an \u0250 m\u02c8\u025b\u0261\u0259b\u02ccIt, t\u0259 k\u02c8\u028ct d\u02ccWn \u02cc\u0254n f\u02c8\u025b\u02a7\u1d7bz, \u00e6nd \u0250 l\u02c8\u00e6pt\u02cc\u0251ps m\u02c8\u025bm\u0259\u0279i st\u02c8\u026al h\u02c8Oldz \u0259b\u02c8Wt s\u02cc\u026akst\u02c8in \u03b8\u02c8Wz\u1d4and \u028cv \u00f0\u02c8Oz.",
+  "s5_06": "\u0250 b\u02c8\u026a\u0261 \u026an\u02c8\u028cf f\u02c8Il n\u02c8idz \u02c8iv\u0259n m\u02c8\u0254\u0279 \u0279\u02c8\u028cnz \u00f0\u0259n \u00f0\u02c8\u00e6t, s\u02ccO \u026at t\u02c8Aks m\u02c8\u0254\u0279 \u00f0\u0259n w\u02c8\u028cn m\u02c8\u025c\u0279\u02a4 p\u02c8\u00e6s.",
+  "s5_07": "s\u02c8A \u0250 f\u02c8Il n\u02c8id\u1d7bd \u0250 h\u02c8\u028cnd\u0279\u0259d \u03b8\u02c8Wz\u1d4and \u0279\u02c8\u028cnz.",
+  "s5_08": "m\u02c8\u025c\u0279\u02a4\u026a\u014b s\u02cc\u026akst\u02c8in \u03b8\u02c8Wz\u1d4and \u00e6t \u0250 t\u02c8Im, w\u02c8\u028cn p\u02c8\u00e6s k\u02c8\u028cts \u00f0\u02cc\u025bm t\u0259 s\u02c8\u025bv\u0259n.",
+  "s5_09": "w\u02c8\u028cn m\u02c8\u0254\u0279 p\u02c8\u00e6s m\u02ccAks \u00f0\u02cc\u025bm w\u02c8\u028cn f\u02c8Il.",
+  "s5_10": "s\u02ccO \u02c8i\u02a7 \u02c8\u025bkst\u0279\u0259 m\u02c8\u025c\u0279\u02a4 p\u02c8\u00e6s l\u02c8\u025bts \u00f0\u0259 f\u02c8Il \u0261\u0279\u02c8O bI \u00f0\u02c8\u00e6t s\u02c8Am f\u02c8\u00e6kt\u0259\u0279 \u028cv s\u02cc\u026akst\u02c8in \u03b8\u02c8Wz\u1d4and.",
+  "s5_11": "\u026an p\u0279\u02c8\u00e6kt\u0259s, \u02c8iv\u0259n \u026an\u02c8\u0254\u0279m\u0259s f\u02c8Ilz s\u02c8\u0254\u0279t \u026an t\u02c8u \u0254\u0279 \u03b8\u0279\u02c8i p\u02c8\u00e6s\u1d7bz.",
+  "s5_12": "\u00f0\u02c8\u00e6ts w\u02ccI d\u02c8\u00e6T\u0259b\u02ccAs\u1d7bz s\u02c8\u0254\u0279t \u00f0\u026as w\u02c8A.",
+  "s5_13": "\u02c8\u00e6sk p\u02c8Ost \u0261\u0279\u02c8\u025bs kj\u02c8u \u02c8\u025bl h\u02ccW \u026at \u0279\u02c8\u00e6n \u0250 kw\u02c8\u026a\u0279i \u00f0\u00e6t s\u02c8\u0254\u0279ts m\u02c8\u0254\u0279 \u00f0\u0259n f\u02c8\u026ats \u026an \u026ats m\u02c8\u025bm\u0259\u0279i, \u00e6nd \u026at \u0279\u0259p\u02c8\u0254\u0279ts \u0250n \u026akst\u02c8\u025c\u0279n\u1d4al m\u02c8\u025c\u0279\u02a4: \u00f0\u0259 s\u02c8Am \u0279\u02c8\u028cnz, \u00f0\u02c8\u025bn m\u02c8\u025c\u0279\u02a4\u1d7bz.",
+  "s6_01": "s\u02ccO, w\u02cc\u025bn d\u02c8AT\u0259 d\u02c8\u028cz\u1d4ant f\u02c8\u026at \u026an m\u02c8\u025bm\u0259\u0279i, k\u02c8Wnt \u02ccI\u02c8Oz, n\u02cc\u0251t k\u0259mp\u02c8\u025b\u0279\u0259s\u1d4anz.",
+  "s6_02": "w\u02c8\u025c\u0279k \u026an p\u02c8\u00e6s\u1d7bz \u00f0\u00e6t \u0279\u02c8id \u00e6nd \u0279\u02c8It \u026an \u02c8\u0254\u0279d\u0259\u0279, s\u02ccO \u02c8\u025bv\u0259\u0279i bl\u02c8\u0251k ju f\u02c8\u025b\u02a7 \u0261\u025bts j\u02c8uzd.",
+  "s6_03": "\u02cc\u00e6nd k\u02c8\u028ct \u00f0\u0259 p\u02c8\u00e6s\u1d7bz: m\u02ccAk \u0279\u02c8\u028cnz \u00e6z b\u02c8\u026a\u0261 \u00e6z m\u02c8\u025bm\u0259\u0279i, \u00f0\u02c8\u025bn m\u02c8\u025c\u0279\u02a4 \u00e6z m\u02c8\u025bni \u0279\u02c8\u028cnz \u00e6t w\u02c8\u028cns \u00e6z m\u02c8\u025bm\u0259\u0279i h\u00e6z bl\u02c8\u0251ks t\u0259 sp\u02c8\u025b\u0279.",
+  "s6_04": "p\u02c8I\u03b8\u02cc\u0251n t\u0279\u02c8Id t\u0259 h\u02c8Old \u00f0\u0259 h\u02c8Ol f\u02c8Il \u026an m\u02c8\u025bm\u0259\u0279i \u00e6t w\u02c8\u028cns.",
+  "s6_05": "s\u02c8\u0254\u0279t n\u02c8\u025bv\u0259\u0279 h\u02c8\u025bld m\u02c8\u0254\u0279 \u00f0\u0259n \u0250 m\u02c8\u025bm\u0259\u0279iz w\u02c8\u025c\u0279\u03b8.",
+  "s6_06": "\u00f0\u02c8\u00e6ts h\u02ccW s\u02c8\u0254\u0279t h\u02c8\u00e6nd\u0259ld \u0250 f\u02c8Il \u0259b\u02c8Wt tw\u02c8\u025blv t\u02c8Imz b\u02c8\u026a\u0261\u0259\u0279 \u00f0\u0259n \u026ats m\u02c8\u025bm\u0259\u0279i: tw\u02c8\u025blv \u0279\u02c8\u028cnz, w\u02c8\u028cn m\u02c8\u025c\u0279\u02a4, t\u02c8u p\u02c8\u00e6s\u1d7bz."
  },
- "peak": 0.6421976685523987
+ "peak": 0.7550870180130005
 }

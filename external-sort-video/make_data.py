@@ -108,7 +108,7 @@ def merge_events(runs, B):
 def toy():
     N, B, M = 48, 4, 16
     best = None
-    for seed in range(400):
+    for seed in range(4000):
         deck = list(range(1, N + 1))
         random.Random(seed).shuffle(deck)
         runs = [sorted(deck[i:i + M]) for i in range(0, N, M)]
@@ -120,7 +120,11 @@ def toy():
         switches = sum(a["run"] != b["run"] for a, b in zip(pops, pops[1:]))
         # teachable: the first output block mixes all three runs, the flush comes
         # before the first refill, and runs interleave a lot
-        if len(first4) == 3 and first_flush < first_refill:
+        refills = [e for e in ev if e["t"] == "refill"]
+        # the narration walks through run three: it has the smallest front item first,
+        # and it is the first run whose block runs dry
+        if (len(first4) == 3 and first_flush < first_refill and pops[0]["run"] == 2
+                and refills[0]["run"] == 2):
             score = switches
             if best is None or score > best[0]:
                 best = (score, seed, deck, runs, ev)

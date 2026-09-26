@@ -14,10 +14,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 HERE = Path(__file__).parent
-SCENES = [("s1", "s1_cold_open.py", "S1ColdOpen"), ("s2", "s2_wall.py", "S2Wall"),
-          ("s3", "s3_model.py", "S3Model"), ("s4", "s4_runs.py", "S4Runs"),
-          ("s5", "s5_merge.py", "S5Merge"), ("s6", "s6_passes.py", "S6Passes"),
-          ("s7", "s7_everywhere.py", "S7Everywhere"), ("s8", "s8_recap.py", "S8Recap")]
+SCENES = [(f"s{i}", f"v2_s{i}.py", f"V2S{i}") for i in range(1, 7)]
 OUT = HERE / "out"
 
 
