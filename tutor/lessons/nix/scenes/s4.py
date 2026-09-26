@@ -25,8 +25,8 @@ class S4(CueScene):
 
         # 02-03: one option of hello changes; new hash
         self.at("02")
-        opt = mono("doCheck = false", 17, AMBER).next_to(hello, LEFT, 0.3).shift(0.9 * UP)
-        oa = arrow(opt.get_bottom(), hello[0].get_top() + 0.6 * LEFT)
+        opt = mono("doCheck = false", 17, AMBER).next_to(hello, UP, 0.55)
+        oa = arrow(opt.get_bottom(), hello[0].get_top())
         self.play(FadeIn(opt), GrowArrow(oa), run_time=0.6)
         self.at("03")
         h2 = mono(split_path(demo_path("hello2"))[1][:8], 18, AMBER).move_to(hello[2])

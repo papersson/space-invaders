@@ -2,10 +2,10 @@ from nkit import *
 
 
 def generation(n, bins, x, y, color=INK):
-    r = RoundedRectangle(corner_radius=0.1, width=3.0, height=1.5, stroke_color=TRAY_EDGE, stroke_width=2,
+    r = RoundedRectangle(corner_radius=0.1, width=3.7, height=1.5, stroke_color=TRAY_EDGE, stroke_width=2,
                          fill_color=TRAY_FILL, fill_opacity=1).move_to([x, y, 0])
     t = mono(f"generation {n}", 17, color).move_to(r.get_top() + 0.3 * DOWN)
-    b = mono("bin: " + " ".join(bins), 14, MUTED).move_to(r.get_center() + 0.2 * DOWN)
+    b = mono("bin: " + " ".join(bins), 13, MUTED).move_to(r.get_center() + 0.2 * DOWN)
     return VGroup(r, t, b)
 
 
@@ -63,7 +63,7 @@ class S6(CueScene):
 
         # 10-11: old generations, and the garbage collector
         self.at("10")
-        stay = mono("old generations stay until you delete them", 16, MUTED).move_to([-2.6, 2.0, 0])
+        stay = mono("old generations stay until you delete them", 16, MUTED).move_to([-2.2, 2.85, 0])
         self.play(FadeOut(one), FadeIn(stay), run_time=0.5)
         self.at("11")
         gc = mono("then: garbage collector removes paths nothing uses", 16, AMBER).next_to(stay, DOWN, 0.15).align_to(stay, LEFT)

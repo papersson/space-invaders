@@ -1,6 +1,6 @@
 # Same Query, Different Plan
 
-Status: in review round 4
+Status: locked after review round 4
 
 ## Argument
 
@@ -29,7 +29,7 @@ Status: in review round 4
 6. But the estimate can be wrong: statistics are a snapshot. After the data changed, the planner expected 420,000 rows, found 294, and took 137 ms; after ANALYZE, 0.061 ms. No index was added.
 7. Therefore the answer.
 
-Deviation from the canonical progression: join order search (dynamic programming over subsets) and the cost model's formulas are left out; the research lists them as the textbook core, but the practitioner question is answered by scan choice, join method and estimates. Random versus sequential access is left out too: every run here has the data in memory, and the page count carries the argument. The declarative-vs-imperative contrast is kept short.
+Deviation from the canonical progression: join order search (dynamic programming over subsets) and the cost model's formulas are left out; the research lists them as the textbook core, but the practitioner question is answered by scan choice, join method and estimates. Merge join, PostgreSQL's third join method, is left out (a small caption in chapter 5 says so). Random versus sequential access is left out too: every run here has the data in memory, and the page count carries the argument. The declarative-vs-imperative contrast is kept short.
 
 ## Format
 
@@ -124,7 +124,7 @@ No length target: the length follows the argument (about 150 words per minute).
 > Force a nested loop for Oslo instead, and it takes two seconds: nearly three times as long.
 > Same query shape. A different plan, because a different number of rows match.
 
-*Screen:* two plans from data/runs.txt side by side. Tromsø: `Nested Loop` over `Seq Scan on customers (100 rows)` and `Bitmap Heap Scan on orders` per customer (100 loops, 13 rows each), "5.1 ms". Oslo: `Hash Join` of `Seq Scan on orders (2,000,000)` with `Hash` of `Seq Scan on customers (99,900)`, "1,998,654 rows · 721 ms". An animation of each: 100 small index lookups vs one hash table and a stream. Then "Oslo, nested loop forced: 2,024 ms" (coral).
+*Screen:* two plans from data/runs.txt side by side. Tromsø: `Nested Loop` over `Seq Scan on customers (100 rows)` and `Bitmap Heap Scan on orders` per customer (100 loops, 13 rows each), "5.1 ms". Oslo: `Hash Join` of `Seq Scan on orders (2,000,000)` ("Seq Scan = full scan") with `Hash` of `Seq Scan on customers (99,900)`, "1,998,654 rows · 721 ms". An animation of each: 100 small index lookups vs one hash table and a stream. Then "Oslo, nested loop forced: 2,024 ms" (coral). A small caption: "PostgreSQL has a third join method, merge join, not covered here".
 
 ### 6. When the estimate is wrong
 
@@ -159,6 +159,7 @@ No length target: the length follows the argument (about 150 words per minute).
 | The planner keeps statistics (row counts, most common values and their frequencies) and estimates rows and cost; picks the cheapest estimated plan | PostgreSQL docs §14.2 "Statistics Used by the Planner" and §51.5; Selinger et al. (1979) |
 | Cost is in arbitrary units, based mostly on pages and rows expected to be touched; costs are relative, not absolute times | PostgreSQL docs §14.1 and §19.7.2 (planner cost constants: seq_page_cost, random_page_cost, cpu_tuple_cost); Selinger (1979): "costs predicted … often not accurate in absolute value" |
 | Forced plans: 4242 with a full scan 72.0 ms; customer 1 with a full scan 135.6 ms (vs 135.4 ms for the planner's bitmap scan); Oslo with a nested loop 2,024 ms (vs 721 ms hash join) | data/runs.txt, parts 2, 3 and 4b (enable_indexscan, enable_bitmapscan, enable_hashjoin, enable_mergejoin set off for that query only) |
+| The planner's estimated costs for customer 4242: 132.23 for the bitmap scan plan, 37,739.18 for a forced full scan (total cost of the top Aggregate node) | data/runs.txt, parts 1 and 2 |
 | Nested loop for few matching rows, hash join for many | PostgreSQL docs §14.1 (join examples); Momjian, "Explaining the Postgres Query Optimizer"; data/runs.txt, part 4 |
 | Statistics are a snapshot refreshed by ANALYZE (and autovacuum); stale statistics can produce bad plans | PostgreSQL docs, ANALYZE and §24.1.3 "Updating Planner Statistics" |
 | Stale statistics: estimated 419,506 rows, 10 returned (294 matching), 1,398,620 rows removed by filter, 136.8 ms; after ANALYZE: estimated 327, 7 pages, 0.061 ms | data/runs.txt, parts 5 and 6 (orders_s is a copy of orders with autovacuum off, so its statistics stay stale) |
@@ -184,3 +185,8 @@ No length target: the length follows the argument (about 150 words per minute).
 - Expert: "each once" belongs to the bitmap scan, not to every index, so chapter 3 says only "the pages that hold them" and chapter 4 adds "sort them by page"; the caption says parallel query was off; the hook says "to execute", so the ratio isn't taken for end-to-end latency; "about five" and "about seven hundred" milliseconds; the bitmap scan's two plan nodes are explained ("one reads the index, the other reads the pages").
 - Editor: "cost" is paid off with the real costs for customer 4242 (about 130 for the index, about 38,000 for a full scan, in the planner's units); "Heap Blocks (pages)" and "Seq Scan (full scan)" are glossed on screen; "almost all of the hundred thousand" replaces 99,900; chapter 6 says the remaining orders are all at the very end before the 1.4 million.
 - Student: lost at "cost" (now shown with numbers) and at the order-number scan in chapter 6 (now explained).
+
+**Round 4:** expert PASS, editor PASS, student retold the question and answer correctly (lost "a few times"). The gate holds again after the final round's blocking fix, so the script is locked. Screen-only changes after the lock: "Seq Scan = full scan" beside the Oslo plan, a caption in chapter 5 naming merge join as a third join method not covered (also added to the deviations), and the planner's costs for customer 4242 added to the evidence table. Revision candidates, not applied (final-round SHOULD FIX items):
+- Expert: the recap's "a few matches get a nested loop; many get a hash join" reads as if there were only two join methods (merge join is the third); "for each way it could run the query" overstates plan enumeration (the planner prunes).
+- Editor: "parallel query off" and "planning excluded" are caption-only, never spoken; "full scan" and Seq Scan are never bridged aloud as "bitmap scan" is.
+- Student: lost in the join chapter's cluster of numbers and at the 1.4 million in chapter 6.

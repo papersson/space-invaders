@@ -1,0 +1,2 @@
+{"title": "Same Query, Different Plan", "version": "v1", "poster": ["s4_16", -0.2],
+ "description": "Why the same SQL query can take fifteen microseconds or 135 milliseconds: how PostgreSQL's planner uses statistics to choose scans and joins, and what stale statistics do."}

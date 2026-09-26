@@ -16,7 +16,7 @@ class S5(CueScene):
         # 01-03: Hello needs the C library; where is it?
         self.at("01")
         self.play(FadeIn(c), run_time=0.4)
-        hello = box("hello-2.12.1", -4.6, 1.8, w=3.0, color=INK)
+        hello = box("hello-2.12.1", -4.9, 1.8, w=3.0, color=INK)
         self.play(FadeIn(hello), run_time=0.4)
         self.at("02")
         need = mono("needs: the C library", 17, MUTED).next_to(hello, DOWN, 0.2)
@@ -40,12 +40,12 @@ class S5(CueScene):
         # 06-07: follow the references: the closure (real run)
         self.at("06")
         self.play(FadeOut(inside), FadeOut(scan), run_time=0.3)
-        pos = {"hello-2.12.1": (-4.6, 1.8), "glibc-2.40-66": (-1.1, 1.8), "libidn2-2.3.7": (2.4, 2.5),
-               "libunistring-1.2": (5.5, 2.5), "xgcc-13.3.0-libgcc": (2.4, 1.0)}
+        pos = {"hello-2.12.1": (-4.9, 1.8), "glibc-2.40-66": (-1.5, 1.8), "libidn2-2.3.7": (1.9, 2.5),
+               "libunistring-1.2": (4.9, 2.5), "xgcc-13.3.0-libgcc": (1.9, 1.0)}
         boxes = {"hello-2.12.1": hello}
         for k, (x, y) in pos.items():
             if k not in boxes:
-                boxes[k] = box(k, x, y, w=3.0 if "xgcc" not in k else 3.2, size=15)
+                boxes[k] = box(k, x, y, w=2.8 if "xgcc" not in k else 3.2, size=15)
         edges = []
         cur = None
         for line in REFS.splitlines()[1:]:

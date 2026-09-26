@@ -29,8 +29,11 @@ def store_path(p, size=18, hash_color=AMBER, color=INK, short=False):
     pre, h, name = split_path(p)
     if short:
         h = h[:8] + "…"
-    parts = VGroup(mono(pre, size, MUTED), mono(h, size, hash_color), mono(name, size, color))
-    parts.arrange(RIGHT, buff=0.02, aligned_edge=DOWN)
+    t = mono(pre + h + name, size, color)          # one text, so the three parts share a baseline
+    a, b = len(pre), len(pre) + len(h)
+    parts = VGroup(VGroup(*t[:a]), VGroup(*t[a:b]), VGroup(*t[b:]))
+    parts[0].set_color(MUTED)
+    parts[1].set_color(hash_color)
     return parts
 
 

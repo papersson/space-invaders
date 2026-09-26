@@ -33,7 +33,7 @@ class S1(CueScene):
         for i, (cue, text) in enumerate((("05", "same build, same result"), ("06", "versions side by side"),
                                          ("07", "roll back: a program or a machine"))):
             self.at(cue)
-            cd = box(text, -4.3 + 4.3 * i, -1.5, w=3.9, h=0.9, color=ICE, size=17)
+            cd = box(text, -4.55 + 4.55 * i, -1.5, w=4.4, h=0.9, color=ICE, size=14)
             cards.append(cd)
             self.play(FadeIn(cd, shift=0.2 * UP), run_time=0.5)
 

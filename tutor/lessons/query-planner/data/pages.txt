@@ -1,0 +1,21 @@
+=== block (page) number of each order of customer 4242: (ctid::text::point)[0]
+   id    | page  
+---------+-------
+     281 |     1
+  408596 |  2602
+  514031 |  3274
+  522971 |  3331
+  523500 |  3334
+  894059 |  5694
+  967798 |  6164
+ 1259810 |  8024
+ 1284121 |  8179
+ 1666640 | 10615
+(10 rows)
+
+=== pages holding at least one order of customer 1, out of all pages
+ pages_with_customer_1 | relpages 
+-----------------------+----------
+                 12739 |    12739
+(1 row)
+

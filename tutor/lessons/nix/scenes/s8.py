@@ -14,13 +14,14 @@ class S8(CueScene):
         al = mono("same inputs → same path", 16, GOOD).next_to(a, DOWN, 0.2)
         self.play(FadeIn(a), FadeIn(al), run_time=0.6)
         self.at("02")
-        diff = VGroup(mono("build 1:  … 2d 00 32 30 32 35 2d 30 33 …", 16, INK),
-                      mono("build 2:  … 2d 00 32 30 32 36 2d 31 31 …", 16, INK)).arrange(DOWN, buff=0.15, aligned_edge=LEFT)
+        def row(n, same, diff_bytes):
+            return VGroup(mono(f"build {n}:  … {same}", 16, INK), mono(diff_bytes, 16, BAD), mono("…", 16, INK)).arrange(RIGHT, buff=0.18)
+        diff = VGroup(row(1, "2d 00 32 30 32", "35 2d 30 33"), row(2, "2d 00 32 30 32", "36 2d 31 31")).arrange(DOWN, buff=0.15, aligned_edge=LEFT)
         diff.move_to([0, 0.4, 0])
-        ill = mono("illustration", 13, MUTED).next_to(diff, UP, 0.12).align_to(diff, RIGHT)
+        ill = mono("illustration", 13, MUTED).next_to(diff, UP, 0.12).align_to(diff, LEFT)
         self.play(FadeIn(diff), FadeIn(ill), run_time=0.6)
         self.at("03")
-        mark = SurroundingRectangle(VGroup(diff[0][0][27:], diff[1][0][27:]), buff=0.06, color=BAD, stroke_width=2)
+        mark = SurroundingRectangle(VGroup(diff[0][1], diff[1][1]), buff=0.08, color=BAD, stroke_width=2)
         dl = mono("a timestamp baked in: same path, different bytes", 16, BAD).next_to(diff, DOWN, 0.3)
         self.play(Create(mark), FadeIn(dl), run_time=0.6)
 
