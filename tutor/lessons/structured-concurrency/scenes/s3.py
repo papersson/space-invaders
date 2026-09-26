@@ -45,7 +45,14 @@ class S3(CueScene):
         ret = tl.vline(t_ret, "gather passes the error on")
         self.play(Create(ret[0]), FadeIn(ret[1]), run_time=0.4)
         def qline(*parts):
-            return VGroup(*[mono(s, 15, c) for s, c in parts]).arrange(RIGHT, buff=0.0, aligned_edge=DOWN)
+            # one Text, so the spaces at the colour boundaries survive; its glyphs skip whitespace
+            t = mono("".join(s for s, _ in parts), 15, INK)
+            i = 0
+            for s, c in parts:
+                n = len("".join(s.split()))
+                t[i:i + n].set_color(c)
+                i += n
+            return t
         q1 = VGroup(mono("Python docs, asyncio.gather:", 13, MUTED),
                     qline(("\u201cIf return_exceptions is False (default), the first raised exception is", INK)),
                     qline(("immediately propagated", AMBER), (" to the task that awaits on gather().", INK))).arrange(DOWN, buff=0.06, aligned_edge=LEFT)

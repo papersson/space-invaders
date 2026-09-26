@@ -63,7 +63,8 @@ class S8(CueScene):
         refs = VGroup(T("Further reading", 17, MUTED, weight=MEDIUM),
                       T("Smith, \"Notes on structured concurrency, or: Go statement considered harmful\" (2018) · Sústrik, \"Structured Concurrency\" (2016)", 15, MUTED),
                       T("Dijkstra, \"Go To Statement Considered Harmful\" (title by the editor, Niklaus Wirth), CACM (1968)", 15, MUTED),
-                      T("Python documentation, \"Coroutines and Tasks\": Task Groups · JEP 533 (seventh preview, JDK 27), JEP 543 (candidate): Structured Concurrency", 15, MUTED),
+                      T("Python documentation, \"Coroutines and Tasks\": Task Groups", 15, MUTED),
+                      T("JEP 533, Structured Concurrency (seventh preview, JDK 27) · JEP 543 (candidate, proposes to finalize it)", 15, MUTED),
                       T("Kotlin documentation, \"Composing suspending functions\" · SE-0304, Structured concurrency (Swift)", 15, MUTED))
         refs.arrange(DOWN, buff=0.1).next_to(s1b, DOWN, 0.7)
         self.play(FadeIn(name), FadeIn(s1), FadeIn(s1b), run_time=0.7)

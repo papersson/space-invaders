@@ -52,13 +52,13 @@ class S1(CueScene):
         # 09-10: had it failed (a second real run, gather_late), its error goes nowhere
         self.at("09")
         t_late = when("gather_late", "fetch_user", "raises")
-        second = mono(f"a second run, where fetch_user fails at {t_late:.2f} s:", 14, MUTED).move_to([tl.X(0.72), tl.ys["fetch_user"] + 0.95, 0])
+        second = mono(f"a second run: fetch_user fails at {t_late:.2f} s", 14, MUTED).move_to([tl.X(0.78), tl.ys["fetch_user"] + 0.95, 0])
         x = tl.cross("fetch_user", t_late)
         te = mono("TimeoutError", 15, BAD).next_to(x, UP, 0.12)
         self.play(FadeIn(second), FadeIn(x), FadeIn(te), run_time=0.5)
         self.at("10")
-        void = Circle(radius=0.16, stroke_color=BAD, stroke_width=2.5).move_to([tl.X(1.33), tl.ys["fetch_user"] + 0.95, 0])
-        vl = mono("not raised · not logged", 14, BAD).next_to(void, DOWN, 0.1)
+        void = Circle(radius=0.16, stroke_color=BAD, stroke_width=2.5).move_to([tl.X(1.33), tl.ys["fetch_user"] + 0.85, 0])
+        vl = mono("not raised · not logged", 14, BAD).next_to(void, UP, 0.1)
         ar = Arrow(te.get_right(), void.get_left(), buff=0.08, color=BAD, stroke_width=2.5, tip_length=0.14)
         self.play(GrowArrow(ar), Create(void), FadeIn(vl), run_time=0.6)
 
