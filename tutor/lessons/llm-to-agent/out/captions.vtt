@@ -1,376 +1,376 @@
 WEBVTT
 
-00:00:00.800 --> 00:00:05.690
+00:00:00.800 --> 00:00:03.960
 In late 2022, ChatGPT arrived.
 
-00:00:05.500 --> 00:00:07.520
+00:00:04.120 --> 00:00:06.130
 You typed a message, and it wrote back.
 
-00:00:07.980 --> 00:00:10.090
+00:00:06.260 --> 00:00:07.910
 It could talk, and that was all.
 
-00:00:10.940 --> 00:00:13.670
+00:00:08.760 --> 00:00:11.380
 Now there are AI agents that do things.
 
-00:00:13.850 --> 00:00:20.650
+00:00:11.670 --> 00:00:17.900
 Give one a bug in some code, and it reads the files, runs the tests that check the code, and fixes the bug.
 
-00:00:20.900 --> 00:00:24.470
+00:00:18.150 --> 00:00:21.500
 Underneath, it's the same kind of model as the one in the chat.
 
-00:00:24.590 --> 00:00:27.030
+00:00:21.730 --> 00:00:24.040
 And a model like that only writes text.
 
-00:00:27.880 --> 00:00:29.740
+00:00:24.890 --> 00:00:26.440
 So what sits in between?
 
-00:00:29.930 --> 00:00:34.690
+00:00:26.600 --> 00:00:30.620
 How do you get from a model that writes text, to an agent that fixes a bug?
 
-00:00:37.140 --> 00:00:38.430
+00:00:33.070 --> 00:00:34.190
 Start with the model.
 
-00:00:38.550 --> 00:00:48.050
+00:00:34.490 --> 00:00:42.190
 It's called an LLM, a large language model, and it does one thing: it predicts the next word, or sometimes a piece of a word.
 
-00:00:48.700 --> 00:00:53.920
+00:00:42.840 --> 00:00:46.630
 Give a small, freely available model the words "I made a cup of".
 
-00:00:54.200 --> 00:00:56.990
+00:00:46.830 --> 00:00:49.110
 It gives every word it knows a probability.
 
-00:00:57.710 --> 00:01:00.320
+00:00:49.340 --> 00:00:51.220
 "Tea" gets thirty-one percent.
 
-00:01:00.570 --> 00:01:02.440
+00:00:51.500 --> 00:00:53.070
 "Coffee", nineteen.
 
-00:01:02.900 --> 00:01:04.720
+00:00:53.160 --> 00:00:55.060
 Everything else is far behind.
 
-00:01:05.970 --> 00:01:09.690
+00:00:56.310 --> 00:00:59.010
 Pick one of the likely words, and add it to the text.
 
-00:01:09.810 --> 00:01:15.110
+00:00:59.170 --> 00:01:02.080
 Then predict again: "tea", then "and", then "I".
 
-00:01:16.700 --> 00:01:20.170
+00:01:03.420 --> 00:01:05.460
 Over and over, one word at a time.
 
-00:01:20.270 --> 00:01:23.250
+00:01:05.710 --> 00:01:07.930
 That's all writing is, for an LLM.
 
-00:01:24.100 --> 00:01:26.320
+00:01:08.780 --> 00:01:10.940
 It works only from the text in front of it.
 
-00:01:26.730 --> 00:01:28.780
+00:01:11.190 --> 00:01:13.330
 That text is called its context.
 
-00:01:29.090 --> 00:01:31.990
+00:01:13.520 --> 00:01:16.440
 The model keeps no memory from one use to the next.
 
-00:01:32.840 --> 00:01:34.620
+00:01:17.290 --> 00:01:19.070
 So keep two facts in mind.
 
-00:01:34.920 --> 00:01:37.200
+00:01:19.240 --> 00:01:21.750
 What comes out of an LLM is text.
 
-00:01:37.580 --> 00:01:39.050
+00:01:21.870 --> 00:01:23.570
 It learned a lot in training.
 
-00:01:39.490 --> 00:01:42.840
+00:01:23.810 --> 00:01:27.200
 But about your task, it knows only what's in its context.
 
-00:01:44.990 --> 00:01:46.020
+00:01:29.350 --> 00:01:30.420
 Here's a task.
 
-00:01:46.130 --> 00:01:50.600
+00:01:30.490 --> 00:01:34.570
 A small shop's billing code stops with an error: no price for "gadget".
 
-00:01:51.450 --> 00:01:54.460
+00:01:35.420 --> 00:01:38.220
 You might picture the model reaching into the files itself.
 
-00:01:54.590 --> 00:02:01.450
+00:01:38.460 --> 00:01:45.350
 So ask a model on its own to fix it: not the small one, but a large model, like the ones behind chat assistants.
 
-00:02:01.560 --> 00:02:07.620
+00:01:45.660 --> 00:01:51.300
 In one try, it wrote that it would explore the project, and even wrote out a request to run a command.
 
-00:02:07.860 --> 00:02:12.050
+00:01:51.580 --> 00:01:55.300
 But nothing was there to carry it out, and the tests still failed.
 
-00:02:13.500 --> 00:02:16.700
+00:01:56.750 --> 00:01:59.000
 Text on its own doesn't do anything.
 
-00:02:16.890 --> 00:02:20.640
+00:01:59.230 --> 00:02:02.550
 So put a program next to the model, to watch what it writes.
 
-00:02:20.890 --> 00:02:26.210
+00:02:02.800 --> 00:02:06.960
 Then give the model a format for requests, described at the top of its context.
 
-00:02:27.200 --> 00:02:30.270
+00:02:07.990 --> 00:02:10.850
 A line that starts "search:", then some words.
 
-00:02:30.460 --> 00:02:33.690
+00:02:10.930 --> 00:02:13.530
 Or "open file:", then a file name.
 
-00:02:33.720 --> 00:02:37.870
+00:02:13.830 --> 00:02:17.520
 Real agents use a stricter format, but the idea is the same.
 
-00:02:38.520 --> 00:02:42.260
+00:02:18.170 --> 00:02:21.610
 Now the model writes a line: search, "no price for".
 
-00:02:42.440 --> 00:02:47.250
+00:02:21.860 --> 00:02:26.180
 The program spots the request, and searches the project's files for those words.
 
-00:02:48.700 --> 00:02:56.890
+00:02:27.630 --> 00:02:34.340
 Each thing the program can do for the model is called a tool: search, open a file, edit a file, run the tests.
 
-00:02:57.940 --> 00:02:59.839
+00:02:35.390 --> 00:02:37.050
 Notice who did the searching.
 
-00:03:00.069 --> 00:03:02.069
+00:02:37.170 --> 00:02:39.360
 The model only wrote a line of text.
 
-00:03:02.399 --> 00:03:03.729
+00:02:39.400 --> 00:02:40.800
 The program did the work.
 
-00:03:05.679 --> 00:03:06.989
+00:02:42.750 --> 00:02:44.190
 The search found something.
 
-00:03:07.099 --> 00:03:08.539
+00:02:44.240 --> 00:02:45.770
 But the model can't see it.
 
-00:03:08.699 --> 00:03:11.629
+00:02:45.890 --> 00:02:48.820
 Remember: it knows only what's in its context.
 
-00:03:11.879 --> 00:03:15.639
+00:02:49.070 --> 00:02:52.000
 So the program pastes the result into the context.
 
-00:03:15.829 --> 00:03:21.299
+00:02:52.280 --> 00:02:56.320
 One match: line eight of a file called prices.py.
 
-00:03:22.399 --> 00:03:27.389
+00:02:57.060 --> 00:03:01.920
 Then it runs the model again, on the whole context, because the model remembers nothing.
 
-00:03:28.439 --> 00:03:31.059
+00:03:02.970 --> 00:03:05.820
 Now the model continues with the result in view.
 
-00:03:31.379 --> 00:03:35.339
+00:03:06.060 --> 00:03:09.530
 It knows something it couldn't have known before: where the error comes from.
 
-00:03:35.569 --> 00:03:38.849
+00:03:09.690 --> 00:03:12.900
 So it writes its next request: open that file.
 
-00:03:39.899 --> 00:03:41.749
+00:03:13.950 --> 00:03:15.800
 You've probably seen this already.
 
-00:03:41.869 --> 00:03:46.289
+00:03:16.040 --> 00:03:20.160
 In 2023, the popular chat assistants started searching the web.
 
-00:03:46.419 --> 00:03:47.509
+00:03:20.420 --> 00:03:21.680
 It's the same trick.
 
-00:03:47.919 --> 00:03:53.829
+00:03:21.950 --> 00:03:27.170
 The model writes a search, a program runs it, and the results are pasted into the context.
 
-00:03:54.699 --> 00:03:58.219
+00:03:27.420 --> 00:03:30.410
 Then the model answers, with those pages in view.
 
-00:04:00.369 --> 00:04:02.019
+00:03:32.560 --> 00:03:34.190
 One step won't fix a bug.
 
-00:04:02.129 --> 00:04:03.129
+00:03:34.190 --> 00:03:35.180
 So repeat.
 
-00:04:03.239 --> 00:04:08.679
+00:03:35.400 --> 00:03:40.390
 The model writes a request, the program carries it out, and the result goes into the context.
 
-00:04:08.929 --> 00:04:09.709
+00:03:40.550 --> 00:03:41.420
 Then again.
 
-00:04:10.759 --> 00:04:14.319
+00:03:42.470 --> 00:03:46.020
 This goes on until the model writes a reply with no request in it.
 
-00:04:14.389 --> 00:04:16.829
+00:03:46.340 --> 00:03:48.600
 That's its answer, and the loop stops.
 
-00:04:17.679 --> 00:04:22.359
+00:03:49.450 --> 00:03:53.600
 A model working in a loop like this, using tools, is called an agent.
 
-00:04:23.609 --> 00:04:25.259
+00:03:54.850 --> 00:03:56.580
 Here's how the whole run went.
 
-00:04:25.229 --> 00:04:31.299
+00:03:56.880 --> 00:04:02.830
 After the search and the file you've seen, it searches for where that code is used, and opens that file too.
 
-00:04:32.349 --> 00:04:36.209
+00:04:03.880 --> 00:04:06.700
 The price list spells it "Gadget", with a capital G.
 
-00:04:36.529 --> 00:04:41.839
+00:04:06.450 --> 00:04:09.710
 So it edits the lookup: now "gadget" finds "Gadget".
 
-00:04:42.819 --> 00:04:44.769
+00:04:10.470 --> 00:04:11.990
 Then it runs the tests.
 
-00:04:45.019 --> 00:04:45.839
+00:04:12.240 --> 00:04:13.080
 They fail.
 
-00:04:45.969 --> 00:04:48.099
+00:04:13.050 --> 00:04:15.140
 Ben's bill should come to thirty-seven.
 
-00:04:48.219 --> 00:04:50.019
+00:04:15.270 --> 00:04:17.090
 It comes to thirty-nine fifty.
 
-00:04:51.469 --> 00:04:56.469
+00:04:18.540 --> 00:04:23.820
 That failure goes into the context, like any other result, and it changes the next step.
 
-00:04:57.089 --> 00:05:01.469
+00:04:24.490 --> 00:04:28.680
 The model looks at the test and at Ben's orders, and finds a second mistake.
 
-00:05:03.439 --> 00:05:06.799
+00:04:30.560 --> 00:04:33.570
 The bulk discount only kicked in at eleven items.
 
-00:05:07.099 --> 00:05:08.759
+00:04:33.750 --> 00:04:35.110
 It should start at ten.
 
-00:05:09.809 --> 00:05:12.779
+00:04:36.160 --> 00:04:38.340
 It edits that, and runs the tests again.
 
-00:05:13.079 --> 00:05:14.459
+00:04:38.440 --> 00:04:39.780
 This time they pass.
 
-00:05:15.619 --> 00:05:18.479
+00:04:40.490 --> 00:04:42.610
 It writes its answer, and the loop stops.
 
-00:05:19.729 --> 00:05:21.309
+00:04:43.860 --> 00:04:45.370
 That was twelve requests.
 
-00:05:21.419 --> 00:05:23.599
+00:04:45.440 --> 00:04:47.430
 Nobody wrote them down in advance.
 
-00:05:23.699 --> 00:05:26.279
+00:04:47.610 --> 00:04:50.010
 Each one followed from the results before it.
 
-00:05:28.429 --> 00:05:33.069
+00:04:52.160 --> 00:04:56.450
 If the loop is that simple, why did agents only start working recently?
 
-00:05:33.319 --> 00:05:35.779
+00:04:56.700 --> 00:04:58.790
 People tried, in 2023.
 
-00:05:35.959 --> 00:05:41.889
+00:04:59.080 --> 00:05:04.620
 They ran models in loops like this one, and the loops often got stuck, going round in circles.
 
-00:05:42.939 --> 00:05:46.659
+00:05:05.670 --> 00:05:08.440
 Part of the problem is that small mistakes add up.
 
-00:05:47.109 --> 00:05:54.289
+00:05:08.650 --> 00:05:14.600
 Say each step goes right ninety-five times in a hundred, whatever happened before, and nothing catches a mistake.
 
-00:05:55.169 --> 00:05:56.839
+00:05:15.400 --> 00:05:16.730
 Start a hundred runs.
 
-00:05:56.899 --> 00:05:59.529
+00:05:16.750 --> 00:05:18.940
 About ninety-five get the first step right.
 
-00:05:59.689 --> 00:06:04.359
+00:05:19.190 --> 00:05:23.520
 Of those, ninety-five percent get the second step right too: about ninety.
 
-00:06:04.399 --> 00:06:07.959
+00:05:23.700 --> 00:05:27.250
 Every step keeps ninety-five percent of the runs still on track.
 
-00:06:09.429 --> 00:06:12.439
+00:05:28.740 --> 00:05:31.881
 After twenty steps, that's about thirty-six of the hundred.
 
-00:06:13.239 --> 00:06:14.209
+00:05:32.621 --> 00:05:33.581
 About a third.
 
-00:06:15.459 --> 00:06:16.799
+00:05:34.831 --> 00:05:36.281
 Three things changed.
 
-00:06:16.929 --> 00:06:22.269
+00:05:36.490 --> 00:05:41.380
 First, models were trained to work in this loop, so each step became more reliable.
 
-00:06:22.449 --> 00:06:25.499
+00:05:41.660 --> 00:05:44.940
 Suppose that lifts each step to ninety-nine in a hundred.
 
-00:06:25.719 --> 00:06:31.939
+00:05:45.190 --> 00:05:50.620
 Then about eighty-two of the hundred runs get all twenty steps right: about four in five.
 
-00:06:33.689 --> 00:06:37.779
+00:05:52.370 --> 00:05:55.130
 Second, tasks like coding come with feedback.
 
-00:06:39.059 --> 00:06:44.789
+00:05:55.410 --> 00:06:00.470
 A failing test catches a mistake, as it caught the discount, and the next step can fix it.
 
-00:06:45.839 --> 00:06:51.029
+00:06:01.520 --> 00:06:06.390
 Third, agents find what they need by searching, step by step, as that run did.
 
-00:06:51.299 --> 00:06:54.459
+00:06:06.690 --> 00:06:09.550
 Claude Code, a coding agent, works that way.
 
-00:06:54.499 --> 00:06:58.389
+00:06:09.830 --> 00:06:13.670
 Its developers first tried building an index of the code in advance.
 
-00:06:58.649 --> 00:07:02.659
+00:06:13.880 --> 00:06:17.180
 But code keeps changing, and an index goes out of date.
 
-00:07:03.059 --> 00:07:05.299
+00:06:17.420 --> 00:06:19.190
 They've said searching worked better.
 
-00:07:07.449 --> 00:07:09.299
+00:06:21.340 --> 00:06:23.230
 Now put names on the whole picture.
 
-00:07:09.549 --> 00:07:12.089
+00:06:23.480 --> 00:06:25.331
 The LLM is the model.
 
-00:07:12.259 --> 00:07:15.329
+00:06:25.531 --> 00:06:27.711
 Everything around it is called the harness.
 
-00:07:16.579 --> 00:07:20.159
+00:06:28.961 --> 00:06:32.611
 The harness writes the starting instructions, with the request format.
 
-00:07:20.329 --> 00:07:25.579
+00:06:33.001 --> 00:06:37.931
 It holds the tools, and the program that carries out each request, and it runs the loop.
 
-00:07:26.629 --> 00:07:28.949
+00:06:38.981 --> 00:06:41.131
 A real harness does two more things.
 
-00:07:29.029 --> 00:07:34.939
+00:06:41.291 --> 00:06:46.881
 Before an edit, like the one to the price lookup, it can check permission, sometimes by asking you.
 
-00:07:35.869 --> 00:07:40.989
+00:06:47.741 --> 00:06:52.471
 And every result makes the context longer, but a context can only hold so much.
 
-00:07:41.269 --> 00:07:47.679
+00:06:52.811 --> 00:06:58.371
 When it fills up, the harness trims it, by dropping old results or summarizing older steps.
 
-00:07:48.929 --> 00:07:53.439
+00:06:59.621 --> 00:07:02.381
 So an agent is an LLM plus a harness.
 
-00:07:54.889 --> 00:08:01.519
+00:07:03.831 --> 00:07:08.511
 That's five words to keep: LLM, context, tool, harness, and agent.
 
-00:08:06.469 --> 00:08:12.409
+00:07:13.461 --> 00:07:18.221
 So, how do you get from a model that only writes text to an agent that fixes a bug?
 
-00:08:12.659 --> 00:08:14.489
+00:07:18.471 --> 00:07:20.181
 The model still does one thing.
 
-00:08:14.469 --> 00:08:17.159
+00:07:20.301 --> 00:07:22.611
 It predicts the next word, one at a time.
 
-00:08:17.409 --> 00:08:22.839
+00:07:22.861 --> 00:07:28.371
 The harness turns some of that text into actions, and pastes the results back into the context.
 
-00:08:23.109 --> 00:08:25.859
+00:07:28.621 --> 00:07:31.551
 And the loop turns single steps into a whole job.
 
-00:08:26.909 --> 00:08:30.869
+00:07:32.601 --> 00:07:35.771
 ChatGPT in 2022 could only talk.
 
-00:08:31.279 --> 00:08:32.849
+00:07:35.941 --> 00:07:37.720
 An agent is still talking.
 
-00:08:33.189 --> 00:08:40.959
+00:07:37.980 --> 00:07:43.310
 The difference is the harness: a program that listens to what the model writes, and acts on it.
