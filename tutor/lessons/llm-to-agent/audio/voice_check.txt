@@ -1,0 +1,127 @@
+s1_01 1.00  heard: In late 2022, Chat GPT arrived.
+s1_02 1.00  heard: You typed a message and it wrote back.
+s1_03 1.00  heard: It could talk, and that was all.
+s1_04 1.00  heard: Now there are AI agents that do things.
+s1_05 1.00  heard: Give one a bug in some code and it reads the files, runs the tests that check the code, and fixes the bug.
+s1_06 1.00  heard: Underneath, it's the same kind of model as the one in the chat.
+s1_07 1.00  heard: and a model like that only writes text.
+s1_08 1.00  heard: So what sits in between?
+s1_09 1.00  heard: How do you get from a model that writes text to an agent that fixes a bug?
+s2_01 1.00  heard: Start with the model.
+s2_02 1.00  heard: It's called an LLM, a Large Language Model, and it does one thing. It predicts the next word, or sometimes a piece of a word.
+s2_03 1.00  heard: Give a small, freely available model the words I made a cup of.
+s2_04 1.00  heard: It gives every word it knows a probability.
+s2_05 0.95  heard: T gets 31 percent.
+s2_06 1.00  heard: Coffee 19
+s2_07 1.00  heard: Everything else is far behind.
+s2_08 1.00  heard: Pick one of the likely words and add it to the text.
+s2_09 0.97  heard: Then predict again, T then and then I.
+s2_10 1.00  heard: Over and over, one word at a time.
+s2_11 1.00  heard: That's all writing is for an LLM.
+s2_12 1.00  heard: It works only from the text in front of it.
+s2_13 1.00  heard: That text is called its context.
+s2_14 1.00  heard: The model keeps no memory from one use to the next.
+s2_15 1.00  heard: So keep two facts in mind.
+s2_16 1.00  heard: What comes out of an LLM is text.
+s2_17 1.00  heard: It learned a lot in training.
+s2_18 1.00  heard: But about your task, it knows only what's in its context.
+s3_01 1.00  heard: Here's a task.
+s3_02 1.00  heard: A small shop's billing code stops with an error, no price for gadget.
+s3_03 1.00  heard: You might picture the model reaching into the files itself.
+s3_04 0.98  heard: So ask a model on its own to fix it. Not the small one, but a large model, like the ones behind Chat Assistance.
+s3_05 1.00  heard: In one try, it wrote that it would explore the project and even wrote out a request to run a command.
+s3_06 1.00  heard: But nothing was there to carry it out, and the tests still failed.
+s3_07 1.00  heard: Text on its own doesn't do anything.
+s3_08 1.00  heard: So put a program next to the model to watch what it writes.
+s3_09 1.00  heard: Then give the model a format for requests described at the top of its context.
+s3_10 1.00  heard: A line that starts search, then some words.
+s3_11 1.00  heard: or open file, then a file name.
+s3_12 1.00  heard: Real agents use a stricter format, but the idea is the same.
+s3_13 1.00  heard: Now the model writes a line, search, no price for.
+s3_14 1.00  heard: The program spots the request and searches the project's files for those words.
+s3_15 1.00  heard: Each thing the program can do for the model is called a tool. Search, open a file, edit a file, run the tests.
+s3_16 1.00  heard: Notice who did the searching.
+s3_17 1.00  heard: The model only wrote a line of text.
+s3_18 1.00  heard: The program did the work.
+s4_01 1.00  heard: The search found something.
+s4_02 1.00  heard: But the model can't see it.
+s4_03 1.00  heard: Remember, it knows only what's in its context.
+s4_04 1.00  heard: So the program pastes the result into the context.
+s4_05 0.96  heard: One match line eight of a file called prices.py
+s4_06 1.00  heard: Then it runs the model again, on the whole context, because the model remembers nothing.
+s4_07 1.00  heard: Now the model continues with the result in view.
+s4_08 1.00  heard: It knows something it couldn't have known before, where the error comes from.
+s4_09 1.00  heard: So it writes its next request, open that file.
+s4_10 1.00  heard: You've probably seen this already.
+s4_11 0.99  heard: In 2023, the popular chat assistant started searching the web.
+s4_12 1.00  heard: It's the same trick.
+s4_13 1.00  heard: The model writes a search, a program runs it, and the results are pasted into the context.
+s4_14 1.00  heard: Then the model answers with those pages in view.
+s5_01 1.00  heard: One step won't fix a bug.
+s5_02 1.00  heard: So repeat.
+s5_03 1.00  heard: The model writes a request, the program carries it out, and the result goes into the context.
+s5_04 1.00  heard: Then again.
+s5_05 1.00  heard: This goes on until the model writes a reply with no request in it.
+s5_06 1.00  heard: That's its answer, and the loop stops.
+s5_07 1.00  heard: A model working in a loop like this, using tools, is called an agent.
+s5_08 1.00  heard: Here's how the whole run went.
+s5_09 0.98  heard: After the search in the file you've seen, it searches for where that code is used and opens that file too.
+s5_10 0.95  heard: The Priceless spells it gadget with a capital G.
+s5_11 1.00  heard: So it edits the lookup. Now Gadget finds Gadget.
+s5_12 1.00  heard: Then it runs the tests.
+s5_13 1.00  heard: They fail.
+s5_14 1.00  heard: Ben's bill should come to 37.
+s5_15 0.68  heard: It comes to 3950.
+s5_16 1.00  heard: That failure goes into the context, like any other result, and it changes the next step.
+s5_17 1.00  heard: The model looks at the test and at Ben's orders and finds a second mistake.
+s5_18 1.00  heard: The bulk discount only kicked in at 11 items.
+s5_19 1.00  heard: It should start at 10.
+s5_20 1.00  heard: It edits that and runs the tests again.
+s5_21 1.00  heard: This time they pass.
+s5_22 1.00  heard: It writes its answer and the loop stops.
+s5_23 1.00  heard: That was 12 requests.
+s5_24 1.00  heard: Nobody wrote them down in advance.
+s5_25 1.00  heard: Each one followed from the results before it.
+s6_01 1.00  heard: If the loop is that simple, why did agents only start working recently?
+s6_02 1.00  heard: People tried in 2023.
+s6_03 1.00  heard: They ran models in loops like this one, and the loops often got stuck, going round in circles.
+s6_04 1.00  heard: Part of the problem is that small mistakes add up.
+s6_05 0.98  heard: Say each step goes right 95 times in 100, whatever happened before, and nothing catches a mistake.
+s6_06 1.00  heard: Start a hundred runs.
+s6_07 1.00  heard: About 95 get the first step right.
+s6_08 0.94  heard: Of those, 95% get the second step right, too, about 90%.
+s6_09 1.00  heard: Every step keeps 95% of the runs still on track.
+s6_10 1.00  heard: After 20 steps, that's about 36 of the hundred.
+s6_11 1.00  heard: About a third.
+s6_12 1.00  heard: Three things changed.
+s6_13 1.00  heard: First, models were trained to work in this loop, so each step became more reliable.
+s6_14 0.93  heard: Suppose that lifts each step to 99 and 100.
+s6_15 0.96  heard: Then about 82 of the 100 runs get all 20 steps right, about 4 and 5.
+s6_16 1.00  heard: Second, tasks like coding come with feedback.
+s6_17 1.00  heard: A failing test catches a mistake as it caught the discount and the next step can fix it.
+s6_18 1.00  heard: Third, agents find what they need by searching, step by step, as that run did.
+s6_19 0.94  heard: Clod code, a coding agent, works that way.
+s6_20 1.00  heard: Its developers first tried building an index of the code in advance.
+s6_21 1.00  heard: But code keeps changing, and an index goes out of date.
+s6_22 1.00  heard: They've said searching worked better.
+s7_01 1.00  heard: Now put names on the whole picture.
+s7_02 1.00  heard: The LLM is the model.
+s7_03 1.00  heard: Everything around it is called the harness.
+s7_04 1.00  heard: The harness writes the starting instructions with the request format.
+s7_05 1.00  heard: It holds the tools and the program that carries out each request and it runs the loop.
+s7_06 1.00  heard: A real harness does two more things.
+s7_07 1.00  heard: Before an edit, like the one to the price look-up, it can check permission, sometimes by asking you.
+s7_08 1.00  heard: And every result makes the context longer, but a context can only hold so much.
+s7_09 1.00  heard: When it fills up, the harness trims it by dropping old results or summarizing older steps.
+s7_10 1.00  heard: So an agent is an LLM plus a harness.
+s7_11 1.00  heard: That's five words to keep. LLM, context, tool, harness, and agent.
+s8_01 1.00  heard: So, how do you get from a model that only writes text to an agent that fixes a bug?
+s8_02 1.00  heard: The model still does one thing.
+s8_03 1.00  heard: It predicts the next word, one at a time.
+s8_04 1.00  heard: The harness turns some of that text into actions and pastes the results back into the context.
+s8_05 1.00  heard: and the loop turns single steps into a whole job.
+s8_06 1.00  heard: Chat GPT in 2022 could only talk.
+s8_07 1.00  heard: An agent is still talking.
+s8_08 1.00  heard: The difference is the harness, a program that listens to what the model writes and acts on it.
+
+125 sentences; under 0.8: s5_15 0.68
