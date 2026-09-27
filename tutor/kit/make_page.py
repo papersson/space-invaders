@@ -67,7 +67,16 @@ video{display:block;width:100%;height:100%}
 .btn.lost{color:var(--amber);border-color:rgba(242,169,59,.45)}
 .btn.lost:hover{border-color:var(--amber)}
 .btn.primary{color:var(--bg);background:var(--amber);border-color:var(--amber)}
-.right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.left,.right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.player{position:relative}
+.player:fullscreen{border:0;border-radius:0;aspect-ratio:auto;width:100%;height:100%}
+.player:fullscreen video{object-fit:contain}
+body.expanded{overflow:hidden}
+body.expanded .player{position:fixed;inset:0;z-index:50;width:auto;max-width:none;aspect-ratio:auto;border:0;border-radius:0;
+  box-sizing:border-box;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+body.expanded video{object-fit:contain}
+.close{position:absolute;z-index:2;top:calc(10px + env(safe-area-inset-top,0px));right:calc(10px + env(safe-area-inset-right,0px));
+  background:rgba(14,18,22,.85);color:var(--ink)}
 .status{font-size:13px;color:var(--muted)}
 .credit{margin:0;font-size:12px;color:var(--faint)}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
@@ -108,6 +117,17 @@ v.addEventListener('timeupdate',tick);v.addEventListener('seeked',tick);tick();
 const track=v.addTextTrack('captions','English','en');
 CUES.forEach(c=>track.addCue(new VTTCue(c[0],c[1],c[2])));
 track.mode='hidden';
+// Expand: real fullscreen where the viewer's frame allows it (desktop browsers); otherwise, as on
+// most phones, the video fills the whole page instead.
+const player=document.querySelector('.player'),big=document.getElementById('big'),shrink=document.getElementById('shrink');
+function expand(on){document.body.classList.toggle('expanded',on);shrink.hidden=!on;if(!on)big.focus();}
+big.addEventListener('click',async()=>{
+  if(document.fullscreenEnabled&&player.requestFullscreen){try{await player.requestFullscreen();return;}catch(e){}}
+  if(v.webkitSupportsFullscreen&&v.webkitEnterFullscreen){
+    try{v.webkitEnterFullscreen();await new Promise(r=>setTimeout(r,500));if(v.webkitDisplayingFullscreen)return;}catch(e){}}
+  expand(true);});
+shrink.addEventListener('click',()=>expand(false));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('expanded'))expand(false);});
 const cc=document.getElementById('cc');
 cc.addEventListener('click',()=>{const on=track.mode!=='showing';track.mode=on?'showing':'hidden';
   cc.setAttribute('aria-pressed',on);cc.textContent='Captions '+(on?'on':'off');});
@@ -195,11 +215,13 @@ def main():
 <div class="wrap">
   <header><h1>{html.escape(META['title'])}</h1><span class="len">{mmss(T['total'])}</span></header>
   <div class="player"><video id="v" controls preload="metadata" poster="poster.jpg" playsinline>
-    <source src="video.mp4" type="video/mp4"></video></div>
+    <source src="video.mp4" type="video/mp4"></video>
+    <button id="shrink" class="btn close" type="button" hidden>Close</button></div>
   <nav class="chapters" aria-label="Chapters">{chapters()}</nav>
   {f'<p class="credit">{html.escape(T["credit"])}</p>' if T.get("credit") else ""}
   <div class="bar">
-    <button id="cc" class="btn" type="button" aria-pressed="false">Captions off</button>
+    <div class="left"><button id="cc" class="btn" type="button" aria-pressed="false">Captions off</button>
+      <button id="big" class="btn" type="button">Expand</button></div>
     <div class="right"><span id="status" class="status" role="status"></span>
       <button id="lost" class="btn lost" type="button" hidden>Lost me here</button></div>
   </div>
