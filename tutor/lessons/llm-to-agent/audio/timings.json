@@ -1,9 +1,8 @@
 {
- "engine": "pocket",
- "voice": "english_2026-09_24l/alba",
+ "voice": "af_heart",
  "speed": 1.0,
- "credit": "Narration voice: Kyutai Pocket TTS (english_2026-09_24l), voice \u201calba\u201d, CC BY 4.0",
- "total": 529.709,
+ "mode": "paragraph",
+ "total": 472.06,
  "segments": [
   {
    "id": "s1",
@@ -16,1058 +15,1058 @@
      "caption": "In late 2022, ChatGPT arrived.",
      "paragraph": 0,
      "start": 0.8,
-     "end": 5.44
+     "end": 3.71
     },
     {
      "id": "s1_02",
      "text": "You typed a message, and it wrote back.",
      "caption": "You typed a message, and it wrote back.",
      "paragraph": 0,
-     "start": 5.5,
-     "end": 7.27
+     "start": 4.12,
+     "end": 5.88
     },
     {
      "id": "s1_03",
      "text": "It could talk, and that was all.",
      "caption": "It could talk, and that was all.",
      "paragraph": 0,
-     "start": 7.98,
-     "end": 9.84
+     "start": 6.26,
+     "end": 7.66
     },
     {
      "id": "s1_04",
      "text": "Now there are AI agents that do things.",
      "caption": "Now there are AI agents that do things.",
      "paragraph": 1,
-     "start": 10.94,
-     "end": 13.42
+     "start": 8.76,
+     "end": 11.13
     },
     {
      "id": "s1_05",
      "text": "Give one a bug in some code, and it reads the files, runs the tests that check the code, and fixes the bug.",
      "caption": "Give one a bug in some code, and it reads the files, runs the tests that check the code, and fixes the bug.",
      "paragraph": 1,
-     "start": 13.85,
-     "end": 20.4
+     "start": 11.67,
+     "end": 17.65
     },
     {
      "id": "s1_06",
      "text": "Underneath, it's the same kind of model as the one in the chat.",
      "caption": "Underneath, it's the same kind of model as the one in the chat.",
      "paragraph": 2,
-     "start": 20.9,
-     "end": 24.22
+     "start": 18.15,
+     "end": 21.25
     },
     {
      "id": "s1_07",
      "text": "And a model like that only writes text.",
      "caption": "And a model like that only writes text.",
      "paragraph": 2,
-     "start": 24.59,
-     "end": 26.78
+     "start": 21.73,
+     "end": 23.79
     },
     {
      "id": "s1_08",
      "text": "So what sits in between?",
      "caption": "So what sits in between?",
      "paragraph": 3,
-     "start": 27.88,
-     "end": 29.49
+     "start": 24.89,
+     "end": 26.19
     },
     {
      "id": "s1_09",
      "text": "How do you get from a model that writes text, to an agent that fixes a bug?",
      "caption": "How do you get from a model that writes text, to an agent that fixes a bug?",
      "paragraph": 3,
-     "start": 29.93,
-     "end": 34.44
+     "start": 26.6,
+     "end": 30.37
     }
    ],
-   "end": 36.79
+   "end": 32.72
   },
   {
    "id": "s2",
    "title": "What an LLM is",
-   "start": 36.79,
+   "start": 32.72,
    "lines": [
     {
      "id": "s2_01",
      "text": "Start with the model.",
      "caption": "Start with the model.",
      "paragraph": 0,
-     "start": 37.14,
-     "end": 38.18
+     "start": 33.07,
+     "end": 33.94
     },
     {
      "id": "s2_02",
      "text": "It's called an L L M, a large language model, and it does one thing: it predicts the next word, or sometimes a piece of a word.",
      "caption": "It's called an LLM, a large language model, and it does one thing: it predicts the next word, or sometimes a piece of a word.",
      "paragraph": 0,
-     "start": 38.55,
-     "end": 47.8
+     "start": 34.49,
+     "end": 41.94
     },
     {
      "id": "s2_03",
      "text": "Give a small, freely available model the words \"I made a cup of\".",
      "caption": "Give a small, freely available model the words \"I made a cup of\".",
      "paragraph": 1,
-     "start": 48.7,
-     "end": 53.67
+     "start": 42.84,
+     "end": 46.38
     },
     {
      "id": "s2_04",
      "text": "It gives every word it knows a probability.",
      "caption": "It gives every word it knows a probability.",
      "paragraph": 1,
-     "start": 54.2,
-     "end": 56.74
+     "start": 46.83,
+     "end": 48.86
     },
     {
      "id": "s2_05",
      "text": "\"Tea\" gets thirty-one percent.",
      "caption": "\"Tea\" gets thirty-one percent.",
      "paragraph": 1,
-     "start": 57.71,
-     "end": 60.07
+     "start": 49.34,
+     "end": 50.97
     },
     {
      "id": "s2_06",
      "text": "\"Coffee\", nineteen.",
      "caption": "\"Coffee\", nineteen.",
      "paragraph": 1,
-     "start": 60.57,
-     "end": 62.19
+     "start": 51.5,
+     "end": 52.82
     },
     {
      "id": "s2_07",
      "text": "Everything else is far behind.",
      "caption": "Everything else is far behind.",
      "paragraph": 1,
-     "start": 62.9,
-     "end": 64.47
+     "start": 53.16,
+     "end": 54.81
     },
     {
      "id": "s2_08",
      "text": "Pick one of the likely words, and add it to the text.",
      "caption": "Pick one of the likely words, and add it to the text.",
      "paragraph": 2,
-     "start": 65.97,
-     "end": 69.44
+     "start": 56.31,
+     "end": 58.76
     },
     {
      "id": "s2_09",
      "text": "Then predict again: \"tea\", then \"and\", then \"I\".",
      "caption": "Then predict again: \"tea\", then \"and\", then \"I\".",
      "paragraph": 2,
-     "start": 69.81,
-     "end": 74.86
+     "start": 59.17,
+     "end": 61.83
     },
     {
      "id": "s2_10",
      "text": "Over and over, one word at a time.",
      "caption": "Over and over, one word at a time.",
      "paragraph": 2,
-     "start": 76.7,
-     "end": 79.92
+     "start": 63.42,
+     "end": 65.21
     },
     {
      "id": "s2_11",
      "text": "That's all writing is, for an L L M.",
      "caption": "That's all writing is, for an LLM.",
      "paragraph": 2,
-     "start": 80.27,
-     "end": 83.0
+     "start": 65.71,
+     "end": 67.68
     },
     {
      "id": "s2_12",
      "text": "It works only from the text in front of it.",
      "caption": "It works only from the text in front of it.",
      "paragraph": 3,
-     "start": 84.1,
-     "end": 86.07
+     "start": 68.78,
+     "end": 70.69
     },
     {
      "id": "s2_13",
      "text": "That text is called its context.",
      "caption": "That text is called its context.",
      "paragraph": 3,
-     "start": 86.73,
-     "end": 88.53
+     "start": 71.19,
+     "end": 73.08
     },
     {
      "id": "s2_14",
      "text": "The model keeps no memory from one use to the next.",
      "caption": "The model keeps no memory from one use to the next.",
      "paragraph": 3,
-     "start": 89.09,
-     "end": 91.74
+     "start": 73.52,
+     "end": 76.19
     },
     {
      "id": "s2_15",
      "text": "So keep two facts in mind.",
      "caption": "So keep two facts in mind.",
      "paragraph": 4,
-     "start": 92.84,
-     "end": 94.37
+     "start": 77.29,
+     "end": 78.82
     },
     {
      "id": "s2_16",
      "text": "What comes out of an L L M is text.",
      "caption": "What comes out of an LLM is text.",
      "paragraph": 4,
-     "start": 94.92,
-     "end": 96.95
+     "start": 79.24,
+     "end": 81.5
     },
     {
      "id": "s2_17",
      "text": "It learned a lot in training.",
      "caption": "It learned a lot in training.",
      "paragraph": 4,
-     "start": 97.58,
-     "end": 98.8
+     "start": 81.87,
+     "end": 83.32
     },
     {
      "id": "s2_18",
      "text": "But about your task, it knows only what's in its context.",
      "caption": "But about your task, it knows only what's in its context.",
      "paragraph": 4,
-     "start": 99.49,
-     "end": 102.59
+     "start": 83.81,
+     "end": 86.95
     }
    ],
-   "end": 104.64
+   "end": 89.0
   },
   {
    "id": "s3",
    "title": "Text that is an action",
-   "start": 104.64,
+   "start": 89.0,
    "lines": [
     {
      "id": "s3_01",
      "text": "Here's a task.",
      "caption": "Here's a task.",
      "paragraph": 0,
-     "start": 104.99,
-     "end": 105.77
+     "start": 89.35,
+     "end": 90.17
     },
     {
      "id": "s3_02",
      "text": "A small shop's billing code stops with an error: no price for \"gadget\".",
      "caption": "A small shop's billing code stops with an error: no price for \"gadget\".",
      "paragraph": 0,
-     "start": 106.13,
-     "end": 110.35
+     "start": 90.49,
+     "end": 94.32
     },
     {
      "id": "s3_03",
      "text": "You might picture the model reaching into the files itself.",
      "caption": "You might picture the model reaching into the files itself.",
      "paragraph": 1,
-     "start": 111.45,
-     "end": 114.21
+     "start": 95.42,
+     "end": 97.97
     },
     {
      "id": "s3_04",
      "text": "So ask a model on its own to fix it: not the small one, but a large model, like the ones behind chat assistants.",
      "caption": "So ask a model on its own to fix it: not the small one, but a large model, like the ones behind chat assistants.",
      "paragraph": 1,
-     "start": 114.59,
-     "end": 121.2
+     "start": 98.46,
+     "end": 105.1
     },
     {
      "id": "s3_05",
      "text": "In one try, it wrote that it would explore the project, and even wrote out a request to run a command.",
      "caption": "In one try, it wrote that it would explore the project, and even wrote out a request to run a command.",
      "paragraph": 1,
-     "start": 121.56,
-     "end": 127.37
+     "start": 105.66,
+     "end": 111.05
     },
     {
      "id": "s3_06",
      "text": "But nothing was there to carry it out, and the tests still failed.",
      "caption": "But nothing was there to carry it out, and the tests still failed.",
      "paragraph": 1,
-     "start": 127.86,
-     "end": 131.8
+     "start": 111.58,
+     "end": 115.05
     },
     {
      "id": "s3_07",
      "text": "Text on its own doesn't do anything.",
      "caption": "Text on its own doesn't do anything.",
      "paragraph": 2,
-     "start": 133.5,
-     "end": 136.45
+     "start": 116.75,
+     "end": 118.75
     },
     {
      "id": "s3_08",
      "text": "So put a program next to the model, to watch what it writes.",
      "caption": "So put a program next to the model, to watch what it writes.",
      "paragraph": 2,
-     "start": 136.89,
-     "end": 140.39
+     "start": 119.23,
+     "end": 122.3
     },
     {
      "id": "s3_09",
      "text": "Then give the model a format for requests, described at the top of its context.",
      "caption": "Then give the model a format for requests, described at the top of its context.",
      "paragraph": 3,
-     "start": 140.89,
-     "end": 145.96
+     "start": 122.8,
+     "end": 126.71
     },
     {
      "id": "s3_10",
      "text": "A line that starts \"search:\", then some words.",
      "caption": "A line that starts \"search:\", then some words.",
      "paragraph": 3,
-     "start": 147.2,
-     "end": 150.02
+     "start": 127.99,
+     "end": 130.6
     },
     {
      "id": "s3_11",
      "text": "Or \"open file:\", then a file name.",
      "caption": "Or \"open file:\", then a file name.",
      "paragraph": 3,
-     "start": 150.46,
-     "end": 153.44
+     "start": 130.93,
+     "end": 133.28
     },
     {
      "id": "s3_12",
      "text": "Real agents use a stricter format, but the idea is the same.",
      "caption": "Real agents use a stricter format, but the idea is the same.",
      "paragraph": 3,
-     "start": 153.72,
-     "end": 157.62
+     "start": 133.83,
+     "end": 137.27
     },
     {
      "id": "s3_13",
      "text": "Now the model writes a line: search, \"no price for\".",
      "caption": "Now the model writes a line: search, \"no price for\".",
      "paragraph": 4,
-     "start": 158.52,
-     "end": 162.01
+     "start": 138.17,
+     "end": 141.36
     },
     {
      "id": "s3_14",
      "text": "The program spots the request, and searches the project's files for those words.",
      "caption": "The program spots the request, and searches the project's files for those words.",
      "paragraph": 4,
-     "start": 162.44,
-     "end": 167.0
+     "start": 141.86,
+     "end": 145.93
     },
     {
      "id": "s3_15",
      "text": "Each thing the program can do for the model is called a tool: search, open a file, edit a file, run the tests.",
      "caption": "Each thing the program can do for the model is called a tool: search, open a file, edit a file, run the tests.",
      "paragraph": 5,
-     "start": 168.7,
-     "end": 176.64
+     "start": 147.63,
+     "end": 154.09
     },
     {
      "id": "s3_16",
      "text": "Notice who did the searching.",
      "caption": "Notice who did the searching.",
      "paragraph": 6,
-     "start": 177.94,
-     "end": 179.589
+     "start": 155.39,
+     "end": 156.8
     },
     {
      "id": "s3_17",
      "text": "The model only wrote a line of text.",
      "caption": "The model only wrote a line of text.",
      "paragraph": 6,
-     "start": 180.069,
-     "end": 181.819
+     "start": 157.17,
+     "end": 159.11
     },
     {
      "id": "s3_18",
      "text": "The program did the work.",
      "caption": "The program did the work.",
      "paragraph": 6,
-     "start": 182.399,
-     "end": 183.479
+     "start": 159.4,
+     "end": 160.55
     }
    ],
-   "end": 185.329
+   "end": 162.4
   },
   {
    "id": "s4",
    "title": "The result goes back in",
-   "start": 185.329,
+   "start": 162.4,
    "lines": [
     {
      "id": "s4_01",
      "text": "The search found something.",
      "caption": "The search found something.",
      "paragraph": 0,
-     "start": 185.679,
-     "end": 186.739
+     "start": 162.75,
+     "end": 163.94
     },
     {
      "id": "s4_02",
      "text": "But the model can't see it.",
      "caption": "But the model can't see it.",
      "paragraph": 0,
-     "start": 187.099,
-     "end": 188.289
+     "start": 164.24,
+     "end": 165.52
     },
     {
      "id": "s4_03",
      "text": "Remember: it knows only what's in its context.",
      "caption": "Remember: it knows only what's in its context.",
      "paragraph": 0,
-     "start": 188.699,
-     "end": 191.379
+     "start": 165.89,
+     "end": 168.57
     },
     {
      "id": "s4_04",
      "text": "So the program pastes the result into the context.",
      "caption": "So the program pastes the result into the context.",
      "paragraph": 1,
-     "start": 191.879,
-     "end": 195.389
+     "start": 169.07,
+     "end": 171.75
     },
     {
      "id": "s4_05",
      "text": "One match: line eight of a file called prices dot P Y.",
      "caption": "One match: line eight of a file called prices.py.",
      "paragraph": 1,
-     "start": 195.829,
-     "end": 201.049
+     "start": 172.28,
+     "end": 176.07
     },
     {
      "id": "s4_06",
      "text": "Then it runs the model again, on the whole context, because the model remembers nothing.",
      "caption": "Then it runs the model again, on the whole context, because the model remembers nothing.",
      "paragraph": 1,
-     "start": 202.399,
-     "end": 207.139
+     "start": 177.06,
+     "end": 181.67
     },
     {
      "id": "s4_07",
      "text": "Now the model continues with the result in view.",
      "caption": "Now the model continues with the result in view.",
      "paragraph": 2,
-     "start": 208.439,
-     "end": 210.809
+     "start": 182.97,
+     "end": 185.57
     },
     {
      "id": "s4_08",
      "text": "It knows something it couldn't have known before: where the error comes from.",
      "caption": "It knows something it couldn't have known before: where the error comes from.",
      "paragraph": 2,
-     "start": 211.379,
-     "end": 215.089
+     "start": 186.06,
+     "end": 189.28
     },
     {
      "id": "s4_09",
      "text": "So it writes its next request: open that file.",
      "caption": "So it writes its next request: open that file.",
      "paragraph": 2,
-     "start": 215.569,
-     "end": 218.599
+     "start": 189.69,
+     "end": 192.65
     },
     {
      "id": "s4_10",
      "text": "You've probably seen this already.",
      "caption": "You've probably seen this already.",
      "paragraph": 3,
-     "start": 219.899,
-     "end": 221.499
+     "start": 193.95,
+     "end": 195.55
     },
     {
      "id": "s4_11",
      "text": "In twenty twenty-three, the popular chat assistants started searching the web.",
      "caption": "In 2023, the popular chat assistants started searching the web.",
      "paragraph": 3,
-     "start": 221.869,
-     "end": 226.039
+     "start": 196.04,
+     "end": 199.91
     },
     {
      "id": "s4_12",
      "text": "It's the same trick.",
      "caption": "It's the same trick.",
      "paragraph": 3,
-     "start": 226.419,
-     "end": 227.259
+     "start": 200.42,
+     "end": 201.43
     },
     {
      "id": "s4_13",
      "text": "The model writes a search, a program runs it, and the results are pasted into the context.",
      "caption": "The model writes a search, a program runs it, and the results are pasted into the context.",
      "paragraph": 3,
-     "start": 227.919,
-     "end": 233.579
+     "start": 201.95,
+     "end": 206.92
     },
     {
      "id": "s4_14",
      "text": "Then the model answers, with those pages in view.",
      "caption": "Then the model answers, with those pages in view.",
      "paragraph": 3,
-     "start": 234.699,
-     "end": 237.969
+     "start": 207.42,
+     "end": 210.16
     }
    ],
-   "end": 240.019
+   "end": 212.21
   },
   {
    "id": "s5",
    "title": "The loop",
-   "start": 240.019,
+   "start": 212.21,
    "lines": [
     {
      "id": "s5_01",
      "text": "One step won't fix a bug.",
      "caption": "One step won't fix a bug.",
      "paragraph": 0,
-     "start": 240.369,
-     "end": 241.769
+     "start": 212.56,
+     "end": 213.94
     },
     {
      "id": "s5_02",
      "text": "So repeat.",
      "caption": "So repeat.",
      "paragraph": 0,
-     "start": 242.129,
-     "end": 242.879
+     "start": 214.19,
+     "end": 214.93
     },
     {
      "id": "s5_03",
      "text": "The model writes a request, the program carries it out, and the result goes into the context.",
      "caption": "The model writes a request, the program carries it out, and the result goes into the context.",
      "paragraph": 0,
-     "start": 243.239,
-     "end": 248.429
+     "start": 215.4,
+     "end": 220.14
     },
     {
      "id": "s5_04",
      "text": "Then again.",
      "caption": "Then again.",
      "paragraph": 0,
-     "start": 248.929,
-     "end": 249.459
+     "start": 220.55,
+     "end": 221.17
     },
     {
      "id": "s5_05",
      "text": "This goes on until the model writes a reply with no request in it.",
      "caption": "This goes on until the model writes a reply with no request in it.",
      "paragraph": 1,
-     "start": 250.759,
-     "end": 254.069
+     "start": 222.47,
+     "end": 225.77
     },
     {
      "id": "s5_06",
      "text": "That's its answer, and the loop stops.",
      "caption": "That's its answer, and the loop stops.",
      "paragraph": 1,
-     "start": 254.389,
-     "end": 256.579
+     "start": 226.34,
+     "end": 228.35
     },
     {
      "id": "s5_07",
      "text": "A model working in a loop like this, using tools, is called an agent.",
      "caption": "A model working in a loop like this, using tools, is called an agent.",
      "paragraph": 2,
-     "start": 257.679,
-     "end": 262.109
+     "start": 229.45,
+     "end": 233.35
     },
     {
      "id": "s5_08",
      "text": "Here's how the whole run went.",
      "caption": "Here's how the whole run went.",
      "paragraph": 3,
-     "start": 263.609,
-     "end": 265.009
+     "start": 234.85,
+     "end": 236.33
     },
     {
      "id": "s5_09",
      "text": "After the search and the file you've seen, it searches for where that code is used, and opens that file too.",
      "caption": "After the search and the file you've seen, it searches for where that code is used, and opens that file too.",
      "paragraph": 3,
-     "start": 265.229,
-     "end": 271.049
+     "start": 236.88,
+     "end": 242.58
     },
     {
      "id": "s5_10",
      "text": "The price list spells it \"Gadget\", with a capital G.",
      "caption": "The price list spells it \"Gadget\", with a capital G.",
      "paragraph": 4,
-     "start": 272.349,
-     "end": 275.959
+     "start": 243.88,
+     "end": 246.45
     },
     {
      "id": "s5_11",
      "text": "So it edits the lookup: now \"gadget\" finds \"Gadget\".",
      "caption": "So it edits the lookup: now \"gadget\" finds \"Gadget\".",
      "paragraph": 4,
-     "start": 276.529,
-     "end": 281.589
+     "start": 246.45,
+     "end": 249.46
     },
     {
      "id": "s5_12",
      "text": "Then it runs the tests.",
      "caption": "Then it runs the tests.",
      "paragraph": 4,
-     "start": 282.819,
-     "end": 284.519
+     "start": 250.47,
+     "end": 251.74
     },
     {
      "id": "s5_13",
      "text": "They fail.",
      "caption": "They fail.",
      "paragraph": 5,
-     "start": 285.019,
-     "end": 285.589
+     "start": 252.24,
+     "end": 252.83
     },
     {
      "id": "s5_14",
      "text": "Ben's bill should come to thirty-seven.",
      "caption": "Ben's bill should come to thirty-seven.",
      "paragraph": 5,
-     "start": 285.969,
-     "end": 287.849
+     "start": 253.05,
+     "end": 254.89
     },
     {
      "id": "s5_15",
      "text": "It comes to thirty-nine fifty.",
      "caption": "It comes to thirty-nine fifty.",
      "paragraph": 5,
-     "start": 288.219,
-     "end": 289.769
+     "start": 255.27,
+     "end": 256.84
     },
     {
      "id": "s5_16",
      "text": "That failure goes into the context, like any other result, and it changes the next step.",
      "caption": "That failure goes into the context, like any other result, and it changes the next step.",
      "paragraph": 6,
-     "start": 291.469,
-     "end": 296.219
+     "start": 258.54,
+     "end": 263.57
     },
     {
      "id": "s5_17",
      "text": "The model looks at the test and at Ben's orders, and finds a second mistake.",
      "caption": "The model looks at the test and at Ben's orders, and finds a second mistake.",
      "paragraph": 6,
-     "start": 297.089,
-     "end": 301.219
+     "start": 264.49,
+     "end": 268.43
     },
     {
      "id": "s5_18",
      "text": "The bulk discount only kicked in at eleven items.",
      "caption": "The bulk discount only kicked in at eleven items.",
      "paragraph": 6,
-     "start": 303.439,
-     "end": 306.549
+     "start": 270.56,
+     "end": 273.32
     },
     {
      "id": "s5_19",
      "text": "It should start at ten.",
      "caption": "It should start at ten.",
      "paragraph": 6,
-     "start": 307.099,
-     "end": 308.509
+     "start": 273.75,
+     "end": 274.86
     },
     {
      "id": "s5_20",
      "text": "It edits that, and runs the tests again.",
      "caption": "It edits that, and runs the tests again.",
      "paragraph": 7,
-     "start": 309.809,
-     "end": 312.529
+     "start": 276.16,
+     "end": 278.09
     },
     {
      "id": "s5_21",
      "text": "This time they pass.",
      "caption": "This time they pass.",
      "paragraph": 7,
-     "start": 313.079,
-     "end": 314.209
+     "start": 278.44,
+     "end": 279.53
     },
     {
      "id": "s5_22",
      "text": "It writes its answer, and the loop stops.",
      "caption": "It writes its answer, and the loop stops.",
      "paragraph": 7,
-     "start": 315.619,
-     "end": 318.229
+     "start": 280.49,
+     "end": 282.36
     },
     {
      "id": "s5_23",
      "text": "That was twelve requests.",
      "caption": "That was twelve requests.",
      "paragraph": 8,
-     "start": 319.729,
-     "end": 321.059
+     "start": 283.86,
+     "end": 285.12
     },
     {
      "id": "s5_24",
      "text": "Nobody wrote them down in advance.",
      "caption": "Nobody wrote them down in advance.",
      "paragraph": 8,
-     "start": 321.419,
-     "end": 323.349
+     "start": 285.44,
+     "end": 287.18
     },
     {
      "id": "s5_25",
      "text": "Each one followed from the results before it.",
      "caption": "Each one followed from the results before it.",
      "paragraph": 8,
-     "start": 323.699,
-     "end": 326.029
+     "start": 287.61,
+     "end": 289.76
     }
    ],
-   "end": 328.079
+   "end": 291.81
   },
   {
    "id": "s6",
    "title": "Why it took until now",
-   "start": 328.079,
+   "start": 291.81,
    "lines": [
     {
      "id": "s6_01",
      "text": "If the loop is that simple, why did agents only start working recently?",
      "caption": "If the loop is that simple, why did agents only start working recently?",
      "paragraph": 0,
-     "start": 328.429,
-     "end": 332.819
+     "start": 292.16,
+     "end": 296.2
     },
     {
      "id": "s6_02",
      "text": "People tried, in twenty twenty-three.",
      "caption": "People tried, in 2023.",
      "paragraph": 1,
-     "start": 333.319,
-     "end": 335.529
+     "start": 296.7,
+     "end": 298.54
     },
     {
      "id": "s6_03",
      "text": "They ran models in loops like this one, and the loops often got stuck, going round in circles.",
      "caption": "They ran models in loops like this one, and the loops often got stuck, going round in circles.",
      "paragraph": 1,
-     "start": 335.959,
-     "end": 341.639
+     "start": 299.08,
+     "end": 304.37
     },
     {
      "id": "s6_04",
      "text": "Part of the problem is that small mistakes add up.",
      "caption": "Part of the problem is that small mistakes add up.",
      "paragraph": 2,
-     "start": 342.939,
-     "end": 346.409
+     "start": 305.67,
+     "end": 308.19
     },
     {
      "id": "s6_05",
      "text": "Say each step goes right ninety-five times in a hundred, whatever happened before, and nothing catches a mistake.",
      "caption": "Say each step goes right ninety-five times in a hundred, whatever happened before, and nothing catches a mistake.",
      "paragraph": 2,
-     "start": 347.109,
-     "end": 354.039
+     "start": 308.65,
+     "end": 314.35
     },
     {
      "id": "s6_06",
      "text": "Start a hundred runs.",
      "caption": "Start a hundred runs.",
      "paragraph": 2,
-     "start": 355.169,
-     "end": 356.589
+     "start": 315.4,
+     "end": 316.48
     },
     {
      "id": "s6_07",
      "text": "About ninety-five get the first step right.",
      "caption": "About ninety-five get the first step right.",
      "paragraph": 2,
-     "start": 356.899,
-     "end": 359.279
+     "start": 316.75,
+     "end": 318.69
     },
     {
      "id": "s6_08",
      "text": "Of those, ninety-five percent get the second step right too: about ninety.",
      "caption": "Of those, ninety-five percent get the second step right too: about ninety.",
      "paragraph": 2,
-     "start": 359.689,
-     "end": 364.109
+     "start": 319.19,
+     "end": 323.27
     },
     {
      "id": "s6_09",
      "text": "Every step keeps ninety-five percent of the runs still on track.",
      "caption": "Every step keeps ninety-five percent of the runs still on track.",
      "paragraph": 2,
-     "start": 364.399,
-     "end": 367.709
+     "start": 323.7,
+     "end": 327.0
     },
     {
      "id": "s6_10",
      "text": "After twenty steps, that's about thirty-six of the hundred.",
      "caption": "After twenty steps, that's about thirty-six of the hundred.",
      "paragraph": 2,
-     "start": 369.429,
-     "end": 372.189
+     "start": 328.74,
+     "end": 331.631
     },
     {
      "id": "s6_11",
      "text": "About a third.",
      "caption": "About a third.",
      "paragraph": 2,
-     "start": 373.239,
-     "end": 373.959
+     "start": 332.621,
+     "end": 333.331
     },
     {
      "id": "s6_12",
      "text": "Three things changed.",
      "caption": "Three things changed.",
      "paragraph": 3,
-     "start": 375.459,
-     "end": 376.549
+     "start": 334.831,
+     "end": 336.031
     },
     {
      "id": "s6_13",
      "text": "First, models were trained to work in this loop, so each step became more reliable.",
      "caption": "First, models were trained to work in this loop, so each step became more reliable.",
      "paragraph": 3,
-     "start": 376.929,
-     "end": 382.019
+     "start": 336.49,
+     "end": 341.13
     },
     {
      "id": "s6_14",
      "text": "Suppose that lifts each step to ninety-nine in a hundred.",
      "caption": "Suppose that lifts each step to ninety-nine in a hundred.",
      "paragraph": 3,
-     "start": 382.449,
-     "end": 385.249
+     "start": 341.66,
+     "end": 344.69
     },
     {
      "id": "s6_15",
      "text": "Then about eighty-two of the hundred runs get all twenty steps right: about four in five.",
      "caption": "Then about eighty-two of the hundred runs get all twenty steps right: about four in five.",
      "paragraph": 3,
-     "start": 385.719,
-     "end": 391.689
+     "start": 345.19,
+     "end": 350.37
     },
     {
      "id": "s6_16",
      "text": "Second, tasks like coding come with feedback.",
      "caption": "Second, tasks like coding come with feedback.",
      "paragraph": 4,
-     "start": 393.689,
-     "end": 397.529
+     "start": 352.37,
+     "end": 354.88
     },
     {
      "id": "s6_17",
      "text": "A failing test catches a mistake, as it caught the discount, and the next step can fix it.",
      "caption": "A failing test catches a mistake, as it caught the discount, and the next step can fix it.",
      "paragraph": 4,
-     "start": 399.059,
-     "end": 404.539
+     "start": 355.41,
+     "end": 360.22
     },
     {
      "id": "s6_18",
      "text": "Third, agents find what they need by searching, step by step, as that run did.",
      "caption": "Third, agents find what they need by searching, step by step, as that run did.",
      "paragraph": 5,
-     "start": 405.839,
-     "end": 410.779
+     "start": 361.52,
+     "end": 366.14
     },
     {
      "id": "s6_19",
      "text": "Claude Code, a coding agent, works that way.",
      "caption": "Claude Code, a coding agent, works that way.",
      "paragraph": 5,
-     "start": 411.299,
-     "end": 414.209
+     "start": 366.69,
+     "end": 369.3
     },
     {
      "id": "s6_20",
      "text": "Its developers first tried building an index of the code in advance.",
      "caption": "Its developers first tried building an index of the code in advance.",
      "paragraph": 5,
-     "start": 414.499,
-     "end": 418.139
+     "start": 369.83,
+     "end": 373.42
     },
     {
      "id": "s6_21",
      "text": "But code keeps changing, and an index goes out of date.",
      "caption": "But code keeps changing, and an index goes out of date.",
      "paragraph": 5,
-     "start": 418.649,
-     "end": 422.409
+     "start": 373.88,
+     "end": 376.93
     },
     {
      "id": "s6_22",
      "text": "They've said searching worked better.",
      "caption": "They've said searching worked better.",
      "paragraph": 5,
-     "start": 423.059,
-     "end": 425.049
+     "start": 377.42,
+     "end": 378.94
     }
    ],
-   "end": 427.099
+   "end": 380.99
   },
   {
    "id": "s7",
    "title": "The harness",
-   "start": 427.099,
+   "start": 380.99,
    "lines": [
     {
      "id": "s7_01",
      "text": "Now put names on the whole picture.",
      "caption": "Now put names on the whole picture.",
      "paragraph": 0,
-     "start": 427.449,
-     "end": 429.049
+     "start": 381.34,
+     "end": 382.98
     },
     {
      "id": "s7_02",
      "text": "The L L M is the model.",
      "caption": "The LLM is the model.",
      "paragraph": 1,
-     "start": 429.549,
-     "end": 431.839
+     "start": 383.48,
+     "end": 385.081
     },
     {
      "id": "s7_03",
      "text": "Everything around it is called the harness.",
      "caption": "Everything around it is called the harness.",
      "paragraph": 1,
-     "start": 432.259,
-     "end": 435.079
+     "start": 385.531,
+     "end": 387.461
     },
     {
      "id": "s7_04",
      "text": "The harness writes the starting instructions, with the request format.",
      "caption": "The harness writes the starting instructions, with the request format.",
      "paragraph": 2,
-     "start": 436.579,
-     "end": 439.909
+     "start": 388.961,
+     "end": 392.361
     },
     {
      "id": "s7_05",
      "text": "It holds the tools, and the program that carries out each request, and it runs the loop.",
      "caption": "It holds the tools, and the program that carries out each request, and it runs the loop.",
      "paragraph": 2,
-     "start": 440.329,
-     "end": 445.329
+     "start": 393.001,
+     "end": 397.681
     },
     {
      "id": "s7_06",
      "text": "A real harness does two more things.",
      "caption": "A real harness does two more things.",
      "paragraph": 3,
-     "start": 446.629,
-     "end": 448.699
+     "start": 398.981,
+     "end": 400.881
     },
     {
      "id": "s7_07",
      "text": "Before an edit, like the one to the price lookup, it can check permission, sometimes by asking you.",
      "caption": "Before an edit, like the one to the price lookup, it can check permission, sometimes by asking you.",
      "paragraph": 3,
-     "start": 449.029,
-     "end": 454.689
+     "start": 401.291,
+     "end": 406.631
     },
     {
      "id": "s7_08",
      "text": "And every result makes the context longer, but a context can only hold so much.",
      "caption": "And every result makes the context longer, but a context can only hold so much.",
      "paragraph": 3,
-     "start": 455.869,
-     "end": 460.739
+     "start": 407.741,
+     "end": 412.221
     },
     {
      "id": "s7_09",
      "text": "When it fills up, the harness trims it, by dropping old results or summarizing older steps.",
      "caption": "When it fills up, the harness trims it, by dropping old results or summarizing older steps.",
      "paragraph": 3,
-     "start": 461.269,
-     "end": 467.429
+     "start": 412.811,
+     "end": 418.121
     },
     {
      "id": "s7_10",
      "text": "So an agent is an L L M plus a harness.",
      "caption": "So an agent is an LLM plus a harness.",
      "paragraph": 4,
-     "start": 468.929,
-     "end": 473.189
+     "start": 419.621,
+     "end": 422.131
     },
     {
      "id": "s7_11",
      "text": "That's five words to keep: L L M, context, tool, harness, and agent.",
      "caption": "That's five words to keep: LLM, context, tool, harness, and agent.",
      "paragraph": 5,
-     "start": 474.889,
-     "end": 481.269
+     "start": 423.831,
+     "end": 428.261
     }
    ],
-   "end": 486.119
+   "end": 433.111
   },
   {
    "id": "s8",
    "title": "The answer",
-   "start": 486.119,
+   "start": 433.111,
    "lines": [
     {
      "id": "s8_01",
      "text": "So, how do you get from a model that only writes text to an agent that fixes a bug?",
      "caption": "So, how do you get from a model that only writes text to an agent that fixes a bug?",
      "paragraph": 0,
-     "start": 486.469,
-     "end": 492.159
+     "start": 433.461,
+     "end": 437.971
     },
     {
      "id": "s8_02",
      "text": "The model still does one thing.",
      "caption": "The model still does one thing.",
      "paragraph": 1,
-     "start": 492.659,
-     "end": 494.239
+     "start": 438.471,
+     "end": 439.931
     },
     {
      "id": "s8_03",
      "text": "It predicts the next word, one at a time.",
      "caption": "It predicts the next word, one at a time.",
      "paragraph": 1,
-     "start": 494.469,
-     "end": 496.909
+     "start": 440.301,
+     "end": 442.361
     },
     {
      "id": "s8_04",
      "text": "The harness turns some of that text into actions, and pastes the results back into the context.",
      "caption": "The harness turns some of that text into actions, and pastes the results back into the context.",
      "paragraph": 2,
-     "start": 497.409,
-     "end": 502.589
+     "start": 442.861,
+     "end": 448.121
     },
     {
      "id": "s8_05",
      "text": "And the loop turns single steps into a whole job.",
      "caption": "And the loop turns single steps into a whole job.",
      "paragraph": 2,
-     "start": 503.109,
-     "end": 505.609
+     "start": 448.621,
+     "end": 451.301
     },
     {
      "id": "s8_06",
      "text": "Chat G P T in twenty twenty-two could only talk.",
      "caption": "ChatGPT in 2022 could only talk.",
      "paragraph": 3,
-     "start": 506.909,
-     "end": 510.619
+     "start": 452.601,
+     "end": 455.521
     },
     {
      "id": "s8_07",
      "text": "An agent is still talking.",
      "caption": "An agent is still talking.",
      "paragraph": 3,
-     "start": 511.279,
-     "end": 512.599
+     "start": 455.941,
+     "end": 457.47
     },
     {
      "id": "s8_08",
      "text": "The difference is the harness: a program that listens to what the model writes, and acts on it.",
      "caption": "The difference is the harness: a program that listens to what the model writes, and acts on it.",
      "paragraph": 3,
-     "start": 513.189,
-     "end": 520.709
+     "start": 457.98,
+     "end": 463.06
     }
    ],
-   "end": 529.709
+   "end": 472.06
   }
  ],
  "phonemes": {
@@ -1197,5 +1196,5 @@
   "s8_07": "An agent is still talking.",
   "s8_08": "The difference is the harness: a program that listens to what the model writes, and acts on it."
  },
- "peak": 0.8899999856948853
+ "peak": 0.6659852862358093
 }

@@ -1,5 +1,9 @@
 {
- "engine": "pocket",
+ "kokoro": {
+  "voice": "af_heart",
+  "speed": 1.0,
+  "paragraph": true
+ },
  "tail": 9.0,
  "holds": {
   "s1_03": 0.6,
@@ -71,8 +75,5 @@
    "prices.py",
    "prices dot P Y"
   ]
- ],
- "pocket": {
-  "seed": 2
- }
+ ]
 }

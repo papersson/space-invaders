@@ -7,7 +7,11 @@ scenes can cue off sentence ids. Per-lesson settings (holds after sentences, spo
 end-card tail) come from narration.json in the lesson folder, when it exists.
 
 Engines (narration.json "engine"):
-  kokoro (default)  Kokoro-82M, one call per sentence, joined with fixed gaps. Needs: kokoro.
+  kokoro (default)  Kokoro-82M. Settings in narration.json "kokoro": voice, speed, paragraph. By
+                    default one call per sentence, joined with fixed gaps. With "paragraph": true,
+                    one call per paragraph, so intonation carries across sentences and pauses follow
+                    the punctuation; sentence edges come from Kokoro's own word timings, snapped to
+                    silence. Needs: kokoro.
   pocket            Kyutai Pocket TTS, one call per paragraph (so intonation carries across
                     sentences and pauses follow the punctuation); sentence timings come from forced
                     alignment (kit/align.py). Settings in narration.json "pocket": model, voice, seed.
@@ -42,6 +46,7 @@ HOLDS = _CFG.get("holds", {})
 SPOKEN = [tuple(p) for p in _CFG.get("spoken", [])]
 SPOKEN_BY_ID = {k: [tuple(p) for p in v] for k, v in _CFG.get("spoken_by_id", {}).items()}
 ENGINE = _CFG.get("engine", "kokoro")
+KOKORO = {"voice": VOICE, "speed": SPEED, "paragraph": False, **_CFG.get("kokoro", {})}
 POCKET = {"model": "english_2026-09_24l", "voice": "alba", "seed": 0, **_CFG.get("pocket", {})}
 CHUNK_WORDS = 90     # longest run of sentences sent to Pocket TTS in one call
 ATTEMPTS = 4         # Pocket TTS sometimes drops or garbles a sentence: re-synthesize up to this often
@@ -113,7 +118,83 @@ def layout(segs, durations, gaps=None):
         return {"engine": "pocket", "voice": f"{POCKET['model']}/{POCKET['voice']}", "speed": 1.0,
                 "credit": f"Narration voice: Kyutai Pocket TTS ({POCKET['model']}), voice \u201c{POCKET['voice']}\u201d, CC BY 4.0",
                 "total": round(total, 3), "segments": out}
-    return {"voice": VOICE, "speed": SPEED, "total": round(total, 3), "segments": out}
+    mode = {"mode": "paragraph"} if KOKORO["paragraph"] else {}
+    return {"voice": KOKORO["voice"], "speed": KOKORO["speed"], **mode, "total": round(total, 3), "segments": out}
+
+
+def chunked(sents, text_of):
+    """Runs of consecutive sentences from one paragraph, at most CHUNK_WORDS words each:
+    [[(sentence id, text to speak, paragraph index)]]."""
+    chunks, cur, n = [], [], 0
+    for lid, cap, pi in sents:
+        text = text_of(cap, lid)
+        w = len(text.split())
+        if cur and (pi != cur[-1][2] or n + w > CHUNK_WORDS):
+            chunks.append(cur)
+            cur, n = [], 0
+        cur.append((lid, text, pi))
+        n += w
+    chunks.append(cur)
+    return chunks
+
+
+def cut(audio, a, b):
+    """audio[a s : b s], with 5 ms fades so the cut never clicks."""
+    import numpy as np
+
+    clip = audio[int(a * RATE): int(b * RATE)].copy()
+    fade = min(len(clip) // 2, int(0.005 * RATE))
+    if fade:
+        clip[:fade] *= np.linspace(0, 1, fade)
+        clip[-fade:] *= np.linspace(1, 0, fade)
+    return clip
+
+
+def kokoro_paragraph_clips(segs):
+    """{sentence id: clip}, {sentence id: natural pause after it}, {sentence id: text as spoken}.
+    Each paragraph (in runs of at most CHUNK_WORDS words) is one Kokoro call. A sentence starts at
+    its first word's timestamp; it ends where the silence before the next sentence begins (Kokoro's
+    word timings fold that pause into the last word), and both edges are snapped to silence."""
+    import numpy as np
+    from kokoro import KPipeline
+    sys.path.insert(0, str(Path(__file__).parent))
+    from align import silence_runs
+
+    pipe = KPipeline(lang_code="a", repo_id="hexgrad/Kokoro-82M")
+    clips, gaps, said = {}, {}, {}
+    for _, _, sents in segs:
+        for chunk in chunked(sents, spoken):
+            texts = [t for _, t, _ in chunk]
+            full = " ".join(texts)
+            begins = [sum(len(t) + 1 for t in texts[:i]) for i in range(len(texts))]
+            audio, words, pos = [], [], 0          # words: (char offset, start s, end s)
+            for part in pipe(full, voice=KOKORO["voice"], speed=KOKORO["speed"], split_pattern=None):
+                at = full.find(part.graphemes, pos)
+                assert at >= 0, (part.graphemes, full)
+                off, c = sum(len(x) for x in audio) / RATE, at
+                for tok in part.tokens:
+                    if tok.start_ts is not None and any(ch.isalnum() for ch in tok.text):
+                        words.append((c, off + tok.start_ts, off + tok.end_ts))
+                    c += len(tok.text) + len(tok.whitespace)
+                audio.append(part.audio.numpy().astype(np.float32))
+                pos = at + len(part.graphemes)
+            audio = np.concatenate(audio)
+            runs = silence_runs(audio, RATE)
+            firsts = [next(w for w in words if w[0] >= b) for b in begins]
+            spans = []
+            for i, (_, st, _) in enumerate(firsts):
+                nxt = firsts[i + 1][1] if i + 1 < len(firsts) else len(audio) / RATE
+                last = [w for w in words if w[1] >= st and w[1] < nxt][-1]
+                s = [b for a, b in runs if st - 0.2 <= b <= st + 0.1]
+                e = [a for a, b in runs if last[1] <= a < nxt and b >= nxt - 0.1]   # the pause into the next
+                spans.append((max(s) if s else st, min(e) if e else min(last[2], nxt)))
+            for i, ((lid, text, _), (a, b)) in enumerate(zip(chunk, spans)):
+                assert a < b <= (spans[i + 1][0] if i + 1 < len(spans) else len(audio) / RATE), (lid, a, b)
+                clips[lid], said[lid] = cut(audio, a, b), text
+                if i + 1 < len(chunk):
+                    gaps[lid] = spans[i + 1][0] - b
+                print(f"{lid}: {b - a:5.2f}s  gap {gaps.get(lid, 0):.2f}  {text[:70]}")
+    return clips, gaps, said
 
 
 def pocket_clips(segs):
@@ -134,17 +215,7 @@ def pocket_clips(segs):
     assert model.sample_rate == RATE, model.sample_rate
     clips, gaps, said, check = {}, {}, {}, {}
     for _, _, sents in segs:
-        chunks, cur, n = [], [], 0
-        for lid, cap, pi in sents:
-            text = say(spoken(cap, lid))
-            w = len(text.split())
-            if cur and (pi != cur[-1][2] or n + w > CHUNK_WORDS):
-                chunks.append(cur)
-                cur, n = [], 0
-            cur.append((lid, text, pi))
-            n += w
-        chunks.append(cur)
-        for chunk in chunks:
+        for chunk in chunked(sents, lambda cap, lid: say(spoken(cap, lid))):
             texts, best = [t for _, t, _ in chunk], None
             for attempt in range(1, ATTEMPTS + 1):
                 audio = model.generate_audio(state, " ".join(texts)).numpy().astype(np.float32)
@@ -163,12 +234,7 @@ def pocket_clips(segs):
                 raise SystemExit(f"{chunk[0][0]}: no attempt aligned; change the pocket seed or the text")
             audio, spans, scores = best
             for i, ((lid, text, _), (a, b)) in enumerate(zip(chunk, spans)):
-                clip = audio[int(a * RATE): int(b * RATE)].copy()
-                fade = min(len(clip) // 2, int(0.005 * RATE))
-                if fade:
-                    clip[:fade] *= np.linspace(0, 1, fade)
-                    clip[-fade:] *= np.linspace(1, 0, fade)
-                clips[lid], said[lid], check[lid] = clip, text, round(scores[i], 2)
+                clips[lid], said[lid], check[lid] = cut(audio, a, b), text, round(scores[i], 2)
                 if i + 1 < len(chunk):
                     gaps[lid] = spans[i + 1][0] - b
                 flag = "  <-- listen" if scores[i] < MIN_MATCH else ""
@@ -196,13 +262,15 @@ def main():
     gaps = check = None
     if ENGINE == "pocket":
         clips, gaps, phonemes, check = pocket_clips(segs)
+    elif KOKORO["paragraph"]:
+        clips, gaps, phonemes = kokoro_paragraph_clips(segs)
     else:
         from kokoro import KPipeline
 
         pipe = KPipeline(lang_code="a", repo_id="hexgrad/Kokoro-82M")
         clips, phonemes = {}, {}
         for key, cap in sents:
-            parts = list(pipe(spoken(cap, key), voice=VOICE, speed=SPEED, split_pattern=None))
+            parts = list(pipe(spoken(cap, key), voice=KOKORO["voice"], speed=KOKORO["speed"], split_pattern=None))
             audio = np.concatenate([p.audio.numpy() for p in parts])
             nz = np.flatnonzero(np.abs(audio) > 0.01)   # trim Kokoro's own silence
             clips[key] = audio[max(nz[0] - 240, 0): nz[-1] + 480]

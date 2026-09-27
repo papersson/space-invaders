@@ -58,7 +58,7 @@ def words(text):
     return [w.strip("'") for w in re.sub(r"[^A-Z' ]", " ", text).split() if w.strip("'")]
 
 
-def _silence_runs(audio, sr, below=35.0):
+def silence_runs(audio, sr, below=35.0):
     """[(start, end)] of 10 ms frames quieter than the loud (95th percentile) level by `below` dB."""
     hop, win = int(0.01 * sr), int(0.025 * sr)
     frames = np.lib.stride_tricks.sliding_window_view(np.pad(audio, (0, win)), win)[::hop]
@@ -119,7 +119,7 @@ def sentence_spans(audio, sr, sentences):
 
     # snap: a start to the end of the silence just before it (within 0.2 s), an end to the start of
     # the silence just after it (within 0.35 s), so no clip cuts into a word or a breath
-    runs = _silence_runs(audio, sr)
+    runs = silence_runs(audio, sr)
     snapped = []
     for st, en in out:
         s = [b for a, b in runs if st - 0.2 <= b <= st + 0.1]
