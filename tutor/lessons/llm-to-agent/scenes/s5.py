@@ -101,8 +101,9 @@ class S5(LScene):
         self.at("14", 0.2)
         ben1 = T("Ben: expected 37.00", 17, INK, font=MONO)
         ben2 = T("got 39.50", 17, FAIL, font=MONO)
-        ben = VGroup(ben1, ben2).arrange(DOWN, aligned_edge=LEFT, buff=0.1).move_to([PROJ_L + 0.05, -2.85, 0], aligned_edge=LEFT)
-        self.play(FadeIn(ben1), run_time=0.4)
+        ben = VGroup(ben1, ben2).arrange(DOWN, aligned_edge=RIGHT, buff=0.1).move_to([PROJ_R, -2.85, 0], aligned_edge=RIGHT)
+        self.play(FadeIn(ben1), FadeOut(self.last_tag), run_time=0.4)
+        self.last_tag = None
         self.at("15", 0.1)
         self.play(FadeIn(ben2), run_time=0.4)
 
@@ -125,7 +126,7 @@ class S5(LScene):
         # 18-19: the discount kicked in at eleven, should start at ten: request 11
         self.step(11, c["18"][0], c["18"][1] + 0.1)
         self.at("19")
-        lab = T("discount from 10, not 11", 16, NUM, font=MONO).move_to([PROJ_L + 0.05, -3.2, 0], aligned_edge=LEFT)
+        lab = T("discount from 10, not 11", 15, NUM, font=MONO).move_to([PROJ_R, -3.15, 0], aligned_edge=RIGHT)
         self.play(FadeIn(lab), run_time=0.4)
 
         # 20-21: runs the tests again; they pass
@@ -145,9 +146,17 @@ class S5(LScene):
 
         # 23: twelve requests
         self.at("23")
-        reqs = VGroup(*[i["shown"] for i in col.items if i["role"] == MODEL])
-        self.play(Circumscribe(self.cnt, color=NUM, buff=0.06), reqs.animate.set_opacity(1).set_color(MODEL), run_time=0.9)
-        self.play(Indicate(reqs, color=MODEL, scale_factor=1.02), run_time=0.8)
+        hl = VGroup()
+        for i in col.items:
+            if i["role"] != MODEL:
+                continue
+            if i["form"] == "sliver":
+                hl.add(i["shown"].copy().set_fill(MODEL, 1).stretch(1.04, 0))
+            else:
+                hl.add(SurroundingRectangle(i["shown"], color=MODEL, buff=0.02, corner_radius=0.05, stroke_width=2))
+        self.play(Circumscribe(self.cnt, color=NUM, buff=0.06), FadeIn(hl), run_time=0.9)
+        self.at("25", 0.6)
+        self.play(FadeOut(hl), run_time=0.6)
         self.end()
 
     # --- one request of the real run, from the model writing it to its result in the context ------
@@ -199,7 +208,7 @@ class S5(LScene):
         if st["tag"]:
             if self.last_tag is not None:
                 tg.append(FadeOut(self.last_tag))
-            self.last_tag = T(st["tag"], 17, NUM, font=MONO).move_to([PROJ_L + 0.05, -2.75, 0], aligned_edge=LEFT)
+            self.last_tag = T(st["tag"], 16, NUM, font=MONO).move_to([PROJ_R, -2.75, 0], aligned_edge=RIGHT)
             tg.append(FadeIn(self.last_tag))
         self.play(FadeIn(res, shift=DOWN * 0.08), self.lit(d.a_pc, color), *extra, *tg,
                   run_time=max(0.2 * (t1 - t0), 0.2))

@@ -133,7 +133,7 @@ class Diagram:
         self.a_pj = arrow([PROG_C[0] + PROG_W / 2, PJ_Y, 0], [PROJ_L - 0.02, PJ_Y, 0])
         self.a_pc = arrow([PROG_C[0] - PROG_W / 2, RES_Y, 0], [CTX_R, RES_Y, 0])
         self.res_label = T("result", 16, HARN, font=MONO).next_to(self.a_pc, UP, buff=0.08)
-        self.loop_label = T("the loop", 20, HARN, weight=MEDIUM).move_to([-1.2, -0.15, 0])
+        self.loop_label = T("the loop", 20, HARN, weight=MEDIUM).move_to([-1.2, 0.3, 0])
 
     def _badge(self, s, color):
         b = VGroup(rbox(PROJ_R - PROJ_L, 0.5, color, fill=PANEL, sw=2.2, r=0.1), T(s, 17, color, font=MONO, weight=MEDIUM))
@@ -151,7 +151,7 @@ class Diagram:
     def harness_outline(self):
         """Dashed, around everything except the LLM box (a notch around the box)."""
         l, r, t, b = -7.0, 7.0, 3.12, -3.52
-        nl, nr, nb = MOD_C[0] - MOD_W / 2 - 0.2, MOD_C[0] + MOD_W / 2 + 0.2, MOD_C[1] - MOD_H / 2 - 0.2
+        nl, nr, nb = MOD_C[0] - MOD_W / 2 - 0.3, MOD_C[0] + MOD_W / 2 + 0.25, MOD_C[1] - MOD_H / 2 - 0.62
         pts = [[l, t], [nl, t], [nl, nb], [nr, nb], [nr, t], [r, t], [r, b], [l, b], [l, t]]
         p = VMobject(stroke_color=HARN, stroke_width=3).set_points_as_corners([np.array([x, y, 0]) for x, y in pts])
         return DashedVMobject(p, num_dashes=120, dashed_ratio=0.55)

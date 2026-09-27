@@ -121,6 +121,7 @@ class S3(LScene):
         self.at("16")
         self.play(VGroup(d.model, d.model_name).animate.set_opacity(0.3), run_time=0.5)
         self.at("18")
-        self.play(Indicate(d.prog, color=HARN, scale_factor=1.03), self.lit(d.a_pj, INK, 0.3), run_time=0.8)
+        self.play(Indicate(VGroup(d.prog, d.prog_name, d.tool_group), color=HARN, scale_factor=1.03),
+                  self.lit(d.a_pj, INK, 0.3), run_time=0.8)
         self.play(VGroup(d.model, d.model_name).animate.set_opacity(1), self.lit(d.a_pj, HARN, 0.3), run_time=0.5)
         self.end()

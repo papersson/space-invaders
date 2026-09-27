@@ -1,0 +1,126 @@
+s1_01 1.00  4.74s  heard: in late twenty twenty two chat g p t arrived
+s1_02 0.88  1.87s  heard: he typed a message and it wrote back
+s1_03 1.00  1.96s  heard: it could talk and that was all
+s1_04 0.94  2.58s  heard: now there are a ai agents that do things
+s1_05 0.96  6.65s  heard: give one a bug in some code and it reads the files runs the test that check the code and fixes the bug
+s1_06 0.92  3.42s  heard: underneath it's the same kind of model as the one and the chat
+s1_07 1.00  2.29s  heard: and a model like that only writes text
+s1_08 1.00  1.71s  heard: so what sits in between
+s1_09 1.00  4.61s  heard: how do you get from a model that writes text to an agent that fixes a bug
+s2_01 1.00  1.14s  heard: start with the model
+s2_02 1.00  9.35s  heard: it's called an l l m a large language model and it does one thing it predicts the next word or sometimes a piece of a word
+s2_03 1.00  5.07s  heard: give a small freely available model the words i made a cup of
+s2_04 1.00  2.64s  heard: it gives every word it knows a probability
+s2_05 0.55  2.46s  heard: t gets thirty one per cent  <-- check
+s2_06 1.00  1.72s  heard: coffee nineteen
+s2_07 1.00  1.67s  heard: everything else is far behind
+s2_08 1.00  3.57s  heard: pick one of the likely words and add it to the text
+s2_09 0.93  5.15s  heard: then predict again tea then and then
+s2_10 1.00  3.32s  heard: over and over one word at a time
+s2_11 1.00  2.83s  heard: that's all writing is for an l l m
+s2_12 1.00  2.07s  heard: it works only from the text in front of it
+s2_13 1.00  1.90s  heard: that text is called its context
+s2_14 1.00  2.75s  heard: the model keeps no memory from one use to the next
+s2_15 1.00  1.63s  heard: so keep two facts in mind
+s2_16 0.84  2.13s  heard: what comes out of an l l mis text
+s2_17 1.00  1.32s  heard: it learned a lot in training
+s2_18 1.00  3.20s  heard: but about your task it knows only what's in its context
+s3_01 0.57  0.88s  heard: here is a task  <-- check
+s3_02 0.92  4.32s  heard: a small shop's billing code stops with an error no price for gaget
+s3_03 1.00  2.86s  heard: you might picture the model reaching into the files itself
+s3_04 1.00  6.71s  heard: so ask a model on its own to fix it not the small one but a large model like the ones behind chat assistants
+s3_05 0.95  5.91s  heard: in one tria it wrote that it would explore the project and even wrote out a request to run a command
+s3_06 1.00  4.04s  heard: but nothing was there to carry it out and the tests still failed
+s3_07 1.00  3.05s  heard: text on its own doesn't do anything
+s3_08 0.92  3.60s  heard: so put a programme next to the model to watch what it writes
+s3_09 0.90  5.17s  heard: then give the model a form at for requests described at the top of its context
+s3_10 1.00  2.92s  heard: a line that starts search then some words
+s3_11 1.00  3.08s  heard: or open file then a file name
+s3_12 0.88  4.00s  heard: real agents use a stricter form at but the idea is the same
+s3_13 0.90  3.59s  heard: now the model rigtes a line search no price for
+s3_14 0.92  4.66s  heard: the programme spots the request and searches the project's files for those words
+s3_15 0.85  8.04s  heard: each thing the programme can do for the model is called a tool search open a file add it a file run the test
+s3_16 1.00  1.75s  heard: notice who did the searching
+s3_17 1.00  1.85s  heard: the model only wrote a line of text
+s3_18 0.80  1.18s  heard: the programme did the work
+s4_01 1.00  1.16s  heard: the search found something
+s4_02 1.00  1.29s  heard: but the model can't see it
+s4_03 1.00  2.78s  heard: remember it knows only what's in its context
+s4_04 0.78  3.61s  heard: so the programme paced the result into the context
+s4_05 0.92  5.32s  heard: one match line eight of a file called prices dot p wy
+s4_06 1.00  4.84s  heard: then it runs the model again on the whole context because the model remembers nothing
+s4_07 0.82  2.47s  heard: now the model continues with the resultant view
+s4_08 1.00  3.81s  heard: it knows something it couldn't have known before where the error comes from
+s4_09 1.00  3.13s  heard: so it writes its next request open that file
+s4_10 1.00  1.70s  heard: you've probably seen this already
+s4_11 0.92  4.27s  heard: in twenty twenty three the popular chat assistant started searching the web
+s4_12 0.75  0.94s  heard: t's the same trick
+s4_13 0.94  5.76s  heard: the model writes a search a programme runs it and the results are pasted into the context
+s4_14 1.00  3.37s  heard: then the model answers with those pages in view
+s5_01 1.00  1.50s  heard: one step won't fix a bug
+s5_02 1.00  0.85s  heard: so repeat
+s5_03 0.88  5.29s  heard: the model rites a request the programme carries it out and the result goes into the context
+s5_04 1.00  0.63s  heard: then again
+s5_05 1.00  3.41s  heard: this goes on until the model writes a reply with no request in it
+s5_06 1.00  2.29s  heard: that's its answer and the loop stops
+s5_07 1.00  4.53s  heard: a model working in a loop like this using tools is called an agent
+s5_08 1.00  1.50s  heard: here's how the whole run went
+s5_09 0.95  5.92s  heard: after the search and the file you've seen it searches for where that cote is used and opens that file too
+s5_10 0.74  3.71s  heard: the priceless spells it gaget with a capital g  <-- check
+s5_11 0.78  5.16s  heard: so it edits the lookup now gaget finds gagt
+s5_12 1.00  1.80s  heard: then it runs the tests
+s5_13 1.00  0.67s  heard: they fail
+s5_14 1.00  1.98s  heard: ben's bill should come to thirty seven
+s5_15 1.00  1.65s  heard: it comes to thirty nine fifty
+s5_16 1.00  4.85s  heard: that failure goes into the context like any other result and it changes the next step
+s5_17 1.00  4.23s  heard: the model looks at the test and at ben's orders and finds a second mistake
+s5_18 1.00  3.21s  heard: the bulk discount only kicked in at eleven items
+s5_19 1.00  1.51s  heard: it should start at ten
+s5_20 0.88  2.82s  heard: it eddets that and runs the tests again
+s5_21 1.00  1.23s  heard: this time they pass
+s5_22 1.00  2.71s  heard: it writes its answer and the loop stops
+s5_23 1.00  1.43s  heard: that was twelve requests
+s5_24 1.00  2.03s  heard: nobody wrote them down in advance
+s5_25 1.00  2.43s  heard: each one followed from the results before it
+s6_01 1.00  4.49s  heard: if the loop is that simple why did agents only start working recently
+s6_02 1.00  2.31s  heard: people tried in twenty twenty three
+s6_03 1.00  5.78s  heard: they ran models in loops like this one and the loops often got stuck going round in circles
+s6_04 0.90  3.57s  heard: part of the problem is that small mistakes add a
+s6_05 1.00  7.03s  heard: say each step goes right ninety five times in a hundred whatever happened before and nothing catches a mistake
+s6_06 1.00  1.52s  heard: start a hundred runs
+s6_07 1.00  2.48s  heard: about ninety five get the first step right
+s6_08 0.89  4.52s  heard: of those ninety five per cent get the second step right too about ninety
+s6_09 0.88  3.41s  heard: every step keeps ninety five per cent of the runs still on track
+s6_10 1.00  2.86s  heard: after twenty steps that's about thirty six of the hundred
+s6_11 1.00  0.82s  heard: about a third
+s6_12 1.00  1.19s  heard: three things changed
+s6_13 1.00  5.19s  heard: first models were trained to work in this loop so each step became more reliable
+s6_14 1.00  2.90s  heard: suppose that lifts each step to ninety nine in a hundred
+s6_15 0.94  6.07s  heard: then about eighty two of the hundred runs get all twenty steps right about four and five
+s6_16 0.67  3.94s  heard: second tasks like coading come with feed back  <-- check
+s6_17 1.00  5.58s  heard: a failing test catches a mistake as it caught the discount and the next step can fix it
+s6_18 1.00  5.04s  heard: third agents find what they need by searching step by step as that run did
+s6_19 0.80  3.01s  heard: clod code coding agent works that way
+s6_20 1.00  3.74s  heard: its developers first tried building an index of the code in advance
+s6_21 1.00  3.86s  heard: but code keeps changing and an index goes out of date
+s6_22 1.00  2.09s  heard: they've said searching worked better
+s7_01 1.00  1.70s  heard: now put names on the whole picture
+s7_02 0.86  2.39s  heard: that l l m is the model
+s7_03 1.00  2.92s  heard: everything around it is called the harness
+s7_04 1.00  3.43s  heard: the harness writes the starting instructions with the request format
+s7_05 0.88  5.10s  heard: it holds the tools and the programme that carries out each request and it runs the loup
+s7_06 1.00  2.17s  heard: a real harness does two more things
+s7_07 0.92  5.76s  heard: before an edit like the one to the price look up it can check permission sometimes by asking you
+s7_08 1.00  4.97s  heard: and every result makes the context longer but a context can only hold so much
+s7_09 1.00  6.26s  heard: when it fills up the harness trims it by dropping old results or summarizing older steps
+s7_10 1.00  4.36s  heard: so an agent is an l l m plus a harness
+s7_11 0.92  6.48s  heard: that's five words to keep l l m context tool harness an agent
+s8_01 1.00  5.79s  heard: so how do you get from a model that only writes text to an agent that fixes a bug
+s8_02 1.00  1.68s  heard: the model still does one thing
+s8_03 1.00  2.54s  heard: it predicts the next word one at a time
+s8_04 0.88  5.28s  heard: the harness turned some of that text into actions and pace the results back into the context
+s8_05 0.90  2.60s  heard: and the loop turned single steps into a whole job
+s8_06 1.00  3.81s  heard: chat g p t in twenty twenty two could only talk
+s8_07 1.00  1.42s  heard: an agent is still talking
+s8_08 0.94  7.62s  heard: the difference is the harness a programme that listens to what the model writes and acts on it
+lowest: s2_05 0.55, s3_01 0.57, s6_16 0.67, s5_10 0.74, s4_12 0.75, s4_04 0.78, s5_11 0.78, s3_18 0.80

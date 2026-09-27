@@ -1,0 +1,8 @@
+before: FAILED (errors=1)
+edit prices.py: edited prices.py
+edit prices.py: edited prices.py
+edit invoice.py: edited invoice.py
+prices.py: key = product.strip().title()
+invoice.py: if quantity >= BULK:
+after: OK
+program: Ada: 20.00 | Ben: 37.00

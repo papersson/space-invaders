@@ -1,0 +1,2 @@
+{"title": "From LLM to Agent", "version": "v1", "poster": ["s7_10", -0.1],
+ "description": "An LLM only writes text, yet an agent reads files, runs tests and fixes a bug: how a harness turns the model's text into actions, feeds the results back into its context, and loops, shown with a real agent run."}
