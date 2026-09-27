@@ -1,0 +1,169 @@
+<title>From LLM to Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0E1216;--surface:#151B22;--raise:#1B232C;--line:#27303A;--ink:#E6EBF0;--muted:#8C97A4;--faint:#5E6874;
+  --amber:#F2A93B;--ice:#8FD3FF;--coral:#E4715F;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-inline:20px;padding-block:28px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
+h1{font-weight:600;font-size:clamp(22px,3vw,30px);line-height:1.15;margin:0;text-wrap:balance}
+.len{font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+.player{background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/9;max-width:100%}
+video{display:block;width:100%;height:100%}
+.chapters{display:flex;gap:6px}
+.ch{all:unset;cursor:pointer;min-width:0;flex-basis:0;display:flex;flex-direction:column;gap:7px}
+.ch-bar{height:6px;border-radius:3px;background:var(--raise);position:relative;overflow:hidden}
+.ch-bar::after{content:"";position:absolute;inset:0;width:var(--p,0%);background:var(--ice)}
+.ch-name{font-size:13px;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch.on .ch-name{color:var(--ink)}
+.ch:hover .ch-name{color:var(--ink)}
+.ch:focus-visible .ch-bar{outline:2px solid var(--ice);outline-offset:3px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);
+  border:1.5px solid var(--line);border-radius:6px;padding:6px 11px;white-space:nowrap}
+.btn:hover{color:var(--ink);border-color:var(--faint)}
+.btn:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.btn[aria-pressed="true"]{color:var(--bg);background:var(--ice);border-color:var(--ice)}
+.btn.lost{color:var(--amber);border-color:rgba(242,169,59,.45)}
+.btn.lost:hover{border-color:var(--amber)}
+.btn.primary{color:var(--bg);background:var(--amber);border-color:var(--amber)}
+.right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.status{font-size:13px;color:var(--muted)}
+.credit{margin:0;font-size:12px;color:var(--faint)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel .where{font:500 12px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.panel blockquote{margin:0;padding-left:12px;border-left:2px solid var(--amber);color:var(--ink);max-width:70ch}
+.panel blockquote .prev{display:block;color:var(--muted);font-size:14px;margin-bottom:4px}
+.panel label{font-size:14px;color:var(--muted)}
+textarea{font:15px/1.45 "IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);
+  border-radius:6px;padding:10px;min-height:72px;resize:vertical;width:100%;box-sizing:border-box}
+textarea:focus-visible{outline:2px solid var(--ice);outline-offset:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+details{color:var(--muted);font-size:14px}
+summary{cursor:pointer;width:max-content}
+summary:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.notes{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.notes li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:baseline}
+.notes .t{all:unset;cursor:pointer;font:500 13px "IBM Plex Mono",ui-monospace,monospace;color:var(--ice);font-variant-numeric:tabular-nums}
+.notes .t:focus-visible{outline:2px solid var(--ice)}
+.notes .txt{color:var(--ink)}
+.notes .txt i{color:var(--muted)}
+.notes .x{all:unset;cursor:pointer;color:var(--faint);font-size:13px}
+.notes .x:hover{color:var(--coral)}
+@media (max-width:640px){.ch-name{display:none}.chapters{gap:4px}}
+</style>
+<div class="wrap">
+  <header><h1>From LLM to Agent</h1><span class="len">8:49</span></header>
+  <div class="player"><video id="v" controls preload="metadata" poster="poster.jpg" playsinline>
+    <source src="video.mp4" type="video/mp4"></video></div>
+  <nav class="chapters" aria-label="Chapters"><button class="ch" type="button" style="flex-grow:36.79" data-t="0.00" data-end="36.79" aria-label="Chapter 1: The question"><span class="ch-bar"></span><span class="ch-name">The question</span></button>
+<button class="ch" type="button" style="flex-grow:67.85" data-t="36.79" data-end="104.64" aria-label="Chapter 2: What an LLM is"><span class="ch-bar"></span><span class="ch-name">What an LLM is</span></button>
+<button class="ch" type="button" style="flex-grow:80.69" data-t="104.64" data-end="185.33" aria-label="Chapter 3: Text that is an action"><span class="ch-bar"></span><span class="ch-name">Text that is an action</span></button>
+<button class="ch" type="button" style="flex-grow:54.69" data-t="185.33" data-end="240.02" aria-label="Chapter 4: The result goes back in"><span class="ch-bar"></span><span class="ch-name">The result goes back in</span></button>
+<button class="ch" type="button" style="flex-grow:88.06" data-t="240.02" data-end="328.08" aria-label="Chapter 5: The loop"><span class="ch-bar"></span><span class="ch-name">The loop</span></button>
+<button class="ch" type="button" style="flex-grow:99.02" data-t="328.08" data-end="427.10" aria-label="Chapter 6: Why it took until now"><span class="ch-bar"></span><span class="ch-name">Why it took until now</span></button>
+<button class="ch" type="button" style="flex-grow:59.02" data-t="427.10" data-end="486.12" aria-label="Chapter 7: The harness"><span class="ch-bar"></span><span class="ch-name">The harness</span></button>
+<button class="ch" type="button" style="flex-grow:43.59" data-t="486.12" data-end="529.71" aria-label="Chapter 8: The answer"><span class="ch-bar"></span><span class="ch-name">The answer</span></button></nav>
+  <p class="credit">Narration voice: Kyutai Pocket TTS (english_2026-09_24l), voice “alba”, CC BY 4.0</p>
+  <div class="bar">
+    <button id="cc" class="btn" type="button" aria-pressed="false">Captions off</button>
+    <div class="right"><span id="status" class="status" role="status"></span>
+      <button id="lost" class="btn lost" type="button" hidden>Lost me here</button></div>
+  </div>
+  <section id="panel" class="panel" hidden aria-label="What lost you">
+    <div id="where" class="where"></div>
+    <blockquote id="quote"></blockquote>
+    <label for="note">What didn't make sense? A few words is plenty, and you can leave it empty.</label>
+    <textarea id="note" maxlength="2000"></textarea>
+    <div class="actions"><button id="save" class="btn primary" type="button">Save</button>
+      <button id="cancel" class="btn" type="button">Cancel</button></div>
+  </section>
+  <details id="mine" hidden><summary id="count"></summary><ul id="notes" class="notes"></ul></details>
+</div>
+<script>const CUES=[[0.8, 5.69, "In late 2022, ChatGPT arrived.", "s1_01"], [5.5, 7.52, "You typed a message, and it wrote back.", "s1_02"], [7.98, 10.09, "It could talk, and that was all.", "s1_03"], [10.94, 13.67, "Now there are AI agents that do things.", "s1_04"], [13.85, 20.65, "Give one a bug in some code, and it reads the files, runs the tests that check the code, and fixes the bug.", "s1_05"], [20.9, 24.47, "Underneath, it's the same kind of model as the one in the chat.", "s1_06"], [24.59, 27.03, "And a model like that only writes text.", "s1_07"], [27.88, 29.74, "So what sits in between?", "s1_08"], [29.93, 34.69, "How do you get from a model that writes text, to an agent that fixes a bug?", "s1_09"], [37.14, 38.43, "Start with the model.", "s2_01"], [38.55, 48.05, "It's called an LLM, a large language model, and it does one thing: it predicts the next word, or sometimes a piece of a word.", "s2_02"], [48.7, 53.92, "Give a small, freely available model the words \"I made a cup of\".", "s2_03"], [54.2, 56.99, "It gives every word it knows a probability.", "s2_04"], [57.71, 60.32, "\"Tea\" gets thirty-one percent.", "s2_05"], [60.57, 62.44, "\"Coffee\", nineteen.", "s2_06"], [62.9, 64.72, "Everything else is far behind.", "s2_07"], [65.97, 69.69, "Pick one of the likely words, and add it to the text.", "s2_08"], [69.81, 75.11, "Then predict again: \"tea\", then \"and\", then \"I\".", "s2_09"], [76.7, 80.17, "Over and over, one word at a time.", "s2_10"], [80.27, 83.25, "That's all writing is, for an LLM.", "s2_11"], [84.1, 86.32, "It works only from the text in front of it.", "s2_12"], [86.73, 88.78, "That text is called its context.", "s2_13"], [89.09, 91.99, "The model keeps no memory from one use to the next.", "s2_14"], [92.84, 94.62, "So keep two facts in mind.", "s2_15"], [94.92, 97.2, "What comes out of an LLM is text.", "s2_16"], [97.58, 99.05, "It learned a lot in training.", "s2_17"], [99.49, 102.84, "But about your task, it knows only what's in its context.", "s2_18"], [104.99, 106.02, "Here's a task.", "s3_01"], [106.13, 110.6, "A small shop's billing code stops with an error: no price for \"gadget\".", "s3_02"], [111.45, 114.46, "You might picture the model reaching into the files itself.", "s3_03"], [114.59, 121.45, "So ask a model on its own to fix it: not the small one, but a large model, like the ones behind chat assistants.", "s3_04"], [121.56, 127.62, "In one try, it wrote that it would explore the project, and even wrote out a request to run a command.", "s3_05"], [127.86, 132.05, "But nothing was there to carry it out, and the tests still failed.", "s3_06"], [133.5, 136.7, "Text on its own doesn't do anything.", "s3_07"], [136.89, 140.64, "So put a program next to the model, to watch what it writes.", "s3_08"], [140.89, 146.21, "Then give the model a format for requests, described at the top of its context.", "s3_09"], [147.2, 150.27, "A line that starts \"search:\", then some words.", "s3_10"], [150.46, 153.69, "Or \"open file:\", then a file name.", "s3_11"], [153.72, 157.87, "Real agents use a stricter format, but the idea is the same.", "s3_12"], [158.52, 162.26, "Now the model writes a line: search, \"no price for\".", "s3_13"], [162.44, 167.25, "The program spots the request, and searches the project's files for those words.", "s3_14"], [168.7, 176.89, "Each thing the program can do for the model is called a tool: search, open a file, edit a file, run the tests.", "s3_15"], [177.94, 179.84, "Notice who did the searching.", "s3_16"], [180.07, 182.07, "The model only wrote a line of text.", "s3_17"], [182.4, 183.73, "The program did the work.", "s3_18"], [185.68, 186.99, "The search found something.", "s4_01"], [187.1, 188.54, "But the model can't see it.", "s4_02"], [188.7, 191.63, "Remember: it knows only what's in its context.", "s4_03"], [191.88, 195.64, "So the program pastes the result into the context.", "s4_04"], [195.83, 201.3, "One match: line eight of a file called prices.py.", "s4_05"], [202.4, 207.39, "Then it runs the model again, on the whole context, because the model remembers nothing.", "s4_06"], [208.44, 211.06, "Now the model continues with the result in view.", "s4_07"], [211.38, 215.34, "It knows something it couldn't have known before: where the error comes from.", "s4_08"], [215.57, 218.85, "So it writes its next request: open that file.", "s4_09"], [219.9, 221.75, "You've probably seen this already.", "s4_10"], [221.87, 226.29, "In 2023, the popular chat assistants started searching the web.", "s4_11"], [226.42, 227.51, "It's the same trick.", "s4_12"], [227.92, 233.83, "The model writes a search, a program runs it, and the results are pasted into the context.", "s4_13"], [234.7, 238.22, "Then the model answers, with those pages in view.", "s4_14"], [240.37, 242.02, "One step won't fix a bug.", "s5_01"], [242.13, 243.13, "So repeat.", "s5_02"], [243.24, 248.68, "The model writes a request, the program carries it out, and the result goes into the context.", "s5_03"], [248.93, 249.71, "Then again.", "s5_04"], [250.76, 254.32, "This goes on until the model writes a reply with no request in it.", "s5_05"], [254.39, 256.83, "That's its answer, and the loop stops.", "s5_06"], [257.68, 262.36, "A model working in a loop like this, using tools, is called an agent.", "s5_07"], [263.61, 265.26, "Here's how the whole run went.", "s5_08"], [265.23, 271.3, "After the search and the file you've seen, it searches for where that code is used, and opens that file too.", "s5_09"], [272.35, 276.21, "The price list spells it \"Gadget\", with a capital G.", "s5_10"], [276.53, 281.84, "So it edits the lookup: now \"gadget\" finds \"Gadget\".", "s5_11"], [282.82, 284.77, "Then it runs the tests.", "s5_12"], [285.02, 285.84, "They fail.", "s5_13"], [285.97, 288.1, "Ben's bill should come to thirty-seven.", "s5_14"], [288.22, 290.02, "It comes to thirty-nine fifty.", "s5_15"], [291.47, 296.47, "That failure goes into the context, like any other result, and it changes the next step.", "s5_16"], [297.09, 301.47, "The model looks at the test and at Ben's orders, and finds a second mistake.", "s5_17"], [303.44, 306.8, "The bulk discount only kicked in at eleven items.", "s5_18"], [307.1, 308.76, "It should start at ten.", "s5_19"], [309.81, 312.78, "It edits that, and runs the tests again.", "s5_20"], [313.08, 314.46, "This time they pass.", "s5_21"], [315.62, 318.48, "It writes its answer, and the loop stops.", "s5_22"], [319.73, 321.31, "That was twelve requests.", "s5_23"], [321.42, 323.6, "Nobody wrote them down in advance.", "s5_24"], [323.7, 326.28, "Each one followed from the results before it.", "s5_25"], [328.43, 333.07, "If the loop is that simple, why did agents only start working recently?", "s6_01"], [333.32, 335.78, "People tried, in 2023.", "s6_02"], [335.96, 341.89, "They ran models in loops like this one, and the loops often got stuck, going round in circles.", "s6_03"], [342.94, 346.66, "Part of the problem is that small mistakes add up.", "s6_04"], [347.11, 354.29, "Say each step goes right ninety-five times in a hundred, whatever happened before, and nothing catches a mistake.", "s6_05"], [355.17, 356.84, "Start a hundred runs.", "s6_06"], [356.9, 359.53, "About ninety-five get the first step right.", "s6_07"], [359.69, 364.36, "Of those, ninety-five percent get the second step right too: about ninety.", "s6_08"], [364.4, 367.96, "Every step keeps ninety-five percent of the runs still on track.", "s6_09"], [369.43, 372.44, "After twenty steps, that's about thirty-six of the hundred.", "s6_10"], [373.24, 374.21, "About a third.", "s6_11"], [375.46, 376.8, "Three things changed.", "s6_12"], [376.93, 382.27, "First, models were trained to work in this loop, so each step became more reliable.", "s6_13"], [382.45, 385.5, "Suppose that lifts each step to ninety-nine in a hundred.", "s6_14"], [385.72, 391.94, "Then about eighty-two of the hundred runs get all twenty steps right: about four in five.", "s6_15"], [393.69, 397.78, "Second, tasks like coding come with feedback.", "s6_16"], [399.06, 404.79, "A failing test catches a mistake, as it caught the discount, and the next step can fix it.", "s6_17"], [405.84, 411.03, "Third, agents find what they need by searching, step by step, as that run did.", "s6_18"], [411.3, 414.46, "Claude Code, a coding agent, works that way.", "s6_19"], [414.5, 418.39, "Its developers first tried building an index of the code in advance.", "s6_20"], [418.65, 422.66, "But code keeps changing, and an index goes out of date.", "s6_21"], [423.06, 425.3, "They've said searching worked better.", "s6_22"], [427.45, 429.3, "Now put names on the whole picture.", "s7_01"], [429.55, 432.09, "The LLM is the model.", "s7_02"], [432.26, 435.33, "Everything around it is called the harness.", "s7_03"], [436.58, 440.16, "The harness writes the starting instructions, with the request format.", "s7_04"], [440.33, 445.58, "It holds the tools, and the program that carries out each request, and it runs the loop.", "s7_05"], [446.63, 448.95, "A real harness does two more things.", "s7_06"], [449.03, 454.94, "Before an edit, like the one to the price lookup, it can check permission, sometimes by asking you.", "s7_07"], [455.87, 460.99, "And every result makes the context longer, but a context can only hold so much.", "s7_08"], [461.27, 467.68, "When it fills up, the harness trims it, by dropping old results or summarizing older steps.", "s7_09"], [468.93, 473.44, "So an agent is an LLM plus a harness.", "s7_10"], [474.89, 481.52, "That's five words to keep: LLM, context, tool, harness, and agent.", "s7_11"], [486.47, 492.41, "So, how do you get from a model that only writes text to an agent that fixes a bug?", "s8_01"], [492.66, 494.49, "The model still does one thing.", "s8_02"], [494.47, 497.16, "It predicts the next word, one at a time.", "s8_03"], [497.41, 502.84, "The harness turns some of that text into actions, and pastes the results back into the context.", "s8_04"], [503.11, 505.86, "And the loop turns single steps into a whole job.", "s8_05"], [506.91, 510.87, "ChatGPT in 2022 could only talk.", "s8_06"], [511.28, 512.85, "An agent is still talking.", "s8_07"], [513.19, 520.96, "The difference is the harness: a program that listens to what the model writes, and acts on it.", "s8_08"]];const CHAPTERS=["The question", "What an LLM is", "Text that is an action", "The result goes back in", "The loop", "Why it took until now", "The harness", "The answer"];const VERSION="v1";
+const v=document.getElementById('v');
+const chs=[...document.querySelectorAll('.ch')];
+const titles=CHAPTERS;
+chs.forEach(b=>b.addEventListener('click',()=>{v.currentTime=+b.dataset.t;v.play().catch(()=>{});}));
+function tick(){
+  const t=v.currentTime;
+  chs.forEach(c=>{const a=+c.dataset.t,b=+c.dataset.end;c.classList.toggle('on',t>=a&&t<b);
+    c.style.setProperty('--p',(t>=b?100:t<=a?0:(t-a)/(b-a)*100)+'%');});
+}
+v.addEventListener('timeupdate',tick);v.addEventListener('seeked',tick);tick();
+
+const track=v.addTextTrack('captions','English','en');
+CUES.forEach(c=>track.addCue(new VTTCue(c[0],c[1],c[2])));
+track.mode='hidden';
+const cc=document.getElementById('cc');
+cc.addEventListener('click',()=>{const on=track.mode!=='showing';track.mode=on?'showing':'hidden';
+  cc.setAttribute('aria-pressed',on);cc.textContent='Captions '+(on?'on':'off');});
+
+function mmss(t){t=Math.max(0,t);return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');}
+function cueAt(t){let k=-1;CUES.forEach((c,i)=>{if(c[0]<=t)k=i;});return k;}
+function chapterAt(t){let k=0;chs.forEach((c,i)=>{if(+c.dataset.t<=t)k=i;});return k;}
+
+const lost=document.getElementById('lost'), panel=document.getElementById('panel'), status=document.getElementById('status');
+const note=document.getElementById('note'), where=document.getElementById('where'), quote=document.getElementById('quote');
+const save=document.getElementById('save'), cancel=document.getElementById('cancel');
+const box=document.getElementById('mine'), list=document.getElementById('notes'), count=document.getElementById('count');
+let db=null, moment=null;
+
+function openPanel(){
+  v.pause();
+  const t=v.currentTime, k=cueAt(t), ch=chapterAt(t);
+  moment={t:Math.round(t*10)/10, chapter:'s'+(ch+1), chapter_title:titles[ch],
+          sentence:k>=0?CUES[k][3]:null, sentence_text:k>=0?CUES[k][2]:'',
+          previous:k>0?CUES[k-1][3]:null, previous_text:k>0?CUES[k-1][2]:''};
+  where.textContent=mmss(t)+' · '+titles[ch];
+  quote.replaceChildren();
+  if(moment.previous_text){const p=document.createElement('span');p.className='prev';p.textContent=moment.previous_text;quote.append(p);}
+  quote.append(document.createTextNode(moment.sentence_text||'(before the narration starts)'));
+  panel.hidden=false;note.focus();status.textContent='';
+}
+function closePanel(){panel.hidden=true;note.value='';moment=null;lost.focus();}
+lost.addEventListener('click',openPanel);
+cancel.addEventListener('click',closePanel);
+save.addEventListener('click',async()=>{
+  if(!db||!moment)return;
+  save.disabled=true;
+  const body=Object.assign({},moment,{note:note.value.trim().slice(0,2000),version:VERSION,at:new Date().toISOString()});
+  try{
+    await db.collection('feedback').add(body);
+    status.textContent='Saved at '+mmss(body.t)+'. The tutor reads these and revises that part.';
+    closePanel();
+  }catch(e){
+    status.textContent=e&&e.code==='quota_exceeded'?'The notes store is full; delete some notes below.'
+      :'Could not save this note. Try again in a moment.';
+  }finally{save.disabled=false;}
+});
+
+function render(snap){
+  const docs=snap.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.t-b.t);
+  box.hidden=docs.length===0;
+  count.textContent=docs.length+(docs.length===1?' note':' notes')+' saved';
+  list.replaceChildren(...docs.map(d=>{
+    const li=document.createElement('li');
+    const t=document.createElement('button');t.className='t';t.type='button';t.textContent=mmss(d.t);
+    t.addEventListener('click',()=>{v.currentTime=Math.max(0,d.t-3);v.play().catch(()=>{});});
+    const txt=document.createElement('span');txt.className='txt';
+    if(d.note){txt.textContent=d.note;}else{const i=document.createElement('i');i.textContent='(no note) '+(d.chapter_title||'');txt.append(i);}
+    const x=document.createElement('button');x.className='x';x.type='button';x.textContent='Delete';
+    x.setAttribute('aria-label','Delete the note at '+mmss(d.t));
+    x.addEventListener('click',()=>db.doc('feedback/'+d.id).delete().catch(()=>{status.textContent='Could not delete that note.';}));
+    li.append(t,txt,x);return li;}));
+}
+
+(async()=>{
+  try{db=await (window.claude&&window.claude.use?window.claude.use('db'):null);}catch(e){db=null;}
+  if(!db)return;
+  lost.hidden=false;
+  db.collection('feedback').onSnapshot(render,()=>{box.hidden=true;});
+})();
+</script>

@@ -42,7 +42,8 @@ class S7(LScene):
         ins = col.items[0]["shown"]
         old = ins[2][0]
         new = T("starting instructions", 14, HARN, font=MONO).move_to(old, aligned_edge=LEFT)
-        self.play(Transform(old, new), Indicate(ins, color=HARN, scale_factor=1.03), run_time=0.8)
+        self.play(Transform(old, new), run_time=0.6)
+        self.play(Circumscribe(ins, color=HARN, buff=0.04), run_time=0.9)
 
         # 05: the tools, the program that carries out each request, and the loop
         s, e = c["05"]
@@ -94,7 +95,7 @@ class S7(LScene):
         news = []
         for n in range(5, 13):
             news += step_items(col, n)
-        dt = max((e + 0.1 - self.now()) / len(news), 0.1)
+        dt = max((e - 0.4 - self.now()) / len(news), 0.1)
         for it in news:
             self.play(*col.anims(it), run_time=dt)
 

@@ -78,7 +78,7 @@ class S5(LScene):
         self.step(1, c["08"][0] + 1.0, c["09"][0] + 0.9)
         self.step(2, c["09"][0] + 0.95, c["09"][0] + 2.4)
         self.step(3, c["09"][0] + 2.5, c["09"][0] + 4.3)
-        self.step(4, c["09"][0] + 4.35, c["09"][1] + 0.7)
+        self.step(4, c["09"][0] + 4.35, c["09"][1] + 0.3)
 
         # 10: the price list spells it "Gadget", with a capital G
         self.at("10")
@@ -92,7 +92,7 @@ class S5(LScene):
         # 11: so it edits the lookup: now "gadget" finds "Gadget"
         self.at("11")
         self.play(FadeOut(u1), FadeOut(u2), run_time=0.2)
-        self.step(5, c["11"][0] + 0.2, c["11"][1] + 0.5)
+        self.step(5, c["11"][0] + 0.2, c["11"][1] - 0.2)
 
         # 12-13: it runs the tests; they fail
         self.step(6, c["12"][0], c["13"][1] + 0.15, fail_at=c["13"][0])
@@ -118,13 +118,13 @@ class S5(LScene):
         self.play(FadeOut(box), self.lit(d.a_cm, FAINT), FadeOut(ben), run_time=0.4)
 
         # 17: looks at the test and at Ben's orders (requests 7 to 10)
-        s, e = c["17"][0], c["17"][1] + 1.45
+        s, e = c["17"][0], c["17"][1] + 1.1
         w = (e - s) / 4
         for k, n in enumerate([7, 8, 9, 10]):
             self.step(n, s + k * w, s + (k + 1) * w - 0.05)
 
         # 18-19: the discount kicked in at eleven, should start at ten: request 11
-        self.step(11, c["18"][0], c["18"][1] + 0.1)
+        self.step(11, c["18"][0], c["18"][1] - 0.2)
         self.at("19")
         lab = T("discount from 10, not 11", 15, NUM, font=MONO).move_to([PROJ_R, -3.15, 0], aligned_edge=RIGHT)
         self.play(FadeIn(lab), run_time=0.4)
@@ -133,7 +133,7 @@ class S5(LScene):
         self.at("20")
         self.play(FadeOut(lab), FadeOut(self.last_tag), run_time=0.3)
         self.last_tag = None
-        self.step(12, c["20"][0] + 0.35, c["21"][1] + 0.3, pass_at=c["21"][0])
+        self.step(12, c["20"][0] + 0.35, c["21"][1] - 0.25, pass_at=c["21"][0])
 
         # 22: it writes its answer, and the loop stops
         self.at("22")
@@ -154,7 +154,12 @@ class S5(LScene):
                 hl.add(i["shown"].copy().set_fill(MODEL, 1).stretch(1.04, 0))
             else:
                 hl.add(SurroundingRectangle(i["shown"], color=MODEL, buff=0.02, corner_radius=0.05, stroke_width=2))
-        self.play(Circumscribe(self.cnt, color=NUM, buff=0.06), FadeIn(hl), run_time=0.9)
+        reqs = [i["shown"] for i in col.items if i["role"] == MODEL]
+        top, bot = reqs[0].get_top()[1], reqs[-1].get_bottom()[1]
+        br = BraceBetweenPoints([CTX_R + 0.08, top, 0], [CTX_R + 0.08, bot, 0], direction=RIGHT, color=MODEL)
+        twelve = T("12 requests", 15, MODEL, font=MONO).next_to(br, RIGHT, buff=0.06)
+        self.play(Circumscribe(self.cnt, color=NUM, buff=0.06), FadeIn(hl), GrowFromCenter(br), FadeIn(twelve),
+                  run_time=0.9)
         self.at("25", 0.6)
         self.play(FadeOut(hl), run_time=0.6)
         self.end()

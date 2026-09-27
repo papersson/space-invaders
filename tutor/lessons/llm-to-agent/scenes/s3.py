@@ -29,7 +29,8 @@ class S3(LScene):
         reach = DashedLine(d.model.get_right() + DOWN * 0.3, d.files["prices.py"].get_left() + LEFT * 0.1,
                            color=MODEL, stroke_width=2.5, dash_length=0.12)
         self.play(Create(reach), run_time=0.8)
-        self.play(reach.animate.set_opacity(0), run_time=0.8)
+        self.until(self.cues["03"][1] + 0.1)
+        self.play(reach.animate.set_opacity(0), run_time=0.6)
         self.remove(reach)
 
         # 04: not the small one, but a large model
