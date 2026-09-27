@@ -2,7 +2,8 @@
  "task_lines": [
   "… stops with this error:",
   "LookupError: no price for 'gadget'",
-  "Please fix it, and check that the tests pass."
+  "Please fix it, and check that",
+  "the tests pass."
  ],
  "formats": [
   "search: TEXT",
@@ -29,7 +30,7 @@
    "n": 2,
    "kind": "open_file",
    "request": "open file: prices.py",
-   "result_excerpt": "PRICES = {\"Widget\": 2.50, \"Gadget\": 10.00, \"Gizmo\": 7.25}",
+   "result_excerpt": "PRICES = {… \"Gadget\": 10.00, …",
    "tag": null,
    "status": null,
    "result_lines": 9
@@ -83,7 +84,7 @@
    "n": 8,
    "kind": "open_file",
    "request": "open file: test_invoice.py",
-   "result_excerpt": "self.assertAlmostEqual(owed[\"Ben\"], 37.00)",
+   "result_excerpt": "… owed[\"Ben\"], 37.00)",
    "tag": null,
    "status": null,
    "result_lines": 14

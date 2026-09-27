@@ -18,13 +18,13 @@ ctx = run["context"]
 # For each request: the excerpt of its result to show (a line of the real result), and any tag.
 SHOW = {
     1: ("prices.py:8: raise LookupError", None),
-    2: ('PRICES = {"Widget": 2.50, "Gadget": 10.00, "Gizmo": 7.25}', None),
+    2: ('PRICES = {… "Gadget": 10.00, …', None),
     3: ('invoice.py:16: cost = quantity * price_of(row["product"])', None),
     4: ("if quantity > BULK:", None),
     5: ("edited prices.py", "gadget → Gadget"),
     6: ("AssertionError: 39.5 != 37.0", None),
     7: ("edited prices.py", "no real change"),
-    8: ('self.assertAlmostEqual(owed["Ben"], 37.00)', None),
+    8: ('… owed["Ben"], 37.00)', None),
     9: ("invoice.py:17: if quantity > BULK:", None),
     10: ("Ben,Widget,10", None),
     11: ("edited invoice.py", "> BULK  →  >= BULK"),
@@ -45,7 +45,10 @@ for i, (role, text) in enumerate(ctx):
     # the request as the model wrote it: first line (an edit's first line names the file)
     line = next(l.strip() for l in text.splitlines() if l.strip().startswith(("search:", "open file:", "edit file:", "run tests")))
     show, tag = SHOW[n]
-    assert show in result, (n, show)
+    # an excerpt may be abridged with "…": each piece must appear in the result, in order
+    pos = 0
+    for piece in [x.strip() for x in show.split("…") if x.strip()]:
+        pos = result.index(piece, pos) + len(piece)
     status = None
     if req[0] == "run_tests":
         status = "pass" if result.rstrip().endswith("OK") else "fail"
@@ -81,7 +84,7 @@ nw = json.loads((ROOT / "data" / "next_word.json").read_text())
 cmp_ = json.loads((ROOT / "data" / "compound.json").read_text())
 
 out = {
-    "task_lines": ["… stops with this error:", "LookupError: no price for 'gadget'", "Please fix it, and check that the tests pass."],
+    "task_lines": ["… stops with this error:", "LookupError: no price for 'gadget'", "Please fix it, and check that", "the tests pass."],
     "formats": formats,
     "bare": {"first": bare_first, "tool": "Tool: bash · find … -type f …", "test_after": bare["test_after"].strip().splitlines()[-1]},
     "steps": steps,
