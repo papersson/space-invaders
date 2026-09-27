@@ -1,0 +1,43 @@
+== run_1: 13 model calls, tests afterwards: PASS; program afterwards: Ada: 20.00 Ben: 37.00
+    1. search: no price for
+    2. open file: prices.py
+    3. search: price_of
+    4. open file: invoice.py
+    5. edit file: prices.py
+    6. run tests [FAILED (failures=1)]
+    7. edit file: prices.py
+    8. open file: test_invoice.py
+    9. search: quantity
+   10. open file: orders.csv
+   11. edit file: invoice.py
+   12. run tests [OK]
+   13. reply
+   tokens read per call: 1,463, 1,508, 1,658, 1,733, 2,081, 2,230, 2,501, 2,661, 2,906, 3,007, 3,095, 3,160, 3,209; total 31,212
+   final reply: 'The bug was in `prices.py`: `price_of` did an exact-match lookup in `PRICES`, so a lowercase product name like `"gadget"` in the CSV didn\'t match the key `"Gadget"` and raised `LookupError`.\n\nFix: normalize the lookup key with `product.strip().title()` before checking/indexing `PRICES`, so casing/whitespace differences no longer cause failures.\n\nWhile verifying, I also found a related off-by-one bug in `invoice.py`\'s bulk discount check (`quantity > BULK` excluded orders of exactly 10 units from the discount) and corrected it to `quantity >= BULK`, matching the documented behavior and the test\'s expected totals.\n\nTests now pass.'
+
+== run_2: 9 model calls, tests afterwards: PASS; program afterwards: Ada: 20.00 Ben: 37.00
+    1. search: gadget
+    2. search: no price for
+    3. open file: prices.py
+    4. edit file: prices.py
+    5. run tests [FAILED (failures=1)]
+    6. open file: invoice.py
+    7. edit file: invoice.py
+    8. run tests [OK]
+    9. reply
+   tokens read per call: 1,463, 1,500, 1,545, 1,695, 1,844, 2,115, 2,463, 2,528, 2,577; total 17,730
+   final reply: 'Fixed both issues:\n\n1. **Case-sensitive price lookup**: `prices.py` now matches product names case-insensitively, so `"gadget"` correctly finds `"Gadget"` in `PRICES`.\n2. **Bulk discount boundary**: `invoice.py` now applies the discount when `quantity >= BULK` (10 or more), matching the intended "10% off on the 10" behavior, instead of only for quantities greater than 10.\n\nTests pass.'
+
+== run_3: 9 model calls, tests afterwards: PASS; program afterwards: Ada: 20.00 Ben: 37.00
+    1. search: gadget
+    2. search: price
+    3. open file: prices.py
+    4. edit file: prices.py
+    5. run tests [FAILED (failures=1)]
+    6. open file: invoice.py
+    7. edit file: invoice.py
+    8. run tests [OK]
+    9. reply
+   tokens read per call: 1,463, 1,500, 1,599, 1,749, 1,898, 2,169, 2,517, 2,582, 2,631; total 18,108
+   final reply: 'Fixed both issues: `price_of` now matches product names case-insensitively (so "gadget" matches "Gadget"), and the bulk discount threshold now uses `>=` so quantities of exactly 10 get the discount as expected. Tests pass.'
+

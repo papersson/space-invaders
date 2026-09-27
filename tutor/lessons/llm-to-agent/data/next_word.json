@@ -1,0 +1,101 @@
+{
+ "model": "gpt2",
+ "parameters": 124439808,
+ "transformers": "5.17.0",
+ "torch": "2.14.0+cu130",
+ "prompt": "I made a cup of",
+ "decoding": "most likely next token each step (greedy)",
+ "steps": [
+  {
+   "text": "I made a cup of",
+   "top": [
+    {
+     "token": " tea",
+     "p": 0.3077,
+     "whole_word": true
+    },
+    {
+     "token": " coffee",
+     "p": 0.1907,
+     "whole_word": true
+    },
+    {
+     "token": " soup",
+     "p": 0.0147,
+     "whole_word": true
+    },
+    {
+     "token": " the",
+     "p": 0.0132,
+     "whole_word": true
+    },
+    {
+     "token": " this",
+     "p": 0.0123,
+     "whole_word": true
+    }
+   ]
+  },
+  {
+   "text": "I made a cup of tea",
+   "top": [
+    {
+     "token": " and",
+     "p": 0.1792,
+     "whole_word": true
+    },
+    {
+     "token": ",",
+     "p": 0.1087,
+     "whole_word": false
+    },
+    {
+     "token": ".",
+     "p": 0.1037,
+     "whole_word": false
+    },
+    {
+     "token": " with",
+     "p": 0.1012,
+     "whole_word": true
+    },
+    {
+     "token": " for",
+     "p": 0.0762,
+     "whole_word": true
+    }
+   ]
+  },
+  {
+   "text": "I made a cup of tea and",
+   "top": [
+    {
+     "token": " I",
+     "p": 0.0789,
+     "whole_word": true
+    },
+    {
+     "token": " a",
+     "p": 0.0342,
+     "whole_word": true
+    },
+    {
+     "token": " took",
+     "p": 0.0269,
+     "whole_word": true
+    },
+    {
+     "token": " asked",
+     "p": 0.0226,
+     "whole_word": true
+    },
+    {
+     "token": " then",
+     "p": 0.0221,
+     "whole_word": true
+    }
+   ]
+  }
+ ],
+ "final_text": "I made a cup of tea and I"
+}

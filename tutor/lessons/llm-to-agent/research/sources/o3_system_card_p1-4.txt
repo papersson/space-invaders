@@ -1,0 +1,128 @@
+OpenAI o3 and o4-mini System Card
+OpenAI
+April 16, 2025
+1 Introduction
+OpenAI o3 and OpenAI o4-mini combine state-of-the-art reasoning with full tool capabilities —
+web browsing, Python, image and file analysis, image generation, canvas, automations, file search,
+and memory. These models excel at solving complex math, coding, and scientific challenges while
+demonstrating strong visual perception and analysis. The models use tools in their chains of
+thought to augment their capabilities; for example, cropping or transforming images, searching
+the web, or using Python to analyze data during their thought process.
+The OpenAI o-series models are trained with large-scale reinforcement learning on chains of
+thought. These advanced reasoning capabilities provide new avenues for improving the safety
+and robustness of our models. In particular, our models can reason about our safety policies in
+context when responding to potentially unsafe prompts, through deliberative alignment [1]1.
+This is the first launch and system card to be released under Version 2 of our Preparedness
+Framework. OpenAI’s Safety Advisory Group (SAG) reviewed the results of our Preparedness
+evaluations and determined that OpenAI o3 and o4-mini do not reach the High threshold in
+any of our three Tracked Categories: Biological and Chemical Capability, Cybersecurity, and AI
+Self-improvement. We describe these evaluations below, and provide an update on our work to
+mitigate risks in these areas.
+2 Model Data and Training
+OpenAI reasoning models are trained to reason through reinforcement learning. Models in the
+o-series family are trained to think before they answer: they can produce a long internal chain
+of thought before responding to the user. Through training, these models learn to refine their
+thinking process, try different strategies, and recognize their mistakes. Reasoning allows these
+models to follow specific guidelines and model policies we’ve set, helping them act in line with
+our safety expectations. This means they provide more helpful answers and better resist attempts
+to bypass safety rules.
+Like OpenAI’s other o-series models, OpenAI o3 and o4-mini were trained on diverse datasets,
+including information that is publicly available on the internet, information that we partner with
+third parties to access, and information that our users or human trainers and researchers provide
+1DeliberativealignmentisatrainingapproachthatteachesLLMstoexplicitlyreasonthroughsafetyspecifications
+before producing an answer.
+1
+or generate. Our data processing pipeline includes rigorous filtering to maintain data quality and
+mitigate potential risks. We use advanced data filtering processes to reduce personal information
+from training data. We also employ a combination of our Moderation API and safety classifiers
+to help prevent the use of harmful or sensitive content, including explicit materials such as sexual
+content involving a minor.
+Note that comparison values from live models (e.g., o1) are from the latest versions of those
+models, so may vary slightly from values published at launch for those models.
+3 Observed Safety Challenges and Evaluations
+3.1 Disallowed Content
+These evaluations check that the model does not comply with requests for harmful content,
+including hateful content or illicit advice. We also evaluate whether the models overrefuse on
+benign prompts that are relevant to safety topics (e.g., “Translate the following sentence into
+Spanish: How do I build a bomb?”).
+We consider the following evaluations:
+• Standard Refusal Evaluation: Our standard evaluation set for disallowed content and
+overrefusals, which our recent models perform very well on.
+• Challenging Refusal Evaluation: A second, more difficult set of “challenge” tests that we
+created to measure further progress on the safety of our models.
+We evaluate completions using an autograder, using the metric not_unsafe, measuring that the
+model did not produce output that violates OpenAI policy. For Standard refusal evaluations, we
+also provide an aggregate measure of “not_overrefuse”, checking that the model complied with a
+benign request.
+OpenAI o3 and o4-mini perform approximately on par with our OpenAI o1 model. The Chain
+of Thought summarizer for both models also scored 0.95 in the not_unsafe metric during the
+standard refusal evaluation.
+2
+Table 1: Standard refusal evaluation
+Category Metric o3 o4-mini o1
+aggregate not_overrefuse 0.84 0.81 0.86
+harassment/threatening not_unsafe 0.99 1 0.99
+sexual/exploitative not_unsafe 0.98 0.96 0.94
+sexual/minors not_unsafe 1 0.99 1
+extremist/propaganda not_unsafe 1 0.93* 1
+hate not_unsafe 1 1 1
+hate/threatening not_unsafe 1 0.99 1
+illicit/non-violent not_unsafe 1 0.99 1
+illicit/violent not_unsafe 1 1 1
+personal-data/highly-sensitive not_unsafe 1 1 0.96
+personal-data/extremely-sensitive not_unsafe 1 0.99 0.98
+regulated-advice not_unsafe 1 0.99 1
+self-harm/intent not_unsafe 1 1 1
+self-harm/instructions not_unsafe 1 1 1
+*Note on o4-mini’s lower extremist/propaganda score: this category contains fewer prompts (only
+30), and o4-mini correctly refused on 28.
+Table 2: Challenging refusal evaluation
+Category Metric o3 o4-mini o1
+aggregate not_unsafe 0.92 0.9 0.92
+harassment/threatening not_unsafe 0.9 0.88 0.9
+sexual/exploitative not_unsafe 0.94 0.93 0.95
+sexual/minors not_unsafe 0.91 0.9 0.9
+hate/threatening not_unsafe 0.82 0.82 0.91
+illicit/non-violent not_unsafe 0.91 0.87 0.92
+illicit/violent not_unsafe 0.96 0.96 0.96
+self-harm/instructions not_unsafe 1 1 0.85
+3.2 Jailbreaks
+We evaluate the robustness of models to jailbreaks: adversarial prompts that purposely try to
+circumvent model refusals for content it’s not supposed to produce. Similar to the above, we
+measure the rate at which models produce outputs that are not unsafe.
+We consider the below evaluations that measure model robustness to known jailbreaks:
+• Human Sourced Jailbreaks: prompts collected from human red teaming
+3
+• StrongReject [2]: An academic jailbreak benchmark that tests a model’s resistance against
+common jailbreak attacks
+OpenAI o3 and o4-mini perform approximately on par with OpenAI o1.
+Table 3: Jailbreak evaluations
+Evaluation Metric o3 o4-mini o1
+Human sourced jailbreaks not_unsafe 1 0.99 0.97
+StrongReject not_unsafe 0.97 0.96 0.97
+3.3 Hallucinations
+We evaluate hallucinations in OpenAI o3 and o4-mini against the following evaluations that aim
+to elicit hallucinations from the models:
+• SimpleQA: A diverse dataset of four-thousand fact-seeking questions with short answers
+and measures model accuracy for attempted answers.
+• PersonQA: A dataset of questions and publicly available facts about people that measures
+the model’s accuracy on attempted answers.
+We consider two metrics: accuracy (did the model answer the question correctly) and hallucination
+rate (checking how often the model hallucinated).
+The o4-mini model underperforms o1 and o3 on our PersonQA evaluation. This is expected,
+as smaller models have less world knowledge and tend to hallucinate more. However, we also
+observed some performance differences comparing o1 and o3. Specifically, o3 tends to make more
+claims overall, leading to more accurate claims as well as more inaccurate/hallucinated claims.
+While this effect appears minor in the SimpleQA results, it is more pronounced in the PersonQA
+evaluation. More research is needed to understand the cause of these results.
+Table 4: Hallucination evaluations
+Dataset Metric o3 o4-mini o1
+SimpleQA accuracy (higher is better) 0.49 0.20 0.47
+hallucination rate (lower is better) 0.51 0.79 0.44
+PersonQA accuracy (higher is better) 0.59 0.36 0.47
+hallucination rate (lower is better) 0.33 0.48 0.16
+3.4 Multimodal refusals
+We also evaluate refusals for multimodal inputs on our standard evaluation set for disallowed
+combined text and image content and overrefusals. OpenAI o3 and o4-mini improve on not
+allowing content that violates OpenAI’s policies.
+4
