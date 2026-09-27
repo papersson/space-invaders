@@ -44,6 +44,8 @@ SPOKEN_BY_ID = {k: [tuple(p) for p in v] for k, v in _CFG.get("spoken_by_id", {}
 ENGINE = _CFG.get("engine", "kokoro")
 POCKET = {"model": "english_2026-09_24l", "voice": "alba", "seed": 0, **_CFG.get("pocket", {})}
 CHUNK_WORDS = 90     # longest run of sentences sent to Pocket TTS in one call
+ATTEMPTS = 4         # Pocket TTS sometimes drops or garbles a sentence: re-synthesize up to this often
+MIN_MATCH = 0.75     # ... when a speech recogniser hears less than this share of any sentence's words
 
 
 def load_script():
@@ -115,20 +117,22 @@ def layout(segs, durations, gaps=None):
 
 
 def pocket_clips(segs):
-    """{sentence id: clip}, {sentence id: natural pause after it}, {sentence id: text as spoken}.
-    Each paragraph (split into runs of at most CHUNK_WORDS words) is one call; the clip boundaries
-    come from aligning the known text and snapping to silence."""
+    """{sentence id: clip}, {sentence id: natural pause after it}, {sentence id: text as spoken},
+    {sentence id: recogniser match}. Each paragraph (split into runs of at most CHUNK_WORDS words) is
+    one call; the clip boundaries come from aligning the known text and snapping to silence. A run
+    whose audio won't align, or in which a recogniser misses too much of a sentence, is synthesized
+    again (the next draw from the same seeded stream), keeping the best attempt."""
     import numpy as np
     import torch
     from pocket_tts import TTSModel
     sys.path.insert(0, str(Path(__file__).parent))
-    from align import sentence_spans
+    from align import AlignError, match, sentence_spans
 
     torch.manual_seed(POCKET["seed"])
     model = TTSModel.load_model(language=POCKET["model"])
     state = model.get_state_for_audio_prompt(POCKET["voice"])
     assert model.sample_rate == RATE, model.sample_rate
-    clips, gaps, said = {}, {}, {}
+    clips, gaps, said, check = {}, {}, {}, {}
     for _, _, sents in segs:
         chunks, cur, n = [], [], 0
         for lid, cap, pi in sents:
@@ -141,19 +145,35 @@ def pocket_clips(segs):
             n += w
         chunks.append(cur)
         for chunk in chunks:
-            audio = model.generate_audio(state, " ".join(t for _, t, _ in chunk)).numpy().astype(np.float32)
-            spans = sentence_spans(audio, RATE, [t for _, t, _ in chunk])
+            texts, best = [t for _, t, _ in chunk], None
+            for attempt in range(1, ATTEMPTS + 1):
+                audio = model.generate_audio(state, " ".join(texts)).numpy().astype(np.float32)
+                try:
+                    spans = sentence_spans(audio, RATE, texts)
+                except AlignError as e:
+                    print(f"  {chunk[0][0]}: attempt {attempt} doesn't align ({e})")
+                    continue
+                scores = [match(t, audio[int(a * RATE): int(b * RATE)], RATE) for t, (a, b) in zip(texts, spans)]
+                if best is None or min(scores) > min(best[2]):
+                    best = (audio, spans, scores)
+                if min(scores) >= MIN_MATCH:
+                    break
+                print(f"  {chunk[0][0]}: attempt {attempt} heard only {min(scores):.2f} of a sentence")
+            if best is None:
+                raise SystemExit(f"{chunk[0][0]}: no attempt aligned; change the pocket seed or the text")
+            audio, spans, scores = best
             for i, ((lid, text, _), (a, b)) in enumerate(zip(chunk, spans)):
                 clip = audio[int(a * RATE): int(b * RATE)].copy()
                 fade = min(len(clip) // 2, int(0.005 * RATE))
                 if fade:
                     clip[:fade] *= np.linspace(0, 1, fade)
                     clip[-fade:] *= np.linspace(1, 0, fade)
-                clips[lid], said[lid] = clip, text
+                clips[lid], said[lid], check[lid] = clip, text, round(scores[i], 2)
                 if i + 1 < len(chunk):
                     gaps[lid] = spans[i + 1][0] - b
-                print(f"{lid}: {len(clip) / RATE:5.2f}s  gap {gaps.get(lid, 0):.2f}  {text[:70]}")
-    return clips, gaps, said
+                flag = "  <-- listen" if scores[i] < MIN_MATCH else ""
+                print(f"{lid}: {len(clip) / RATE:5.2f}s  gap {gaps.get(lid, 0):.2f}  heard {scores[i]:.2f}  {text[:60]}{flag}")
+    return clips, gaps, said, check
 
 
 def main():
@@ -173,9 +193,9 @@ def main():
     import numpy as np
     import soundfile as sf
 
-    gaps = None
+    gaps = check = None
     if ENGINE == "pocket":
-        clips, gaps, phonemes = pocket_clips(segs)
+        clips, gaps, phonemes, check = pocket_clips(segs)
     else:
         from kokoro import KPipeline
 
@@ -202,6 +222,11 @@ def main():
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(OUT / "narration.wav"),
                     "-codec:a", "libmp3lame", "-b:a", "128k", str(OUT / "narration.mp3")], check=True)
     timings["phonemes"] = phonemes
+    if check:
+        timings["asr_match"] = check
+        low = [f"{k} {v:.2f}" for k, v in check.items() if v < MIN_MATCH]
+        if low:
+            print("listen to these (the recogniser heard too little):", ", ".join(low))
     timings["peak"] = float(np.abs(track).max())
     (OUT / "timings.json").write_text(json.dumps(timings, indent=1))
     print(f"total {timings['total']:.1f}s, peak {timings['peak']:.2f}")

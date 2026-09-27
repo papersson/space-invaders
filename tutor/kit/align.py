@@ -6,11 +6,48 @@ known text (wav2vec2, torchaudio), then each sentence edge snapped to the neares
 The text must be what was actually spoken: spell out numbers first (see say() in narration.py),
 since the aligner knows only the letters A-Z and the apostrophe.
 """
+import difflib
 import re
 
 import numpy as np
 
 _MODEL = None
+
+
+class AlignError(Exception):
+    """The audio doesn't fit the text (a dropped or garbled sentence): re-synthesize and try again."""
+
+
+def _model():
+    import torchaudio
+
+    global _MODEL
+    bundle = torchaudio.pipelines.WAV2VEC2_ASR_BASE_960H
+    if _MODEL is None:
+        _MODEL = bundle.get_model().eval()
+    return bundle, _MODEL
+
+
+def heard(audio, sr):
+    """The words a speech recogniser hears in a clip (wav2vec2, greedy CTC)."""
+    import torch
+    import torchaudio.functional as AF
+
+    bundle, model = _model()
+    wav = AF.resample(torch.from_numpy(audio).float().unsqueeze(0), sr, bundle.sample_rate)
+    with torch.inference_mode():
+        em, _ = model(wav)
+    labels, out, prev = bundle.get_labels(), [], None
+    for i in em[0].argmax(-1).tolist():
+        if i != prev and i != 0:
+            out.append(labels[i])
+        prev = i
+    return "".join(out).replace("|", " ").split()
+
+
+def match(text, audio, sr):
+    """How well a clip matches the sentence it should say, 0..1 (word-level similarity)."""
+    return difflib.SequenceMatcher(None, words(text), heard(audio, sr)).ratio()
 
 
 def words(text):
@@ -41,13 +78,9 @@ def _silence_runs(audio, sr, below=35.0):
 
 def sentence_spans(audio, sr, sentences):
     import torch
-    import torchaudio
     import torchaudio.functional as AF
 
-    global _MODEL
-    bundle = torchaudio.pipelines.WAV2VEC2_ASR_BASE_960H
-    if _MODEL is None:
-        _MODEL = bundle.get_model().eval()
+    bundle, model = _model()
     labels = bundle.get_labels()
     index = {c: i for i, c in enumerate(labels)}
 
@@ -55,10 +88,13 @@ def sentence_spans(audio, sr, sentences):
     flat = [w for ws in per for w in ws]
     wav = AF.resample(torch.from_numpy(audio).float().unsqueeze(0), sr, bundle.sample_rate)
     with torch.inference_mode():
-        emission, _ = _MODEL(wav)
+        emission, _ = model(wav)
         emission = torch.log_softmax(emission, dim=-1)
     targets = torch.tensor([[index[c] for c in "|".join(flat)]], dtype=torch.int32)
-    ali, scores = AF.forced_align(emission, targets, blank=0)
+    try:
+        ali, scores = AF.forced_align(emission, targets, blank=0)
+    except RuntimeError as e:                 # more letters than audio frames: speech is missing
+        raise AlignError(str(e)) from e
     spans = AF.merge_tokens(ali[0], scores[0].exp())
     sec = wav.size(1) / emission.size(1) / bundle.sample_rate
 
@@ -70,7 +106,8 @@ def sentence_spans(audio, sr, sentences):
         else:
             cur.append(sp)
     wspans.append(cur)
-    assert len(wspans) == len(flat), (len(wspans), len(flat))
+    if len(wspans) != len(flat) or any(not w for w in wspans):
+        raise AlignError(f"{len(wspans)} word spans for {len(flat)} words")
 
     out, k = [], 0
     for ws in per:
@@ -86,6 +123,10 @@ def sentence_spans(audio, sr, sentences):
         s = [b for a, b in runs if st - 0.2 <= b <= st + 0.1]
         e = [a for a, b in runs if en - 0.1 <= a <= en + 0.35]
         snapped.append((max(s) if s else st, min(e) if e else en))
-    for (a, b), (c, _) in zip(snapped, snapped[1:]):
-        assert a < b <= c, (a, b, c)
+    for i in range(len(snapped) - 1):         # a snap must never overlap the next sentence
+        if snapped[i][1] > snapped[i + 1][0]:
+            snapped[i], snapped[i + 1] = (snapped[i][0], out[i][1]), (out[i + 1][0], snapped[i + 1][1])
+    for (a, b), (c, _) in zip(snapped, snapped[1:] + [(float("inf"), None)]):
+        if not a < b <= c:
+            raise AlignError(f"sentence span {a:.2f}-{b:.2f} s runs into the next at {c:.2f} s")
     return snapped
