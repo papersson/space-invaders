@@ -69,6 +69,7 @@ video{display:block;width:100%;height:100%}
 .btn.primary{color:var(--bg);background:var(--amber);border-color:var(--amber)}
 .right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .status{font-size:13px;color:var(--muted)}
+.credit{margin:0;font-size:12px;color:var(--faint)}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
 .panel .where{font:500 12px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
 .panel blockquote{margin:0;padding-left:12px;border-left:2px solid var(--amber);color:var(--ink);max-width:70ch}
@@ -196,6 +197,7 @@ def main():
   <div class="player"><video id="v" controls preload="metadata" poster="poster.jpg" playsinline>
     <source src="video.mp4" type="video/mp4"></video></div>
   <nav class="chapters" aria-label="Chapters">{chapters()}</nav>
+  {f'<p class="credit">{html.escape(T["credit"])}</p>' if T.get("credit") else ""}
   <div class="bar">
     <button id="cc" class="btn" type="button" aria-pressed="false">Captions off</button>
     <div class="right"><span id="status" class="status" role="status"></span>

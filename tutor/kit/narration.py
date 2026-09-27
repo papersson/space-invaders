@@ -1,4 +1,4 @@
-"""Render a lesson's narration from its locked script (SCRIPT.md) with Kokoro TTS, one sentence at a time.
+"""Render a lesson's narration from its locked script (SCRIPT.md) with a TTS engine.
 
 SCRIPT.md is the single source of truth: every "> " line under a "### N. Title" heading is a
 paragraph of narration, split here into sentences. Writes audio/narration.wav, audio/narration.mp3
@@ -6,7 +6,15 @@ and audio/timings.json with every sentence's id, spoken text, caption text, star
 scenes can cue off sentence ids. Per-lesson settings (holds after sentences, spoken spellings, the
 end-card tail) come from narration.json in the lesson folder, when it exists.
 
-    python kit/narration.py LESSON_DIR            # render with Kokoro
+Engines (narration.json "engine"):
+  kokoro (default)  Kokoro-82M, one call per sentence, joined with fixed gaps. Needs: kokoro.
+  pocket            Kyutai Pocket TTS, one call per paragraph (so intonation carries across
+                    sentences and pauses follow the punctuation); sentence timings come from forced
+                    alignment (kit/align.py). Settings in narration.json "pocket": model, voice, seed.
+                    Needs: pocket-tts, torchaudio, num2words. Weights and the built-in voices are
+                    CC-BY-4.0, so timings.json carries a credit line that the page shows.
+
+    python kit/narration.py LESSON_DIR            # render with the lesson's engine
     python kit/narration.py LESSON_DIR --estimate # timings only, from word counts (no audio)
     python kit/narration.py LESSON_DIR --list     # print the sentence ids
 """
@@ -33,6 +41,9 @@ HOLDS = _CFG.get("holds", {})
 # Written form -> spoken form, everywhere and for particular sentences.
 SPOKEN = [tuple(p) for p in _CFG.get("spoken", [])]
 SPOKEN_BY_ID = {k: [tuple(p) for p in v] for k, v in _CFG.get("spoken_by_id", {}).items()}
+ENGINE = _CFG.get("engine", "kokoro")
+POCKET = {"model": "english_2026-09_24l", "voice": "alba", "seed": 0, **_CFG.get("pocket", {})}
+CHUNK_WORDS = 90     # longest run of sentences sent to Pocket TTS in one call
 
 
 def load_script():
@@ -60,21 +71,35 @@ def spoken(text, lid=None):
     return text
 
 
-def layout(segs, durations):
+def say(text):
+    """Numbers spelled out, so the speech and the aligner's transcript agree (pocket engine)."""
+    from num2words import num2words
+
+    text = re.sub(r"(?<=\d),(?=\d{3})", "", text)
+    text = re.sub(r"(\d)\s*%", r"\1 percent", text)
+    text = re.sub(r"\b(1[89]\d\d|20\d\d)\b", lambda m: num2words(int(m.group()), to="year"), text)
+    text = re.sub(r"\d+\.\d+", lambda m: num2words(float(m.group())), text)
+    return re.sub(r"\d+", lambda m: num2words(int(m.group())), text)
+
+
+def layout(segs, durations, gaps=None):
+    """Place every sentence on one track. `gaps` (pocket engine): the natural pause after a sentence,
+    measured in its paragraph's audio; it replaces SENTENCE_GAP there."""
+    gaps = gaps or {}
     t, out = LEAD_IN, []
     for si, (sid, title, sents) in enumerate(segs):
         if si:
             t += SEGMENT_GAP
         seg = {"id": sid, "title": title, "start": t, "lines": []}
-        prev_p = None
+        prev_p = prev_id = None
         for lid, cap, pi in sents:
             if prev_p is not None:
-                t += SENTENCE_GAP if pi == prev_p else PARAGRAPH_GAP
+                t += gaps.get(prev_id, SENTENCE_GAP) if pi == prev_p else PARAGRAPH_GAP
             d = durations[lid]
             seg["lines"].append({"id": lid, "text": spoken(cap, lid), "caption": cap, "paragraph": pi,
                                  "start": round(t, 3), "end": round(t + d, 3)})
             t += d + HOLDS.get(lid, 0.0)
-            prev_p = pi
+            prev_p, prev_id = pi, lid
         out.append(seg)
     total = t + TAIL
     out[0]["start"] = 0.0
@@ -82,7 +107,53 @@ def layout(segs, durations):
         b["start"] = round(b["lines"][0]["start"] - 0.35, 3)
         a["end"] = b["start"]
     out[-1]["end"] = round(total, 3)
+    if ENGINE == "pocket":
+        return {"engine": "pocket", "voice": f"{POCKET['model']}/{POCKET['voice']}", "speed": 1.0,
+                "credit": f"Narration voice: Kyutai Pocket TTS ({POCKET['model']}), voice \u201c{POCKET['voice']}\u201d, CC BY 4.0",
+                "total": round(total, 3), "segments": out}
     return {"voice": VOICE, "speed": SPEED, "total": round(total, 3), "segments": out}
+
+
+def pocket_clips(segs):
+    """{sentence id: clip}, {sentence id: natural pause after it}, {sentence id: text as spoken}.
+    Each paragraph (split into runs of at most CHUNK_WORDS words) is one call; the clip boundaries
+    come from aligning the known text and snapping to silence."""
+    import numpy as np
+    import torch
+    from pocket_tts import TTSModel
+    sys.path.insert(0, str(Path(__file__).parent))
+    from align import sentence_spans
+
+    torch.manual_seed(POCKET["seed"])
+    model = TTSModel.load_model(language=POCKET["model"])
+    state = model.get_state_for_audio_prompt(POCKET["voice"])
+    assert model.sample_rate == RATE, model.sample_rate
+    clips, gaps, said = {}, {}, {}
+    for _, _, sents in segs:
+        chunks, cur, n = [], [], 0
+        for lid, cap, pi in sents:
+            text = say(spoken(cap, lid))
+            w = len(text.split())
+            if cur and (pi != cur[-1][2] or n + w > CHUNK_WORDS):
+                chunks.append(cur)
+                cur, n = [], 0
+            cur.append((lid, text, pi))
+            n += w
+        chunks.append(cur)
+        for chunk in chunks:
+            audio = model.generate_audio(state, " ".join(t for _, t, _ in chunk)).numpy().astype(np.float32)
+            spans = sentence_spans(audio, RATE, [t for _, t, _ in chunk])
+            for i, ((lid, text, _), (a, b)) in enumerate(zip(chunk, spans)):
+                clip = audio[int(a * RATE): int(b * RATE)].copy()
+                fade = min(len(clip) // 2, int(0.005 * RATE))
+                if fade:
+                    clip[:fade] *= np.linspace(0, 1, fade)
+                    clip[-fade:] *= np.linspace(1, 0, fade)
+                clips[lid], said[lid] = clip, text
+                if i + 1 < len(chunk):
+                    gaps[lid] = spans[i + 1][0] - b
+                print(f"{lid}: {len(clip) / RATE:5.2f}s  gap {gaps.get(lid, 0):.2f}  {text[:70]}")
+    return clips, gaps, said
 
 
 def main():
@@ -101,25 +172,32 @@ def main():
 
     import numpy as np
     import soundfile as sf
-    from kokoro import KPipeline
 
-    pipe = KPipeline(lang_code="a", repo_id="hexgrad/Kokoro-82M")
-    clips, phonemes = {}, {}
-    for key, cap in sents:
-        parts = list(pipe(spoken(cap, key), voice=VOICE, speed=SPEED, split_pattern=None))
-        audio = np.concatenate([p.audio.numpy() for p in parts])
-        nz = np.flatnonzero(np.abs(audio) > 0.01)   # trim Kokoro's own silence
-        clips[key] = audio[max(nz[0] - 240, 0): nz[-1] + 480]
-        phonemes[key] = " ".join(p.phonemes for p in parts)
-        print(f"{key}: {len(clips[key]) / RATE:5.2f}s  {phonemes[key][:80]}")
+    gaps = None
+    if ENGINE == "pocket":
+        clips, gaps, phonemes = pocket_clips(segs)
+    else:
+        from kokoro import KPipeline
 
-    timings = layout(segs, {k: len(a) / RATE for k, a in clips.items()})
+        pipe = KPipeline(lang_code="a", repo_id="hexgrad/Kokoro-82M")
+        clips, phonemes = {}, {}
+        for key, cap in sents:
+            parts = list(pipe(spoken(cap, key), voice=VOICE, speed=SPEED, split_pattern=None))
+            audio = np.concatenate([p.audio.numpy() for p in parts])
+            nz = np.flatnonzero(np.abs(audio) > 0.01)   # trim Kokoro's own silence
+            clips[key] = audio[max(nz[0] - 240, 0): nz[-1] + 480]
+            phonemes[key] = " ".join(p.phonemes for p in parts)
+            print(f"{key}: {len(clips[key]) / RATE:5.2f}s  {phonemes[key][:80]}")
+
+    timings = layout(segs, {k: len(a) / RATE for k, a in clips.items()}, gaps)
     track = np.zeros(int(timings["total"] * RATE) + RATE, dtype=np.float32)
     for seg in timings["segments"]:
         for ln in seg["lines"]:
             i = int(round(ln["start"] * RATE))
             track[i: i + len(clips[ln["id"]])] = clips[ln["id"]]
     track = track[: int(timings["total"] * RATE)]
+    if ENGINE == "pocket":                      # Pocket TTS runs quiet; match Kokoro's level
+        track *= 0.89 / max(float(np.abs(track).max()), 1e-6)
     sf.write(OUT / "narration.wav", track, RATE)
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(OUT / "narration.wav"),
                     "-codec:a", "libmp3lame", "-b:a", "128k", str(OUT / "narration.mp3")], check=True)
