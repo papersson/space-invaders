@@ -1,0 +1,1272 @@
+{
+ "voice": "af_heart",
+ "speed": 1.0,
+ "mode": "paragraph",
+ "total": 764.043,
+ "segments": [
+  {
+   "id": "s1",
+   "title": "The question",
+   "start": 0.0,
+   "lines": [
+    {
+     "id": "s1_01",
+     "text": "Type two words into a search box: coronavirus origin.",
+     "caption": "Type two words into a search box: coronavirus origin.",
+     "paragraph": 0,
+     "start": 0.8,
+     "end": 4.314
+    },
+    {
+     "id": "s1_02",
+     "text": "Behind it are 171,332 scientific papers.",
+     "caption": "Behind it are 171,332 scientific papers.",
+     "paragraph": 0,
+     "start": 4.614,
+     "end": 7.057
+    },
+    {
+     "id": "s1_03",
+     "text": "Back come ten titles, best first, in about two milliseconds.",
+     "caption": "Back come ten titles, best first, in about two milliseconds.",
+     "paragraph": 0,
+     "start": 7.357,
+     "end": 11.229
+    },
+    {
+     "id": "s1_04",
+     "text": "How?",
+     "caption": "How?",
+     "paragraph": 1,
+     "start": 11.729,
+     "end": 12.386
+    },
+    {
+     "id": "s1_05",
+     "text": "It's two problems.",
+     "caption": "It's two problems.",
+     "paragraph": 1,
+     "start": 12.686,
+     "end": 14.057
+    },
+    {
+     "id": "s1_06",
+     "text": "Find the papers that match, without reading them all.",
+     "caption": "Find the papers that match, without reading them all.",
+     "paragraph": 1,
+     "start": 14.357,
+     "end": 17.871
+    },
+    {
+     "id": "s1_07",
+     "text": "Then put the best ones first.",
+     "caption": "Then put the best ones first.",
+     "paragraph": 1,
+     "start": 18.171,
+     "end": 20.614
+    },
+    {
+     "id": "s1_08",
+     "text": "And a third problem makes it engineering.",
+     "caption": "And a third problem makes it engineering.",
+     "paragraph": 2,
+     "start": 21.114,
+     "end": 23.914
+    },
+    {
+     "id": "s1_09",
+     "text": "When you change something, how do you know the results got better?",
+     "caption": "When you change something, how do you know the results got better?",
+     "paragraph": 2,
+     "start": 24.214,
+     "end": 28.8
+    },
+    {
+     "id": "s1_10",
+     "text": "The obvious way is to read every paper, every time.",
+     "caption": "The obvious way is to read every paper, every time.",
+     "paragraph": 3,
+     "start": 29.3,
+     "end": 33.171
+    },
+    {
+     "id": "s1_11",
+     "text": "On this computer, just checking all 171 thousand papers for the two words takes about a tenth of a second.",
+     "caption": "On this computer, just checking all 171 thousand papers for the two words takes about a tenth of a second.",
+     "paragraph": 3,
+     "start": 33.471,
+     "end": 40.914
+    },
+    {
+     "id": "s1_12",
+     "text": "But a web search engine covers hundreds of billions of pages.",
+     "caption": "But a web search engine covers hundreds of billions of pages.",
+     "paragraph": 3,
+     "start": 41.214,
+     "end": 45.443
+    },
+    {
+     "id": "s1_13",
+     "text": "At this speed, even a billion papers like these would take over ten minutes, for one query.",
+     "caption": "At this speed, even a billion papers like these would take over ten minutes, for one query.",
+     "paragraph": 3,
+     "start": 45.743,
+     "end": 52.114
+    },
+    {
+     "id": "s1_14",
+     "text": "So the work has to happen before anyone searches.",
+     "caption": "So the work has to happen before anyone searches.",
+     "paragraph": 4,
+     "start": 52.614,
+     "end": 56.129
+    }
+   ],
+   "end": 56.979
+  },
+  {
+   "id": "s2",
+   "title": "The inverted index",
+   "start": 56.979,
+   "lines": [
+    {
+     "id": "s2_01",
+     "text": "So, before any search, go through every paper once and flip it around: for every word, keep a list of the papers that contain it.",
+     "caption": "So, before any search, go through every paper once and flip it around: for every word, keep a list of the papers that contain it.",
+     "paragraph": 0,
+     "start": 57.329,
+     "end": 66.557
+    },
+    {
+     "id": "s2_02",
+     "text": "That's an inverted index.",
+     "caption": "That's an inverted index.",
+     "paragraph": 0,
+     "start": 66.857,
+     "end": 68.586
+    },
+    {
+     "id": "s2_03",
+     "text": "The list for one word is its posting list.",
+     "caption": "The list for one word is its posting list.",
+     "paragraph": 1,
+     "start": 69.086,
+     "end": 72.6
+    },
+    {
+     "id": "s2_04",
+     "text": "Each entry, a posting, holds a paper's ID, how many times the word appears in it, and where.",
+     "caption": "Each entry, a posting, holds a paper's ID, how many times the word appears in it, and where.",
+     "paragraph": 1,
+     "start": 72.9,
+     "end": 79.629
+    },
+    {
+     "id": "s2_05",
+     "text": "In this collection, the list for origin has 5,482 papers.",
+     "caption": "In this collection, the list for origin has 5,482 papers.",
+     "paragraph": 2,
+     "start": 80.129,
+     "end": 84.0
+    },
+    {
+     "id": "s2_06",
+     "text": "The list for coronavirus has 35,095.",
+     "caption": "The list for coronavirus has 35,095.",
+     "paragraph": 2,
+     "start": 84.3,
+     "end": 86.743
+    },
+    {
+     "id": "s2_07",
+     "text": "A query reads only the lists for its own words.",
+     "caption": "A query reads only the lists for its own words.",
+     "paragraph": 3,
+     "start": 87.243,
+     "end": 91.114
+    },
+    {
+     "id": "s2_08",
+     "text": "The lists are sorted by paper ID, so you can walk two of them side by side and keep the papers on both: 1,644 have both words.",
+     "caption": "The lists are sorted by paper ID, so you can walk two of them side by side and keep the papers on both: 1,644 have both words.",
+     "paragraph": 3,
+     "start": 91.414,
+     "end": 101.357
+    },
+    {
+     "id": "s2_09",
+     "text": "Or merge them, for papers with either word: 38,933.",
+     "caption": "Or merge them, for papers with either word: 38,933.",
+     "paragraph": 3,
+     "start": 101.657,
+     "end": 105.171
+    },
+    {
+     "id": "s2_10",
+     "text": "Either way, the work grows with the length of those lists, not with the size of the collection.",
+     "caption": "Either way, the work grows with the length of those lists, not with the size of the collection.",
+     "paragraph": 4,
+     "start": 105.671,
+     "end": 112.4
+    },
+    {
+     "id": "s2_11",
+     "text": "That's how the index answers in two milliseconds.",
+     "caption": "That's how the index answers in two milliseconds.",
+     "paragraph": 4,
+     "start": 112.7,
+     "end": 115.857
+    }
+   ],
+   "end": 116.707
+  },
+  {
+   "id": "s3",
+   "title": "Text analysis",
+   "start": 116.707,
+   "lines": [
+    {
+     "id": "s3_01",
+     "text": "But which strings count as the same word?",
+     "caption": "But which strings count as the same word?",
+     "paragraph": 0,
+     "start": 117.057,
+     "end": 120.214
+    },
+    {
+     "id": "s3_02",
+     "text": "Origin, origins, Origin with a capital O?",
+     "caption": "Origin, origins, Origin with a capital O?",
+     "paragraph": 0,
+     "start": 120.514,
+     "end": 123.314
+    },
+    {
+     "id": "s3_03",
+     "text": "Before anything goes into the index, an analyzer turns text into terms.",
+     "caption": "Before anything goes into the index, an analyzer turns text into terms.",
+     "paragraph": 1,
+     "start": 123.814,
+     "end": 128.4
+    },
+    {
+     "id": "s3_04",
+     "text": "Here's the title of that top paper.",
+     "caption": "Here's the title of that top paper.",
+     "paragraph": 1,
+     "start": 128.7,
+     "end": 131.5
+    },
+    {
+     "id": "s3_05",
+     "text": "The analyzer splits it into tokens, and lowercases them.",
+     "caption": "The analyzer splits it into tokens, and lowercases them.",
+     "paragraph": 1,
+     "start": 131.8,
+     "end": 135.314
+    },
+    {
+     "id": "s3_06",
+     "text": "An English analyzer, like this one, also drops stop words, very common words like of and is.",
+     "caption": "An English analyzer, like this one, also drops stop words, very common words like of and is.",
+     "paragraph": 1,
+     "start": 135.614,
+     "end": 141.986
+    },
+    {
+     "id": "s3_07",
+     "text": "And it stems: it cuts word endings off by rule, so origins becomes origin.",
+     "caption": "And it stems: it cuts word endings off by rule, so origins becomes origin.",
+     "paragraph": 1,
+     "start": 142.286,
+     "end": 147.586
+    },
+    {
+     "id": "s3_08",
+     "text": "The stems don't have to be real words: coronavirus becomes corona vie roo.",
+     "caption": "The stems don't have to be real words: coronavirus becomes coronaviru.",
+     "paragraph": 1,
+     "start": 147.886,
+     "end": 152.114
+    },
+    {
+     "id": "s3_09",
+     "text": "The query goes through the same analyzer, so its terms land on the same posting lists.",
+     "caption": "The query goes through the same analyzer, so its terms land on the same posting lists.",
+     "paragraph": 2,
+     "start": 152.614,
+     "end": 158.629
+    },
+    {
+     "id": "s3_10",
+     "text": "Skip that step, and results vanish.",
+     "caption": "Skip that step, and results vanish.",
+     "paragraph": 3,
+     "start": 159.129,
+     "end": 161.571
+    },
+    {
+     "id": "s3_11",
+     "text": "Look up Coronavirus exactly as typed, with its capital C, and the index has no such term: zero papers.",
+     "caption": "Look up Coronavirus exactly as typed, with its capital C, and the index has no such term: zero papers.",
+     "paragraph": 3,
+     "start": 161.871,
+     "end": 168.957
+    },
+    {
+     "id": "s3_12",
+     "text": "Analyzing the index one way and the query another is a classic search bug.",
+     "caption": "Analyzing the index one way and the query another is a classic search bug.",
+     "paragraph": 3,
+     "start": 169.257,
+     "end": 174.557
+    }
+   ],
+   "end": 175.407
+  },
+  {
+   "id": "s4",
+   "title": "Ranking",
+   "start": 175.407,
+   "lines": [
+    {
+     "id": "s4_01",
+     "text": "Now 38,933 papers contain at least one of the words.",
+     "caption": "Now 38,933 papers contain at least one of the words.",
+     "paragraph": 0,
+     "start": 175.757,
+     "end": 179.629
+    },
+    {
+     "id": "s4_02",
+     "text": "Which ten go first?",
+     "caption": "Which ten go first?",
+     "paragraph": 0,
+     "start": 179.929,
+     "end": 181.657
+    },
+    {
+     "id": "s4_03",
+     "text": "A classic answer is T F I D F.",
+     "caption": "A classic answer is TF-IDF.",
+     "paragraph": 1,
+     "start": 182.157,
+     "end": 184.243
+    },
+    {
+     "id": "s4_04",
+     "text": "Term frequency: a paper that uses a word more is probably more about it.",
+     "caption": "Term frequency: a paper that uses a word more is probably more about it.",
+     "paragraph": 1,
+     "start": 184.543,
+     "end": 189.843
+    },
+    {
+     "id": "s4_05",
+     "text": "Inverse document frequency: a rare word tells you more than a common one.",
+     "caption": "Inverse document frequency: a rare word tells you more than a common one.",
+     "paragraph": 1,
+     "start": 190.143,
+     "end": 195.086
+    },
+    {
+     "id": "s4_06",
+     "text": "Origin is in about one paper in thirty-one, so its weight is the natural log of thirty-one: about 3.4.",
+     "caption": "Origin is in about one paper in thirty-one, so its weight is the natural log of thirty-one: about 3.4.",
+     "paragraph": 1,
+     "start": 195.386,
+     "end": 202.471
+    },
+    {
+     "id": "s4_07",
+     "text": "Coronavirus is in about one in five, so it weighs 1.6.",
+     "caption": "Coronavirus is in about one in five, so it weighs 1.6.",
+     "paragraph": 1,
+     "start": 202.771,
+     "end": 207.0
+    },
+    {
+     "id": "s4_08",
+     "text": "A paper's score is each word's count times its weight, added up.",
+     "caption": "A paper's score is each word's count times its weight, added up.",
+     "paragraph": 1,
+     "start": 207.3,
+     "end": 211.886
+    },
+    {
+     "id": "s4_09",
+     "text": "Rank by that, and the top paper is about DNA replication origins.",
+     "caption": "Rank by that, and the top paper is about DNA replication origins.",
+     "paragraph": 2,
+     "start": 212.386,
+     "end": 216.971
+    },
+    {
+     "id": "s4_10",
+     "text": "It says origin fourteen times, and never mentions a coronavirus.",
+     "caption": "It says origin fourteen times, and never mentions a coronavirus.",
+     "paragraph": 2,
+     "start": 217.271,
+     "end": 221.143
+    },
+    {
+     "id": "s4_11",
+     "text": "Second is a paper twenty-five times the average length.",
+     "caption": "Second is a paper twenty-five times the average length.",
+     "paragraph": 2,
+     "start": 221.443,
+     "end": 224.957
+    },
+    {
+     "id": "s4_12",
+     "text": "B M twenty-five fixes both problems.",
+     "caption": "BM25 fixes both problems.",
+     "paragraph": 3,
+     "start": 225.457,
+     "end": 227.186
+    },
+    {
+     "id": "s4_13",
+     "text": "First, saturation: each extra mention adds less than the one before.",
+     "caption": "First, saturation: each extra mention adds less than the one before.",
+     "paragraph": 3,
+     "start": 227.486,
+     "end": 231.714
+    },
+    {
+     "id": "s4_14",
+     "text": "A parameter called k one sets how fast the credit levels off; its default is 1.2.",
+     "caption": "A parameter called k1 sets how fast the credit levels off; its default is 1.2.",
+     "paragraph": 3,
+     "start": 232.014,
+     "end": 237.671
+    },
+    {
+     "id": "s4_15",
+     "text": "Second, length normalization: a longer paper needs more mentions for the same credit.",
+     "caption": "Second, length normalization: a longer paper needs more mentions for the same credit.",
+     "paragraph": 3,
+     "start": 237.971,
+     "end": 242.914
+    },
+    {
+     "id": "s4_16",
+     "text": "A parameter called b sets how much length counts; its default is 0.75.",
+     "caption": "A parameter called b sets how much length counts; its default is 0.75.",
+     "paragraph": 3,
+     "start": 243.214,
+     "end": 248.157
+    },
+    {
+     "id": "s4_17",
+     "text": "With B M twenty-five, the top paper is about the origins of sars co vee two, the virus behind COVID-19.",
+     "caption": "With BM25, the top paper is about the origins of SARS-CoV-2, the virus behind COVID-19.",
+     "paragraph": 4,
+     "start": 248.657,
+     "end": 254.314
+    },
+    {
+     "id": "s4_18",
+     "text": "It uses each word three times, in a shorter than average paper.",
+     "caption": "It uses each word three times, in a shorter than average paper.",
+     "paragraph": 4,
+     "start": 254.614,
+     "end": 259.2
+    },
+    {
+     "id": "s4_19",
+     "text": "B M twenty-five comes from the 1990s, and it's still the default ranking in Loo-seen, the search library inside Elasticsearch.",
+     "caption": "BM25 comes from the 1990s, and it's still the default ranking in Lucene, the search library inside Elasticsearch.",
+     "paragraph": 5,
+     "start": 259.7,
+     "end": 266.429
+    }
+   ],
+   "end": 267.279
+  },
+  {
+   "id": "s5",
+   "title": "Meaning, not just words",
+   "start": 267.279,
+   "lines": [
+    {
+     "id": "s5_01",
+     "text": "But B M twenty-five only counts words that match.",
+     "caption": "But BM25 only counts words that match.",
+     "paragraph": 0,
+     "start": 267.629,
+     "end": 270.429
+    },
+    {
+     "id": "s5_02",
+     "text": "Take another topic in this collection: how long does coronavirus survive on surfaces.",
+     "caption": "Take another topic in this collection: how long does coronavirus survive on surfaces.",
+     "paragraph": 0,
+     "start": 270.729,
+     "end": 275.671
+    },
+    {
+     "id": "s5_03",
+     "text": "Four of B M twenty-five's top ten are relevant; one of the others is about the surface of the eye.",
+     "caption": "Four of BM25's top ten are relevant; one of the others is about the surface of the eye.",
+     "paragraph": 0,
+     "start": 275.971,
+     "end": 282.7
+    },
+    {
+     "id": "s5_04",
+     "text": "The relevant papers mostly say persistence, or stability, not survive.",
+     "caption": "The relevant papers mostly say persistence, or stability, not survive.",
+     "paragraph": 0,
+     "start": 283.0,
+     "end": 286.871
+    },
+    {
+     "id": "s5_05",
+     "text": "That's the vocabulary mismatch problem: the same meaning, in different words.",
+     "caption": "That's the vocabulary mismatch problem: the same meaning, in different words.",
+     "paragraph": 0,
+     "start": 287.171,
+     "end": 291.4
+    },
+    {
+     "id": "s5_06",
+     "text": "Dense retrieval matches meaning instead.",
+     "caption": "Dense retrieval matches meaning instead.",
+     "paragraph": 1,
+     "start": 291.9,
+     "end": 293.986
+    },
+    {
+     "id": "s5_07",
+     "text": "An embedding model, a neural network trained on pairs of related texts, turns a text into a vector, here 384 numbers, so that texts with similar meanings point in similar directions.",
+     "caption": "An embedding model, a neural network trained on pairs of related texts, turns a text into a vector, here 384 numbers, so that texts with similar meanings point in similar directions.",
+     "paragraph": 1,
+     "start": 294.286,
+     "end": 305.657
+    },
+    {
+     "id": "s5_08",
+     "text": "It encodes the query and each paper separately, so it's called a bi-encoder, and every paper's vector is computed once, in advance.",
+     "caption": "It encodes the query and each paper separately, so it's called a bi-encoder, and every paper's vector is computed once, in advance.",
+     "paragraph": 1,
+     "start": 305.957,
+     "end": 314.114
+    },
+    {
+     "id": "s5_09",
+     "text": "Papers are ranked by cosine similarity: the cosine of the angle between their vector and the query's.",
+     "caption": "Papers are ranked by cosine similarity: the cosine of the angle between their vector and the query's.",
+     "paragraph": 1,
+     "start": 314.414,
+     "end": 320.786
+    },
+    {
+     "id": "s5_10",
+     "text": "On the surfaces question, all ten of its top results are relevant.",
+     "caption": "On the surfaces question, all ten of its top results are relevant.",
+     "paragraph": 1,
+     "start": 321.086,
+     "end": 325.671
+    },
+    {
+     "id": "s5_11",
+     "text": "But comparing the query with 171 thousand vectors is a scan again.",
+     "caption": "But comparing the query with 171 thousand vectors is a scan again.",
+     "paragraph": 2,
+     "start": 326.171,
+     "end": 330.757
+    },
+    {
+     "id": "s5_12",
+     "text": "So vector search uses approximate nearest-neighbour search.",
+     "caption": "So vector search uses approximate nearest-neighbour search.",
+     "paragraph": 2,
+     "start": 331.057,
+     "end": 333.857
+    },
+    {
+     "id": "s5_13",
+     "text": "A common method, H N S W, links each vector to a few near neighbours, in layers of graphs, and hops greedily toward the query.",
+     "caption": "A common method, HNSW, links each vector to a few near neighbours, in layers of graphs, and hops greedily toward the query.",
+     "paragraph": 2,
+     "start": 334.157,
+     "end": 342.314
+    },
+    {
+     "id": "s5_14",
+     "text": "Here it compared about twelve hundred vectors, not 171 thousand, and still found about ninety-nine percent of the true top ten.",
+     "caption": "Here it compared about twelve hundred vectors, not 171 thousand, and still found about ninety-nine percent of the true top ten.",
+     "paragraph": 2,
+     "start": 342.614,
+     "end": 350.414
+    },
+    {
+     "id": "s5_15",
+     "text": "Approximate means it can miss a few.",
+     "caption": "Approximate means it can miss a few.",
+     "paragraph": 2,
+     "start": 350.714,
+     "end": 353.514
+    }
+   ],
+   "end": 354.364
+  },
+  {
+   "id": "s6",
+   "title": "Hybrid, then rerank",
+   "start": 354.364,
+   "lines": [
+    {
+     "id": "s6_01",
+     "text": "Dense retrieval has its own blind spot: exact names and codes.",
+     "caption": "Dense retrieval has its own blind spot: exact names and codes.",
+     "paragraph": 0,
+     "start": 354.714,
+     "end": 358.943
+    },
+    {
+     "id": "s6_02",
+     "text": "Search for D614G, the name of a mutation in the virus.",
+     "caption": "Search for D614G, the name of a mutation in the virus.",
+     "paragraph": 0,
+     "start": 359.243,
+     "end": 363.471
+    },
+    {
+     "id": "s6_03",
+     "text": "All of B M twenty-five's top ten contain it.",
+     "caption": "All of BM25's top ten contain it.",
+     "paragraph": 0,
+     "start": 363.771,
+     "end": 366.571
+    },
+    {
+     "id": "s6_04",
+     "text": "Only one of dense retrieval's does; the rest are mostly lists of conference posters, with codes like P441.",
+     "caption": "Only one of dense retrieval's does; the rest are mostly lists of conference posters, with codes like P441.",
+     "paragraph": 0,
+     "start": 366.871,
+     "end": 373.6
+    },
+    {
+     "id": "s6_05",
+     "text": "So run both, and merge the two rankings.",
+     "caption": "So run both, and merge the two rankings.",
+     "paragraph": 1,
+     "start": 374.1,
+     "end": 377.257
+    },
+    {
+     "id": "s6_06",
+     "text": "That's hybrid search.",
+     "caption": "That's hybrid search.",
+     "paragraph": 1,
+     "start": 377.557,
+     "end": 378.929
+    },
+    {
+     "id": "s6_07",
+     "text": "Their scores aren't on the same scale, so merge by rank.",
+     "caption": "Their scores aren't on the same scale, so merge by rank.",
+     "paragraph": 1,
+     "start": 379.229,
+     "end": 383.457
+    },
+    {
+     "id": "s6_08",
+     "text": "Reciprocal rank fusion gives a paper one over sixty plus its rank, from each ranking, and adds them up.",
+     "caption": "Reciprocal rank fusion gives a paper one over sixty plus its rank, from each ranking, and adds them up.",
+     "paragraph": 1,
+     "start": 383.757,
+     "end": 390.843
+    },
+    {
+     "id": "s6_09",
+     "text": "Both still score the query and each paper separately.",
+     "caption": "Both still score the query and each paper separately.",
+     "paragraph": 2,
+     "start": 391.343,
+     "end": 394.857
+    },
+    {
+     "id": "s6_10",
+     "text": "A cross-encoder reads them together, as one input, so every word of the query can be weighed against every word of the paper.",
+     "caption": "A cross-encoder reads them together, as one input, so every word of the query can be weighed against every word of the paper.",
+     "paragraph": 2,
+     "start": 395.157,
+     "end": 403.671
+    },
+    {
+     "id": "s6_11",
+     "text": "It ranks better, but it's slow: on this computer, about thirty-five papers a second.",
+     "caption": "It ranks better, but it's slow: on this computer, about thirty-five papers a second.",
+     "paragraph": 2,
+     "start": 403.971,
+     "end": 409.271
+    },
+    {
+     "id": "s6_12",
+     "text": "The whole collection would take over an hour, for one query.",
+     "caption": "The whole collection would take over an hour, for one query.",
+     "paragraph": 2,
+     "start": 409.571,
+     "end": 413.8
+    },
+    {
+     "id": "s6_13",
+     "text": "So search is built as a funnel.",
+     "caption": "So search is built as a funnel.",
+     "paragraph": 3,
+     "start": 414.3,
+     "end": 417.1
+    },
+    {
+     "id": "s6_14",
+     "text": "Cheap retrieval over the whole collection picks the candidates, in milliseconds.",
+     "caption": "Cheap retrieval over the whole collection picks the candidates, in milliseconds.",
+     "paragraph": 3,
+     "start": 417.4,
+     "end": 421.629
+    },
+    {
+     "id": "s6_15",
+     "text": "The expensive reranker orders only the top hundred.",
+     "caption": "The expensive reranker orders only the top hundred.",
+     "paragraph": 3,
+     "start": 421.929,
+     "end": 425.086
+    },
+    {
+     "id": "s6_16",
+     "text": "Rerankers can also learn to weigh other signals, like freshness and past clicks: that's learning to rank.",
+     "caption": "Rerankers can also learn to weigh other signals, like freshness and past clicks: that's learning to rank.",
+     "paragraph": 3,
+     "start": 425.386,
+     "end": 431.757
+    },
+    {
+     "id": "s6_17",
+     "text": "So each stage has its own job.",
+     "caption": "So each stage has its own job.",
+     "paragraph": 4,
+     "start": 432.257,
+     "end": 435.057
+    },
+    {
+     "id": "s6_18",
+     "text": "Retrieval must not lose the good papers.",
+     "caption": "Retrieval must not lose the good papers.",
+     "paragraph": 4,
+     "start": 435.357,
+     "end": 438.157
+    },
+    {
+     "id": "s6_19",
+     "text": "Reranking must put the best of them on top.",
+     "caption": "Reranking must put the best of them on top.",
+     "paragraph": 4,
+     "start": 438.457,
+     "end": 441.971
+    }
+   ],
+   "end": 442.821
+  },
+  {
+   "id": "s7",
+   "title": "Relevance judgments",
+   "start": 442.821,
+   "lines": [
+    {
+     "id": "s7_01",
+     "text": "Every step so far was supposed to make the results better.",
+     "caption": "Every step so far was supposed to make the results better.",
+     "paragraph": 0,
+     "start": 443.171,
+     "end": 447.4
+    },
+    {
+     "id": "s7_02",
+     "text": "How do you check?",
+     "caption": "How do you check?",
+     "paragraph": 0,
+     "start": 447.7,
+     "end": 449.429
+    },
+    {
+     "id": "s7_03",
+     "text": "You need to know which papers are actually relevant, and that takes people.",
+     "caption": "You need to know which papers are actually relevant, and that takes people.",
+     "paragraph": 1,
+     "start": 449.929,
+     "end": 454.871
+    },
+    {
+     "id": "s7_04",
+     "text": "A test collection has three parts: the papers, a set of topics, each a query with a description of what the searcher wants, and relevance judgments, often called Q rels.",
+     "caption": "A test collection has three parts: the papers, a set of topics, each a query with a description of what the searcher wants, and relevance judgments, often called qrels.",
+     "paragraph": 1,
+     "start": 455.171,
+     "end": 465.829
+    },
+    {
+     "id": "s7_05",
+     "text": "This collection comes from Treck Covid, a 2020 evaluation run by the US National Institute of Standards and Technology.",
+     "caption": "This collection comes from TREC-COVID, a 2020 evaluation run by the US National Institute of Standards and Technology.",
+     "paragraph": 2,
+     "start": 466.329,
+     "end": 473.057
+    },
+    {
+     "id": "s7_06",
+     "text": "Judging every paper for each of fifty topics would take eight and a half million judgments.",
+     "caption": "Judging every paper for each of fifty topics would take eight and a half million judgments.",
+     "paragraph": 2,
+     "start": 473.357,
+     "end": 479.371
+    },
+    {
+     "id": "s7_07",
+     "text": "So Treck uses pooling.",
+     "caption": "So TREC uses pooling.",
+     "paragraph": 2,
+     "start": 479.671,
+     "end": 481.4
+    },
+    {
+     "id": "s7_08",
+     "text": "Dozens of teams submitted rankings, the top papers from those rankings were pooled, and people with medical expertise judged each one: relevant, partially relevant, or not relevant.",
+     "caption": "Dozens of teams submitted rankings, the top papers from those rankings were pooled, and people with medical expertise judged each one: relevant, partially relevant, or not relevant.",
+     "paragraph": 2,
+     "start": 481.7,
+     "end": 491.643
+    },
+    {
+     "id": "s7_09",
+     "text": "About sixty-six thousand judgments in all.",
+     "caption": "About sixty-six thousand judgments in all.",
+     "paragraph": 2,
+     "start": 491.943,
+     "end": 494.386
+    },
+    {
+     "id": "s7_10",
+     "text": "A paper nobody judged counts as not relevant.",
+     "caption": "A paper nobody judged counts as not relevant.",
+     "paragraph": 3,
+     "start": 494.886,
+     "end": 498.043
+    },
+    {
+     "id": "s7_11",
+     "text": "That's pooling's known weakness: a new system that finds different papers can be scored too low.",
+     "caption": "That's pooling's known weakness: a new system that finds different papers can be scored too low.",
+     "paragraph": 3,
+     "start": 498.343,
+     "end": 504.357
+    }
+   ],
+   "end": 505.207
+  },
+  {
+   "id": "s8",
+   "title": "Precision and recall",
+   "start": 505.207,
+   "lines": [
+    {
+     "id": "s8_01",
+     "text": "With judgments, you can score any list of results.",
+     "caption": "With judgments, you can score any list of results.",
+     "paragraph": 0,
+     "start": 505.557,
+     "end": 509.071
+    },
+    {
+     "id": "s8_02",
+     "text": "Precision: of the papers returned, the fraction that are relevant.",
+     "caption": "Precision: of the papers returned, the fraction that are relevant.",
+     "paragraph": 0,
+     "start": 509.371,
+     "end": 513.243
+    },
+    {
+     "id": "s8_03",
+     "text": "Recall: of all the relevant papers, the fraction that were returned.",
+     "caption": "Recall: of all the relevant papers, the fraction that were returned.",
+     "paragraph": 0,
+     "start": 513.543,
+     "end": 517.771
+    },
+    {
+     "id": "s8_04",
+     "text": "They pull against each other.",
+     "caption": "They pull against each other.",
+     "paragraph": 1,
+     "start": 518.271,
+     "end": 520.357
+    },
+    {
+     "id": "s8_05",
+     "text": "For coronavirus origin, 637 papers are judged relevant.",
+     "caption": "For coronavirus origin, 637 papers are judged relevant.",
+     "paragraph": 1,
+     "start": 520.657,
+     "end": 523.814
+    },
+    {
+     "id": "s8_06",
+     "text": "B M twenty-five's top ten has nine of them: precision 0.9, but recall only 1.4 percent.",
+     "caption": "BM25's top ten has nine of them: precision 0.9, but recall only 1.4 percent.",
+     "paragraph": 1,
+     "start": 524.114,
+     "end": 529.414
+    },
+    {
+     "id": "s8_07",
+     "text": "Its top thousand finds 255: recall 40 percent, but precision down to about a quarter.",
+     "caption": "Its top thousand finds 255: recall 40 percent, but precision down to about a quarter.",
+     "paragraph": 1,
+     "start": 529.714,
+     "end": 535.371
+    },
+    {
+     "id": "s8_08",
+     "text": "Return more, and recall can only rise, while precision usually falls.",
+     "caption": "Return more, and recall can only rise, while precision usually falls.",
+     "paragraph": 1,
+     "start": 535.671,
+     "end": 539.9
+    },
+    {
+     "id": "s8_09",
+     "text": "A ranked list is read from the top, so measure it at a cutoff.",
+     "caption": "A ranked list is read from the top, so measure it at a cutoff.",
+     "paragraph": 2,
+     "start": 540.4,
+     "end": 545.7
+    },
+    {
+     "id": "s8_10",
+     "text": "Precision at ten counts the relevant papers in the top ten: what people actually see.",
+     "caption": "Precision at ten counts the relevant papers in the top ten: what people actually see.",
+     "paragraph": 2,
+     "start": 546.0,
+     "end": 551.657
+    },
+    {
+     "id": "s8_11",
+     "text": "Recall at a hundred asks what share of all the relevant papers made the top hundred: what a reranker gets to see.",
+     "caption": "Recall at a hundred asks what share of all the relevant papers made the top hundred: what a reranker gets to see.",
+     "paragraph": 2,
+     "start": 551.957,
+     "end": 560.114
+    }
+   ],
+   "end": 560.964
+  },
+  {
+   "id": "s9",
+   "title": "Order and grades",
+   "start": 560.964,
+   "lines": [
+    {
+     "id": "s9_01",
+     "text": "Precision at ten ignores order: a relevant paper counts the same in first place as in tenth.",
+     "caption": "Precision at ten ignores order: a relevant paper counts the same in first place as in tenth.",
+     "paragraph": 0,
+     "start": 561.314,
+     "end": 567.686
+    },
+    {
+     "id": "s9_02",
+     "text": "Two measures care about order.",
+     "caption": "Two measures care about order.",
+     "paragraph": 0,
+     "start": 567.986,
+     "end": 570.071
+    },
+    {
+     "id": "s9_03",
+     "text": "Reciprocal rank is one over the rank of the first relevant result: one if it's first, a half if it's second.",
+     "caption": "Reciprocal rank is one over the rank of the first relevant result: one if it's first, a half if it's second.",
+     "paragraph": 1,
+     "start": 570.571,
+     "end": 578.371
+    },
+    {
+     "id": "s9_04",
+     "text": "Its average over all the topics is the mean reciprocal rank, M R R.",
+     "caption": "Its average over all the topics is the mean reciprocal rank, MRR.",
+     "paragraph": 1,
+     "start": 578.671,
+     "end": 583.257
+    },
+    {
+     "id": "s9_05",
+     "text": "It suits searches with one right answer.",
+     "caption": "It suits searches with one right answer.",
+     "paragraph": 1,
+     "start": 583.557,
+     "end": 586.357
+    },
+    {
+     "id": "s9_06",
+     "text": "N D C G also uses the grades.",
+     "caption": "NDCG also uses the grades.",
+     "paragraph": 2,
+     "start": 586.857,
+     "end": 588.943
+    },
+    {
+     "id": "s9_07",
+     "text": "Each paper's gain is its grade: two for relevant, one for partially relevant.",
+     "caption": "Each paper's gain is its grade: two for relevant, one for partially relevant.",
+     "paragraph": 2,
+     "start": 589.243,
+     "end": 594.186
+    },
+    {
+     "id": "s9_08",
+     "text": "Divide each gain by a discount that grows with the rank, the log base two of the rank plus one, and add them up.",
+     "caption": "Divide each gain by a discount that grows with the rank, the log base two of the rank plus one, and add them up.",
+     "paragraph": 2,
+     "start": 594.486,
+     "end": 603.357
+    },
+    {
+     "id": "s9_09",
+     "text": "That's the discounted cumulative gain, or D C G.",
+     "caption": "That's the discounted cumulative gain, or DCG.",
+     "paragraph": 2,
+     "start": 603.657,
+     "end": 606.457
+    },
+    {
+     "id": "s9_10",
+     "text": "For B M twenty-five's top ten, it's 7.06.",
+     "caption": "For BM25's top ten, it's 7.06.",
+     "paragraph": 2,
+     "start": 606.757,
+     "end": 609.2
+    },
+    {
+     "id": "s9_11",
+     "text": "The best possible top ten, ten papers graded two, would score 9.09.",
+     "caption": "The best possible top ten, ten papers graded two, would score 9.09.",
+     "paragraph": 3,
+     "start": 609.7,
+     "end": 614.286
+    },
+    {
+     "id": "s9_12",
+     "text": "Divide one by the other, and you get normalized D C G, N D C G at ten: 0.78, where one is perfect.",
+     "caption": "Divide one by the other, and you get normalized DCG, NDCG at ten: 0.78, where one is perfect.",
+     "paragraph": 3,
+     "start": 614.586,
+     "end": 621.314
+    }
+   ],
+   "end": 622.164
+  },
+  {
+   "id": "s10",
+   "title": "Measuring the pipeline",
+   "start": 622.164,
+   "lines": [
+    {
+     "id": "s10_01",
+     "text": "Now score every stage over all fifty topics.",
+     "caption": "Now score every stage over all fifty topics.",
+     "paragraph": 0,
+     "start": 622.514,
+     "end": 625.671
+    },
+    {
+     "id": "s10_02",
+     "text": "Here each topic's full question is the query, the standard setup for this collection.",
+     "caption": "Here each topic's full question is the query, the standard setup for this collection.",
+     "paragraph": 0,
+     "start": 625.971,
+     "end": 631.271
+    },
+    {
+     "id": "s10_03",
+     "text": "B M twenty-five doubles T F I D F's N D C G at ten, from 0.30 to 0.61.",
+     "caption": "BM25 doubles TF-IDF's NDCG at ten, from 0.30 to 0.61.",
+     "paragraph": 1,
+     "start": 631.771,
+     "end": 635.643
+    },
+    {
+     "id": "s10_04",
+     "text": "Dense retrieval alone scores 0.47, below B M twenty-five, though four in ten of its top papers were never judged.",
+     "caption": "Dense retrieval alone scores 0.47, below BM25, though four in ten of its top papers were never judged.",
+     "paragraph": 1,
+     "start": 635.943,
+     "end": 642.671
+    },
+    {
+     "id": "s10_05",
+     "text": "Hybrid search beats both, at 0.68.",
+     "caption": "Hybrid search beats both, at 0.68.",
+     "paragraph": 1,
+     "start": 642.971,
+     "end": 645.414
+    },
+    {
+     "id": "s10_06",
+     "text": "And reranking its top hundred lifts it to 0.74.",
+     "caption": "And reranking its top hundred lifts it to 0.74.",
+     "paragraph": 1,
+     "start": 645.714,
+     "end": 649.229
+    },
+    {
+     "id": "s10_07",
+     "text": "Recall at a hundred doesn't move, because the reranker only reorders.",
+     "caption": "Recall at a hundred doesn't move, because the reranker only reorders.",
+     "paragraph": 1,
+     "start": 649.529,
+     "end": 653.757
+    },
+    {
+     "id": "s10_08",
+     "text": "M R R barely moves either: with hundreds of relevant papers per topic, almost any decent ranking starts with one.",
+     "caption": "MRR barely moves either: with hundreds of relevant papers per topic, almost any decent ranking starts with one.",
+     "paragraph": 1,
+     "start": 654.057,
+     "end": 660.786
+    },
+    {
+     "id": "s10_09",
+     "text": "Those are offline numbers: fixed judgments, repeatable, and cheap to rerun after every change.",
+     "caption": "Those are offline numbers: fixed judgments, repeatable, and cheap to rerun after every change.",
+     "paragraph": 2,
+     "start": 661.286,
+     "end": 666.586
+    },
+    {
+     "id": "s10_10",
+     "text": "But judges aren't your users.",
+     "caption": "But judges aren't your users.",
+     "paragraph": 2,
+     "start": 666.886,
+     "end": 668.971
+    },
+    {
+     "id": "s10_11",
+     "text": "Online evaluation shows a change to a random share of real users, an A B test, and compares what they do: what they click, how often they rephrase, how often they give up.",
+     "caption": "Online evaluation shows a change to a random share of real users, an A/B test, and compares what they do: what they click, how often they rephrase, how often they give up.",
+     "paragraph": 2,
+     "start": 669.271,
+     "end": 681.0
+    },
+    {
+     "id": "s10_12",
+     "text": "Clicks are biased, though.",
+     "caption": "Clicks are biased, though.",
+     "paragraph": 3,
+     "start": 681.5,
+     "end": 683.229
+    },
+    {
+     "id": "s10_13",
+     "text": "In one eye-tracking study, when the top two results were swapped, people still clicked the first one more, even when the second was more relevant.",
+     "caption": "In one eye-tracking study, when the top two results were swapped, people still clicked the first one more, even when the second was more relevant.",
+     "paragraph": 3,
+     "start": 683.529,
+     "end": 692.757
+    },
+    {
+     "id": "s10_14",
+     "text": "And a change that wins offline can still lose with users.",
+     "caption": "And a change that wins offline can still lose with users.",
+     "paragraph": 3,
+     "start": 693.057,
+     "end": 697.286
+    },
+    {
+     "id": "s10_15",
+     "text": "So teams use both: offline tests to choose what's worth trying, online tests to decide what ships.",
+     "caption": "So teams use both: offline tests to choose what's worth trying, online tests to decide what ships.",
+     "paragraph": 3,
+     "start": 697.586,
+     "end": 703.957
+    }
+   ],
+   "end": 704.807
+  },
+  {
+   "id": "s11",
+   "title": "The answer",
+   "start": 704.807,
+   "lines": [
+    {
+     "id": "s11_01",
+     "text": "So how do ten good papers come back from 171 thousand, in two milliseconds?",
+     "caption": "So how do ten good papers come back from 171 thousand, in two milliseconds?",
+     "paragraph": 0,
+     "start": 705.157,
+     "end": 710.457
+    },
+    {
+     "id": "s11_02",
+     "text": "Before any search, an analyzer turns every paper into terms, and an inverted index lists the papers for each term.",
+     "caption": "Before any search, an analyzer turns every paper into terms, and an inverted index lists the papers for each term.",
+     "paragraph": 1,
+     "start": 710.957,
+     "end": 718.4
+    },
+    {
+     "id": "s11_03",
+     "text": "A query reads a few posting lists, never the whole collection, and B M twenty-five ranks the matches.",
+     "caption": "A query reads a few posting lists, never the whole collection, and BM25 ranks the matches.",
+     "paragraph": 1,
+     "start": 718.7,
+     "end": 724.714
+    },
+    {
+     "id": "s11_04",
+     "text": "To do better, add stages: vectors for the same meaning in other words, and a reranker for the top hundred, each costing more time.",
+     "caption": "To do better, add stages: vectors for the same meaning in other words, and a reranker for the top hundred, each costing more time.",
+     "paragraph": 1,
+     "start": 725.014,
+     "end": 733.886
+    },
+    {
+     "id": "s11_05",
+     "text": "And relevance judgments, with measures like N D C G, tell you in numbers whether a change helped.",
+     "caption": "And relevance judgments, with measures like NDCG, tell you in numbers whether a change helped.",
+     "paragraph": 2,
+     "start": 734.386,
+     "end": 740.043
+    },
+    {
+     "id": "s11_06",
+     "text": "Nine of that first top ten were relevant.",
+     "caption": "Nine of that first top ten were relevant.",
+     "paragraph": 2,
+     "start": 740.343,
+     "end": 743.5
+    },
+    {
+     "id": "s11_07",
+     "text": "The same pipeline now feeds language models.",
+     "caption": "The same pipeline now feeds language models.",
+     "paragraph": 3,
+     "start": 744.0,
+     "end": 746.8
+    },
+    {
+     "id": "s11_08",
+     "text": "Retrieval-augmented generation searches first, and puts what it finds into the model's context.",
+     "caption": "Retrieval-augmented generation searches first, and puts what it finds into the model's context.",
+     "paragraph": 3,
+     "start": 747.1,
+     "end": 752.043
+    }
+   ],
+   "end": 764.043
+  }
+ ]
+}

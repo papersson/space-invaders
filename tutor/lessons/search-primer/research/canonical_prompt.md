@@ -22,3 +22,6 @@ I want the lesson to teach established, canonical knowledge, the way the standar
 12. Which parts of this topic are best learned by watching a narrated animation, which by doing (an interactive simulation, running code, an exercise), and which by reading, and why.
 
 Answer in plain Markdown, compactly, with sources inline.
+
+---
+Run notes: both passes ran as fresh `claude -p` processes from empty scratch folders on 2026-09-27. The web pass had only WebSearch and WebFetch and was given this first line before the prompt: "Write the whole report as your reply, in Markdown. Do not create files or folders, and do not delegate: answer in this reply. Use web search and fetch the primary sources to check every formula, default value, date, quote and figure before you report it. Say which sources you actually read." The knowledge-only pass had no tools and was given: "Write the whole report as your reply, in Markdown. Do not create files or folders, and do not delegate: answer in this reply. Answer from what you know; you have no tools." Reports: canonical_web_agent.md, canonical_claude_p.md.

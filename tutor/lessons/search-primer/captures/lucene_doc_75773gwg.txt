@@ -1,0 +1,26 @@
+paper 75773gwg = doc 113088
+  coronaviru: tf=3 positions=4,20,30
+  origin: tf=3 positions=1,57,92
+3.9046092 = sum of:
+  1.2313848 = weight(body:coronaviru in 113088) [BM25Similarity], result of:
+    1.2313848 = score(freq=3.0), computed as boost * idf * tf from:
+      1.5855303 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        35095 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7766391 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        3.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        76.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+  2.6732244 = weight(body:origin in 113088) [BM25Similarity], result of:
+    2.6732244 = score(freq=3.0), computed as boost * idf * tf from:
+      3.442042 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        5482 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7766391 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        3.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        76.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field

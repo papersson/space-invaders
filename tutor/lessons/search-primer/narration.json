@@ -1,0 +1,67 @@
+{
+ "kokoro": {
+  "voice": "af_heart",
+  "speed": 1.0,
+  "paragraph": true
+ },
+ "tail": 12.0,
+ "holds": {},
+ "spoken": [
+  [
+   "TF-IDF",
+   "T F I D F"
+  ],
+  [
+   "BM25",
+   "B M twenty-five"
+  ],
+  [
+   "NDCG",
+   "N D C G"
+  ],
+  [
+   "DCG",
+   "D C G"
+  ],
+  [
+   "MRR",
+   "M R R"
+  ],
+  [
+   "HNSW",
+   "H N S W"
+  ],
+  [
+   "TREC-COVID",
+   "Treck Covid"
+  ],
+  [
+   "TREC",
+   "Treck"
+  ],
+  [
+   "SARS-CoV-2",
+   "sars co vee two"
+  ],
+  [
+   "coronaviru.",
+   "corona vie roo."
+  ],
+  [
+   "k1",
+   "k one"
+  ],
+  [
+   "A/B",
+   "A B"
+  ],
+  [
+   "qrels",
+   "Q rels"
+  ],
+  [
+   "Lucene",
+   "Loo-seen"
+  ]
+ ]
+}

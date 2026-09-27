@@ -1,0 +1,7 @@
+{
+ "encode_one_query_ms_median": 12.28978799917968,
+ "exact_search_171332_ms_median": 8.486736000122619,
+ "rerank_100_s_median": 2.80014107200077,
+ "rerank_papers_per_s": 35.712486417174524,
+ "rerank_all_171332_hours": 1.3326493615223218
+}

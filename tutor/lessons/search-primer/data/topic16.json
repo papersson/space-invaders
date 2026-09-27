@@ -1,0 +1,148 @@
+{
+ "query": "how long does coronavirus survive on surfaces",
+ "question": "how long does coronavirus remain stable on surfaces?",
+ "grade2": 156,
+ "word_counts": {
+  "survive": 15,
+  "survives": 1,
+  "survival": 18,
+  "persistence": 24,
+  "stability": 28,
+  "inanimate": 12,
+  "surfaces": 82
+ },
+ "bm25_top10": [
+  {
+   "rank": 1,
+   "id": "7ftq02ev",
+   "title": "How long does Coronavirus survive on different surfaces?",
+   "grade": 2
+  },
+  {
+   "rank": 2,
+   "id": "tjplc5j6",
+   "title": "Effects of air temperature and relative humidity on coronavirus survival on surfaces.",
+   "grade": 1
+  },
+  {
+   "rank": 3,
+   "id": "g2a4f2ko",
+   "title": "The Ocular Surface and the Coronavirus Disease 2019: Does a Dual \u2018Ocular Route\u2019 Exist?",
+   "grade": 0
+  },
+  {
+   "rank": 4,
+   "id": "959w9sln",
+   "title": "Viral survival",
+   "grade": 2
+  },
+  {
+   "rank": 5,
+   "id": "pdmfxssd",
+   "title": "Droplet evaporation residue indicating SARS-COV-2 survivability on surfaces",
+   "grade": 2
+  },
+  {
+   "rank": 6,
+   "id": "hgau3922",
+   "title": "Viral survival",
+   "grade": 0
+  },
+  {
+   "rank": 7,
+   "id": "90qq0xsw",
+   "title": "How long do nosocomial pathogens persist on inanimate surfaces? A systematic review",
+   "grade": 0
+  },
+  {
+   "rank": 8,
+   "id": "4iznx549",
+   "title": "[Clinical consideration and management of coronavirus disease 2019].",
+   "grade": 0
+  },
+  {
+   "rank": 9,
+   "id": "3lxvu00w",
+   "title": "[Clinical consideration and management of coronavirus disease 2019]",
+   "grade": 0
+  },
+  {
+   "rank": 10,
+   "id": "9pl7mta8",
+   "title": "[Management and clinical thinking of Coronavirus Disease 2019].",
+   "grade": 0
+  }
+ ],
+ "dense_top10": [
+  {
+   "rank": 1,
+   "id": "ou7w3zkv",
+   "title": "Stability and infectivity of coronaviruses in inanimate environments",
+   "grade": 2
+  },
+  {
+   "rank": 2,
+   "id": "f7gr98eb",
+   "title": "Sustainability of Coronavirus on different surfaces",
+   "grade": 2
+  },
+  {
+   "rank": 3,
+   "id": "9fnpfncr",
+   "title": "Sustainability of Coronavirus on different surfaces",
+   "grade": 2
+  },
+  {
+   "rank": 4,
+   "id": "7ftq02ev",
+   "title": "How long does Coronavirus survive on different surfaces?",
+   "grade": 2
+  },
+  {
+   "rank": 5,
+   "id": "tjplc5j6",
+   "title": "Effects of air temperature and relative humidity on coronavirus survival on surfaces.",
+   "grade": 1
+  },
+  {
+   "rank": 6,
+   "id": "k9xhphpl",
+   "title": "Persistence of coronaviruses on inanimate surfaces and their inactivation with biocidal agents",
+   "grade": 2
+  },
+  {
+   "rank": 7,
+   "id": "ssq0dwmn",
+   "title": "Persistence of coronaviruses on inanimate surfaces and their inactivation with biocidal agents",
+   "grade": 2
+  },
+  {
+   "rank": 8,
+   "id": "rhfwbyav",
+   "title": "Stability of SARS\u2010CoV\u20102 and other coronaviruses in the environment and on common touch surfaces and the influence of climatic conditions: A review",
+   "grade": 2
+  },
+  {
+   "rank": 9,
+   "id": "80dfqjql",
+   "title": "Potential role of inanimate surfaces for the spread of coronaviruses and their inactivation with disinfectant agents",
+   "grade": 2
+  },
+  {
+   "rank": 10,
+   "id": "z4vfjlbg",
+   "title": "Stability of SARS-CoV-2 and other coronaviruses in the environment and on common touch surfaces and the influence of climatic conditions: a review",
+   "grade": 2
+  }
+ ],
+ "ndcg10": {
+  "bm25": 0.4695,
+  "dense": 0.9574,
+  "hybrid": 0.8062,
+  "hybrid_rerank": 0.778
+ },
+ "p10": {
+  "bm25": 0.4,
+  "dense": 1.0
+ }
+}

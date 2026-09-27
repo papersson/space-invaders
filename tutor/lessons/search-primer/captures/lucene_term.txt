@@ -1,0 +1,4 @@
+unanalysed term 'Coronavirus': 0 documents; analysed [coronaviru]: 35095 documents
+unanalysed term 'coronavirus': 4668 documents; analysed [coronaviru]: 35095 documents
+unanalysed term 'Origin': 0 documents; analysed [origin]: 5482 documents
+unanalysed term 'origin': 5482 documents; analysed [origin]: 5482 documents

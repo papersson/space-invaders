@@ -1,0 +1,242 @@
+query: body:coronaviru body:origin
+total hits: 1529+ hits
+=== doc 113088 id=75773gwg score=3.904609
+3.9046092 = sum of:
+  1.2313848 = weight(body:coronaviru in 113088) [BM25Similarity], result of:
+    1.2313848 = score(freq=3.0), computed as boost * idf * tf from:
+      1.5855303 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        35095 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7766391 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        3.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        76.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+  2.6732244 = weight(body:origin in 113088) [BM25Similarity], result of:
+    2.6732244 = score(freq=3.0), computed as boost * idf * tf from:
+      3.442042 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        5482 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7766391 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        3.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        76.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+=== doc 122737 id=ne5r4d4b score=3.904609
+3.9046092 = sum of:
+  1.2313848 = weight(body:coronaviru in 122737) [BM25Similarity], result of:
+    1.2313848 = score(freq=3.0), computed as boost * idf * tf from:
+      1.5855303 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        35095 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7766391 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        3.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        76.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+  2.6732244 = weight(body:origin in 122737) [BM25Similarity], result of:
+    2.6732244 = score(freq=3.0), computed as boost * idf * tf from:
+      3.442042 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        5482 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7766391 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        3.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        76.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+=== doc 80809 id=8ccl9aui score=3.847310
+3.8473098 = sum of:
+  1.1689262 = weight(body:coronaviru in 80809) [BM25Similarity], result of:
+    1.1689262 = score(freq=4.0), computed as boost * idf * tf from:
+      1.5855303 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        35095 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.73724616 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        4.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        152.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+  2.6783836 = weight(body:origin in 80809) [BM25Similarity], result of:
+    2.6783836 = score(freq=5.0), computed as boost * idf * tf from:
+      3.442042 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        5482 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7781379 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        5.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        152.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+=== doc 38013 id=es7q6c90 score=3.821482
+3.821482 = sum of:
+  1.365999 = weight(body:coronaviru in 38013) [BM25Similarity], result of:
+    1.365999 = score(freq=5.0), computed as boost * idf * tf from:
+      1.5855303 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        35095 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.86154073 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        5.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        68.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+  2.455483 = weight(body:origin in 38013) [BM25Similarity], result of:
+    2.455483 = score(freq=2.0), computed as boost * idf * tf from:
+      3.442042 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        5482 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.71337974 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        2.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        68.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+=== doc 111746 id=kqqantwg score=3.786605
+3.786605 = sum of:
+  1.1941701 = weight(body:coronaviru in 111746) [BM25Similarity], result of:
+    1.1941701 = score(freq=2.0), computed as boost * idf * tf from:
+      1.5855303 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        35095 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7531676 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        2.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        48.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+  2.5924346 = weight(body:origin in 111746) [BM25Similarity], result of:
+    2.5924346 = score(freq=2.0), computed as boost * idf * tf from:
+      3.442042 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        5482 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7531676 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        2.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        48.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+=== doc 143600 id=12dcftwt score=3.786605
+3.786605 = sum of:
+  1.1941701 = weight(body:coronaviru in 143600) [BM25Similarity], result of:
+    1.1941701 = score(freq=2.0), computed as boost * idf * tf from:
+      1.5855303 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        35095 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7531676 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        2.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        48.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+  2.5924346 = weight(body:origin in 143600) [BM25Similarity], result of:
+    2.5924346 = score(freq=2.0), computed as boost * idf * tf from:
+      3.442042 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        5482 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7531676 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        2.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        48.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+=== doc 157256 id=zy8qjaai score=3.775780
+3.7757802 = sum of:
+  1.3202971 = weight(body:coronaviru in 157256) [BM25Similarity], result of:
+    1.3202971 = score(freq=4.0), computed as boost * idf * tf from:
+      1.5855303 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        35095 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.8327164 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        4.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        68.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+  2.455483 = weight(body:origin in 157256) [BM25Similarity], result of:
+    2.455483 = score(freq=2.0), computed as boost * idf * tf from:
+      3.442042 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        5482 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.71337974 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        2.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        68.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+=== doc 99141 id=pl48ev5o score=3.760265
+3.7602646 = sum of:
+  1.1858633 = weight(body:coronaviru in 99141) [BM25Similarity], result of:
+    1.1858633 = score(freq=1.0), computed as boost * idf * tf from:
+      1.5855303 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        35095 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7479285 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        1.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        5.0 = dl, length of field
+        121.53563 = avgdl, average length of field
+  2.5744014 = weight(body:origin in 99141) [BM25Similarity], result of:
+    2.5744014 = score(freq=1.0), computed as boost * idf * tf from:
+      3.442042 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        5482 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7479285 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        1.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        5.0 = dl, length of field
+        121.53563 = avgdl, average length of field
+=== doc 152071 id=h8ahn8fw score=3.760265
+3.7602646 = sum of:
+  1.1858633 = weight(body:coronaviru in 152071) [BM25Similarity], result of:
+    1.1858633 = score(freq=1.0), computed as boost * idf * tf from:
+      1.5855303 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        35095 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7479285 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        1.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        5.0 = dl, length of field
+        121.53563 = avgdl, average length of field
+  2.5744014 = weight(body:origin in 152071) [BM25Similarity], result of:
+    2.5744014 = score(freq=1.0), computed as boost * idf * tf from:
+      3.442042 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        5482 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7479285 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        1.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        5.0 = dl, length of field
+        121.53563 = avgdl, average length of field
+=== doc 67367 id=4dtk1kyh score=3.753175
+3.7531745 = sum of:
+  1.074791 = weight(body:coronaviru in 67367) [BM25Similarity], result of:
+    1.074791 = score(freq=3.0), computed as boost * idf * tf from:
+      1.5855303 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        35095 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.6778748 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        3.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        152.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field
+  2.6783836 = weight(body:origin in 67367) [BM25Similarity], result of:
+    2.6783836 = score(freq=5.0), computed as boost * idf * tf from:
+      3.442042 = idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:
+        5482 = n, number of documents containing term
+        171331 = N, total number of documents with field
+      0.7781379 = tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:
+        5.0 = freq, occurrences of term within document
+        1.2 = k1, term saturation parameter
+        0.75 = b, length normalization parameter
+        152.0 = dl, length of field (approximate)
+        121.53563 = avgdl, average length of field

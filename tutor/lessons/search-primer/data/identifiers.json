@@ -1,0 +1,122 @@
+[
+ {
+  "id": "D614G",
+  "papers_containing": 38,
+  "bm25_top10_containing": 10,
+  "dense_top10_containing": 1,
+  "bm25_titles": [
+   "Making sense of mutation: what D614G means for the COVID-19 pandemic remains unclear",
+   "The Spike D614G mutation increases SARS-CoV-2 infection of multiple human cell types",
+   "SARS-CoV-2 Spike protein variant D614G increases infectivity and retains sensitivity to antibodies that target the recep",
+   "Temporal data series of COVID-19 epidemics in the USA, Asia and Europe suggests a selective sweep of SARS-CoV-2 Spike D6",
+   "Naturally mutated spike proteins of SARS-CoV-2 variants show differential levels of cell entry",
+   "High-density amplicon sequencing identifies community spread and ongoing evolution of SARS-CoV-2 in the Southern United ",
+   "Molecular Evolution of SARS-CoV-2 Structural Genes: Evidence of Positive Selection in Spike Glycoprotein",
+   "Evolutionary and structural analyses of SARS-CoV-2 D614G spike protein mutation now documented worldwide",
+   "D614G Spike Variant Does Not Alter IgG, IgM, or IgA Spike Seroassay Performance",
+   "Tracking changes in SARS-CoV-2 Spike: evidence that D614G increases infectivity of the COVID-19 virus"
+  ],
+  "dense_titles": [
+   "P1460 \u2013 P1884",
+   "P441 \u2013 P678",
+   "DGHM 2011",
+   "OP 262-338",
+   "All those D-dimers in COVID-19",
+   "Mitteilungen der DGGG",
+   "Posters P788 - P999",
+   "Caspase-6",
+   "Making sense of mutation: what D614G means for the COVID-19 pandemic remains unclear",
+   "P941 \u2013 P1197"
+  ]
+ },
+ {
+  "id": "TMPRSS2",
+  "papers_containing": 357,
+  "bm25_top10_containing": 10,
+  "dense_top10_containing": 10,
+  "bm25_titles": [
+   "Genetic variants in TMPRSS2 and Structure of SARS-CoV-2 spike glycoprotein and TMPRSS2 complex",
+   "TMPRSS2 Isoform 1 Activates Respiratory Viruses and Is Expressed in Viral Target Cells",
+   "H2 influenza A virus is not pathogenic in Tmprss2 knock-out mice",
+   "Alpha 1 Antitrypsin is an Inhibitor of the SARS-CoV2\u2013Priming Protease TMPRSS2",
+   "The host protease TMPRSS2 plays a major role in in vivo replication of emerging H7N9 and seasonal influenza viruses.",
+   "Different residues in the SARS-CoV spike protein determine cleavage and activation by the host cell protease TMPRSS2",
+   "In vitro characterization of TMPRSS2 inhibition in IPEC-J2 cells.",
+   "Efficient activation of the severe acute respiratory syndrome coronavirus spike protein by the transmembrane protease TM",
+   "TMPRSS2 Contributes to Virus Spread and Immunopathology in the Airways of Murine Models after Coronavirus Infection",
+   "Structural variability, expression profile and pharmacogenetics properties of TMPRSS2 gene as a potential target for COV"
+  ],
+  "dense_titles": [
+   "TMPRSS2: Potential Biomarker for COVID\u201019 Outcomes",
+   "The pivotal role of TMPRSS2 in coronavirus disease 2019 and prostate cancer",
+   "TMPRSS2: Potential Biomarker for COVID-19 Outcomes",
+   "TMPRSS2 and ACE2 Coexpression in SARS-CoV-2 Salivary Glands Infection",
+   "TMPRSS2 and ACE2 Coexpression in SARS-CoV-2 Salivary Glands Infection.",
+   "Consideration on TMPRSS2 and the risk of COVID-19 infection in Cushing's syndrome",
+   "Correlating Cell Line Studies With Tissue Distribution of DPP4/TMPRSS2 and Human Biological Samples May Better Define th",
+   "Consideration on TMPRSS2 and the risk of COVID-19 infection in Cushing\u2019s syndrome",
+   "Genetic variants in TMPRSS2 and Structure of SARS-CoV-2 spike glycoprotein and TMPRSS2 complex",
+   "TMPRSS2: A potential target for treatment of influenza virus and coronavirus infections"
+  ]
+ },
+ {
+  "id": "nsp12",
+  "papers_containing": 89,
+  "bm25_top10_containing": 10,
+  "dense_top10_containing": 0,
+  "bm25_titles": [
+   "The Nsp12-coding region of type 2 PRRSV is required for viral subgenomic mRNA synthesis",
+   "Biochemical characterization of a recombinant SARS coronavirus nsp12 RNA-dependent RNA polymerase capable of copying vir",
+   "Coronavirus infectious bronchitis virus non-structural proteins 8 and 12 form stable complex independent of the non-tran",
+   "SARS-CoV-2 and SARS-CoV: Virtual screening of potential inhibitors targeting RNA-dependent RNA polymerase activity (NSP1",
+   "SARS\u2010CoV\u20102 and SARS\u2010CoV: Virtual screening of potential inhibitors targeting RNA\u2010dependent RNA polymerase activity (NSP1",
+   "The RNA polymerase activity of SARS-coronavirus nsp12 is primer dependent",
+   "Arterivirus nsp12 versus the coronavirus nsp16 2\u2032-O-methyltransferase: comparison of the C-terminal cleavage products of",
+   "Homology-Based Identification of a Mutation in the Coronavirus RNA-Dependent RNA Polymerase That Confers Resistance to M",
+   "Structure of the SARS-CoV NSP12 polymerase bound to NSP7 and NSP8 co-factors",
+   "Structure of the SARS-CoV nsp12 polymerase bound to nsp7 and nsp8 co-factors"
+  ],
+  "dense_titles": [
+   "ICAAC/ICC 2015",
+   "SPR 2012",
+   "2017 AAAP Awards.",
+   "AANP Forum",
+   "Poster Presentation Abstracts P121\u2013P297",
+   "Contents of volume 12",
+   "EANM\u201916",
+   "BES2019",
+   "EANM'17",
+   "The Eleventh Hour"
+  ]
+ },
+ {
+  "id": "3CLpro",
+  "papers_containing": 181,
+  "bm25_top10_containing": 10,
+  "dense_top10_containing": 3,
+  "bm25_titles": [
+   "Determinants of Mouse Hepatitis Virus 3C-like Proteinase Activity",
+   "Structural basis for the dimerization and substrate recognition specificity of porcine epidemic diarrhea virus 3C-like p",
+   "Broad-spectrum inhibitors against 3C-like proteases of feline coronaviruses and feline caliciviruses.",
+   "Biflavonoids from Torreya nucifera displaying SARS-CoV 3CLpro inhibition",
+   "Discovery of N-(benzo[1,2,3]triazol-1-yl)-N-(benzyl)acetamido)phenyl) carboxamides as severe acute respiratory syndrome ",
+   "Structural and inhibitor studies of norovirus 3C-like proteases.",
+   "Synonymous and Biased Codon Usage by MERS CoV Papain-Like and 3CL-Proteases.",
+   "Virtual screening identification of novel severe acute respiratory syndrome 3C-like protease inhibitors and in vitro con",
+   "Dieckol, a SARS-CoV 3CLpro inhibitor, isolated from the edible brown algae Ecklonia cava",
+   "Insight Derived from Molecular Docking and Molecular Dynamics Simulations into the Binding Interactions Between HIV-1 Pr"
+  ],
+  "dense_titles": [
+   "1\u2010E3: COPD 4",
+   "3CLpro inhibitors as a potential therapeutic option for COVID-19: Available evidence and ongoing clinical trials",
+   "Potentially highly potent drugs for 2019-nCoV",
+   "Discovery of potent anilide inhibitors against the severe acute respiratory syndrome 3CL protease.",
+   "2. Metalloproteins",
+   "X-Ray Structure and Inhibition of 3C-like Protease from Porcine Epidemic Diarrhea Virus",
+   "Virtual screening identification of novel severe acute respiratory syndrome 3C-like protease inhibitors and in vitro con",
+   "Prediction of the SARS-CoV-2 (2019-nCoV) 3C-like protease (3CL pro) structure: virtual screening reveals velpatasvir, le",
+   "Recent development of 3C and 3CL protease inhibitors for anti-coronavirus and anti-picornavirus drug discovery.",
+   "Proteases"
+  ]
+ }
+]

@@ -1,0 +1,6 @@
+english:  [zoonot, origin, human, coronaviru, 2019, hcov, 19, sar, cov, 2, why, work, import]
+standard: [zoonotic, origins, of, human, coronavirus, 2019, hcov, 19, sars, cov, 2, why, is, this, work, important]
+stopwords: [but, be, with, such, then, for, no, will, not, are, and, their, if, this, on, into, a, or, there, in, that, they, was, is, it, an, the, as, at, these, by, to, of]
+english:  [how, do, peopl, die, from, coronaviru]
+standard: [how, do, people, die, from, the, coronavirus]
+stopwords: [but, be, with, such, then, for, no, will, not, are, and, their, if, this, on, into, a, or, there, in, that, they, was, is, it, an, the, as, at, these, by, to, of]

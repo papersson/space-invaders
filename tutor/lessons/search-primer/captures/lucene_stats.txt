@@ -1,0 +1,4 @@
+N=171331 sumTotalTermFreq=20822821 avgdl=121.536 uniqueTerms=202648 leaves=1
+coronavirus -> coronaviru: df=35095 ttf=60696 first postings: [doc 855 id=rlebw9ez tf=1 pos=0] [doc 2255 id=8y24j34j tf=2 pos=9,16] [doc 2782 id=1vimqhdp tf=1 pos=2320] [doc 4452 id=wvx6q999 tf=1 pos=5] [doc 4578 id=2jq626ye tf=2 pos=10,17]
+origin -> origin: df=5482 ttf=6896 first postings: [doc 14 id=6iu1dtyl tf=1 pos=3] [doc 16 id=eiqypt0m tf=1 pos=54] [doc 22 id=yba7mdtb tf=2 pos=84,194] [doc 57 id=9r62ffew tf=3 pos=114,190,233] [doc 67 id=c5hrdrtu tf=1 pos=73]
+coronaviru: 35095  origin: 5482  AND: 1644  OR: 38933
