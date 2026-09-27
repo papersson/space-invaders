@@ -46,8 +46,10 @@ def heard(audio, sr):
 
 
 def match(text, audio, sr):
-    """How well a clip matches the sentence it should say, 0..1 (word-level similarity)."""
-    return difflib.SequenceMatcher(None, words(text), heard(audio, sr)).ratio()
+    """How well a clip matches the sentence it should say, 0..1. Compared letter by letter with the
+    spaces removed, so the recogniser's spellings ("PICQ", "PER CENT") cost little, while a dropped
+    or garbled sentence scores low."""
+    return difflib.SequenceMatcher(None, "".join(words(text)), "".join(heard(audio, sr)), autojunk=False).ratio()
 
 
 def words(text):

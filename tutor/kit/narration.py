@@ -45,7 +45,7 @@ ENGINE = _CFG.get("engine", "kokoro")
 POCKET = {"model": "english_2026-09_24l", "voice": "alba", "seed": 0, **_CFG.get("pocket", {})}
 CHUNK_WORDS = 90     # longest run of sentences sent to Pocket TTS in one call
 ATTEMPTS = 4         # Pocket TTS sometimes drops or garbles a sentence: re-synthesize up to this often
-MIN_MATCH = 0.75     # ... when a speech recogniser hears less than this share of any sentence's words
+MIN_MATCH = 0.8      # ... when a speech recogniser matches less than this share of any sentence (align.match)
 
 
 def load_script():
